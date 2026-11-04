@@ -272,7 +272,7 @@ ChkKCDMg7Ji165GQEAId/wBq/yIECAYgAygBCiEKBuyLoO2ZlBACHccS//8iBAgBICAiCAgAIKAGKIQH
 | **텔레그램 공지 채널** | [https://t.me/d4_notice](https://t.me/d4_notice) (업데이트 및 패치 공지) |
 | **텔레그램 이용자 그룹방** | [https://t.me/+o207f2gV8lE2ODk1](https://t.me/+o207f2gV8lE2ODk1) (실시간 Q&amp;A 및 오류 로그 제보) |
 | **삼촌안잔다잉 유튜브 채널** | [https://www.youtube.com/@삼촌안잔다잉](https://www.youtube.com/@삼촌안잔다잉) (디아4 라이브 &amp; 실전 공략 영상) |
-| **공식 문서 &amp; 깃허브** | [https://da.gd/d4help](https://da.gd/d4help) (전체 변경 내역, 클랜 프로필 공유 &amp; Q&amp;A) |
+| **공식 문서 &amp; 깃허브** | [https://github.com/kaljake70/d4helper](https://github.com/kaljake70/d4helper) (전체 변경 내역, 클랜 프로필 공유 &amp; Q&amp;A) |
 
 > ⚠️ **처음 실행 시 SmartScreen 안내**  
 > 개인 개발자가 무료 배포하는 파일이라 윈도우에서 '알 수 없는 게시자' 경고(SmartScreen)가 뜰 수 있습니다. **[추가 정보] → [실행]**을 누르시면 정상 실행됩니다. (요구 사양: Windows 10 / 11, 게임 화면은 창 모드 또는 테두리 없는 창 모드 권장)
