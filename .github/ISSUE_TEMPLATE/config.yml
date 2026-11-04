@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: ⬇️ 최신 버전 다운로드
+    url: https://github.com/kaljake70/d4helper#다운로드
+    about: 설치 파일과 포터블 파일은 README 다운로드 표에서 받습니다
+  - name: 📖 기능 설명 · 시즌 문서
+    url: https://github.com/kaljake70/d4helper#기능-설명
+    about: 질문하기 전에 한 번 보면 답이 있을 수 있습니다

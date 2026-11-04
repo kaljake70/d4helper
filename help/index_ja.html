@@ -1,0 +1,3226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>d4cute helper 公式マニュアル (v1.30 最新版)</title>
+  <meta name="description" content="Diablo IV d4cute helper v1.30 総合マニュアル — マクロ設定、インベントリ線変性の便利機能、リアルタイムアラーム、画像/動画ガイド、앙증맞은(アンジュンマジュン)クランと삼촌안잔다잉チャンネル。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09080e;
+      --bg-surface: #121118;
+      --card: #171622;
+      --card-hover: #1e1d2c;
+      --card-subtle: #1f1e2b;
+      --line: #292737;
+      --line-bright: #3d3a52;
+      --fg: #e6e5ee;
+      --fg-dim: #9896a8;
+      --fg-muted: #6b697a;
+      
+      --gold: #e5b85c;
+      --gold-bright: #ffd778;
+      --gold-dim: #967530;
+      --gold-glow: rgba(229, 184, 92, 0.2);
+      
+      --ruby: #e5484d;
+      --ruby-dark: #3b1619;
+      --ruby-glow: rgba(229, 72, 77, 0.25);
+      
+      --blue: #3b82f6;
+      --blue-dark: #142445;
+      
+      --green: #22c55e;
+      --green-dark: #12311f;
+      
+      --sidebar-width: 320px;
+      --sidebar-mini-width: 68px;
+      --header-height: 58px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-title: 'Cinzel', 'Pretendard', serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.68;
+      overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    code, pre { overflow-wrap: anywhere; }
+    pre { overflow-x: auto; max-width: 100%; }
+    .video-embed { position: relative; padding-top: 56.25%; background: #000; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ─── 상단 글로벌 네비게이션 ─── */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(14, 13, 20, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-sidebar-btn {
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .toggle-sidebar-btn:hover {
+      background: var(--line);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-title {
+      font-family: var(--font-title);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 16px var(--gold-glow);
+    }
+    .brand-ver {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ruby);
+      background: var(--ruby-dark);
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid rgba(229, 72, 77, 0.4);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-link {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .nav-link:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .nav-link.highlight {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18), rgba(229, 184, 92, 0.05));
+      color: var(--gold-bright);
+      border: 1px solid var(--gold-dim);
+    }
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+      gap: 2px;
+      margin-left: 6px;
+    }
+    .lang-btn {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover {
+      color: var(--gold);
+    }
+    .lang-btn.active {
+      background: rgba(229, 184, 92, 0.2);
+      color: var(--gold-bright);
+      font-weight: 700;
+      border: 1px solid var(--gold-dim);
+    }
+
+    /* ─── 앱 레이아웃 ─── */
+    .layout-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+      margin-top: var(--header-height);
+    }
+
+    /* ─── 좌측 접이식 사이드바 ─── */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--line);
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 900;
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s;
+    }
+
+    /* 데스크탑 접힘 모드 */
+    @media (min-width: 1025px) {
+      body.sidebar-collapsed .sidebar {
+        width: var(--sidebar-mini-width);
+      }
+      body.sidebar-collapsed .sidebar .sidebar-tabs,
+      body.sidebar-collapsed .sidebar .tab-panel,
+      body.sidebar-collapsed .sidebar .sidebar-search-box,
+      body.sidebar-collapsed .sidebar .sidebar-community-card {
+        display: none !important;
+      }
+      body.sidebar-collapsed .sidebar .mini-icons-list {
+        display: flex !important;
+      }
+      body.sidebar-collapsed .content-wrap {
+        margin-left: var(--sidebar-mini-width);
+      }
+
+    }
+
+    /* 호버 펼침은 마우스 기기에서만 - 터치는 :hover 가 고착된다 */
+    @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+      /* ⭐️ 요청사항 1: 사이드바 접혔을 때 햄버거 메뉴 및 미니바 호버 시 사이드바 자동 확장(Hover Peek) */
+      body.sidebar-collapsed .sidebar:hover,
+      body.sidebar-collapsed .sidebar.hover-expanded {
+        width: var(--sidebar-width) !important;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.75);
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar:hover .tab-panel.active,
+      body.sidebar-collapsed .sidebar:hover .sidebar-search-box,
+      body.sidebar-collapsed .sidebar:hover .sidebar-community-card,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .tab-panel.active,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-search-box,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-community-card {
+        display: block !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs {
+        display: grid !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .mini-icons-list,
+      body.sidebar-collapsed .sidebar.hover-expanded .mini-icons-list {
+        display: none !important;
+      }
+    }
+
+    /* 접힘(미니) 모드용 아이콘 바 */
+    .mini-icons-list {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+    }
+    .mini-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mini-icon-btn:hover {
+      background: var(--line-bright);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+
+    /* 사이드바 내부 탭 (목차 / 이미지 / 영상) */
+    .sidebar-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      background: rgba(18, 17, 24, 0.85);
+    }
+    .sidebar-tab-btn {
+      padding: 10px 4px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--fg-dim);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.2s;
+    }
+    .sidebar-tab-btn span.tab-icon {
+      font-size: 15px;
+    }
+    .sidebar-tab-btn:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .sidebar-tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: var(--card-subtle);
+    }
+
+    /* 사이드바 검색창 */
+    .sidebar-search-box {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 8px 30px 8px 12px;
+      color: var(--fg);
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .sidebar-search-input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 8px var(--gold-glow);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--fg-muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+    .search-clear-btn.visible {
+      display: block;
+    }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: var(--line-bright);
+      border-radius: 4px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* 목차 리스트 */
+    .toc-tree {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-tree li {
+      margin-bottom: 2px;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all 0.15s;
+    }
+    .toc-link:hover {
+      color: var(--gold);
+      background: var(--card);
+    }
+    .toc-link.active {
+      color: var(--gold-bright);
+      background: rgba(229, 184, 92, 0.12);
+      font-weight: 600;
+      border-left: 3px solid var(--gold);
+    }
+    .toc-sub-tree {
+      list-style: none;
+      padding-left: 16px;
+      margin: 2px 0 4px;
+    }
+    .toc-sub-tree .toc-link {
+      font-size: 12.5px;
+      padding: 4px 8px;
+    }
+
+    /* 검색 결과 리스트 */
+    .search-results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-item-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--fg);
+      transition: all 0.15s;
+    }
+    .search-item-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .search-item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .search-item-sub {
+      font-size: 11px;
+      color: var(--fg-muted);
+      margin-bottom: 3px;
+    }
+    .search-item-snippet {
+      font-size: 12px;
+      color: var(--fg-dim);
+      line-height: 1.45;
+    }
+    .search-item-snippet mark {
+      background: rgba(229, 184, 92, 0.35);
+      color: #fff;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* 미디어 사이드바 리스트 (이미지 / 영상) */
+    .media-nav-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .media-nav-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 7px;
+      text-decoration: none;
+      color: var(--fg);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .media-nav-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .media-nav-thumb {
+      width: 58px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .media-nav-meta {
+      overflow: hidden;
+      flex: 1;
+    }
+    .media-nav-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-nav-desc {
+      font-size: 11px;
+      color: var(--fg-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .video-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--ruby-dark);
+      color: var(--ruby);
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-right: 4px;
+      font-weight: 700;
+    }
+
+    /* ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 카드 */
+    .sidebar-community-card {
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      background: rgba(14, 13, 20, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .community-box {
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
+      transition: all 0.2s;
+    }
+    .community-box:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .community-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .community-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .community-tag {
+      font-size: 10.5px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--card-subtle);
+      color: var(--fg-dim);
+    }
+    .community-desc {
+      font-size: 11px;
+      color: var(--fg-dim);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .community-links {
+      display: flex;
+      gap: 6px;
+    }
+    .comm-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .comm-btn.telegram {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.18) 0%, rgba(42, 171, 238, 0.08) 100%);
+      border: 1px solid rgba(42, 171, 238, 0.4);
+      color: #70c7fa;
+    }
+    .comm-btn.telegram:hover {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.35) 0%, rgba(42, 171, 238, 0.2) 100%);
+      border-color: #70c7fa;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.clan {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.16) 0%, rgba(234, 179, 8, 0.06) 100%);
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      color: #fde047;
+    }
+    .comm-btn.clan:hover {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.3) 0%, rgba(234, 179, 8, 0.15) 100%);
+      border-color: #fde047;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.youtube {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.18) 0%, rgba(229, 72, 77, 0.08) 100%);
+      border: 1px solid rgba(229, 72, 77, 0.4);
+      color: #ff999c;
+    }
+    .comm-btn.youtube:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.35) 0%, rgba(229, 72, 77, 0.2) 100%);
+      border-color: #ff999c;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── 본문 영역 ─── */
+    .content-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 26px 36px 100px;
+      max-width: 1060px;
+      min-width: 0;                 /* flex 아이템이 안쪽 표(min-width 480) 에 끌려 뷰포트보다 넓어지던 것 */
+      width: 100%;
+      transition: margin-left 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* 모바일 반응형 처리 */
+    @media (max-width: 1024px) {
+      .top-nav {
+        padding: 0 12px;
+      }
+      .content-wrap {
+        margin-left: 0;
+        padding: 18px 14px 80px;
+      }
+      .sidebar {
+        width: 86vw;
+        max-width: 320px;
+        transform: translateX(-100%);
+        box-shadow: none;
+      }
+      body.sidebar-open .sidebar {
+        transform: translateX(0);
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.85);
+      }
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        z-index: 850;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      body.sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.sidebar-open { overflow: hidden; }
+      .table-wrap::before {
+        content: '↔ 옆으로 밀어 표 전체 보기';
+        display: block;
+        font-size: 11.5px;
+        color: var(--fg-muted);
+        padding: 6px 10px 0;
+      }
+      .image-card.is-small { display: block; }
+      .hero-title {
+        font-size: 24px !important;
+      }
+      .hero-banner-img {
+        height: 180px !important;
+      }
+      .nav-right .nav-link:not(.highlight) {
+        display: none;
+      }
+    }
+
+    /* 스마트폰 초소형 화면 (480px 이하) */
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .content-wrap {
+        padding: 14px 10px 60px;
+      }
+      section.doc-section {
+        padding: 18px 14px !important;
+        margin-bottom: 20px !important;
+      }
+      .section-title {
+        font-size: 18px !important;
+      }
+      .hero-banner-overlay {
+        padding: 16px 14px !important;
+      }
+      .hero-title {
+        font-size: 20px !important;
+      }
+      .hero-desc {
+        font-size: 13px !important;
+      }
+    }
+
+    /* ─── 히어로 배너 섹션 ─── */
+    .hero-banner-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+      border: 1px solid var(--line-bright);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+    .hero-banner-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: brightness(0.65) contrast(1.1);
+    }
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 13, 20, 0.2) 0%, rgba(9, 8, 14, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px 28px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 184, 92, 0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: fit-content;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: 30px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 6px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .hero-desc {
+      color: var(--fg-dim);
+      font-size: 14.5px;
+      margin: 0;
+      max-width: 650px;
+    }
+
+    /* ─── 알림/콜아웃 박스 ─── */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .alert-box.info {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-left: 4px solid var(--blue);
+    }
+    .alert-box.gold {
+      background: rgba(229, 184, 92, 0.08);
+      border: 1px solid rgba(229, 184, 92, 0.3);
+      border-left: 4px solid var(--gold);
+    }
+    .alert-box.warn {
+      background: rgba(229, 72, 77, 0.08);
+      border: 1px solid rgba(229, 72, 77, 0.3);
+      border-left: 4px solid var(--ruby);
+    }
+    .alert-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── 문서 섹션 카드 ─── */
+    section.doc-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 26px;
+      scroll-margin-top: calc(var(--header-height) + 16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    section.doc-section:target {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-num {
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      color: var(--gold-bright);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    h3 {
+      font-size: 16.5px;
+      color: #fff;
+      margin: 22px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 15px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    p { margin: 8px 0; }
+    ul, ol { padding-left: 22px; margin: 8px 0; }
+    li { margin: 5px 0; }
+
+    /* 키 뱃지 및 칩 */
+    kbd {
+      background: #232230;
+      border: 1px solid var(--line-bright);
+      border-bottom: 2px solid #14131d;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+    /* 본문 링크 - 브라우저 기본 파랑은 어두운 배경에서 안 보인다 (사용자 지적 2026-10-22). 버튼류(class 있는 a)는 제외 */
+    .content-wrap a:not([class]),
+    .content-wrap a:not([class]):visited {
+      color: var(--gold-bright);
+      text-decoration: underline;
+      text-decoration-color: var(--gold-dim);
+      text-underline-offset: 3px;
+      font-weight: 600;
+    }
+    .content-wrap a:not([class]):hover { color: #fff; text-decoration-color: var(--gold); }
+    .content-wrap a:not([class]) code { color: inherit; }
+    .content-wrap a.chip { color: var(--fg); text-decoration: none; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-weight: 700;
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+    .chip.gold { background: rgba(229, 184, 92, 0.15); border-color: var(--gold-dim); color: var(--gold-bright); }
+    .chip.ruby { background: var(--ruby-dark); border-color: rgba(229, 72, 77, 0.4); color: #fff; }
+    .chip.green { background: var(--green-dark); border-color: rgba(34, 197, 94, 0.4); color: #fff; }
+    .chip.blue { background: var(--blue-dark); border-color: rgba(59, 130, 246, 0.4); color: #fff; }
+
+    /* 본문 검색 하이라이트 */
+    mark.search-highlight {
+      background: #ffd700;
+      color: #000;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+    }
+
+    /* 표(테이블) 반응형 */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 480px;
+    }
+    th, td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    th {
+      background: var(--bg-surface);
+      color: var(--gold);
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* ─── 이미지 썸네일 카드 ─── */
+    .image-card {
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .image-card:hover {
+      border-color: var(--line-bright);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+    .image-card.is-thumbnail .thumb-container {
+      position: relative;
+      cursor: zoom-in;
+      background: #000;
+      max-height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-card.is-thumbnail .thumb-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .image-card.is-thumbnail .thumb-container:hover img {
+      transform: scale(1.015);
+    }
+    .zoom-hint-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--line-bright);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+    .image-card.is-small {
+      display: inline-block;
+      max-width: 100%;
+    }
+    .image-card.is-small .thumb-container {
+      padding: 8px;
+      cursor: zoom-in;
+    }
+    .image-card.is-small img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .image-caption {
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── 플레이스홀더 영역 ─── */
+    .placeholder-box {
+      border: 2px dashed var(--line-bright);
+      background: rgba(26, 24, 36, 0.6);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .placeholder-icon {
+      font-size: 28px;
+      color: var(--gold-dim);
+      margin-bottom: 6px;
+    }
+    .placeholder-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .placeholder-desc {
+      font-size: 12.5px;
+      color: var(--fg-muted);
+      margin-bottom: 10px;
+    }
+    .placeholder-path {
+      display: inline-block;
+      background: #0d0c13;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--gold);
+    }
+
+    /* 비디오 카드 */
+    .video-card {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .video-info {
+      padding: 10px 14px;
+      font-size: 13px;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ─── 클랜 및 방송 채널 본문 섹션 카드 ─── */
+    .clan-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-card {
+      background: linear-gradient(180deg, var(--card) 0%, var(--bg-surface) 100%);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .clan-card.highlight-gold {
+      border-color: rgba(229, 184, 92, 0.3);
+    }
+    .clan-card.highlight-gold:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px var(--gold-glow);
+    }
+    .clan-card.highlight-ruby {
+      border-color: rgba(229, 72, 77, 0.3);
+    }
+    .clan-card.highlight-ruby:hover {
+      border-color: var(--ruby);
+      box-shadow: 0 8px 24px var(--ruby-glow);
+    }
+    .clan-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-card-crest {
+      font-size: 26px;
+      background: var(--card-subtle);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gold-dim);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+    }
+    .clan-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin: 0 0 3px;
+      letter-spacing: -0.2px;
+    }
+    .clan-card-sub {
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      margin: 0;
+    }
+
+    /* 럭셔리 액션 버튼 */
+    .clan-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      margin-top: auto;
+      align-self: flex-start;
+      cursor: pointer;
+    }
+    .clan-btn.gold {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18) 0%, rgba(229, 184, 92, 0.08) 100%);
+      color: var(--gold-bright);
+      border: 1px solid rgba(229, 184, 92, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 184, 92, 0.15);
+    }
+    .clan-btn.gold:hover {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.32) 0%, rgba(229, 184, 92, 0.16) 100%);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 4px 18px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+    .clan-btn.ruby {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.22) 0%, rgba(229, 72, 77, 0.1) 100%);
+      color: #ff999c;
+      border: 1px solid rgba(229, 72, 77, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 72, 77, 0.15);
+    }
+    .clan-btn.ruby:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.38) 0%, rgba(229, 72, 77, 0.18) 100%);
+      color: #fff;
+      border-color: var(--ruby);
+      box-shadow: 0 4px 18px var(--ruby-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ─── 가입 절차 & 클랜 생활 가이드 와이드 쇼케이스 ─── */
+    .clan-guide-container {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+    .clan-guide-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-guide-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 0;
+    }
+    .clan-guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-sub-panel {
+      background: rgba(14, 13, 20, 0.65);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .clan-sub-panel.blue-border {
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-top: 3px solid var(--blue);
+    }
+    .clan-sub-panel.gold-border {
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-top: 3px solid var(--gold);
+    }
+    .clan-sub-panel-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── 라이트박스 (전체화면 모달 뷰어) ─── */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 8, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      user-select: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-topbar {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .lightbox-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(229, 184, 92, 0.12);
+      padding: 2px 9px;
+      border-radius: 12px;
+    }
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: var(--gold);
+    }
+    .lightbox-close-btn {
+      background: var(--ruby-dark);
+      border-color: rgba(229, 72, 77, 0.4);
+    }
+    .lightbox-close-btn:hover {
+      background: var(--ruby);
+      color: #fff;
+    }
+
+    .lightbox-stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+    }
+    .lightbox-stage:active {
+      cursor: grabbing;
+    }
+    .lightbox-img {
+      max-width: 92%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85);
+      transition: transform 0.06s ease-out;
+      transform-origin: center center;
+    }
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 60px;
+      background: rgba(20, 19, 28, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(8px);
+      transition: all 0.15s;
+      z-index: 10;
+    }
+    .lightbox-nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .lightbox-prev-btn { left: 16px; }
+    .lightbox-next-btn { right: 16px; }
+
+    .lightbox-bottombar {
+      min-height: 48px;
+      background: rgba(14, 13, 20, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .lightbox-caption-text {
+      font-size: 13.5px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .lightbox-zoom-indicator {
+      font-size: 12.5px;
+      color: var(--gold);
+      font-weight: 600;
+      background: var(--card-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding-top: 20px;
+      color: var(--fg-muted);
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    /* ─── 국기 언어 선택기 (자바스크립트 0% 순수 HTML5 details/summary) ─── */
+    details.flag-picker {
+      position: relative;
+      display: inline-block;
+      margin-left: 8px;
+    }
+    details.flag-picker summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(22, 21, 32, 0.85);
+      border: 1px solid rgba(229, 184, 92, 0.4);
+      border-radius: 8px;
+      padding: 4px 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    details.flag-picker summary::-webkit-details-marker {
+      display: none;
+    }
+    details.flag-picker summary:hover {
+      border-color: var(--gold-bright);
+      box-shadow: 0 4px 14px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    details.flag-picker[open] summary {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.15);
+    }
+    details.flag-picker .flag-picker-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(18, 17, 26, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-radius: 12px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(229, 184, 92, 0.15);
+      z-index: 2000;
+      min-width: 150px;
+    }
+    .flag-active-img {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+    .flag-picker-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .flag-picker-item:hover {
+      background: rgba(229, 184, 92, 0.22);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+    .flag-picker-item.active {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.18);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .flag-picker-item img {
+      width: 26px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+
+
+    /* ─── 럭셔리 다크 판타지 텔레그램 상단 배너 ─── */
+    .telegram-banner-v3 {
+      position: relative;
+      background: radial-gradient(ellipse at 10% 50%, rgba(42, 171, 238, 0.2) 0%, rgba(18, 17, 24, 0.95) 60%),
+                  radial-gradient(ellipse at 90% 50%, rgba(229, 184, 92, 0.12) 0%, rgba(14, 13, 20, 0.98) 70%),
+                  #0e0d14;
+      border: 1px solid rgba(42, 171, 238, 0.35);
+      border-left: 5px solid #2AABEE;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin: 20px 0 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(42, 171, 238, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .tg-v3-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      flex: 1;
+    }
+    .tg-v3-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tg-v3-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .tg-v3-title {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--font-title);
+      color: #ffd778;
+      letter-spacing: 0.4px;
+      margin: 0;
+    }
+    .tg-v3-badge {
+      background: rgba(229, 72, 77, 0.2);
+      border: 1px solid rgba(229, 72, 77, 0.5);
+      color: #ff6b6b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tg-v3-desc {
+      font-size: 14px;
+      color: #c9c7d8;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+    .tg-v3-highlight-box {
+      display: inline-block;
+      background: rgba(42, 171, 238, 0.08);
+      border: 1px solid rgba(42, 171, 238, 0.25);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .tg-v3-highlight-box strong { color: #38bdf8; }
+    .tg-v3-highlight-box em { color: #fbbf24; font-style: normal; font-weight: 700; }
+    .tg-v3-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 165px;
+    }
+    .tg-v3-btn-channel {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      border-radius: 9px;
+      box-shadow: 0 4px 14px rgba(0, 136, 204, 0.4);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-channel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+      filter: brightness(1.1);
+    }
+    .tg-v3-btn-group {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e6e5ee;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 9px;
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-group:hover {
+      background: rgba(229, 184, 92, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+    @media (max-width: 860px) {
+      .telegram-banner-v3 {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+      }
+      .tg-v3-right {
+        flex-direction: row;
+      }
+      .tg-v3-btn-channel, .tg-v3-btn-group {
+        flex: 1;
+      }
+    }
+
+
+    /* ─── 2026-10-24: 텔레그램 배너 - 채널 버튼을 위에 꽉 찬 너비로, 설명은 아래 ─── */
+    .tg-top .tg-top-row { flex-direction: column !important; align-items: stretch !important; gap: 14px !important; }
+    .tg-top .tg-top-btns { order: -1; display: grid !important; grid-template-columns: 1fr 1fr; gap: 10px !important; }
+    .tg-top .tg-top-btns a { justify-content: center; padding: 13px 16px !important; font-size: 15px !important; }
+    .tg-top .tg-top-text { min-width: 0 !important; }
+    @media (max-width: 520px) {
+      .tg-top .tg-top-btns { grid-template-columns: 1fr; }
+    }
+
+    /* ─── 2026-10-24: 본문 이미지 - PC 는 적당한 크기로 가운데, 휴대폰은 꽉 차게. 클릭하면 라이트박스로 크게 ─── */
+    .image-card { max-width: 760px; margin: 18px auto; }
+    .image-card.is-small { display: block; max-width: 560px; }
+    .image-card.is-thumbnail .thumb-container { max-height: none; background: #08070c; padding: 10px; }
+    .image-card.is-thumbnail .thumb-container img,
+    .image-card.is-small img {
+      width: auto; max-width: 100%; max-height: 440px;
+      object-fit: contain; margin: 0 auto; border-radius: 6px;
+    }
+    .image-card.is-small .thumb-container { display: flex; justify-content: center; }
+    .image-caption { text-align: center; }
+    /* 두 장 이상 나란히 놓인 곳은 칸 너비를 그대로 쓴다 */
+    div[style*="display: flex"] > .image-card,
+    div[style*="display: grid"] > .image-card { max-width: none; margin: 0; flex: 1 1 280px; }
+    @media (max-width: 720px) {
+      .image-card, .image-card.is-small { max-width: 100%; }
+      .image-card.is-thumbnail .thumb-container, .image-card.is-small .thumb-container { padding: 0; }
+      .image-card.is-thumbnail .thumb-container img,
+      .image-card.is-small img { width: 100%; max-height: none; border-radius: 0; }
+    }
+
+    /* ─── 2026-10-24: 헤더가 내용 높이만큼 늘어나게 - 사진은 배경으로 깔고 글자 칸이 높이를 정한다(경고 칸 추가로 위가 잘리던 것) ─── */
+    .hero-banner-img { position: absolute; inset: 0; height: 100% !important; }
+    .hero-banner-overlay { position: relative; min-height: 250px; }
+    .hero-tag { align-self: flex-start; }
+    @media (max-width: 860px) { .hero-banner-overlay { min-height: 180px; } }
+</style>
+</head>
+<body>
+
+  <!-- 상단 글로벌 바 -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <button class="toggle-sidebar-btn" id="sidebarToggle" title="サイドバーを折りたたむ/開く (マウスを乗せると一時表示)" aria-label="サイドバー切り替え">
+        ☰
+      </button>
+      <a href="#" class="brand">
+        <span class="brand-title">D4CUTE HELPER</span>
+        <span class="brand-ver">v1.30.x</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="#quickstart" class="nav-link">はじめに</a>
+      <a href="#tools-alter" class="nav-link">線変性ツール</a>
+      <a href="#community" class="nav-link">クラン & チャンネル</a>
+      <a href="https://github.com/kaljake70/d4helper" target="_blank" class="nav-link highlight">リポジトリ ↗</a>
+      <details class="flag-picker">
+          <summary class="flag-picker-btn" title="Language: 日本語">
+            <img src="https://flagcdn.com/w40/jp.png" alt="ja" class="flag-active-img">
+          </summary>
+          <div class="flag-picker-dropdown">
+            <a href="index.html" class="flag-picker-item" title="韓国語 (Korean)"><img src="https://flagcdn.com/w40/kr.png" alt="ko"></a>
+            <a href="index_en.html" class="flag-picker-item" title="English"><img src="https://flagcdn.com/w40/us.png" alt="en"></a>
+            <a href="index_ja.html" class="flag-picker-item active" title="日本語 (Japanese)"><img src="https://flagcdn.com/w40/jp.png" alt="ja"></a>
+            <a href="index_zh-CN.html" class="flag-picker-item" title="简体中文 (Simplified Chinese)"><img src="https://flagcdn.com/w40/cn.png" alt="zh-CN"></a>
+            <a href="index_zh-TW.html" class="flag-picker-item" title="繁體中文 (Traditional Chinese)"><img src="https://flagcdn.com/w40/tw.png" alt="zh-TW"></a>
+            <a href="index_vi.html" class="flag-picker-item" title="Tiếng Việt (Vietnamese)"><img src="https://flagcdn.com/w40/vn.png" alt="vi"></a>
+            <a href="index_th.html" class="flag-picker-item" title="ไทย (Thai)"><img src="https://flagcdn.com/w40/th.png" alt="th"></a>
+            <a href="index_fil.html" class="flag-picker-item" title="Filipino"><img src="https://flagcdn.com/w40/ph.png" alt="fil"></a>
+          </div>
+        </details>
+    </div>
+  </header>
+
+  <!-- 모바일 사이드바 배경 오버레이 -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="layout-container">
+
+    <!-- 좌측 사이드바 -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 사이드바 탭 전환 (목차 / 이미지 / 영상) -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab-btn active" data-tab="toc">
+          <span class="tab-icon">📑</span>
+          <span>目次</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="images">
+          <span class="tab-icon">🖼️</span>
+          <span>画像 (<span id="imgCount">0</span>)</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="videos">
+          <span class="tab-icon">🎬</span>
+          <span>動画 (<span id="vidCount">0</span>)</span>
+        </button>
+      </div>
+
+      <!-- 도움말 본문 전체 검색창 -->
+      <div class="sidebar-search-box">
+        <input type="text" id="sidebarSearch" class="sidebar-search-input" placeholder="ヘルプ全体を検索..." autocomplete="off">
+        <button class="search-clear-btn" id="searchClearBtn" title="検索語を消去">✕</button>
+      </div>
+
+      <!-- 사이드바 스크롤 컨테이너 -->
+      <div class="sidebar-scroll">
+        
+        <!-- 0. 실시간 검색 결과 패널 (검색 시 활성화) -->
+        <div class="tab-panel" id="panel-search">
+          <div style="font-size:12px; color:var(--fg-dim); margin-bottom:10px; display:flex; justify-content:space-between;">
+            <span>検索結果： <strong id="searchMatchCount" style="color:var(--gold);">0</strong>件</span>
+            <span style="font-size:11px; color:var(--fg-muted);">クリックでその位置へ移動</span>
+          </div>
+          <div class="search-results-list" id="searchResultsList">
+            <!-- 자바스크립트로 본문 검색 결과 목록 생성 -->
+          </div>
+        </div>
+
+        <!-- 1. 목차 패널 -->
+        <div class="tab-panel active" id="panel-toc">
+          <ul class="toc-tree">
+            <li><a href="#quickstart" class="toc-link">⚡ 1. 5分クイックスタート & インストール</a></li>
+            <li>
+              <a href="#screen-ui" class="toc-link">🖥️ 2. 最新の画面構成 (1.30)</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#screen-topbar" class="toc-link">上部バー & プロファイル操作</a></li>
+                <li><a href="#screen-slots" class="toc-link">スロットバー (A~Gの7スロット、スポンサー、便利機能、アラーム)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#macro-engine" class="toc-link">⚙️ 3. マクロ設定 & 発動エンジン</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#macro-modes" class="toc-link">順次 · 独立 · ホールド · トグル · 一度</a></li>
+                <li><a href="#macro-keys" class="toc-link">発動キーと押下認識ディレイのフィルター</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sequence-builder" class="toc-link">📋 4. シーケンス & マウス録画</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#seq-cards" class="toc-link">ステップカードとディレイ一括変更</a></li>
+                <li><a href="#seq-recorder" class="toc-link">リアルタイムのマウス座標録画 & ランダム化</a></li>
+                <li><a href="#seq-drag-path" class="toc-link">ドラッグ軌跡の録画 (ワールウィンド · 精神集中)</a></li>
+                <li><a href="#seq-rotation-pack" class="toc-link">🌀 360度円形回転パック (9種プリセット)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#tools-alter" class="toc-link">🧪 5. 便利機能 — インベントリ線変性</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alter-grid" class="toc-link">最初のマス/最後のマスから33マスを自動計算</a></li>
+                <li><a href="#alter-safety" class="toc-link">帰属スキップ & キューブ空確認</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#alarm" class="toc-link">🔔 6. スマートアラームシステム</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alarm-events" class="toc-link">軍団/ボスを常時バックグラウンドで監視</a></li>
+                <li><a href="#alarm-outputs" class="toc-link">ゲーム内バナー & 韓国語TTS音声</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#window-modes" class="toc-link">🪟 7. ウィンドウモード、ピン、オーバーレイ</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#window-mini" class="toc-link">ミニウィンドウモード (超小型バー)</a></li>
+                <li><a href="#window-overlay" class="toc-link">ゲーム内HUDオーバーレイ</a></li>
+              </ul>
+            </li>
+            <li><a href="#safety-features" class="toc-link">🛡️ 8. 安全装置 (待機キー & フォーカス)</a></li>
+            <li><a href="#profile-sync" class="toc-link">💾 9. プロファイル管理 & 共有</a></li>
+            <li>
+              <a href="#telegram-support" class="toc-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="#2AABEE" style="vertical-align:-2px; margin-right:4px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> 10. Telegramサポート & デバッグログ</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#telegram-install" class="toc-link">Telegramのインストール & グループ参加</a></li>
+                <li><a href="#log-viewer-guide" class="toc-link">ログのコピーとエラー報告</a></li>
+              </ul>
+            </li>
+            <li><a href="#community" class="toc-link">👑 11. クラン & 삼촌안잔다잉チャンネル</a></li>
+            <li><a href="#faq" class="toc-link">❓ 12. よくある質問 (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <!-- 2. 이미지 모아보기 패널 -->
+        <div class="tab-panel" id="panel-images">
+          <div class="media-nav-grid" id="sidebarImageGrid">
+            <!-- 자바스크립트로 본문 이미지들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+        <!-- 3. 영상 모아보기 패널 -->
+        <div class="tab-panel" id="panel-videos">
+          <div class="media-nav-grid" id="sidebarVideoGrid">
+            <!-- 자바스크립트로 본문 비디오/플레이스홀더들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 채널 바로가기 -->
+      <div class="sidebar-community-card">
+        <!-- 앙증맞은 클랜 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">⚔️ &lt;앙증맞은&gt; 虹の翼</span>
+            <span class="community-tag">クラン</span>
+          </div>
+          <div class="community-desc">Diablo IVゲーム内クラン · クランマスター <strong>大韓民国</strong> · 参加：ゲーム内で検索(앙증맞은) → チャンネルに通知 → 承認 → 最終承諾 (Discordなし)</div>
+          <div class="community-desc" style="color:var(--gold-bright); margin-top:4px;">🌏 韓国語で会話できれば外国の方も加入可</div>
+          <div class="community-links">
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" class="comm-btn telegram">💬 Telegramグループ</a>
+            <a href="#community" class="comm-btn clan">📜 クラン案内</a>
+          </div>
+        </div>
+        <!-- 삼촌안잔다잉 채널 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">📺 삼촌안잔다잉チャンネル</span>
+            <span class="community-tag" style="color:var(--ruby); background:rgba(229,72,77,0.15);">クランマスター</span>
+          </div>
+          <div class="community-desc">ゲーム配信チャンネル · ヘルパーの質問はTelegramで</div>
+          <div class="community-links">
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="comm-btn youtube">▶ YouTube配信 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 접힘(미니) 모드용 아이콘 바 -->
+      <div class="mini-icons-list">
+        <button class="mini-icon-btn" onclick="document.getElementById('quickstart').scrollIntoView({behavior:'smooth'})" title="はじめに">⚡</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('screen-ui').scrollIntoView({behavior:'smooth'})" title="画面構成">🖥️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('macro-engine').scrollIntoView({behavior:'smooth'})" title="マクロ設定">⚙️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('tools-alter').scrollIntoView({behavior:'smooth'})" title="インベントリ線変性">🧪</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('alarm').scrollIntoView({behavior:'smooth'})" title="スマートアラーム">🔔</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})" title="クラン & 配信">👑</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})" title="よくある質問">❓</button>
+      </div>
+
+    </aside>
+
+    <!-- 우측 본문 콘텐츠 -->
+    <main class="content-wrap" id="mainContent">
+      
+      <!-- 히어로 배너 -->
+      <div class="hero-banner-card">
+        <img src="../images/hero_banner.jpg" alt="Diablo IV d4cute ヘルパー バナー" class="hero-banner-img">
+        <div class="hero-banner-overlay">
+          <span class="hero-tag">DIABLO IV HELPER MANUAL</span>
+          <h1 class="hero-title">d4cute helper 使い方マニュアル</h1>
+          <p class="hero-desc">1.30 最新バージョン基準 — A~Gの7スロットによる順次/独立マクロ、インベントリ線変性の自動化、リアルタイムイベントアラーム、앙증맞은クラン・삼촌안잔다잉チャンネルの紹介</p>
+        </div>
+      </div>
+
+      <!-- 📢 상단 텔레그램 공식 채널 필수 가입 배너 -->
+      <div class="telegram-top-banner tg-top" style="background: linear-gradient(135deg, rgba(42, 171, 238, 0.16) 0%, rgba(20, 36, 69, 0.45) 100%); border: 1.5px solid rgba(42, 171, 238, 0.45); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+        <div class="tg-top-row" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+          <div class="tg-top-text" style="flex: 1; min-width: 280px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px;">
+                📢 Telegram公式チャンネルにぜひ参加してください！
+              </h3>
+              <span class="chip blue" style="font-weight: 700;">必読</span>
+            </div>
+            <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--fg); line-height: 1.6;">
+              d4cute ヘルパーの <strong>最新アップデート告知、リアルタイムのパッチノート、エラー報告、迅速な技術サポート</strong>は、Telegramを通じて最も早くお届けします。<br>
+              特に今回追加された <strong style="color:var(--gold-bright);">🌀 360度円形回転パック(.d4seq)の完成版ファイル</strong>と <strong style="color:#2AABEE;">実際の回転デモ動画</strong>を、チャンネルから無料ですぐにダウンロードできます！
+            </p>
+          </div>
+          <div class="tg-top-btns" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #2AABEE; color: #fff; text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 700; font-size: 13.5px; transition: all 0.2s; box-shadow: 0 2px 8px rgba(42, 171, 238, 0.4);">
+              <span>📢 お知らせチャンネルに参加 ↗</span>
+            </a>
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid rgba(42, 171, 238, 0.4); color: var(--fg); text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 13.5px; transition: all 0.2s;">
+              <span>💬 ユーザーグループに参加 ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상단 중요 알림 -->
+      <div class="alert-box gold">
+        <span class="alert-icon">💡</span>
+        <div>
+          <strong>案内</strong>：ヘルパーウィンドウの <span class="chip gold">?</span> ボタンをクリックすると、いつでもこの最新ヘルプページが開きます。サイドバーの検索欄でヘルプ本文をリアルタイム検索でき、画像をクリックすると <strong>マウスホイールでの拡大/縮小および前/次への移動</strong>が可能なフルスクリーンビューアーが起動します。
+        </div>
+      </div>
+
+      <!-- ─── 1. 시작하기 ─── -->
+      <section class="doc-section" id="quickstart">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">1</span> 最初の5分 — インストールから最初のマクロ稼働まで</h2>
+        </div>
+        
+        <p>d4cute helperは、Diablo IVのプレイ中に繰り返し行うスキル発動、バフの維持、複雑なインベントリのホラドリックキューブでの線変性作業を、快適かつ安全にサポートする高性能ヘルパーです。</p>
+
+        <ol>
+          <li><a href="https://da.gd/d4help" target="_blank"><strong>最新インストーラーをダウンロード</strong></a> — インストーラー(<code>d4cute_helper_setup.exe</code>)を入手してインストールするか、インストール不要の実行ファイル(<code>d4cute_helper.exe</code>)をそのまま実行します。Windowsが「不明な発行元」の警告を表示した場合は <em>詳細情報 → 実行</em>を押します。</li>
+          <li>ヘルパーを起動するとウィンドウサイズは自動的に最も小さい基本サイズで始まり、ゲーム画面を隠しません。</li>
+          <li>プロファイル行で自分のクラスに合ったプロファイルを選ぶか、 <span class="chip green">＋</span> ボタンで新規作成します。</li>
+          <li>スロット <span class="chip">A</span>を押して <strong>マクロ設定</strong>で青い発動キーのボタンを押し、使用するマウスまたはキーボードのキーを指定します。</li>
+          <li><strong>シーケンス</strong> タブで発動するスキルキーとディレイを追加するか、 <span class="chip">録画</span> ボタンを押して実際のゲームプレイのキー入力をそのまま記録します。</li>
+          <li>下部の <span class="chip green">▶ 開始</span> ボタンを押してゲームに戻り、発動キーを押すとマクロが安全に動作します。</li>
+        </ol>
+
+        <div class="alert-box info">
+          <span class="alert-icon">🛡️</span>
+          <div><strong>ゲームウィンドウのアクティブ検知</strong>：ヘルパーは、Diablo IVのウィンドウがアクティブな時だけキーボード/マウス入力をゲームに送信します。デスクトップや他のウィンドウで作業中は、自動的に入力が停止します。</div>
+        </div>
+        <div class="alert-box gold">
+          <span class="alert-icon">🖥️</span>
+          <div><strong>ゲーム画面モード</strong>：Diablo IVの画面設定を <strong>ウィンドウモード(フルスクリーン)</strong> またはウィンドウモードにしてください。フルスクリーン(排他)ではオーバーレイが表示されず、線変性の画面読み取りが失敗することがあります。</div>
+        </div>
+        <div class="video-card" data-video-title="[動画] d4cute helper の使い方">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/Ff7MBqD4WaI" title="[動画] d4cute helper の使い方" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>動画で見るヘルパーの使い方 (삼촌안잔다잉チャンネル)</strong></span>
+            <a href="https://youtu.be/Ff7MBqD4WaI" target="_blank" rel="noopener noreferrer" class="chip">YouTubeで見る ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 2. 화면 구성 ─── -->
+      <section class="doc-section" id="screen-ui">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">2</span> 最新の画面構成 (v1.30)</h2>
+        </div>
+
+        <p>1.30版では、上部バーとスロットタブバーがさらに直感的で美しくアップグレードされました。</p>
+
+        <!-- 메인 매크로 화면 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="d4cute helper メイン画面 — プロファイル切り替えバー、マクロスロット(A~G計7スロットに拡張)、マクロ名の直接入力、スポンサータブ、便利機能、アラームタブが一目で配置された最新UI">
+          <div class="thumb-container">
+            <img src="../images/helper_main_macro.png" alt="ヘルパー メイン画面 マクロタブ">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>d4cute helper 1.30 メイン画面 (A~G 7マクロスロット拡張に対応)</span>
+          </div>
+        </div>
+
+        <h3 id="screen-topbar">1) 上部バー & プロファイルコントロール</h3>
+        <ul>
+          <li><strong>実行状態インジケーター</strong> — <span style="color:var(--green); font-weight:700;">● 停止</span> / <span style="color:var(--green); font-weight:700;">● 実行中</span> / <span style="color:var(--ruby); font-weight:700;">● 一時停止</span> 状態をリアルタイムの色付きドットで表示します。</li>
+          <li><strong>上部の機能ボタン</strong> — <span class="chip">アップデート</span>(新しいパッチを検知すると点滅)、 <span class="chip">設定(⚙)</span>, <span class="chip">テスト(⌨)</span>(入力送信の検証)、ミニウィンドウ切り替え、常に手前(ピン)、 <span class="chip">···</span>(追加ツールメニュー)。</li>
+          <li><strong>プロファイル行 (Profile Bar)</strong> — 
+            <span class="chip">‹ ›</span> ボタンですばやくプロファイルを切り替えられ、 <strong>コンボボックスをダブルクリックするとすぐに名前を変更</strong>できます。 <span class="chip green">＋</span>(新規プロファイル)、 <span class="chip">✎</span>(名前変更)、 <span class="chip ruby">🗑</span>(削除)、 <span class="chip blue" style="display:inline-flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Telegramロゴ</span>, <span class="chip">文書</span>(シーズン文書)、 <span class="chip gold">?</span>(ヘルプ)ボタンが用意されています。ウィンドウは起動のたびに最も小さい基本サイズで開き(下限900×700、フォント倍率により大きくなります)、最大化はありません。
+          </li>
+        </ul>
+
+        <h3 id="screen-slots">2) スロット行 (Slot Navigation) — 7スロット(A~G)に大幅拡張</h3>
+        <ul>
+          <li><span class="chip ruby">A</span> <span class="chip ruby">B</span> <span class="chip ruby">C</span> <span class="chip ruby">D</span> <span class="chip ruby">E</span> <span class="chip ruby">F</span> <span class="chip ruby">G</span> — <strong style="color:var(--gold);">最新パッチにより、マクロスロットが従来の4つ(A~D)から計7つ(A~G)に大幅拡張</strong>されました！複雑なダメージサイクル、機動スキル、シールド/バフの維持、特定状況専用のスキルを、スロット不足なく余裕をもって分けて登録できます。オンのスロットは枠が強調表示され、発動中は赤い背景に白い文字で点灯します。</li>
+          <li><strong>マクロ名の直接指定</strong> — 各スロットのマクロ設定画面の <span class="chip">名前: [ メインマクロ ]</span> 入力欄で、スロットごとに分かりやすい固有の名前を入力できます。スロットボタンにマウスを乗せたときに出るツールチップの一番上にも、この名前が大きく表示されます。</li>
+          <li><span class="chip">♡ スポンサー</span> — 「ヘルパーは無料です」という告知と、パートナー紹介リンク(Starlinkなど)・クランマスターのチャンネル紹介がバナーカルーセルで表示されます。ヘルパーが自動で送信するものはありません。</li>
+          <li><span class="chip">🔧 便利機能</span> — ホラドリックキューブでのインベントリ線変性の自動化専用の1ページUIです。</li>
+          <li><span class="chip">⏱ ▶ 4 (アラーム)</span> — 軍団、ワールドボス、ヘルタイド、個人タイマーのアラームを設定します。右側に現在動作中のアラーム数がバッジで表示されます。</li>
+          <li><strong>スロット右の要約チップ</strong> — 現在選択中のスロットの実行方式(順次/独立)、発動方式(ホールド/トグル/一度)、発動キーが常にリアルタイムで要約表示されます。</li>
+        </ul>
+
+        <h3 id="screen-bottombar">3) 下部の統合コントロールバー</h3>
+        <ul>
+          <li><span class="chip green">▶ 開始</span> / <span class="chip ruby">■ 停止</span>：ヘルパーのすべてのマクロの検知と実行を開始または停止します (デフォルトのショートカット <kbd>F9</kbd>).</li>
+          <li><span class="chip blue">保存</span>：現在編集したプロファイルとマクロ設定をディスクに即座に永続保存します。</li>
+          <li><span class="chip">📁 読み込む</span>：誤って設定を変更してしまったとき、最後に保存した状態にプロファイルを復元します。</li>
+          <li><span class="chip ruby" style="background:#cc0000; color:#fff; font-weight:700;">▶ 삼촌안잔다잉</span>：クランマスターのゲーム配信チャンネルにワンクリックで移動します。</li>
+          <li><span class="chip">📤 エクスポート</span>：現在のプロファイル設定を <code>.d4cute</code> バックアップファイルとして保存します。</li>
+          <li><span class="chip blue">📥 インポート</span>：他のユーザーやクランメンバーが共有した <code>.d4cute</code> プロファイルを読み込んで、すぐに適用します。</li>
+          <li><span class="chip">最小化</span>：ヘルパーウィンドウをタスクバーに最小化します。</li>
+        </ul>
+
+        <div class="image-card is-small" data-caption="スポンサータブ — ヘルパー無料の告知、パートナー紹介リンク・クランマスターのチャンネルバナーカルーセル">
+          <div class="thumb-container">
+            <img src="../images/helper_sponsor_tab.png" alt="スポンサータブ バナーカルーセル">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>スポンサータブ (バナーカルーセル)</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 3. 매크로 설정 ─── -->
+      <section class="doc-section" id="macro-engine">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">3</span> マクロ設定 — 実行方式 · 発動方式 · 発動キー</h2>
+        </div>
+
+        <h3 id="macro-modes">1) 実行方式と発動方式</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 110px;">区分</th>
+                <th style="width: 100px;">モード名</th>
+                <th>説明とおすすめの用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" style="font-weight: 700; color: var(--gold);">実行方式</td>
+                <td><strong>順次</strong></td>
+                <td>ステップ1から最後のステップまで順番に発動し、再び最初から繰り返します。決まったスキルコンボやダメージサイクルのローテーションに適しています。</td>
+              </tr>
+              <tr>
+                <td><strong>独立</strong></td>
+                <td>ステップごとにそれぞれ設定されたクールダウン(待機時間)に合わせて、独自に繰り返し実行します。クールダウンがバラバラなシールド/バフスキルの維持に最適化されています。</td>
+              </tr>
+              <tr>
+                <td rowspan="3" style="font-weight: 700; color: var(--ruby);">発動方式</td>
+                <td><strong>ホールド</strong></td>
+                <td>発動キーを <strong>押している間だけ</strong> マクロが動作し、キーを離すと即座に止まります。メインのダメージスキルにおすすめです。</td>
+              </tr>
+              <tr>
+                <td><strong>トグル</strong></td>
+                <td>発動キーを1回押すとオンになり、もう一度押すとオフになります。長時間のファーミングやダンジョン周回での指の疲れを軽減します。</td>
+              </tr>
+              <tr>
+                <td><strong>一度</strong></td>
+                <td>発動キーを押すとシーケンスを最初から最後まで1回実行し、自動的に終了します。ポーションの連続作成や装備の購入などに適しています。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="macro-keys">2) 発動キーの選択と精密チューニング</h3>
+        <ul>
+          <li><strong>柔軟な発動キー</strong>：キーボードのすべてのキー、マウスの左/右クリック、ホイール上/下、サイドボタン、 <kbd>Ctrl</kbd> · <kbd>Shift</kbd> · <kbd>Alt</kbd> 組み合わせキーにすべて対応しています。複数のスロットに同じ発動キーを指定して、同時連携発動もできます。ただし、便利機能(線変性)の開始ショートカットとは重複できません — 重複すると選択時に拒否されます。</li>
+          <li><strong>押下認識ディレイ (Press Delay)</strong>：ちょんと軽く触れただけのクリックは無視し、指定した時間(例：250~300ms)以上しっかり押したときだけマクロがオンになります。 <strong>右クリックを発動キーにしたときにインベントリや倉庫のウィンドウが閉じてしまう現象を防ぐ必須設定</strong>です。
+          </li>
+          <li><strong>離したあと維持 (Release Buffer)</strong>：発動キーから指を離したあとも、指定した時間だけマクロの動作を延長して維持します。狩りの直後に周囲の床のアイテムを拾っている間も攻撃が途切れないよう、余裕を持たせます。
+          </li>
+          <li><strong>同伴キー (Companion Keys)</strong>：マクロが稼働している間、継続して一緒に押し続けるキー(例：その場で強制停止攻撃 <kbd>Shift</kbd>、強制移動キーなど)を指定できます。
+          </li>
+        </ul>
+
+        <!-- 키 피커 캡처 -->
+        <div class="image-card is-small" data-caption="発動キー指定ポップアップ — キーボードのキー、マウスボタン、組み合わせキーを安全かつ直感的に選択できます。">
+          <div class="thumb-container">
+            <img src="../images/helper_key_picker.png" alt="発動キー選択ダイアログ">
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>発動キー選択ポップアップ</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 4. 시퀀스 빌더 & 실시간 녹화 ─── -->
+      <section class="doc-section" id="sequence-builder">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">4</span> シーケンスビルダー · ディレイ一括変更 · マウス録画</h2>
+        </div>
+
+        <h3 id="seq-cards">1) ステップカードと一括操作</h3>
+        <ul>
+          <li>ステップカードをクリックすると、キー、動作モード、ディレイ(待機時間、ms)を個別に変更できます。</li>
+          <li><strong>モードオプション</strong>:
+            <ul>
+              <li><em>Single</em>：キーを1回だけ単発入力</li>
+              <li><em>Burst</em>：指定した間隔で高速連打</li>
+              <li><em>Hold</em>：指定した時間、キーを押し続けて維持</li>
+            </ul>
+          </li>
+          <li><span class="chip">ディレイ一括変更</span>：すべてのステップの待機時間を、希望の数値(ms)または比率(%)で一度に変更します。</li>
+          <li><span class="chip">全体 → Burst/Single</span>：登録されたすべてのステップの動作モードをワンクリックで一括切り替えします。</li>
+        </ul>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <div class="image-card is-small" data-caption="ステップエディター — キー、モード(Single/Burst/Hold)、ディレイを精密に設定">
+            <div class="thumb-container">
+              <img src="../images/helper_step_editor.png" alt="ステップエディター">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>個別ステップ編集ウィンドウ</span></div>
+          </div>
+          <div class="image-card is-small" data-caption="ディレイ一括変更ツール — 全ステップの間隔を簡単にチューニング">
+            <div class="thumb-container">
+              <img src="../images/helper_bulk_delay.png" alt="ディレイ一括変更ダイアログ">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>ディレイ一括変更ポップアップ</span></div>
+          </div>
+        </div>
+
+        <h3 id="seq-recorder">2) リアルタイムのマウス座標録画と人間らしいランダム誤差</h3>
+        <ul>
+          <li><span class="chip">録画</span> ボタンを押してゲーム画面でキーとマウスを入力すると、順序と時間間隔がそのまま記録されます。</li>
+          <li><strong>画面座標の記録</strong>：マウスクリック時に、そのときクリックした画面の絶対座標(X, Y)が記録され、マクロ再生時にその位置を自動でクリックします。</li>
+          <li><strong>人間らしいランダム誤差</strong>:
+            <ul>
+              <li><strong>クリック位置 ± px</strong>：クリックのたびに指定したピクセル半径内で不規則に誤差を加え、機械的な検知を防ぎます。</li>
+              <li><strong>ランダム変動 %</strong>：ステップ間隔ごとに一定の割合でランダムな遅延を混ぜ、自然な手の動きを模倣します。</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3 id="seq-drag-path">3) ドラッグ軌跡の録画 — 押したまま動かした経路まで (1.32.0)</h3>
+        <ul>
+          <li>録画中にマウスボタンを <strong>押したまま動かすと</strong> その経路も一緒に記録されます。最後の記録点から <strong>8px</strong> 以上動いたとき、または <strong>16ms</strong> が経過するたびに座標を書き込むため、速い回転は細かく、遅い移動は途切れなく残ります。</li>
+          <li>再生時は押した位置でボタンを押してから <strong>記録された時刻に合わせて同じ経路で</strong> カーソルを動かし、離した位置で離します。以前のバージョンは押した位置と離した位置の2点だけを記憶していたため、瞬間移動していました。</li>
+          <li><strong>ワールウィンド · 精神集中のようなチャネリングスキル</strong>：ゲームでスキルを <span class="chip">マウス右ボタン</span>に置き、録画中に右ボタンを押したままぐるりと回すと、その回転がそのまま録画・再生されます。左ボタンを押したまま移動する場合も同様です。</li>
+          <li><strong>ランダム変動 %</strong>は軌跡全体の時間に対して1回、 <strong>クリック位置 ± px</strong>は軌跡全体に対して1回だけ適用されるため、カーソルが震えません。</li>
+          <li>ステップエディターで位置を数値で修正するか、 <span class="chip">ドラッグクリア</span>を押すと、軌跡は破棄され、以前のようにジャンプ再生になります。</li>
+          <li>1回のドラッグにつき最大600点まで保存します(16ms間隔で約10秒)。軌跡は画面の絶対座標なので、解像度やウィンドウ位置を変えた場合は録画し直してください。</li>
+        </ul>
+
+        <!-- 비디오 플레이스홀더 (마우스 녹화) -->
+        <div class="video-card" data-video-title="[動画ガイド] マクロシーケンスの作成とリアルタイム録画のコツ">
+          <div class="placeholder-box" style="margin: 0; border: none; border-radius: 0;">
+            <div class="placeholder-icon">🎬</div>
+            <div class="placeholder-title">マクロシーケンス録画チュートリアル動画 (準備中)</div>
+            <div class="placeholder-desc">YouTube動画のアドレスをいただければ、ここにすぐ再生できる埋め込み動画に差し替えます。</div>
+            <span class="placeholder-path">YouTube Video Slot: seq-record-guide</span>
+          </div>
+          <div class="video-info">
+            <span><strong>動画1</strong>：マクロ録画とディレイ調整の実践Tips</span>
+            <span class="chip ruby">準備中</span>
+          </div>
+        </div>
+
+        <!-- 🌀 4) 완성형 360도 원형 회전팩 (9종 프리셋) & 다운로드 안내 -->
+        <h3 id="seq-rotation-pack">4) 完成形の360度円形回転パック (9種プリセット) & ダウンロード</h3>
+        <p>
+          手で直接ドラッグを録画すると、円が歪んだり回転角度がぴったり合わなかったり、開始と終了でもたついたりしやすくなります。<br>
+          そのため、数学的に精密に計算された <strong>完全な360度閉曲線の円形回転シーケンスパック (9種プリセット)</strong>を提供しています。
+        </p>
+
+        <!-- 텔레그램 다운로드 강조 배너 -->
+        <div class="alert-box gold" style="margin: 16px 0; border-left: 4px solid var(--gold);">
+          <span class="alert-icon">🎁</span>
+          <div>
+            <strong style="color:var(--gold-bright); font-size:15px;">実際のデモ動画と回転パックのダウンロード案内</strong><br>
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">公式Telegramお知らせチャンネル(@d4_notice)</a> および 
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">ユーザーグループ(@d4cute_helper)</a>で、 
+            <strong>実際のゲーム内360度回転デモ動画</strong>と完成版の <strong><code>sequences.d4seq</code> 回転パックファイル</strong>を、すぐに無料で入手できます！
+          </div>
+        </div>
+
+        <div style="overflow-x: auto; margin: 18px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line);">
+            <thead>
+              <tr style="background: rgba(229, 184, 92, 0.12); color: var(--gold-bright); border-bottom: 1px solid var(--line-bright); text-align: left;">
+                <th style="padding: 10px 14px;">シーケンス名</th>
+                <th style="padding: 10px 14px;">回転半径 (Radius)</th>
+                <th style="padding: 10px 14px;">1周の時間 (`press_ms`)</th>
+                <th style="padding: 10px 14px;">特徴とおすすめの用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">1. 小・高速回転</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">1.5秒 (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">キャラクターの近接範囲、速くて軽快な全方位ターゲティング</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); background: rgba(229, 184, 92, 0.05);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">2. 中・高速回転</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">1.5秒 (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);"><strong style="color:var(--gold);">★ 標準おすすめ</strong> — 基本解像度に最適な半径のなめらかな高速回転</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">3. 大・高速回転</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">1.5秒 (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">画面の外周まで広く掃く広範囲の高速回転</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">4. 小・回転</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">2.5秒 (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">近接での安定した通常速度の回転チャネリング</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">5. 中・回転</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">2.5秒 (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">基本半径の安定した通常速度の回転</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">6. 大・回転</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">2.5秒 (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">広い範囲をなめらかにゆったり回転</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">7. 小・超高速</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">0.75秒 (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">近接での即時回転ターゲティング (0.75秒で1周ぐるり)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">8. 中・超高速</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">0.75秒 (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">基本半径の稲妻のような超高速全方位攻撃</td>
+              </tr>
+              <tr>
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">9. 大・超高速</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">0.75秒 (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">画面全体を超高速で包み込む回転</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 style="color:var(--gold); margin: 20px 0 8px 0; font-size:15px;">🔧 回転パックの使い方と設定のコツ</h4>
+        <ol style="margin-top: 6px; padding-left: 20px; line-height: 1.8;">
+          <li><strong>インポート (Import)</strong>：Telegramからダウンロードした <code>sequences.d4seq</code> ファイルを用意し、ヘルパーウィンドウ下部の <span class="chip">インポート</span> ボタンを押してファイルを選択すると、9種のシーケンスが一度に登録されます。</li>
+          <li><strong>スロットの割り当て</strong>：使いたいマクロスロット(A~G)を押し、 <strong>シーケンスライブラリ</strong>で上記9種のうち気に入ったプリセットを選択します。</li>
+          <li><strong>ちょうど1周だけ回して止めたいときは？</strong>：マクロの発動方式を <strong style="color:var(--gold-bright);">[一度 (Once)]</strong>に設定してください。キーを押すたびに <strong>ちょうど1周だけぐるりと回り、その場で自動的にきれいに止まります。</strong>
+          </li>
+          <li><strong>押している間ずっと回転させたいときは？</strong>：発動方式を <strong>[ホールド (Hold)]</strong> または <strong>[トグル (Toggle)]</strong>にしてください。ステップ間のディレイ(<code>interval_ms</code>)が <code>0ms</code>に最適化されているため、 <strong>始まりと終わりで引っかかったりもたついたりすることなく、水が流れるように連続回転</strong>します。
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 5. 편의기능 — 인벤 선변성 ─── -->
+      <section class="doc-section" id="tools-alter">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">5</span> 便利機能 — インベントリ線変性 (1ページUI)</h2>
+        </div>
+
+        <p>1.30バージョンで新しく刷新された <strong>インベントリ線変性ツール</strong>は、ホラドリックキューブを利用したレジェンダリー・ユニーク装備の線変性作業を、わずか数回の操作で自動化します。</p>
+
+        <!-- 선변성 도구 탭 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="インベントリ線変性専用タブ — 最初のマス/最後のマスの座標補正、非帰属スキップスイッチ、開始/停止ショートカット、結果待機の調整が1画面に統合された最新レイアウト">
+          <div class="thumb-container">
+            <img src="../images/helper_alter_tool.png" alt="インベントリ線変性 1ページUI">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>便利機能：ホラドリックキューブ インベントリ線変性 1ページUI</span>
+          </div>
+        </div>
+
+        <h3 id="alter-grid">1) 33マス自動グリッド計算と開始</h3>
+        <ol>
+          <li>ゲームで <strong>インベントリ</strong>と <strong>ホラドリックキューブ</strong> のウィンドウを開いておきます。</li>
+          <li><span class="chip gold">最初のマスを撮る</span>を押したあと、ゲームのインベントリの一番最初のマス(左上)にマウスを乗せて <kbd>Enter</kbd>を押します。</li>
+          <li><span class="chip gold">最後のマスを撮る</span>を押し、インベントリの一番最後のマス(右下)にマウスを乗せてから <kbd>Enter</kbd>を押します。(キャンセルはいつでも <kbd>Esc</kbd>)</li>
+          <li>2点の位置を指定するだけで、33個のインベントリマスの中心座標が自動的に正確に計算されます。</li>
+          <li>ゲーム画面で開始ショートカット(デフォルト <kbd>F10</kbd>、青いキーのボタンを押して変更可能)を押すと、線変性が全自動で始まります。便利機能タブを開いておかなくても、ショートカットは常時動作します。</li>
+        </ol>
+
+        <h3 id="alter-safety">2) 動作メカニズムとインテリジェントな安全装置</h3>
+        <ul>
+          <li><strong>インテリジェントな繰り返しループ</strong>：インベントリの各マスを巡回しながら <em>右クリック → ホラドリックキューブに載せる → アイテム変性ボタンをクリック → 変換 → 承諾(<kbd>Enter</kbd>) → 初期化</em>を自動で進めます。
+          </li>
+          <li><strong>アカウント帰属アイテムをスキップするスイッチ</strong>：スイッチをオンにすると、帰属アイテムはスキップして非帰属の装備だけを選んで変性します。スイッチをオフにすると、帰属装備も変性し、承諾ポップアップが表示されたときにだけ安全に <kbd>Enter</kbd>を送信します。
+          </li>
+          <li><strong>キューブ空確認 (Cube Empty Check)</strong>：初期化後、キューブの最初のマスの <strong>画像</strong>(最初のアイテムを載せるときに空の状態と埋まった状態を記憶)で空かどうかを確認し、画像を取得できない環境ではキューブのヘッダー文字で補助判定します。空でなければ初期化をもう一度押し、最終的に空にならなければ停止します — アイテムが2つ重なって載ることを防ぐための装置です。
+          </li>
+          <li><strong>非常停止</strong>：作業中にキーボードの <kbd>Esc</kbd> キーを押すと、どこからでも即座に線変性が止まります。</li>
+          <li><strong>低スペックPC向け調整値</strong>: <span class="chip">開始前 ms</span>(開始ボタンのあとゲームウィンドウに移る余裕)、 <span class="chip">結果待機 ms</span>(デフォルト3000 — 変換・承諾のあと、変性が終わって変換ボタンが消灯するまで待つ上限、信号が来ればすぐ次へ進む)、 <span class="chip">初期化後 ms</span>(デフォルト0 — 初期化後の追加待機)。演出が遅いPCでアイテムが重なったり、変性せずに次へ進んだりする場合は、結果待機を上げてください。</li>
+          <li><strong>実行記録</strong>：1周するたびに <code>%APPDATA%\d4cute_helper\debug\alter_slots.txt</code> にマスごとの判定が残ります。問題が出たら、このファイルをTelegramグループに投稿してください。</li>
+        </ul>
+
+        <!-- 인게임 실화면 플레이스홀더 -->
+        <div class="placeholder-box">
+          <div class="placeholder-icon">📸</div>
+          <div class="placeholder-title">[ゲーム内スクリーンショット枠] ホラドリックキューブ線変性の動作画面</div>
+          <div class="placeholder-desc">ゲーム内でホラドリックキューブとインベントリが開いている実際のキャプチャ画像をいただければ、すぐに差し替えます。</div>
+          <span class="placeholder-path">Image Slot: _work/d4help-repo/images/inven/alter_ingame_live.png</span>
+        </div>
+
+        <!-- 선변성 유튜브 비디오 슬롯 -->
+        <div class="video-card" data-video-title="[動画] インベントリ線変性ツールの使い方">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/O2mSUAEX-xM" title="[動画] インベントリ線変性ツールの使い方" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>線変性ツールの使い方動画 (삼촌안잔다잉チャンネル)</strong></span>
+            <a href="https://youtu.be/O2mSUAEX-xM" target="_blank" rel="noopener noreferrer" class="chip">YouTubeで見る ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 6. 스마트 알람 시스템 ─── -->
+      <section class="doc-section" id="alarm">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">6</span> スマートアラームシステム — イベント · 個人 · 画面通知 · 音声(TTS)</h2>
+        </div>
+
+        <p>Diablo IVの主な時間制コンテンツ(軍団侵攻、ワールドボス、ヘルタイドなど)やユーザー個人のタイマーを見逃さないようにお知らせする、高性能なバックグラウンドアラームエンジンです。</p>
+
+        <h3 id="alarm-events">1) イベント通知 (ワールドボス · ヘルタイド · 軍団)</h3>
+        <p>ゲーム外のウェブサイト(diablo4.life)とリアルタイムで連携し、最新のボスやヘルタイドの出現時刻を自動で計算します。</p>
+        
+        <!-- 이벤트 알림 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="イベント通知タブ — ワールドボス、ヘルタイド、軍団の出現時刻の案内、5分/3分/1分/開始の事前通知トグル、重なったときの優先順位(▲/▼)調整">
+          <div class="thumb-container">
+            <img src="../images/alarm_event_schedule_list.png" alt="イベント通知リストと優先順位">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>イベント通知 (ワールドボス、ヘルタイド、軍団の時刻表と通知タイミング)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>通知タイミングの選択</strong>：各イベントごとに <span class="chip blue">5分</span>, <span class="chip blue">3分</span>, <span class="chip blue">1分</span> 前および <span class="chip blue">開始</span> の時刻を、それぞれ独立してオン/オフできます。</li>
+          <li><strong>重なったときの優先順位</strong>: <kbd>▲</kbd> <kbd>▼</kbd> ボタンを押してイベント間の順序を変更できます。同じ時刻に複数の通知が重なると、上にあるイベントから先に音を鳴らし、画面にも一緒に表示します。</li>
+          <li><strong>軍団の基準点設定</strong>：軍団の出現時刻を自分の画面の状況に合わせて、0分前の基準点として手動で補正することもできます。</li>
+        </ul>
+
+        <h3 id="alarm-personal">2) 個人アラーム (カスタムタイマー & 繰り返し周期)</h3>
+        <p>エリクサー30分の期限切れアラーム、ダンジョンのクールダウン、休憩の案内など、自分だけのカスタムタイマーを無制限に登録できます。</p>
+
+        <!-- 개인 알람 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="個人アラームタブ — ＋アラーム追加ボタン、定期的な繰り返し(例：10分ごとの腹筋運動の無制限タイマー)、リアルタイムの状態トグルと編集/削除">
+          <div class="thumb-container">
+            <img src="../images/alarm_personal_timer_list.png" alt="個人アラームタイマーリスト">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>個人アラーム設定 (カスタム繰り返しタイマーリスト)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><span class="chip blue">＋ アラーム追加</span>：好きな名前と周期(分単位または指定時刻)、開始基準を決めて登録します。</li>
+          <li><strong>スイッチ On/Off</strong>：必要なタイマーだけをスイッチですぐにオン/オフでき、次の通知までの残り時間がリアルタイムで表示されます。</li>
+        </ul>
+
+        <h3 id="alarm-display">3) 画面通知 (ゲーム内テキストオーバーレイバナー)</h3>
+        <p>ゲーム中に視界を妨げずに、重要な通知を直感的に確認できるよう、画面上にテキストを表示します。</p>
+
+        <!-- 화면 알림 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="画面通知設定 — 位置(キャラクターの頭の上、縦オフセット -59px)、文字サイズ(35px)、色(#FFD700)、太字/アウトライン効果、背景の透明度(24)、表示時間(15秒)とプレビュー">
+          <div class="thumb-container">
+            <img src="../images/alarm_banner_display_settings.png" alt="画面通知バナー設定">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>画面通知設定 (位置、文字サイズ、色、アウトライン、表示時間)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>アラーム位置 & 縦オフセット</strong>: <span class="chip">キャラクターの頭の上</span> など好きな位置を選び、縦ピクセルのオフセット(例：-59 px)を微調整できます。</li>
+          <li><strong>可読性オプション</strong>：文字サイズ(px)、カラーパレット(ゴールド #FFD700 など)、 <strong>太字</strong> および <strong>アウトライン</strong> スイッチをオンにすると、暗いダンジョンや派手なスキルエフェクトの中でも文字がはっきり見えます。</li>
+          <li><span class="chip">プレビュー</span> ボタンを押して、ゲーム内でどのように表示されるかをすぐにテストできます。</li>
+        </ul>
+
+        <h3 id="alarm-sound">4) 基本音・音声 (TTS & 効果音)</h3>
+        <p>アラーム音の効果音と Supertonic 3 AI音声エンジンにより、自然な韓国語の音声案内を提供します。</p>
+
+        <!-- 기본 사운드 음성 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="基本音・音声設定 — サウンドファイル(Ring01)、通知方式(アラーム音のみ / アラーム音+音声 / 音声のみ)、Supertonic 3 韓国語音声エンジン(F1 女性、速度0.90x、音量調整)とリアルタイムテスト">
+          <div class="thumb-container">
+            <img src="../images/alarm_sound_voice_settings.png" alt="基本音・音声設定">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>基本音・音声 (Supertonic 3 韓国語音声と効果音)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>通知方式</strong>: <span class="chip">アラーム音のみ</span>, <span class="chip gold">アラーム音 ＋ 音声</span>, <span class="chip">音声のみ</span> の3つのモードに対応。</li>
+          <li><strong>音声エンジン</strong>：内蔵の <strong>Supertonic 3</strong> 音声エンジンを搭載 — 「F1 女性」などの明瞭な韓国語の発音で読み上げ、話す速度(0.90xなど)と音量(0~100)を自由に調整できます。</li>
+          <li><span class="chip">▶ テスト</span> ボタンで実際の音声出力の品質をすぐに確認できます。</li>
+        </ul>
+      </section>
+
+      <!-- ─── 7. 창 모드, 핀, 오버레이 ─── -->
+      <section class="doc-section" id="window-modes">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">7</span> ウィンドウモード · 常に手前(ピン) · ゲーム内オーバーレイ</h2>
+        </div>
+
+        <h3 id="window-mini">1) ミニウィンドウモード (Mini Bar)</h3>
+        <p>ゲーム画面のモニターの隅に小さく表示して使える、超小型の一行バー形式のモードです。</p>
+
+        <!-- 미니바 스크린샷 카드 -->
+        <div class="image-card is-small" data-caption="ミニウィンドウモード — スロットA~Gの稼働状態、開始/停止、便利機能ショートカット、基本ウィンドウに戻るボタン">
+          <div class="thumb-container">
+            <img src="../images/helper_mini_bar.png" alt="ミニバーモード画面">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>超小型ミニバーモード</span></div>
+        </div>
+
+        <ul>
+          <li>スロットA~Gの7つの現在の稼働状態が点灯し、リアルタイムで確認できます。</li>
+          <li><span class="chip green">開始</span> / <span class="chip">停止</span> ボタン、便利機能(レンチ)ボタン — 押すと基本ウィンドウに戻って便利機能タブが開きます(線変性の開始はショートカットまたはそのタブの開始ボタンで)、常に手前(ピン)ボタンを内蔵。</li>
+          <li>復帰(四角)ボタンを押すと、すぐに元のサイズの基本ウィンドウに戻ります。</li>
+        </ul>
+
+        <h3 id="window-overlay">2) ゲーム内HUDオーバーレイ</h3>
+        <p>ゲーム画面の上に半透明で表示し、マクロの動作状況をリアルタイムで確認する必須のHUDツールです。稼働中のマクロスロット、維持キー、現在打鍵中のキー一覧が透明に表示されます。</p>
+
+        <!-- 1. 인게임 오버레이 실화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="ゲーム内HUDオーバーレイの実画面 — 稼働中のマクロスロット(•A、•Bが赤く点灯)、維持キー(維持 RClick)、リアルタイムの押下キー一覧(押下 2 F F F F 4)をリアルタイム表示">
+          <div class="thumb-container">
+            <img src="../images/overlay_ingame_live_display.png" alt="ゲーム内HUDオーバーレイの実画面">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>ゲーム内HUDオーバーレイ (稼働スロット、維持キー、リアルタイム打鍵キー一覧)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>稼働中のマクロスロットの状態</strong>:
+            <span class="chip ruby">•A</span> <span class="chip ruby">•B</span> のように、現在発動して動いているスロットは赤い枠とドット(•)で点灯し、非アクティブなスロット(<span class="chip">C</span>)とトグル待機中のスロット(<span class="chip green">○D</span>)が一目で区別できます。
+          </li>
+          <li><strong>維持キー (Hold / Companion) の出力</strong>：現在継続して押されているキー(例： <code>維持 RClick</code>, <code>維持 Shift</code> など)が右上にリアルタイムで表示されます。
+          </li>
+          <li><strong>リアルタイム押下キー一覧 (Key Log)</strong>：下部に、現在のシーケンスでリアルタイムに打鍵しているスキルキー(例： <code>押下 2 F F F F 4</code>)が連続で出力され、スキルローテーションが正確に噛み合って回っているかをゲーム中にすぐ確認できます。
+          </li>
+          <li><strong>線変性の進行度</strong>：ホラドリックキューブの線変性の動作中は、現在のマス番号と進行率がオーバーレイに表示されます。</li>
+        </ul>
+
+        <!-- 2. 오버레이 설정 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="グローバル設定 — オーバーレイ詳細カスタム (モニター選択、位置：右下、X/Yピクセルオフセット、透明度40%、サイズ118%、横幅409px、リアルタイムプレビュー)">
+          <div class="thumb-container">
+            <img src="../images/overlay_configuration_settings.png" alt="オーバーレイ詳細設定画面">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>オーバーレイ詳細設定 (モニター、位置、X/Yオフセット、透明度、サイズ、幅の調整)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>ゲームオーバーレイ表示</strong>：オーバーレイをオン/オフするマスタースイッチです。</li>
+          <li><strong>モニター選択</strong>：デュアルおよびマルチモニター環境で、Diablo IVが起動しているモニター(例： <code>2: LG HDR 4K (2560×1440)</code>)をドロップダウンで直接指定できます。</li>
+          <li><strong>画面位置 & 精密ピクセルオフセット</strong>：画面の9つの区画(例： <code>右</code> <code>下</code>)を選んだあと、 <span class="chip">Xオフセット</span>(-13 px)と <span class="chip">Yオフセット</span>(-3 px)で、ミニマップやゲームUIを隠さないようにピクセル単位で位置を微調整します。
+          </li>
+          <li><strong>透明度 & サイズ & 横幅</strong>：スライダーで <span class="chip">透明度</span>(デフォルト40%の半透明)、 <span class="chip">サイズ</span>(118%などの倍率)、 <span class="chip">横幅</span>(409 px)を自分の視界に合わせて最適化します。
+          </li>
+          <li><span class="chip blue">👁 プレビュー</span>：マクロを実際に実行しなくても、ボタンを押すと設定した位置とサイズでオーバーレイが画面にすぐ表示されるので確認が便利です。</li>
+        </ul>
+      </section>
+
+      <!-- ─── 8. 안전장치 ─── -->
+      <section class="doc-section" id="safety-features">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">8</span> 安全装置 — 待機キー(Stop Keys) · ゲームウィンドウ検知</h2>
+        </div>
+
+        <ul>
+          <li><strong>待機キー (Stop Keys、デフォルト： <kbd>Enter</kbd> <kbd>Tab</kbd> <kbd>T</kbd> <kbd>I</kbd>)</strong>：チャットを開く(<kbd>Enter</kbd>)、マップを開く(<kbd>Tab</kbd>)、次元の門(<kbd>T</kbd>)、インベントリを開く(<kbd>I</kbd>)などゲームインターフェースを開いたときに、マクロが見当違いにスキルを乱射しないよう <strong>即座に入力を一時停止</strong>します。会話を終えて再び発動キーを押すと、マクロが再開します。
+          </li>
+          <li><strong>ゲームウィンドウ検知</strong>：Diablo IVのプロセスがアクティブなウィンドウのときだけ動作します。設定で特定のウィンドウタイトルやプロセス名をユーザーが自分でカスタムマッチングすることもできます。
+          </li>
+          <li><strong>入力送信検証ツール</strong>：上部バーの <span class="chip">テスト</span> ボタンを押すと、ゲームの外でも仮想キー入力がシステムに正しく注入されるかを事前に点検できます。
+          </li>
+        </ul>
+
+        <h3 id="input-test">3) 入力テストウィンドウ</h3>
+        <p>上部バーの <span class="chip">テスト</span> ボタンを押すと小さなウィンドウが開き、マクロが送るキー・マウス入力がそのまま入ってくるかを目で確認できます。発動キーを押しても何も起きないときに、「ヘルパーが入力を送れていないのか、ゲームが受け取っていないのか」を切り分ける最初の点検ツールです。</p>
+        <div class="image-card is-small" data-caption="入力テストウィンドウ — マクロが送るキー・マウス入力が実際に入ってくるかを確認">
+          <div class="thumb-container">
+            <img src="../images/helper_input_test.png" alt="入力テストウィンドウ">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>入力テストウィンドウ</span></div>
+        </div>
+        <!-- 설정창 캡처 -->
+        <div class="image-card is-thumbnail" data-caption="グローバル設定ウィンドウ — 安全待機キーのカスタム、ゲームウィンドウ検知プロセスの指定、オーバーレイの位置/透明度の調整">
+          <div class="thumb-container">
+            <img src="../images/helper_settings_dialog.png" alt="グローバル設定ダイアログ">
+            <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+          </div>
+          <div class="image-caption"><span>📷</span> <span>ヘルパー グローバル設定(⚙)ダイアログ</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 9. 프로필 관리 & 공유 ─── -->
+      <section class="doc-section" id="profile-sync">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">9</span> プロファイル管理 · バックアップ · クランメンバーとの共有</h2>
+        </div>
+
+        <ul>
+          <li>プロファイル1つには、スロットA~G(計7つ)のすべてのシーケンスとディレイ、発動キーの設定がまるごとまとめて保存されます。</li>
+          <li>ソーサラー、バーバリアン、ドルイド、ネクロマンサー、ローグ、スピリットボーンなど、クラス別・ビルド別にプロファイルを分けておけば、ワンクリックですべての設定が切り替わります。</li>
+          <li><span class="chip">エクスポート</span>：現在の設定を <code>.d4cute</code> ファイルとして書き出し、安全にバックアップしたり、クランメンバーに共有したりできます。</li>
+          <li><span class="chip blue">インポート</span>：他のユーザーが共有した <code>.d4cute</code> プロファイルファイルを読み込んで、自分のヘルパーにすぐ適用します。</li>
+          <li><span class="chip">保存</span> ボタンを押して初めてディスクに安全に反映され、誤って設定を変更してしまったときは <span class="chip">読み込む</span>を押して、最後に保存した時点に戻せます。</li>
+        </ul>
+      </section>
+
+      <!-- ─── 10. 텔레그램 지원 & 디버그 로그 ─── -->
+      <section class="doc-section" id="telegram-support">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">10</span> Telegramサポート & デバッグログビューアー</h2>
+        </div>
+
+        <p>
+          ヘルパー上部のプロファイル行にある青い <span class="chip blue" style="display:inline-flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Telegramロゴ</span> アイコンをクリックすると、Telegram連携ダイアログが開きます。新バージョンの情報をすばやく確認し、 <strong style="color:var(--gold);">@d4cute_helper</strong> ユーザーグループで質問やバグ報告を行い、エラー発生時には <strong style="color:var(--ruby);">デバッグログをワンクリックで抽出</strong>して、解決のサポートを受けられます。
+        </p>
+
+        <!-- 텔레그램 및 로그 뷰어 스크린샷 2종 갤러리 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 20px 0;">
+          <div class="image-card is-thumbnail" data-caption="Telegramダイアログ — お知らせチャンネル(@d4_notice)、ユーザー交流グループ(@d4cute_helper)、スマートフォンですぐ参加できるQRコード、ログ表示とTelegramインストールボタン">
+            <div class="thumb-container">
+              <img src="../images/telegram_qr_dialog.png" alt="Telegram連携ダイアログとQRコード">
+              <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>Telegram連携ポップアップ (お知らせ/ユーザーグループ/QRコード/インストール)</span>
+            </div>
+          </div>
+          
+          <div class="image-card is-thumbnail" data-caption="ログビューアーダイアログ — 日付別のログ閲覧、警告・エラーのみのフィルタートグル、直近200行のコピー、エラーのみコピー、ローカルログフォルダを開く">
+            <div class="thumb-container">
+              <img src="../images/log_viewer_error_copy.png" alt="デバッグログビューアーダイアログ">
+              <span class="zoom-hint-badge">🔍 クリックで拡大</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>ワンクリックデバッグログビューアー (エラーのみコピー/直近200行コピー)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1) 텔레그램 설치 및 계정 준비 -->
+        <h3 id="telegram-install">1) Telegramのインストールと事前準備</h3>
+        <p>
+          Telegramは、PCとスマートフォンで軽く安全に動作するグローバルメッセンジャーです。PCまたはモバイルにまだTelegramがインストールされていない場合は、以下の方法で簡単に準備できます。
+        </p>
+        <div class="alert-box info" style="margin: 12px 0 18px;">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>安全な公式インストール案内</strong><br>
+            ヘルパーのTelegramウィンドウ下部の <span class="chip blue">Telegramインストール</span> ボタンを押すと、Telegram公式ウェブサイト(<a href="https://telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">telegram.org</a>)がブラウザで開きます。 
+            <span style="color:var(--green); font-weight:600;">ヘルパーが勝手に実行ファイルをダウンロードしたりインストールしたりすることはないので、安心してご利用ください。</span>
+          </div>
+        </div>
+        <ul>
+          <li><strong>スマートフォン (モバイル)</strong>: <span style="color:var(--gold); font-weight:600;">Google Playストア</span> または <span style="color:var(--gold); font-weight:600;">Apple App Store</span>で、 <code>Telegram</code>で検索して無料ダウンロードします。電話番号認証だけで、1分で登録が完了します。</li>
+          <li><strong>PC (デスクトップ)</strong>: <a href="https://desktop.telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">Telegram Desktop ↗</a> 公式ページからWindows向けインストール版をダウンロードしてインストールしたあと、モバイルのTelegramアプリの <span class="chip">設定 → デバイス → デスクトップデバイスをリンク</span>でQRコードをスキャンすると、パスワードなしですぐにログインできます。</li>
+        </ul>
+
+        <!-- 2) 채널 및 그룹방 가입 방법 -->
+        <h3 id="telegram-channels">2) チャンネル & ユーザーグループへの参加方法</h3>
+        <p>
+          d4cute helperは、目的に応じて2つの公式Telegramルームを運営しています。
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0 20px;">
+          <div class="clan-card" style="padding: 16px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">📢</span>
+              <strong style="color:var(--gold); font-size:16px;">お知らせ専用チャンネル</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              新バージョンのアップデート情報、シーズンパッチへの対応状況、緊急のお知らせを伝える一方向の通知チャンネルです。
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700;">@d4_notice ↗</a>
+              <span class="chip">お知らせを購読</span>
+            </div>
+          </div>
+
+          <div class="clan-card" style="padding: 16px; border-color: rgba(59, 130, 246, 0.4);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">💬</span>
+              <strong style="color:var(--blue); font-size:16px;">ユーザー交流グループルーム</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              <strong>ヘルパーの設定Tipsの共有、質問、機能の要望、エラー報告は、ここでのみ受け付けています！</strong>
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper ↗</a>
+              <span class="chip blue">お問い合わせ/報告</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box gold" style="margin: 12px 0 18px;">
+          <span class="alert-icon">⚠️</span>
+          <div>
+            <strong>お問い合わせチャンネルの注意事項</strong><br>
+            삼촌안잔다잉のYouTubeチャンネルは、Diablo IVのゲームプレイと交流を楽しむ個人の配信スペースです。 <span style="color:var(--ruby); font-weight:700;">YouTube配信のチャットやコメントでは、ヘルパーに関するお問い合わせを一切受け付けていませんので</span>、必ずTelegram公式グループルーム(<span style="color:var(--blue); font-weight:700;">@d4cute_helper</span>)にお越しください。
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">📱 グループルームへの簡単な参加方法2つ</h4>
+        <ul>
+          <li><strong>方法A (スマートフォンのカメラでQRスキャン — 一番のおすすめ！)</strong>：スマートフォンの標準カメラアプリを起動して、画面右側の <strong style="color:var(--gold);">大きなQRコード</strong>にかざすと、上部に黄色いTelegramリンクのバナーが表示されます。ワンタッチで <span class="chip blue">@d4cute_helper</span> グループルームにすぐ入れます。</li>
+          <li><strong>方法B (PCのTelegramをそのまま開く)</strong>：ウィンドウで <span class="chip">開く</span> ボタンを押すか、ウェブリンク(<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">https://t.me/d4cute_helper</a>)をクリックすると、PCのTelegramクライアントに直行します。</li>
+        </ul>
+
+        <!-- 3) 로그 뷰어를 통한 오류 복사 & 문제 해결 -->
+        <h3 id="log-viewer-guide">3) ログ表示によるエラーコピー & 問題解決の方法</h3>
+        <p>
+          マクロが突然止まったり、線変性の途中でエラーが発生したり、予期しない動作が現れたときに、制作者へ状況を説明するには <strong style="color:var(--gold);">ログデータ</strong>が最も確実な手がかりになります。
+        </p>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">🔍 ログビューアーの画面構成 & ボタンの機能</h4>
+        <ul>
+          <li><strong><span style="color:var(--gold); font-weight:700;">ログ日付ドロップダウン</span></strong>：エラーが発生した日付(デフォルト：今日の日付)を選択します。ログは直近 <span class="chip">7日間自動保管</span>されたあと、古いファイルから順に削除されます。</li>
+          <li><strong><span class="chip">警告・エラーのみ</span> トグルスイッチ</strong>：数千行に及ぶ通常の <code>INFO</code> ログを隠し、システム警告(<span style="color:#f59e0b; font-weight:700;">WARN</span>)とエラー(<span style="color:var(--ruby); font-weight:700;">ERROR</span>)の項目だけを抜き出して見られます。</li>
+          <li><strong><span class="chip">リフレッシュ</span></strong>：ヘルパーを起動したまま、リアルタイムで溜まっていく最新ログを即座に画面に再読み込みします。</li>
+          <li><strong><span class="chip">フォルダを開く</span></strong>：ログの元テキストファイルが保存されているWindowsエクスプローラーのフォルダ(<code>%APPDATA%\d4cute_helper\logs</code>)を直接開きます。</li>
+          <li><strong><span class="chip gold">直近200行をコピー</span></strong>：エラー直前までどのキーが押され、どのイベントが起きたのか文脈を把握できるよう、直近200行分のログをクリップボードにコピーします。</li>
+          <li><strong><span class="chip ruby">エラーのみコピー</span></strong>：ログ全体の中から、エラー(<span style="color:var(--ruby); font-weight:700;">ERROR</span>)と例外のスタックトレース部分だけを精密に抽出してクリップボードに入れます。</li>
+          <li><strong><span class="chip">選択コピー</span></strong>：テキストウィンドウでマウスを使って必要な部分をドラッグし、その区間だけをコピーします。</li>
+        </ul>
+
+        <div class="alert-box info" style="margin: 14px 0 18px;">
+          <span class="alert-icon">🛡️</span>
+          <div>
+            <strong>個人情報の安心保護 & 自動送信の遮断</strong><br>
+            <ul style="margin: 6px 0 0 18px; padding: 0;">
+              <li><strong>ユーザー名の自動マスキング</strong>：ログ内のファイルパス(例： <code>C:\Users\山田太郎\...</code>)のユーザーアカウント名は、自動的に判別できないよう隠されてコピーされるので、プライバシーが漏れる心配はありません。</li>
+              <li><strong>外部への自動送信の遮断</strong>：下部の案内文(「<em>コピーした内容をTelegramグループに貼り付けて送ってください — ヘルパーが自動で送るものはありません。</em>」)のとおり、ヘルパーはインターネットを通じてユーザーのログをこっそり外部へ送信することはありません。ユーザー自身がコピーして貼り付けたときにだけ、安全に共有されます。</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 18px 0 10px;">🚀 エラーログの共有と迅速な解決 3ステップガイド</h4>
+        <ol style="line-height: 1.85;">
+          <li>
+            <strong style="color:var(--gold);">ステップ1：ログをコピーする</strong><br>
+            問題が発生したらすぐに、Telegramダイアログで <span class="chip gold">📁 ログ表示</span> ボタンを押し、ウィンドウ下部の <span class="chip ruby">エラーのみコピー</span> または <span class="chip gold">直近200行をコピー</span> ボタンをクリックします。<br>
+            <span style="font-size: 13px; color: var(--fg-dim);">※ コピーされたログの一番上の行には、ヘルパーのバージョン、OS環境、解像度倍率のメタ情報が自動的に付加され、開発者が環境を一目で把握できます。</span>
+          </li>
+          <li>
+            <strong style="color:var(--blue);">ステップ2：Telegramグループルームに貼り付ける</strong><br>
+            スマートフォンまたはPCから <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a> グループルームに移動し、メッセージ入力欄をクリックして <kbd>Ctrl</kbd> + <kbd>V</kbd>(モバイルは入力欄を長押ししてから貼り付け)を実行します。
+          </li>
+          <li>
+            <strong style="color:var(--green);">ステップ3：発生状況の説明を添える</strong><br>
+            ログと一緒に <em>「どんな状況で問題が起きたのか」</em> を1~2行添えてください：<br>
+            <div style="background:var(--card-subtle); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--gold); margin:8px 0; font-size:13px; color:var(--fg-dim);">
+              例1：「インベントリ線変性を開始したあと、12番目のマスでキューブ空確認の段階で止まります。ログを残します。」<br>
+              例2：「グローバル設定でオーバーレイの位置を変えたのですが、画面にオーバーレイが表示されません。」
+            </div>
+            スクリーンショットやスマートフォンの写真を一緒に添付していただけると、より迅速で正確な診断とパッチにつながります。
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 11. 클랜 & 방송 커뮤니티 ─── -->
+      <section class="doc-section" id="community">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">11</span> 앙증맞은クラン & 삼촌안잔다잉チャンネル</h2>
+        </div>
+
+        <p>制作者が活動しているクランと、そのクランマスターのゲーム配信チャンネルです。どちらもヘルパーとは別の場所です。</p>
+
+        <!-- 상단 2열: 클랜 개요 카드 & 삼촌안잔다잉 방송 채널 카드 (높이 균형 & 럭셔리 디자인) -->
+        <div class="clan-showcase-grid">
+          <!-- 1. 앙증맞은 클랜 개요 -->
+          <div class="clan-card highlight-gold">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest">⚔️</div>
+                <div>
+                  <h3 class="clan-card-title">&lt;앙증맞은&gt; 虹の翼</h3>
+                  <p class="clan-card-sub">Diablo IVゲーム内クラン · クランマスター 大韓民国(삼촌안잔다잉)</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 14px; line-height: 1.75;">
+                制作者が一緒に活動しているゲーム内の親睦クランです。モットーは <strong>「助け合いは持ちつ持たれつ」</strong> — 一方的なバス(キャリー)よりも互いに気にかけ合うギブ・アンド・テイク、検索の習慣化。
+              </p>
+              <ul style="font-size:13px; color:var(--fg-dim); margin:0 0 16px 18px; padding:0; line-height:1.75;">
+                <li>シーズンごとに奈落の高段登攀、たいまつ無限周回、ボスパーティを一緒に進行</li>
+                <li>ミシック・ユニーク装備のファーミングとシーズンジャーニーを一緒に達成</li>
+                <li>Discordは運営しておらず、ゲーム内で申請後にYouTubeチャンネルで確認</li>
+              </ul>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn gold">
+              <span>삼촌안잔다잉チャンネル — 参加したことを知らせる ↗</span>
+            </a>
+          </div>
+
+          <!-- 2. 삼촌안잔다잉 게임 방송 채널 -->
+          <div class="clan-card highlight-ruby">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest" style="border-color: rgba(229, 72, 77, 0.45); background: rgba(229, 72, 77, 0.1);">📺</div>
+                <div>
+                  <h3 class="clan-card-title" style="color: #ff999c;">삼촌안잔다잉</h3>
+                  <p class="clan-card-sub">🌙 みんなが寝ている間、おじさんはゲーム中！ · YouTube・CHZZK同時配信</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 10px; line-height: 1.75;">
+                クランマスターが運営する <strong>ゲーム配信チャンネル</strong>です(制作者のチャンネルではありません)。Diablo IVを中心に、自ら体験したリアルな経験と攻略を共有します。
+              </p>
+              <ul style="font-size:13px; margin:0 0 12px 18px; padding:0; color:var(--fg-dim); line-height:1.75;">
+                <li>シーズンごとのキャラクター育成・ビルド・スキル・征服者ガイド & 装備セットアップのTips</li>
+                <li>公開テストサーバー(PTR)体験、パッチ変更点、そして止めて見るショート動画「手のひら攻略集」</li>
+              </ul>
+              <div class="alert-box gold" style="margin: 0 0 16px; padding: 10px 14px; font-size: 12.5px;">
+                <span class="alert-icon">⚠️</span>
+                <div><strong>ヘルパー・マクロの質問はこのチャンネルでは受け付けていません。</strong> チャンネルは純粋にゲームを楽しむ配信であり、ヘルパーのお問い合わせ・バグ報告はTelegram公式グループ(<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a>)でのみ受け付けています。</div>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn ruby">
+              <span>삼촌안잔다잉 YouTubeへ移動 ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 하단 전폭 와이드: 클랜 가입 4단계 & 가입 후 활동/생활 가이드 -->
+        <div class="clan-guide-container">
+          <div class="clan-guide-header">
+            <span style="font-size:24px;">🛡️</span>
+            <div>
+              <h3 class="clan-guide-title">&lt;앙증맞은&gt; 虹の翼 クラン参加と基本生活ガイド</h3>
+              <p style="margin:2px 0 0; font-size:12.5px; color:var(--fg-dim);">互いに思いやり、楽しく一緒に過ごせるDiablo IVのクラン文化を作っていきます。</p>
+            </div>
+          </div>
+
+          <div style="margin:0 0 14px; padding:10px 14px; border:1px solid rgba(229,184,92,0.4); border-left:4px solid var(--gold); border-radius:8px; background:rgba(229,184,92,0.08); font-size:13.5px; line-height:1.6; color:var(--fg);">🌏 外国籍のプレイヤーも加入できます。ただしクラン内の会話は韓国語で行うため、韓国語でやり取りできることが条件です。韓国語での会話が難しい場合は加入が難しくなります。</div>
+
+          <div class="clan-guide-grid">
+            <!-- 1. 가입 절차 4단계 패널 -->
+            <div class="clan-sub-panel blue-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--blue);">
+                <span>🎥</span> <strong>参加手順4ステップ</strong> <span class="chip" style="font-size:11px; margin-left:auto;">Discordへの参加は不要！</span>
+              </h4>
+              <ol style="margin:0 0 0 18px; padding:0; line-height:1.9; font-size:13.5px; color:var(--fg);">
+                <li>ゲーム内でクランを検索 → <strong>앙증맞은</strong> を探す → <strong>参加申請</strong></li>
+                <li><strong>삼촌안잔다잉チャンネル</strong>(ライブ配信など)で参加したことを知らせる</li>
+                <li><strong>クランマスターおよび管理者</strong>が申請内容を確認後、 <strong>承認</strong>する</li>
+                <li>申請者がゲーム内でもう一度 <strong>最終承認(承諾)</strong>を押せば参加完了</li>
+              </ol>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; color:var(--fg-muted);">
+                ※ Discordは運営しておらず、クランの承認は삼촌안잔다잉配信のライブ確認を経て行われます。
+              </div>
+            </div>
+
+            <!-- 2. 가입 후 활동 가이드 & 생활 수칙 패널 -->
+            <div class="clan-sub-panel gold-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--gold-bright);">
+                <span>🤝</span> <strong>参加後の活動 & クランの基本生活ルール</strong>
+              </h4>
+              <ul style="margin:0 0 0 18px; padding:0; line-height:1.85; font-size:13px; color:var(--fg-dim);">
+                <li><strong style="color:var(--fg);">うれしい最初の挨拶 & 親しみを築く</strong>：参加承認後、ゲーム内のギルドチャット欄に最初の挨拶を残してください。お互いにニックネームで呼び合いながら挨拶していれば、すぐに仲良くなれます。</li>
+                <li><strong style="color:var(--fg);">助けの依頼 & 持ちつ持たれつの文化</strong>：育成、奈落の高段、ボス召喚パーティなど助けが必要なときは、 <strong>ギルドチャット欄やYouTubeライブ配信</strong>に気軽に依頼してください。 <em>「助け合いは持ちつ持たれつ(ギブ・アンド・テイク)」</em> の気持ちで、後で他の仲間を一緒に助けてあげてください。</li>
+                <li><strong style="color:var(--fg);">基本マナーと相互尊重</strong>：さまざまなユーザーが集まる親睦の場なので、思いやりのある言葉づかい(中傷・暴言禁止)をお願いします。質問の前に軽く検索する習慣も推奨します。</li>
+                <li><strong style="color:var(--fg);">シーズンオフと新シーズンへの復帰</strong>：シーズンオフ後に10日以上ログインしないとメンバー整理が行われることがありますが、新シーズンが始まればいつでも気軽に再度参加申請していただけます。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 12. FAQ ─── -->
+      <section class="doc-section" id="faq">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">12</span> よくある質問 (FAQ) & トラブルシューティング</h2>
+        </div>
+
+        <h3>Q. 発動キーを押してもスキルが出ません。</h3>
+        <ul>
+          <li>上部バーの状態が <strong>実行中</strong>になっているか確認してください (<span class="chip green">▶ 開始</span> ボタンをクリックしたか)。</li>
+          <li>選択したスロットの <strong>マクロ有効スイッチ</strong>がオンになっているか、シーケンスタブにステップが1つ以上入っているか確認してください。</li>
+          <li>Diablo IVのゲームウィンドウが画面の最前面でフォーカスされている必要があります。</li>
+          <li>チャットやインベントリを開いて <strong>待機キー</strong>により一時停止している状態なら、発動キーをもう一度押せば解除されます。</li>
+        </ul>
+
+        <h3>Q. 右マウスを発動キーにしているのですが、インベントリや倉庫でウィンドウが何度も閉じてしまいます。</h3>
+        <p>マクロ設定の <strong>押下認識ディレイ(Press Delay)</strong>を <code>250ms ~ 300ms</code>に設定してください。こうすると、アイテムを右クリックして移動するときの「短いクリック」はそのままゲームに伝わり、長押ししたときだけマクロがオンになるため、ウィンドウが閉じる誤動作が完全になくなります。</p>
+
+        <h3>Q. ホラドリックキューブの線変性がボタンを見つけられない、または止まります。</h3>
+        <p>1.30バージョンでOCR文字認識ロジックとキューブ空確認が大幅に強化されました。ゲーム内のグラフィック設定で文字がぼやけすぎている場合や、UI倍率が極端な場合は認識が難しいことがありますので、問題が続く場合は <code>%APPDATA%\d4cute_helper\debug\</code> フォルダの <code>alter_slots.txt</code> ファイルをコピーしてTelegramグループにお問い合わせください。</p>
+
+        <h3>Q. 線変性でアイテムが2つ重なったり、変性せずに次のマスへ進んだりします。</h3>
+        <p>変性の演出が遅いPCで起こる症状です。便利機能タブの <strong>結果待機 ms</strong>を上げ(例：3000 → 5000)、それでも繰り返す場合は <code>debug\alter_slots.txt</code> をグループに投稿してください。1.30.1以降は、キューブの最初のマスの画像で空かどうかを確認し、承諾ウィンドウが遅れて表示されてもEnterを押します。</p>
+
+        <h3>Q. ヘルパー・マクロの質問はどこでできますか？</h3>
+        <p>Telegramユーザーグループ <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer"><code>@d4cute_helper</code></a> でのみ受け付けています。삼촌안잔다잉のYouTubeチャンネルはゲームを楽しむ配信のため、ヘルパー・マクロのお問い合わせは受け付けていません。</p>
+
+        <h3>Q. ウィンドウが真っ白になったり、ちらついたりします (白化現象)。</h3>
+        <p>1.30で内蔵ブラウザのレンダラーを変更して白化を修正しました。それでも再び見られる場合は、ログビューアーの <span class="chip">エラーのみコピー</span> 結果と画面キャプチャをTelegramグループに投稿してください。</p>
+      </section>
+
+      <footer>
+        <div>d4cute helper v1.30.0 Documentation · Crafted with Care</div>
+        <div><a href="#quickstart" style="color: var(--gold);">一番上へ移動 ↑</a></div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ─── 고기능 라이트박스 뷰어 모달 (마우스 휠 줌 / 팬 / 이전/다음 / 캡션) ─── -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true">
+    <div class="lightbox-topbar">
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" id="zoomOutBtn" title="縮小 (マウスホイール下)">－</button>
+        <span class="lightbox-zoom-indicator" id="zoomLevel">100%</span>
+        <button class="lightbox-btn" id="zoomInBtn" title="拡大 (マウスホイール上)">＋</button>
+        <button class="lightbox-btn" id="zoomResetBtn" title="原寸大">リセット</button>
+        <button class="lightbox-btn lightbox-close-btn" id="lightboxCloseBtn" title="閉じる (ESC)">✕ 閉じる</button>
+      </div>
+    </div>
+    
+    <div class="lightbox-stage" id="lightboxStage">
+      <button class="lightbox-nav-btn lightbox-prev-btn" id="lightboxPrevBtn" title="前の画像 (←)">❮</button>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-nav-btn lightbox-next-btn" id="lightboxNextBtn" title="次の画像 (→)">❯</button>
+    </div>
+
+    <div class="lightbox-bottombar">
+      <div class="lightbox-caption-text" id="lightboxCaption">画像の説明</div>
+      <div style="font-size: 12px; color: var(--fg-muted);">マウスホイールで拡大/縮小可能 · 左右の方向キーで移動</div>
+    </div>
+  </div>
+
+  <!-- ─── 인터랙션 자바스크립트 ─── -->
+  <script>
+    (function() {
+      // 1. DOM 요소
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+      const tabBtns = document.querySelectorAll('.sidebar-tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      const sidebarSearch = document.getElementById('sidebarSearch');
+      const searchClearBtn = document.getElementById('searchClearBtn');
+      const searchResultsList = document.getElementById('searchResultsList');
+      const searchMatchCount = document.getElementById('searchMatchCount');
+      const tocLinks = document.querySelectorAll('.toc-link');
+      
+      const imgCountSpan = document.getElementById('imgCount');
+      const vidCountSpan = document.getElementById('vidCount');
+      const sidebarImageGrid = document.getElementById('sidebarImageGrid');
+      const sidebarVideoGrid = document.getElementById('sidebarVideoGrid');
+
+      // 라이트박스 요소
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+      const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+      const lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
+      const lightboxNextBtn = document.getElementById('lightboxNextBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const zoomResetBtn = document.getElementById('zoomResetBtn');
+      const zoomLevelSpan = document.getElementById('zoomLevel');
+      const lightboxStage = document.getElementById('lightboxStage');
+
+      // 2. 사이드바 접기/펼치기 토글 & ⭐️ 요청사항 1: 햄버거/미니바 마우스 호버 자동 펼침(Hover Peek)
+      sidebarToggle.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          document.body.classList.toggle('sidebar-open');
+        } else {
+          document.body.classList.toggle('sidebar-collapsed');
+          sidebar.classList.remove('hover-expanded');
+        }
+      });
+
+      if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', () => {
+          document.body.classList.remove('sidebar-open');
+        });
+      }
+
+      // 데스크탑 접힘 모드에서 햄버거 버튼 또는 사이드바 미니바에 마우스 올리면 자동 슬라이드 노출
+      let hoverTimeout = null;
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      function onMouseEnterTrigger() {
+        if (canHover && window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          clearTimeout(hoverTimeout);
+          sidebar.classList.add('hover-expanded');
+        }
+      }
+      function onMouseLeaveTrigger() {
+        if (window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          hoverTimeout = setTimeout(() => {
+            sidebar.classList.remove('hover-expanded');
+          }, 250);
+        }
+      }
+
+      sidebarToggle.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebarToggle.addEventListener('mouseleave', onMouseLeaveTrigger);
+      sidebar.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebar.addEventListener('mouseleave', onMouseLeaveTrigger);
+
+      // 모바일에서 외부 클릭 시 닫기
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024 && document.body.classList.contains('sidebar-open')) {
+          if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            document.body.classList.remove('sidebar-open');
+          }
+        }
+      });
+
+      // 3. 사이드바 탭 전환
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const targetPanel = document.getElementById(`panel-${btn.dataset.tab}`);
+          if (targetPanel) targetPanel.classList.add('active');
+        });
+      });
+
+      // 4. 본문 내 이미지 & 비디오 자동 수집
+      const imageCards = Array.from(document.querySelectorAll('.image-card'));
+      const videoCards = Array.from(document.querySelectorAll('.video-card'));
+      
+      const imageList = [];
+      imageCards.forEach((card, idx) => {
+        const img = card.querySelector('img');
+        const caption = card.dataset.caption || (card.querySelector('.image-caption span:last-child') ? card.querySelector('.image-caption span:last-child').innerText : img.alt);
+        if (img) {
+          card.id = `img-item-${idx}`;
+          imageList.push({
+            src: img.src,
+            alt: img.alt,
+            caption: caption,
+            cardEl: card,
+            idx: idx
+          });
+
+          // 사이드바 이미지 탭에 카드 추가
+          const navCard = document.createElement('a');
+          navCard.className = 'media-nav-card';
+          navCard.href = `#${card.id}`;
+          navCard.innerHTML = `
+            <img src="${img.src}" class="media-nav-thumb" alt="${img.alt}" loading="lazy">
+            <div class="media-nav-meta">
+              <div class="media-nav-title">${img.alt || caption}</div>
+              <div class="media-nav-desc">${caption}</div>
+            </div>
+          `;
+          navCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.transition = 'outline 0.3s, box-shadow 0.3s';
+            card.style.outline = '2px solid var(--gold)';
+            card.style.boxShadow = '0 0 25px var(--gold-glow)';
+            setTimeout(() => {
+              card.style.outline = 'none';
+              card.style.boxShadow = '';
+            }, 1800);
+            if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+          });
+          sidebarImageGrid.appendChild(navCard);
+
+          // 이미지 클릭 시 라이트박스 열기
+          const thumbContainer = card.querySelector('.thumb-container');
+          if (thumbContainer) {
+            thumbContainer.addEventListener('click', () => openLightbox(idx));
+          }
+        }
+      });
+      imgCountSpan.innerText = imageList.length;
+
+      // 영상 목록 사이드바 생성
+      videoCards.forEach((vcard, vidx) => {
+        const title = vcard.dataset.videoTitle || `動画ガイド ${vidx + 1}`;
+        vcard.id = `vid-item-${vidx}`;
+
+        const navCard = document.createElement('a');
+        navCard.className = 'media-nav-card';
+        navCard.href = `#${vcard.id}`;
+        navCard.innerHTML = `
+          <div class="media-nav-thumb" style="display:flex;align-items:center;justify-content:center;background:#181622;color:var(--ruby);font-size:18px;">▶</div>
+          <div class="media-nav-meta">
+            <div class="media-nav-title"><span class="video-badge">VIDEO</span>${title}</div>
+            <div class="media-nav-desc">クリックしてその動画の位置へ移動</div>
+          </div>
+        `;
+        navCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          vcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          vcard.style.outline = '2px solid var(--ruby)';
+          setTimeout(() => { vcard.style.outline = 'none'; }, 1800);
+          if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+        });
+        sidebarVideoGrid.appendChild(navCard);
+      });
+      vidCountSpan.innerText = videoCards.length;
+
+      // ⭐️ 요청사항 3: 도움말 본문 전체 실시간 검색 기능
+      const sections = Array.from(document.querySelectorAll('section.doc-section'));
+      
+      // 검색용 텍스트 인덱싱
+      // 소제목(h3) 단위로 인덱싱 - 섹션당 1건이던 결과가 소절마다 나온다. 소제목 앞 도입부는 섹션 제목으로.
+      const searchIndex = [];
+      sections.forEach(sec => {
+        const title = sec.querySelector('.section-title') ? sec.querySelector('.section-title').innerText : '';
+        let cur = { id: sec.id, title: title, sub: '', element: sec, parts: [] };
+        Array.from(sec.children).forEach(child => {
+          if (child.tagName === 'H3') {
+            if (cur.parts.length) searchIndex.push(cur);
+            cur = { id: child.id || sec.id, title: title, sub: child.innerText, element: child, parts: [] };
+            return;
+          }
+          if (child.classList && child.classList.contains('section-header')) return;
+          cur.parts.push(child);
+        });
+        if (cur.parts.length) searchIndex.push(cur);
+      });
+      searchIndex.forEach(item => {
+        item.rawText = (item.sub ? item.sub + ' ' : '') + item.parts.map(p => p.innerText).join(' ');
+      });
+
+      function clearHighlights() {
+        document.querySelectorAll('mark.search-highlight').forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(document.createTextNode(m.textContent), m);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(root, query) {
+        if (!query) return;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.parentElement && !['SCRIPT', 'STYLE', 'BUTTON'].includes(node.parentElement.tagName)) {
+            textNodes.push(node);
+          }
+        }
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        textNodes.forEach(tNode => {
+          const val = tNode.nodeValue;
+          if (regex.test(val)) {
+            const span = document.createElement('span');
+            span.innerHTML = val.replace(regex, '<mark class="search-highlight">$1</mark>');
+            tNode.parentNode.replaceChild(span, tNode);
+          }
+        });
+      }
+
+      sidebarSearch.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        clearHighlights();
+
+        if (query.length > 0) {
+          searchClearBtn.classList.add('visible');
+          // 검색 결과 패널 열기
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-search').classList.add('active');
+          tabBtns.forEach(b => b.classList.remove('active'));
+
+          searchResultsList.innerHTML = '';
+          const lowerQ = query.toLowerCase();
+          let matchCount = 0;
+
+          searchIndex.forEach(item => {
+            const idx = item.rawText.toLowerCase().indexOf(lowerQ);
+            if (idx !== -1) {
+              matchCount++;
+              // 스니펫 생성
+              const start = Math.max(0, idx - 30);
+              const end = Math.min(item.rawText.length, idx + query.length + 50);
+              let snippet = item.rawText.substring(start, end).replace(/\s+/g, ' ');
+              if (start > 0) snippet = '...' + snippet;
+              if (end < item.rawText.length) snippet = snippet + '...';
+
+              const card = document.createElement('div');
+              card.className = 'search-item-card';
+              card.innerHTML = `
+                  <div class="search-item-title">${item.title}</div>
+                  ${item.sub ? `<div class="search-item-sub">› ${item.sub}</div>` : ''}
+                  <div class="search-item-snippet">${snippet}</div>
+                `;
+              card.addEventListener('click', () => {
+                item.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                clearHighlights();
+                item.parts.forEach(p => highlightText(p, query));
+                if (item.sub) highlightText(item.element, query);
+                if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+              });
+              searchResultsList.appendChild(card);
+            }
+          });
+
+          searchMatchCount.innerText = matchCount;
+          if (matchCount === 0) {
+            searchResultsList.innerHTML = `<div style="font-size:12.5px; color:var(--fg-muted); padding:16px 0; text-align:center;">検索結果がありません。</div>`;
+          }
+        } else {
+          searchClearBtn.classList.remove('visible');
+          // 목차 패널로 복귀
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-toc').classList.add('active');
+          tabBtns[0].classList.add('active');
+        }
+      });
+
+      searchClearBtn.addEventListener('click', () => {
+        sidebarSearch.value = '';
+        sidebarSearch.dispatchEvent(new Event('input'));
+        sidebarSearch.focus();
+      });
+
+      // 5. 스크롤 스파이 (ScrollSpy)
+      window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset + 120;
+        let currentId = '';
+        sections.forEach(sec => {
+          if (sec.offsetTop <= scrollY) {
+            currentId = sec.id;
+          }
+        });
+        tocLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${currentId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }, { passive: true });
+
+      // 6. 고기능 라이트박스 로직
+      let currentImageIdx = 0;
+      let zoomScale = 1.0;
+      let panX = 0, panY = 0;
+      let isDragging = false;
+      let startX = 0, startY = 0;
+
+      function updateTransform() {
+        lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+        zoomLevelSpan.innerText = `${Math.round(zoomScale * 100)}%`;
+      }
+
+      function resetZoom() {
+        zoomScale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateTransform();
+      }
+
+      function openLightbox(idx) {
+        if (!imageList[idx]) return;
+        currentImageIdx = idx;
+        const item = imageList[idx];
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.alt;
+        lightboxCaption.innerText = item.caption || item.alt;
+        lightboxCounter.innerText = `${idx + 1} / ${imageList.length}`;
+        resetZoom();
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function showPrevImage() {
+        if (currentImageIdx > 0) {
+          openLightbox(currentImageIdx - 1);
+        } else {
+          openLightbox(imageList.length - 1);
+        }
+      }
+
+      function showNextImage() {
+        if (currentImageIdx < imageList.length - 1) {
+          openLightbox(currentImageIdx + 1);
+        } else {
+          openLightbox(0);
+        }
+      }
+
+      lightboxCloseBtn.addEventListener('click', closeLightbox);
+      lightboxPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+      lightboxNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+
+      zoomInBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale < 4.0) { zoomScale = Math.min(4.0, zoomScale + 0.25); updateTransform(); }
+      });
+      zoomOutBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale > 0.5) { zoomScale = Math.max(0.5, zoomScale - 0.25); updateTransform(); }
+      });
+      zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+
+      lightboxStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.15 : -0.15;
+        const newScale = zoomScale + delta;
+        if (newScale >= 0.5 && newScale <= 4.0) {
+          zoomScale = newScale;
+          updateTransform();
+        }
+      }, { passive: false });
+
+      lightboxStage.addEventListener('mousedown', (e) => {
+        if (e.target === lightboxPrevBtn || e.target === lightboxNextBtn) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform();
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      lightboxStage.addEventListener('click', (e) => {
+        if (e.target === lightboxStage) {
+          closeLightbox();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === '+' || e.key === '=') { zoomScale = Math.min(4.0, zoomScale + 0.2); updateTransform(); }
+        if (e.key === '-') { zoomScale = Math.max(0.5, zoomScale - 0.2); updateTransform(); }
+      });
+
+    })();
+  </script>
+</body>
+</html>

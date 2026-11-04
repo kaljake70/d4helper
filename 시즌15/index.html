@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>디아블로 4 시즌 15 — 선조 & 신화 고유 아이템 대도감</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0d;
+      --bg-card: rgba(18, 16, 22, 0.85);
+      --bg-card-hover: rgba(28, 22, 34, 0.95);
+      --border-card: rgba(138, 90, 50, 0.25);
+      --border-mythic: rgba(168, 85, 247, 0.6);
+      --border-legacy: rgba(249, 115, 22, 0.6);
+      --border-ancestral: rgba(234, 179, 8, 0.6);
+      
+      --color-mythic: #c084fc;
+      --color-mythic-glow: rgba(192, 132, 252, 0.4);
+      --color-legacy: #fb923c;
+      --color-ancestral: #facc15;
+      --color-text: #e2e8f0;
+      --color-text-muted: #94a3b8;
+      --color-crimson: #dc2626;
+      --color-gold: #d97706;
+      --font-gothic: 'Cinzel', serif;
+      --font-body: 'Noto Sans KR', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(185, 28, 28, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 100% 50%, rgba(126, 34, 206, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 0% 80%, rgba(180, 83, 9, 0.1) 0%, transparent 50%);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+    }
+
+    /* Top Navigation / Breadcrumb */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 30px;
+    }
+    .top-bar a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .top-bar a:hover {
+      color: var(--color-ancestral);
+    }
+    .badge-season {
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(180, 83, 9, 0.4));
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fef08a;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: var(--font-gothic);
+      font-size: clamp(28px, 4.5vw, 48px);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 25px rgba(220, 38, 38, 0.6), 0 0 50px rgba(180, 83, 9, 0.4);
+    }
+    .hero p {
+      color: var(--color-text-muted);
+      font-size: 16px;
+      max-width: 720px;
+      margin: 0 auto 20px;
+    }
+
+    /* Video Banner Box */
+    .video-card {
+      background: rgba(20, 16, 25, 0.75);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 14px;
+      padding: 16px 20px;
+      max-width: 820px;
+      margin: 0 auto 36px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+    }
+    .video-card img {
+      width: 140px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+    }
+    .video-card-content {
+      text-align: left;
+      flex-grow: 1;
+    }
+    .video-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .video-card-desc {
+      font-size: 13px;
+      color: var(--color-text-muted);
+    }
+    .video-btn {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .video-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.6);
+    }
+
+    /* Summary Metric Pills */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .metric-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric-pill:hover {
+      border-color: rgba(245, 158, 11, 0.5);
+    }
+    .metric-num {
+      font-family: var(--font-gothic);
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .metric-label {
+      font-size: 13px;
+      color: var(--color-text-muted);
+    }
+
+    /* Filters Section */
+    .controls-panel {
+      background: rgba(16, 14, 20, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+    }
+    .search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .search-input {
+      flex-grow: 1;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 12px 18px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--color-ancestral);
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
+    }
+
+    /* Filter Tabs */
+    .filter-group {
+      margin-bottom: 12px;
+    }
+    .filter-group:last-child {
+      margin-bottom: 0;
+    }
+    .filter-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .chip:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    .chip.active {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.25), rgba(220, 38, 38, 0.35));
+      border-color: var(--color-ancestral);
+      color: #fef08a;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
+    }
+    .chip.chip-mythic.active {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(126, 34, 206, 0.4));
+      border-color: var(--color-mythic);
+      color: #f3e8ff;
+      box-shadow: 0 0 14px var(--color-mythic-glow);
+    }
+
+    /* Section Header */
+    .section-title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-gothic);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .count-indicator {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
+
+    /* Item Card Grid */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      backdrop-filter: blur(6px);
+    }
+    .item-card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+    }
+    .item-card.grade-mythic {
+      border-color: var(--border-mythic);
+    }
+    .item-card.grade-mythic:hover {
+      box-shadow: 0 12px 30px var(--color-mythic-glow);
+    }
+    .item-card.grade-legacy {
+      border-color: var(--border-legacy);
+    }
+    .item-card.grade-ancestral {
+      border-color: var(--border-ancestral);
+    }
+
+    /* Card Top: Icon & Basic Info */
+    .card-head {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .item-icon-box {
+      width: 64px;
+      height: 64px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .item-card.grade-mythic .item-icon-box {
+      border-color: var(--color-mythic);
+      box-shadow: inset 0 0 10px var(--color-mythic-glow);
+    }
+    .item-card.grade-ancestral .item-icon-box,
+    .item-card.grade-legacy .item-icon-box {
+      border-color: var(--color-ancestral);
+      box-shadow: inset 0 0 8px rgba(234, 179, 8, 0.3);
+    }
+    .item-icon-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-meta {
+      flex-grow: 1;
+    }
+    .grade-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+    .grade-mythic .grade-badge {
+      background: rgba(168, 85, 247, 0.25);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+    }
+    .grade-legacy .grade-badge {
+      background: rgba(249, 115, 22, 0.25);
+      color: #fdba74;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+    }
+    .grade-ancestral .grade-badge {
+      background: rgba(234, 179, 8, 0.2);
+      color: #fef08a;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+    }
+    .item-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+    .item-sub {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* Tag badges */
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+    }
+    .tag-slot {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .tag-class {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* Affix effect text */
+    .card-effect {
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 3px solid var(--color-gold);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: #f1f5f9;
+      margin-bottom: 14px;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+    .grade-mythic .card-effect {
+      border-left-color: var(--color-mythic);
+    }
+
+    /* Card Footer: Drop Source */
+    .card-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 10px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drop-source {
+      color: #fef08a;
+      font-weight: 600;
+    }
+
+    /* Boss Drop Table Section */
+    .boss-section {
+      margin-top: 60px;
+      background: rgba(16, 14, 20, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .boss-section h2 {
+      font-family: var(--font-gothic);
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .boss-section p {
+      color: var(--color-text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .boss-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .boss-box {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .boss-box:hover {
+      border-color: rgba(220, 38, 38, 0.5);
+    }
+    .boss-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fca5a5;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .boss-mat {
+      font-size: 12px;
+      color: #fef08a;
+      margin-bottom: 10px;
+    }
+    .boss-drops {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* Empty state */
+    .empty-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--color-text-muted);
+      font-size: 16px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--color-text-muted);
+      font-size: 13px;
+    }
+    footer a {
+      color: var(--color-ancestral);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .video-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .video-card-content {
+        text-align: center;
+      }
+      .search-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Top Navigation -->
+    <div class="top-bar">
+      <a href="./README.md">← 시즌 15 문서 목차로 돌아가기</a>
+      <span class="badge-season">시즌 15: 지옥의 유산</span>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="hero">
+      <h1>선조 & 신화 고유 아이템 대도감</h1>
+      <p>패치 3.2.1 기준 — 아이템 위력 800 고정, 상급 속성(GA) 확정 부여, 소굴 우두머리 드랍 테이블 및 직업별 착용 정보 총망라</p>
+
+      <!-- Video Feature Card -->
+      <div class="video-card">
+        <img src="https://img.youtube.com/vi/DRm2XFE1Ytw/hqdefault.jpg" alt="영상 썸네일">
+        <div class="video-card-content">
+          <div class="video-card-title">🎬 [공략 영상] 시즌15 선조·신화 고유 파밍 및 3대장 런 가이드</div>
+          <div class="video-card-desc">고행 XII 정점 던전 3곳(미궁·성채·억류지)과 소굴 보스별 확정 드랍 루틴</div>
+        </div>
+        <a href="https://youtu.be/DRm2XFE1Ytw" target="_blank" class="video-btn">▶ 영상 시청하기</a>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="metric-grid">
+        <div class="metric-pill">
+          <div class="metric-num" style="color: var(--color-mythic);">800</div>
+          <div class="metric-label">선조 아이템 위력 고정</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-num" style="color: var(--color-ancestral);">★ 1개+</div>
+          <div class="metric-label">상급 속성(GA) 확정 부여</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-num" style="color: #6ee7b7;">12 단계</div>
+          <div class="metric-label">최대 명품화 강화 가능</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-num" style="color: #fca5a5;">1:1</div>
+          <div class="metric-label">호라드림의 함 신화 직접 제작</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Filter & Search Controls -->
+    <div class="controls-panel">
+      <!-- Search Input -->
+      <div class="search-row">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 아이템 이름, 고유 효과, 드랍 보스(예: 샤코, 두리엘, 재사용 대기시간) 검색...">
+      </div>
+
+      <!-- Class Filter -->
+      <div class="filter-group">
+        <span class="filter-label">직업별 분류</span>
+        <div class="filter-chips" id="classChips">
+          <button class="chip active" data-class="all">전체보기</button>
+          <button class="chip chip-mythic" data-class="신화">🌟 신화 고유</button>
+          <button class="chip" data-class="유산">🏆 시즌15 유산</button>
+          <button class="chip" data-class="공용">공용 선조</button>
+          <button class="chip" data-class="야만용사">야만용사</button>
+          <button class="chip" data-class="원소술사">원소술사</button>
+          <button class="chip" data-class="강령술사">강령술사</button>
+          <button class="chip" data-class="도적">도적</button>
+          <button class="chip" data-class="드루이드">드루이드</button>
+          <button class="chip" data-class="혼령사">혼령사</button>
+        </div>
+      </div>
+
+      <!-- Slot Filter -->
+      <div class="filter-group" style="margin-top: 14px;">
+        <span class="filter-label">장착 부위</span>
+        <div class="filter-chips" id="slotChips">
+          <button class="chip active" data-slot="all">모든 부위</button>
+          <button class="chip" data-slot="투구">투구</button>
+          <button class="chip" data-slot="가슴">가슴 방어구</button>
+          <button class="chip" data-slot="장갑">장갑</button>
+          <button class="chip" data-slot="바지">바지</button>
+          <button class="chip" data-slot="장화">장화</button>
+          <button class="chip" data-slot="목걸이">목걸이</button>
+          <button class="chip" data-slot="반지">반지</button>
+          <button class="chip" data-slot="무기">무기 / 보조무기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Items Section Header -->
+    <div class="section-title-wrap">
+      <div class="section-title">
+        <span>⚔️ 고유 아이템 목록</span>
+      </div>
+      <div class="count-indicator" id="itemCount">표시 중: 0개</div>
+    </div>
+
+    <!-- Item Cards Container -->
+    <div class="item-grid" id="itemGrid">
+      <!-- Items dynamically populated via JS -->
+    </div>
+
+    <!-- Boss Drop Table Section -->
+    <section class="boss-section">
+      <h2>소굴 우두머리(보스) 드랍처 안내</h2>
+      <p>특정 고유 아이템을 빠르게 획득하려면 해당 보스 소환 재료를 모아 집중 파밍하세요.</p>
+      
+      <div class="boss-grid">
+        <div class="boss-box">
+          <div class="boss-name">두리엘 & 안다리엘 <span>👑 신화 1순위</span></div>
+          <div class="boss-mat">재료: 미끄러운 점액 달걀 / 칠흑의 모래시계</div>
+          <div class="boss-drops">
+            • <strong>신화 고유 8종</strong> (샤코, 티리엘, 궤멸자, 별하늘 등 최고 확률)<br>
+            • 신살해자 왕관, 티볼트의 의지, 영혼 낙인, 깜빡걸음 등 핵심 공용 선조
+          </div>
+        </div>
+
+        <div class="boss-box">
+          <div class="boss-name">군주 지르 (Lord Zir)</div>
+          <div class="boss-mat">재료: 정예 피 (Blood)</div>
+          <div class="boss-drops">
+            • <strong>만용</strong>, <strong>피학의 가슴받이</strong>, 참회의 경갑<br>
+            • 하라가스의 분노, 무한의 의복, 텅 빈 무덤의 발덮개, 어둠 속의 눈
+          </div>
+        </div>
+
+        <div class="boss-box">
+          <div class="boss-name">얼음 속의 야수</div>
+          <div class="boss-mat">재료: 증류된 공포 (Distilled Fear)</div>
+          <div class="boss-drops">
+            • <strong>운명의 주먹</strong>, <strong>별빛 반지</strong>, 서리걸음<br>
+            • 100,000보, 에수의 가보, 멘델른의 반지, 건달의 입맞춤, 폭풍의 동반자
+          </div>
+        </div>
+
+        <div class="boss-box">
+          <div class="boss-name">그리구아르</div>
+          <div class="boss-mat">재료: 살아있는 강철 (Living Steel)</div>
+          <div class="boss-drops">
+            • <strong>참회의 경갑</strong>, 파죄자, 붉은 열정의 반지<br>
+            • 람 에슬라드의 마법봉, 파랑장미, 죽음없는 얼굴, 바람살
+          </div>
+        </div>
+
+        <div class="boss-box">
+          <div class="boss-name">바르샨의 메아리</div>
+          <div class="boss-mat">재료: 악성 심장 (Malignant Heart)</div>
+          <div class="boss-drops">
+            • <strong>서리불꽃</strong>, 어머니의 포옹<br>
+            • 무한의 의복, 죽음없는 얼굴, 피 없는 자의 비명, 규탄, 바실리의 기도
+          </div>
+        </div>
+
+        <div class="boss-box">
+          <div class="boss-name">정점 던전 (3대장 런) <span>🔥 시즌15 신규</span></div>
+          <div class="boss-mat">입장: 고행 XII 정점 던전 3곳 (지도 핀)</div>
+          <div class="boss-drops">
+            • <strong>대악마 가시 3종</strong> (공포/파괴/증오) 및 영혼 가시 8종<br>
+            • 시즌15 신규 유산 고유(인검, 요르단, 천벌 등) 대량 드랍
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>디아블로 4 시즌 15 지옥의 유산 도감 | 데이터 출처: 블리자드 공식 블로그 및 d4builds.gg 에셋</p>
+      <p style="margin-top: 6px;">
+        <a href="https://github.com/kaljake70/d4helper">GitHub d4help 리포지토리</a> · 
+        <a href="https://da.gd/d4help">d4cute helper 도우미 다운로드</a> · 
+        <a href="https://d4cute.com">d4cute.com</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Database of Ancestral, Mythic, Legacy, and Class Uniques
+    const itemsData = [
+      // 🌟 Mythic Uniques
+      {
+        name: "할리퀸 관모 (Harlequin Crest / 샤코)",
+        sub: "Mythic Unique Helm",
+        grade: "mythic",
+        classes: ["모든 직업", "신화", "공용"],
+        slot: "투구",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/harlequin-crest.png",
+        effect: "모든 기술 등급 +4를 얻습니다. 추가로 받는 피해가 20% 감소하며 재사용 대기시간이 대폭 감소합니다."
+      },
+      {
+        name: "티리엘의 권능 (Tyrael's Might)",
+        sub: "Mythic Unique Chest Armor",
+        grade: "mythic",
+        classes: ["모든 직업", "신화", "공용"],
+        slot: "가슴",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/tyraels-might.png",
+        effect: "생명력이 가득 차 있을 때 공격하면 신성한 화살을 난사하여 큰 광역 피해를 입힙니다. 모든 최대 저항력이 대폭 증가합니다."
+      },
+      {
+        name: "별 없는 하늘의 반지 (Ring of Starless Skies)",
+        sub: "Mythic Unique Ring",
+        grade: "mythic",
+        classes: ["모든 직업", "신화", "공용"],
+        slot: "반지",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/ring-of-starless-skies.png",
+        effect: "핵심 기술 시전 시 자원 소모량이 10% 감소하고 주는 피해가 10%[x] 증가합니다 (최대 50%까지 중첩)."
+      },
+      {
+        name: "궤멸자 (Doombringer)",
+        sub: "Mythic Unique One-Handed Sword",
+        grade: "mythic",
+        classes: ["야만용사", "도적", "강령술사", "신화"],
+        slot: "무기",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/doombringer.png",
+        effect: "적 적중 시 일정 확률로 암흑 폭발을 일으키며 적의 공격력을 20% 감소시킵니다. 최대 생명력이 대폭 증가합니다."
+      },
+      {
+        name: "한아비 (The Grandfather)",
+        sub: "Mythic Unique Two-Handed Sword",
+        grade: "mythic",
+        classes: ["야만용사", "강령술사", "신화"],
+        slot: "무기",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/the-grandfather.png",
+        effect: "치명타 피해가 60%~100%[x] 곱연산으로 증가합니다. 무기 내구도가 영구적으로 소모되지 않습니다."
+      },
+      {
+        name: "안다리엘의 두피 (Andariel's Visage)",
+        sub: "Mythic Unique Helm",
+        grade: "mythic",
+        classes: ["모든 직업", "신화", "공용"],
+        slot: "투구",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/andariels-visage.png",
+        effect: "적중 시 일정 확률로 독성 신성 폭발을 일으켜 적을 중독시키며, 가한 피해에 비례하여 생명력을 즉시 흡수합니다."
+      },
+      {
+        name: "녹아내린 셀리그의 심장 (Melted Heart of Selig)",
+        sub: "Mythic Unique Amulet",
+        grade: "mythic",
+        classes: ["모든 직업", "신화", "공용"],
+        slot: "목걸이",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/melted-heart-of-selig.png",
+        effect: "최대 자원이 30 증가합니다. 피해를 입을 때 생명력 대신 자원(분노/마나 등)이 대신 소모되어 불사의 생존력을 얻습니다."
+      },
+
+      // 🏆 Season 15 Legacy Uniques
+      {
+        name: "레오릭의 왕관 (Leoric's Crown)",
+        sub: "Season 15 Legacy Helm",
+        grade: "legacy",
+        classes: ["모든 직업", "유산", "공용"],
+        slot: "투구",
+        boss: "3대장 런 · 일반 소굴",
+        icon: "./images/items/leorics-crown.png",
+        effect: "소켓에 장착된 보석 및 영혼 가시(Soul Splinter)의 효과를 35%~100% 증폭시킵니다. 시즌15 핵심 메타 투구."
+      },
+      {
+        name: "천벌의 팔보호구 (Nemesis Bracers)",
+        sub: "Season 15 Legacy Gloves",
+        grade: "legacy",
+        classes: ["모든 직업", "유산", "공용"],
+        slot: "장갑",
+        boss: "3대장 런 · 일반 소굴",
+        icon: "./images/items/nemesis-bracers.png",
+        effect: "신단(Shrine)을 활성화하면 즉시 정예 악마 무리가 소환되며, 처치 시 일정 시간 이동 속도가 폭발적으로 증가합니다."
+      },
+      {
+        name: "요르단의 반지 (Stone of Jordan)",
+        sub: "Season 15 Legacy Ring",
+        grade: "legacy",
+        classes: ["모든 직업", "유산", "공용"],
+        slot: "반지",
+        boss: "3대장 런 · 일반 소굴",
+        icon: "./images/items/stone-of-jordan.png",
+        effect: "모든 원소 저항력을 캐릭터의 가장 높은 저항력 수치와 동일하게 동기화하고, 해당 원소 피해에 대폭 곱연산 보너스를 부여합니다."
+      },
+      {
+        name: "인검 (In-Geom)",
+        sub: "Season 15 Legacy 1H Sword",
+        grade: "legacy",
+        classes: ["모든 직업", "유산", "공용", "야만용사", "도적", "원소술사"],
+        slot: "무기",
+        boss: "3대장 런 · 일반 소굴",
+        icon: "./images/items/in-geom.png",
+        effect: "정예 적 무리를 처치하면 모든 기술의 재사용 대기시간이 즉시 15초 감소합니다. 무한 스킬 쿨타임 초기화의 핵심."
+      },
+      {
+        name: "용광로 (The Furnace)",
+        sub: "Season 15 Legacy 2H Mace",
+        grade: "legacy",
+        classes: ["야만용사", "드루이드", "강령술사", "유산"],
+        slot: "무기",
+        boss: "3대장 런 · 일반 소굴",
+        icon: "./images/items/the-furnace.png",
+        effect: "정예 적 및 우두머리에게 주는 피해가 대폭 증가하여 보스전 및 엔드게임 돌파력을 극대화합니다."
+      },
+      {
+        name: "앙리의 쥐잡이 (Henri's Perquisition)",
+        sub: "Season 15 Legacy Focus",
+        grade: "legacy",
+        classes: ["원소술사", "강령술사", "유산"],
+        slot: "무기",
+        boss: "3대장 런 · 일반 소굴",
+        icon: "./images/items/henris-perquisition.png",
+        effect: "피격 시 첫 공격의 피해를 60% 경감하고 공격한 적을 즉시 매혹 상태로 만들어 아군으로 싸우게 합니다."
+      },
+
+      // 🛡️ Core Ancestral Uniques (Generic)
+      {
+        name: "만용 (Temerity)",
+        sub: "Ancestral Unique Pants",
+        grade: "ancestral",
+        classes: ["모든 직업", "공용"],
+        slot: "바지",
+        boss: "군주 지르 · 두리엘",
+        icon: "./images/items/temerity.png",
+        effect: "최대 생명력의 100%를 초과하는 치유 효과가 발생하면 최대 생명력의 최대 80%에 달하는 보호막으로 변환됩니다."
+      },
+      {
+        name: "운명의 주먹 (Fists of Fate)",
+        sub: "Ancestral Unique Gloves",
+        grade: "ancestral",
+        classes: ["모든 직업", "공용"],
+        slot: "장갑",
+        boss: "얼음 속의 야수",
+        icon: "./images/items/fists-of-fate.png",
+        effect: "공격 시 1%~300%의 무작위 피해를 줍니다. 행운의 적중 확률이 극단적으로 높아져 행운 빌드의 필수 코어입니다."
+      },
+      {
+        name: "참회의 경갑 (Penitent Greaves)",
+        sub: "Ancestral Unique Boots",
+        grade: "ancestral",
+        classes: ["모든 직업", "공용"],
+        slot: "장화",
+        boss: "그리구아르 · 지르",
+        icon: "./images/items/penitent-greaves.png",
+        effect: "지나간 자리에 얼음 서리를 남겨 적을 오한 상태로 만들고, 오한 상태의 적에게 주는 피해가 증가합니다."
+      },
+      {
+        name: "티볼트의 의지 (Tibault's Will)",
+        sub: "Ancestral Unique Pants",
+        grade: "ancestral",
+        classes: ["모든 직업", "공용"],
+        slot: "바지",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/tibaults-will.png",
+        effect: "저지 불가 상태가 될 때 주는 피해가 20%~40%[x] 증가하고 주 자원을 50 생성합니다."
+      },
+      {
+        name: "신살해자 왕관 (Godslayer Crown)",
+        sub: "Ancestral Unique Helm",
+        grade: "ancestral",
+        classes: ["모든 직업", "공용"],
+        slot: "투구",
+        boss: "두리엘 · 안다리엘",
+        icon: "./images/items/godslayer-crown.png",
+        effect: "정예 적을 기절시키거나 제압할 때 주변 적들을 끌어당기고 3초 동안 주는 피해가 최대 60%[x] 증가합니다."
+      },
+
+      // ⚔️ Barbarian Uniques
+      {
+        name: "라말라드니의 역작 (Ramaladni's Magnum Opus)",
+        sub: "Ancestral Unique One-Handed Sword",
+        grade: "ancestral",
+        classes: ["야만용사"],
+        slot: "무기",
+        boss: "군주 지르",
+        icon: "./images/items/ramaladnis-magnum-opus.png",
+        effect: "보유한 분노 1당 주는 피해가 0.1%~0.3%[x] 증가하지만, 매초 분노를 2씩 지속적으로 소모합니다."
+      },
+      {
+        name: "고르의 파멸적인 손싸개 (Gohr's Devastating Grips)",
+        sub: "Ancestral Unique Gloves",
+        grade: "ancestral",
+        classes: ["야만용사"],
+        slot: "장갑",
+        boss: "군주 지르 · 바르샨",
+        icon: "./images/items/gohrs-devastating-grips.png",
+        effect: "소용돌이가 끝날 때 축적된 기본 피해의 일정 비율을 화염 폭발로 방출하여 주변 적을 초토화합니다."
+      },
+      {
+        name: "붉은 열정의 반지 (Ring of the Red Furor)",
+        sub: "Ancestral Unique Ring",
+        grade: "ancestral",
+        classes: ["야만용사"],
+        slot: "반지",
+        boss: "바르샨 · 그리구아르",
+        icon: "./images/items/ring-of-the-red-furor.png",
+        effect: "3초 안에 분노를 100 소모하면 다음 기술이 100% 확정으로 치명타 및 제압 적중합니다."
+      },
+
+      // 🔮 Sorcerer Uniques
+      {
+        name: "무한의 의복 (Raiment of the Infinite)",
+        sub: "Ancestral Unique Chest Armor",
+        grade: "ancestral",
+        classes: ["원소술사"],
+        slot: "가슴",
+        boss: "바르샨 · 군주 지르",
+        icon: "./images/items/raiment-of-the-infinite.png",
+        effect: "순간이동 사용 후 주변 적을 내 앞으로 끌어당겨 2~3초간 기절시킵니다. 원소술사의 사냥 속도를 결정짓는 필수 코어."
+      },
+      {
+        name: "탈 라샤의 오색찬란한 고리 (Tal Rasha's Iridescent Loop)",
+        sub: "Ancestral Unique Ring",
+        grade: "ancestral",
+        classes: ["원소술사"],
+        slot: "반지",
+        boss: "바르샨",
+        icon: "./images/items/tal-rashas-iridescent-loop.png",
+        effect: "서로 다른 원소 피해(화염, 냉기, 번개)를 입힐 때마다 4초 동안 주는 피해가 각각 15%~20%[x] 중첩 증가합니다."
+      },
+      {
+        name: "에수의 가보 (Esu's Heirloom)",
+        sub: "Ancestral Unique Boots",
+        grade: "ancestral",
+        classes: ["원소술사"],
+        slot: "장화",
+        boss: "얼음 속의 야수",
+        icon: "./images/items/esus-heirloom.png",
+        effect: "이동 속도 보너스의 20%~40%에 해당하는 수치만큼 치명타 확률이 증가합니다."
+      },
+
+      // 💀 Necromancer Uniques
+      {
+        name: "죽음없는 얼굴 (Deathless Visage)",
+        sub: "Ancestral Unique Helm",
+        grade: "ancestral",
+        classes: ["강령술사"],
+        slot: "투구",
+        boss: "그리구아르 · 바르샨",
+        icon: "./images/items/deathless-visage.png",
+        effect: "뼈 창이 지나가는 궤적에 메아리 폭발을 남기며 폭발당 물리 피해를 추가로 입힙니다."
+      },
+      {
+        name: "멘델른의 반지 (Ring of Mendeln)",
+        sub: "Ancestral Unique Ring",
+        grade: "ancestral",
+        classes: ["강령술사"],
+        slot: "반지",
+        boss: "얼음 속의 야수",
+        icon: "./images/items/ring-of-mendeln.png",
+        effect: "하수인이 7마리 이상일 때 행운의 적중 시 하수인의 다음 공격이 폭발을 일으키며 막대한 물리 피해를 줍니다."
+      },
+      {
+        name: "피 없는 자의 비명 (Bloodless Scream)",
+        sub: "Ancestral Unique Two-Handed Scythe",
+        grade: "ancestral",
+        classes: ["강령술사"],
+        slot: "무기",
+        boss: "바르샨 · 지르",
+        icon: "./images/items/bloodless-scream.png",
+        effect: "어둠 기술이 적에게 최대 40% 오한을 부여하며, 동결된 적 처치 시 추가 정수를 생성합니다."
+      },
+
+      // 🏹 Rogue Uniques
+      {
+        name: "규탄 (Condemnation)",
+        sub: "Ancestral Unique Dagger",
+        grade: "ancestral",
+        classes: ["도적"],
+        slot: "무기",
+        boss: "바르샨 · 얼음야수",
+        icon: "./images/items/condemnation.png",
+        effect: "연계 점수 3점을 소모할 때 핵심 기술의 피해가 20%~40%[x] 증가하고, 일정 확률로 연계 점수가 즉시 3점 충전됩니다."
+      },
+      {
+        name: "바람살 (Windforce)",
+        sub: "Ancestral Unique Bow",
+        grade: "ancestral",
+        classes: ["도적"],
+        slot: "무기",
+        boss: "그리구아르",
+        icon: "./images/items/windforce.png",
+        effect: "행운의 적중 시 적을 밀쳐내고 넉다운시키며, 해당 공격은 두 배의 피해를 줍니다."
+      },
+      {
+        name: "건달의 입맞춤 (Scoundrel's Kiss)",
+        sub: "Ancestral Unique Ring",
+        grade: "ancestral",
+        classes: ["도적"],
+        slot: "반지",
+        boss: "얼음 속의 야수",
+        icon: "./images/items/scoundrels-kiss.png",
+        effect: "연타가 폭발성 화살을 발사하여 광역 물리 피해를 입히고 주변 적을 초토화합니다."
+      },
+
+      // 🐻 Druid Uniques
+      {
+        name: "폭풍의 포효 (Tempest Roar)",
+        sub: "Ancestral Unique Helm",
+        grade: "ancestral",
+        classes: ["드루이드"],
+        slot: "투구",
+        boss: "두리엘 · 지르",
+        icon: "./images/items/tempest-roar.png",
+        effect: "폭풍 기술이 행운의 적중 시 영력을 생성하며, 모든 기본 폭풍 기술이 늑대인간 기술로 취급됩니다. (번개 늑대 핵심)"
+      },
+      {
+        name: "바실리의 기도 (Vasil's Prayer)",
+        sub: "Ancestral Unique Helm",
+        grade: "ancestral",
+        classes: ["드루이드"],
+        slot: "투구",
+        boss: "바르샨 · 지르",
+        icon: "./images/items/vasilys-prayer.png",
+        effect: "대지 기술이 곰인간 기술로 취급되며 시전 시 보강을 획득합니다."
+      },
+      {
+        name: "미친 늑대의 의복 (Mad Wolf's Glee)",
+        sub: "Ancestral Unique Chest Armor",
+        grade: "ancestral",
+        classes: ["드루이드"],
+        slot: "가슴",
+        boss: "바르샨 · 그리구아르",
+        icon: "./images/items/mad-wolfs-glee.png",
+        effect: "영구적으로 늑대인간 형상을 유지하며 모든 늑대인간 기술 등급이 +2~+3 상승합니다."
+      },
+
+      // 🌿 Spiritborn Uniques
+      {
+        name: "조화의 곤봉 (Rod of Kepeleke)",
+        sub: "Ancestral Unique Quarterstaff",
+        grade: "ancestral",
+        classes: ["혼령사"],
+        slot: "무기",
+        boss: "두리엘 · 3대장 런",
+        icon: "./images/items/rod-of-kepeleke.png",
+        effect: "핵심 기술이 자원을 모두 소모하는 대신 소모한 자원에 비례하여 극대화 제압 피해가 폭발적으로 증가합니다."
+      },
+      {
+        name: "바실리스크 (The Basilisk)",
+        sub: "Ancestral Unique One-Handed Sword",
+        grade: "ancestral",
+        classes: ["혼령사"],
+        slot: "무기",
+        boss: "군주 지르",
+        icon: "./images/items/the-basilisk.png",
+        effect: "대지 및 독성 속성 혼령 기술이 적을 석화시키고, 석화된 적에게 가하는 극대화 피해가 대폭 증가합니다."
+      }
+    ];
+
+    // State
+    let currentClass = 'all';
+    let currentSlot = 'all';
+    let searchQuery = '';
+
+    const itemGrid = document.getElementById('itemGrid');
+    const itemCount = document.getElementById('itemCount');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderItems() {
+      const filtered = itemsData.filter(item => {
+        // Class filter
+        const matchClass = (currentClass === 'all') || item.classes.includes(currentClass);
+        // Slot filter
+        const matchSlot = (currentSlot === 'all') || (item.slot === currentSlot);
+        // Search filter
+        const matchSearch = !searchQuery || 
+          item.name.toLowerCase().includes(searchQuery) ||
+          item.sub.toLowerCase().includes(searchQuery) ||
+          item.effect.toLowerCase().includes(searchQuery) ||
+          item.boss.toLowerCase().includes(searchQuery);
+
+        return matchClass && matchSlot && matchSearch;
+      });
+
+      itemCount.textContent = `표시 중: ${filtered.length}개 (전체 ${itemsData.length}개)`;
+
+      if (filtered.length === 0) {
+        itemGrid.innerHTML = `
+          <div class="empty-msg">
+            <p style="font-size: 24px; margin-bottom: 8px;">💀</p>
+            <p>검색 조건에 맞는 고유 아이템이 없습니다.</p>
+            <p style="font-size: 13px; margin-top: 4px;">다른 검색어나 필터를 선택해 보세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      itemGrid.innerHTML = filtered.map(item => {
+        let gradeLabel = '선조 고유';
+        if (item.grade === 'mythic') gradeLabel = '신화 고유';
+        if (item.grade === 'legacy') gradeLabel = '유산 고유';
+
+        const classTags = item.classes
+          .filter(c => c !== '신화' && c !== '유산')
+          .map(c => `<span class="tag tag-class">${c}</span>`)
+          .join('');
+
+        return `
+          <div class="item-card grade-${item.grade}">
+            <div class="card-head">
+              <div class="item-icon-box">
+                <img src="${item.icon}" alt="${item.name}" onerror="this.src='./images/items/harlequin-crest.png'">
+              </div>
+              <div class="card-meta">
+                <span class="grade-badge">${gradeLabel}</span>
+                <div class="item-title">${item.name}</div>
+                <div class="item-sub">${item.sub}</div>
+              </div>
+            </div>
+
+            <div class="card-tags">
+              <span class="tag tag-slot">${item.slot}</span>
+              ${classTags}
+            </div>
+
+            <div class="card-effect">
+              ${item.effect}
+            </div>
+
+            <div class="card-footer">
+              <span>주요 드랍처:</span>
+              <span class="drop-source">${item.boss}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Event Listeners for Filters
+    document.querySelectorAll('#classChips .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#classChips .chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        currentClass = btn.dataset.class;
+        renderItems();
+      });
+    });
+
+    document.querySelectorAll('#slotChips .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#slotChips .chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        currentSlot = btn.dataset.slot;
+        renderItems();
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      renderItems();
+    });
+
+    // Initial render
+    renderItems();
+  </script>
+</body>
+</html>

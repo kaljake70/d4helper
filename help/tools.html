@@ -1,0 +1,674 @@
+<!doctype html>
+<!-- d4cute helper 편의기능(인벤 선변성·제조법) 도움말 - 한국어/English 한 파일, ?lang=ko|en 로 처음 언어 선택 -->
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>편의기능 도움말 · Tools Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09080e; --bg-surface: #121118; --card: #171622; --card-hover: #1e1d2c;
+      --line: #292737; --line-bright: #3d3a52;
+      --fg: #e6e5ee; --fg-dim: #9896a8; --fg-muted: #6b697a;
+      --gold: #e5b85c; --gold-bright: #ffd778; --gold-dim: #967530; --gold-glow: rgba(229, 184, 92, 0.18);
+      --ruby: #e5484d; --ruby-dark: #3b1619;
+      --blue: #3b82f6; --blue-dark: #142445;
+      --green: #22c55e; --green-dark: #12311f;
+      --legend: #f0821e; --unique: #c9a867; --mythic: #b57bff; --magic: #6c8cff;
+      --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px;
+      --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-title: 'Cinzel', 'Pretendard', serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body);
+      font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--gold-bright); }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 22px 18px 60px; }
+
+    /* 머리 */
+    .hero { position: relative; border: 1px solid var(--line-bright); border-radius: var(--radius-lg);
+      padding: 26px 24px 22px; overflow: hidden;
+      background: radial-gradient(120% 140% at 0% 0%, rgba(229,184,92,.14), transparent 55%),
+                  radial-gradient(100% 120% at 100% 100%, rgba(229,72,77,.10), transparent 60%), var(--bg-surface); }
+    .hero::after { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(229,184,92,.18);
+      border-radius: 10px; pointer-events: none; }
+    .eyebrow { font-family: var(--font-title); letter-spacing: .18em; font-size: 12px; color: var(--gold); text-transform: uppercase; }
+    .hero h1 { margin: 6px 0 6px; font-size: 26px; font-weight: 800; color: var(--gold-bright); }
+    .hero p { margin: 0; color: var(--fg-dim); }
+    .lang { position: absolute; top: 18px; right: 18px; display: flex; gap: 4px; z-index: 1;
+      background: var(--card); border: 1px solid var(--line-bright); border-radius: 999px; padding: 3px; }
+    .lang button { all: unset; cursor: pointer; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--fg-dim); }
+    .lang button.on { background: var(--gold); color: #1b1407; }
+
+    /* 목차 */
+    .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 6px; }
+    .toc a { text-decoration: none; color: var(--fg); background: var(--card); border: 1px solid var(--line);
+      border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; transition: .15s; }
+    .toc a:hover { border-color: var(--gold-dim); color: var(--gold-bright); background: var(--card-hover); }
+
+    /* 섹션 */
+    section { margin-top: 30px; scroll-margin-top: 14px; }
+    h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 20px; font-weight: 800; }
+    h2 .num { font-family: var(--font-title); font-size: 13px; color: #1b1407; background: var(--gold);
+      border-radius: 8px; padding: 2px 8px; }
+    h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-bright), transparent); }
+    h3 { margin: 18px 0 8px; font-size: 16px; font-weight: 700; color: var(--gold-bright); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px 18px; }
+    .card + .card { margin-top: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+    p { margin: 6px 0; }
+    ul, ol { margin: 6px 0; padding-left: 20px; }
+    li { margin: 3px 0; }
+    li::marker { color: var(--gold); }
+    kbd { font-family: inherit; font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 5px;
+      background: #24222f; border: 1px solid var(--line-bright); border-bottom-width: 2px; color: var(--fg); }
+    .muted { color: var(--fg-dim); font-size: 13px; }
+
+    /* 흐름 단계 */
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 4px; }
+    .flow span { background: var(--bg-surface); border: 1px solid var(--line-bright); border-radius: 8px;
+      padding: 4px 10px; font-size: 13px; font-weight: 600; }
+    .flow i { color: var(--gold-dim); font-style: normal; }
+
+    /* 제조법 카드 테두리 색 */
+    .recipe { border-left: 4px solid var(--line-bright); }
+    .recipe.strip { border-left-color: #9aa0ad; }
+    .recipe.legend { border-left-color: var(--legend); }
+    .recipe.legend h3 { color: var(--legend); }
+    .recipe.unique { border-left-color: var(--unique); }
+    .recipe.unique h3 { color: var(--unique); }
+    .recipe.mythic { border-left-color: var(--mythic); }
+    .recipe.mythic h3 { color: var(--mythic); }
+
+    /* 알림 상자 */
+    .note { border-radius: var(--radius-md); padding: 12px 14px; margin: 10px 0; border: 1px solid; }
+    .note > b:first-child { display: block; margin-bottom: 2px; }
+    .note.warn { background: var(--ruby-dark); border-color: rgba(229,72,77,.45); }
+    .note.warn > b:first-child { color: #ff8a8d; }
+    .note.tip { background: var(--blue-dark); border-color: rgba(59,130,246,.45); }
+    .note.tip > b:first-child { color: #8fb8ff; }
+    .note.ok { background: var(--green-dark); border-color: rgba(34,197,94,.4); }
+    .note.ok > b:first-child { color: #7ee2a2; }
+
+    /* 점검표 */
+    .check { list-style: none; padding: 0; counter-reset: c; }
+    .check li { counter-increment: c; position: relative; padding: 10px 12px 10px 46px; margin: 6px 0;
+      background: var(--bg-surface); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+    .check li::before { content: counter(c); position: absolute; left: 12px; top: 10px; width: 24px; height: 24px;
+      border-radius: 50%; background: var(--gold-glow); border: 1px solid var(--gold-dim); color: var(--gold-bright);
+      font-weight: 800; font-size: 12px; display: grid; place-items: center; }
+    .check li b { color: var(--fg); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--gold); font-weight: 700; font-size: 13px; }
+    .tag { display: inline-block; font-size: 11px; font-weight: 800; padding: 1px 8px; border-radius: 999px; margin-left: 6px; vertical-align: 2px; }
+    .tag.soon { background: #2a2838; color: var(--fg-dim); border: 1px solid var(--line-bright); }
+    footer { margin-top: 40px; text-align: center; color: var(--fg-muted); font-size: 12px; }
+
+    /* 진행 카드 모형 */
+    .mock { width: 300px; max-width: 100%; border-radius: 10px; padding: 14px 16px 12px; position: relative;
+      background: linear-gradient(180deg, rgba(30,28,40,.96), rgba(14,13,20,.96)); border: 1.5px solid var(--k);
+      box-shadow: 0 0 0 4px rgba(0,0,0,.25), 0 6px 22px rgba(0,0,0,.5); font-size: 12px; }
+    .mock .h { display: flex; justify-content: space-between; color: var(--fg-dim); font-size: 11px; font-weight: 700; }
+    .mock .t { color: var(--k); font-size: 19px; font-weight: 800; margin: 2px 0 6px; }
+    .mock .bar { height: 7px; border-radius: 9px; background: #2a2836; overflow: hidden; margin: 8px 0 3px; }
+    .mock .bar i { display: block; height: 100%; width: var(--p); background: linear-gradient(90deg, var(--k), #fff3); }
+    .mock .pr { display: flex; justify-content: space-between; color: var(--fg-dim); font-size: 11px; }
+    .mock .pr b { color: var(--k); }
+    .mock .row { display: flex; justify-content: space-between; border-top: 1px solid #ffffff12; padding: 4px 0; color: var(--fg-dim); }
+    .mock .row b { color: var(--fg); }
+    .mock .now { color: var(--k); margin-top: 6px; }
+    .mock .ft { color: var(--fg-muted); text-align: center; font-size: 11px; margin-top: 4px; }
+    .mocks { display: flex; flex-wrap: wrap; gap: 24px 36px; align-items: flex-start; margin: 8px 0 4px; }
+    .mocks > div { flex: 1 1 280px; }
+    .legend-list { list-style: none; padding: 0; margin: 0; counter-reset: n; }
+    .legend-list li { counter-increment: n; padding-left: 28px; position: relative; }
+    .legend-list li::before { content: counter(n); position: absolute; left: 0; top: 3px; width: 18px; height: 18px; border-radius: 50%;
+      background: var(--gold); color: #1b1407; font-size: 10px; font-weight: 800; display: grid; place-items: center; }
+    .steps { font-size: 13px; }
+    .steps td:first-child { white-space: nowrap; color: var(--gold-bright); font-weight: 700; }
+    /* 대시보드 · 주제 보기 */
+    .dash { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; margin: 18px 0 4px; }
+    .tile { position: relative; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--fg);
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px 16px 14px 60px;
+      min-height: 84px; transition: .15s; overflow: hidden; }
+    .tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c); }
+    .tile:hover { background: var(--card-hover); border-color: var(--c); transform: translateY(-1px); }
+    .tile .ic { position: absolute; left: 16px; top: 16px; width: 32px; height: 32px; border-radius: 9px; display: grid;
+      place-items: center; font-size: 17px; background: color-mix(in srgb, var(--c) 22%, transparent);
+      border: 1px solid color-mix(in srgb, var(--c) 55%, transparent); }
+    .tile b { font-size: 15px; color: var(--c); }
+    .tile small { color: var(--fg-dim); font-size: 12.5px; line-height: 1.5; }
+    .backbar { display: none; margin: 14px 0 0; }
+    .backbar a { display: inline-block; text-decoration: none; color: var(--gold-bright); background: var(--card);
+      border: 1px solid var(--line-bright); border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 700; }
+    .backbar a:hover { border-color: var(--gold-dim); }
+    body.topic .dash, body.topic section, body.topic .card.recipe { display: none; }
+    body.topic .backbar, body.topic section.show, body.topic .card.recipe.show { display: block; }
+    body.home section { display: none; }
+    [data-l="en"] { display: none; }
+    body.en [data-l="ko"] { display: none; }
+    body.en [data-l="en"] { display: revert; }
+    @media (max-width: 560px) { .hero h1 { font-size: 21px; } .lang { position: static; margin-bottom: 10px; width: max-content; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="lang"><button id="b-ko" type="button" title="한국어" aria-label="한국어"><img src="https://flagcdn.com/w40/kr.png" alt="한국어" title="한국어" style="width:26px;height:auto;display:block;border-radius:3px"></button><button id="b-en" type="button" title="English" aria-label="English"><img src="https://flagcdn.com/w40/us.png" alt="English" title="English" style="width:26px;height:auto;display:block;border-radius:3px"></button></div>
+    <div class="eyebrow">d4cute helper · Tools</div>
+    <h1 data-l="ko">편의기능 도움말</h1>
+    <h1 data-l="en">Tools Guide</h1>
+    <p data-l="ko">인벤 선변성과 호라드림의 함 제조법(속성 제거 · 전설로 업그레이드 · 고유 아이템 제작 · 신화로 업그레이드)과 자동 마부 · 자동 부적을 쓰는 방법, 저해상도에서 준비할 것, 안 될 때 먼저 볼 것을 정리했습니다.</p>
+    <p data-l="en">How to use Inventory Transfigure and the Horadric Cube recipes (Remove Affix · Upgrade to Legendary · Unique crafting · Upgrade to Mythic), Auto Enchant and Auto Charm, what to prepare on lower resolutions, and what to check first when something does not work.</p>
+  </header>
+
+  <div class="backbar"><a href="#" data-go="all"><span data-l="ko">← 전체 도움말</span><span data-l="en">← All topics</span></a> <a href="#" data-go="overlay"><span data-l="ko">▣ 진행 카드(오버레이) 설명</span><span data-l="en">▣ Progress card (overlay)</span></a> <a href="#" data-go="trouble"><span data-l="ko">🛠 안 될 때</span><span data-l="en">🛠 Troubleshooting</span></a></div>
+  <nav class="dash">
+    <a class="tile" href="#" data-go="start" style="--c:#e5b85c"><span class="ic">⚙</span><b><span data-l="ko">시작 전 준비</span><span data-l="en">Before you start</span></b><small><span data-l="ko">자리 찍기 · 시작 키 · 멈추기 · 알림</span><span data-l="en">Slots · start key · stop · alerts</span></small></a>
+    <a class="tile" href="#" data-go="alter" style="--c:#3fbf9f"><span class="ic">🎲</span><b><span data-l="ko">인벤 선변성</span><span data-l="en">Inventory Transfigure</span></b><small><span data-l="ko">인벤 아이템을 한 칸씩 변성</span><span data-l="en">Transfigure items slot by slot</span></small></a>
+    <a class="tile" href="#" data-go="strip" style="--c:#9aa0ad"><span class="ic">✂</span><b><span data-l="ko">속성 제거</span><span data-l="en">Remove Affix</span></b><small><span data-l="ko">속성을 모두 지워 일반 아이템으로</span><span data-l="en">Strip every affix</span></small></a>
+    <a class="tile" href="#" data-go="legend" style="--c:#f0821e"><span class="ic">⬆</span><b><span data-l="ko">전설로 업그레이드</span><span data-l="en">Upgrade to Legendary</span></b><small><span data-l="ko">마법·희귀 → 속성 4개 → 전설</span><span data-l="en">Magic/rare → 4 affixes → legendary</span></small></a>
+    <a class="tile" href="#" data-go="unique" style="--c:#c9a867"><span class="ic">✦</span><b><span data-l="ko">고유 아이템 제작</span><span data-l="en">Unique Item Crafting</span></b><small><span data-l="ko">일반 장비 → 고유 (빈 칸 1칸)</span><span data-l="en">Normal gear → unique (1 free slot)</span></small></a>
+    <a class="tile" href="#" data-go="mythic" style="--c:#b57bff"><span class="ic">✷</span><b><span data-l="ko">신화로 업그레이드</span><span data-l="en">Upgrade to Mythic</span></b><small><span data-l="ko">선조 고유 → 신화 (빈 칸 1칸)</span><span data-l="en">Ancestral unique → mythic (1 free slot)</span></small></a>
+    <a class="tile" href="#" data-go="enchant" style="--c:#e6ff3a"><span class="ic">✧</span><b><span data-l="ko">자동 마부</span><span data-l="en">Auto Enchant</span></b><small><span data-l="ko">비술사 속성 교체를 목표 수치까지</span><span data-l="en">Reroll an Occultist affix to a target</span></small></a>
+    <a class="tile" href="#" data-go="talisman" style="--c:#4ec9ff"><span class="ic">✿</span><b><span data-l="ko">자동 부적</span><span data-l="en">Auto Charm</span></b><small><span data-l="ko">세트 부적 속성을 목표까지 무작위 변경</span><span data-l="en">Reroll a set charm until the affixes you want</span></small></a>
+    <a class="tile" href="#" data-go="fishing" style="--c:#2ee8d6"><span class="ic">🎣</span><b><span data-l="ko">자동 낚시</span><span data-l="en">Auto Fishing</span></b><small><span data-l="ko">코드 받기 · 줍기 · 몹 대처</span><span data-l="en">Code · Loot · Mobs</span></small></a>
+    <a class="tile" href="#" data-go="overlay" style="--c:#ffd778"><span class="ic">▣</span><b><span data-l="ko">오버레이 (진행 카드)</span><span data-l="en">Overlays (progress card)</span></b><small><span data-l="ko">게임 위에 뜨는 표시와 각 칸의 뜻</span><span data-l="en">What appears over the game and what it means</span></small></a>
+    <a class="tile" href="#" data-go="lowres" style="--c:#3b82f6"><span class="ic">🖥</span><b><span data-l="ko">저해상도 준비</span><span data-l="en">Lower resolutions</span></b><small><span data-l="ko">1080p 이하에서 맞출 설정</span><span data-l="en">Settings for 1080p and below</span></small></a>
+    <a class="tile" href="#" data-go="trouble" style="--c:#e5484d"><span class="ic">🛠</span><b><span data-l="ko">안 될 때 먼저 확인</span><span data-l="en">Troubleshooting</span></b><small><span data-l="ko">가장 먼저 볼 9가지와 기록 파일</span><span data-l="en">9 first checks and log files</span></small></a>
+  </nav>
+
+  <!-- ① 준비 -->
+  <section id="start" data-topic="start">
+    <h2><span class="num">1</span><span data-l="ko">시작 전 준비 (공통)</span><span data-l="en">Before you start (all tools)</span></h2>
+    <div class="grid">
+      <div class="card">
+        <h3 data-l="ko">인벤 자리 찍기</h3><h3 data-l="en">Mark the inventory slots</h3>
+        <p data-l="ko"><b>인벤 선변성</b> 탭에서 <b>첫 칸</b>(왼쪽 위)과 <b>끝 칸</b>(오른쪽 아래)을 한 번 찍습니다. [찍기] 를 누르고 게임의 그 칸에 마우스를 올린 뒤 <kbd>Enter</kbd>. 제조법도 이 자리를 같이 씁니다.</p>
+        <p data-l="en">On the <b>Inventory Transfigure</b> tab, mark the <b>first slot</b> (top-left) and the <b>last slot</b> (bottom-right) once: press [Mark], hover that slot in game and press <kbd>Enter</kbd>. Recipes use the same slots.</p>
+      </div>
+      <div class="card">
+        <h3 data-l="ko">시작 · 멈추기</h3><h3 data-l="en">Start · Stop</h3>
+        <p data-l="ko">시작 키는 하나를 같이 씁니다(기본 <kbd>F11</kbd>). 편의기능에서 <b>열려 있는 탭</b>의 기능이 시작됩니다. 멈추려면 게임에서 <kbd>Esc</kbd> 또는 [중지].</p>
+        <p data-l="en">One start key is shared (default <kbd>F11</kbd>); it starts the tool of the <b>tab that is open</b>. To stop, press <kbd>Esc</kbd> in game or [Stop].</p>
+      </div>
+      <div class="card">
+        <h3 data-l="ko">게임 화면</h3><h3 data-l="en">Game screen</h3>
+        <p data-l="ko">호라드림의 함과 인벤토리를 <b>둘 다 열어 둔 채</b> 시작합니다. 시작하면 헬퍼가 게임 창을 앞으로 가져옵니다.</p>
+        <p data-l="en">Start with the Horadric Cube and the inventory <b>both open</b>. The helper brings the game window to the front.</p>
+      </div>
+      <div class="card">
+        <h3 data-l="ko">알림</h3><h3 data-l="en">Alerts</h3>
+        <p data-l="ko">아이템 하나가 끝날 때 짧은 소리, 시작과 끝에 <b>음성 안내</b>(예: “속성 제거, 30개 모두 완료했습니다.”). 진행 상황은 캐릭터 창 위 진행 카드에 보입니다.</p>
+        <p data-l="en">A short sound per item and <b>voice guidance</b> at start and end (e.g. “Remove Affix, all 30 done.”). Progress shows on a card over the character panel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 선변성 -->
+  <section id="alter" data-topic="alter">
+    <h2><span class="num">2</span><span data-l="ko">인벤 선변성</span><span data-l="en">Inventory Transfigure</span></h2>
+    <div class="card">
+      <p data-l="ko">인벤토리의 아이템을 한 칸씩 <b>아이템 변성</b>합니다. 시작하면 먼저 변성할 수 있는 칸만 골라 두고(어두워지는 칸은 뺍니다) 그 칸만 돕니다.</p>
+      <p data-l="en">Transfigures inventory items one slot at a time. It first picks only the slots that can be transfigured (dimmed slots are skipped).</p>
+      <div class="flow"><span data-l="ko">우클릭으로 올리기</span><span data-l="en">Right-click into cube</span><i>›</i>
+        <span data-l="ko">아이템 변성</span><span data-l="en">Transfigure</span><i>›</i>
+        <span data-l="ko">변환</span><span data-l="en">Convert</span><i>›</i>
+        <span data-l="ko">수락(Enter)</span><span data-l="en">Accept (Enter)</span><i>›</i>
+        <span data-l="ko">초기화</span><span data-l="en">Reset</span></div>
+      <ul>
+        <li data-l="ko"><b>계정 귀속 아이템 건너뛰기</b>를 켜면 이미 귀속된 아이템은 재료를 아끼려고 넘깁니다.</li>
+        <li data-l="en">Turn on <b>Skip account-bound items</b> to save materials on items already bound.</li>
+        <li data-l="ko">초기화 뒤 큐브가 비었는지 확인하고 다음 칸을 올립니다. 두 개가 겹쳐 올라가지 않게 하는 장치입니다.</li>
+        <li data-l="en">After each reset it confirms the cube is empty before the next item, so two items never stack.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ③ 제조법 -->
+  <section id="recipe" data-topic="recipe">
+    <h2><span class="num">3</span><span data-l="ko">제조법</span><span data-l="en">Recipes</span></h2>
+    <p class="muted" data-l="ko">제조법 탭에서 하나를 고르고 ▶ 시작 → 확인 창 → 정한 초만큼 기다린 뒤 시작합니다. 제조법 줄은 화면 글자로 찾고, 목록 아래쪽 줄은 휠로 내려서 찾습니다.</p>
+    <p class="muted" data-l="en">Pick a recipe, press ▶ Start → confirm → it starts after the delay you set. Recipe rows are found by reading the screen; lower rows are reached with the mouse wheel.</p>
+
+    <div class="card recipe strip">
+      <h3 data-l="ko">속성 제거</h3><h3 data-l="en">Remove Affix</h3>
+      <p data-l="ko">마법·희귀 아이템의 속성을 <b>모두</b> 지워 일반 아이템으로 만듭니다. 한 아이템에서 변환 버튼이 꺼질 때까지(속성이 다 지워질 때까지) 계속 누르고, 초기화를 여러 번 눌러 다음 아이템으로 갑니다.</p>
+      <p data-l="en">Removes <b>all</b> affixes from magic/rare items. It keeps converting until the Convert button turns off, then resets (several clicks) and moves on.</p>
+    </div>
+    <div class="card recipe legend">
+      <h3 data-l="ko">전설로 업그레이드</h3><h3 data-l="en">Upgrade to Legendary</h3>
+      <p data-l="ko">인벤 칸 바탕색으로 <b>마법(파랑)</b>과 <b>희귀(노랑)</b>만 고릅니다. 전설·고유·신화는 건드리지 않습니다.</p>
+      <p data-l="en">Only <b>magic (blue)</b> and <b>rare (yellow)</b> slots are picked by their background color. Legendary, unique and mythic items are left alone.</p>
+      <ul>
+        <li data-l="ko">속성 추가가 되면(마법 · 속성 3개 희귀) 버튼이 꺼질 때까지 <b>속성 추가</b> → 4개가 되면 그 자리에서 바로 <b>전설로 업그레이드</b>.</li>
+        <li data-l="en">If an affix can be added (magic or 3-affix rare): <b>Add Affix</b> until the button turns off → at 4 affixes, <b>Upgrade to Legendary</b> right away.</li>
+        <li data-l="ko">이미 속성이 4개인 희귀 아이템은 바로 <b>전설로 업그레이드</b>.</li>
+        <li data-l="en">Rares that already have 4 affixes go straight to <b>Upgrade to Legendary</b>.</li>
+      </ul>
+      <div class="note tip" data-l="ko"><b>재료</b>속성 추가는 재료를 씁니다(마법 아이템 하나에 최대 2~3번). 처음엔 몇 개로 시험해 보세요.</div>
+      <div class="note tip" data-l="en"><b>Materials</b>Add Affix consumes materials (up to 2–3 times per magic item). Try a few items first.</div>
+    </div>
+    <div class="card recipe unique">
+      <h3 data-l="ko">고유 아이템 제작</h3><h3 data-l="en">Unique Item Crafting</h3>
+      <p data-l="ko">일반 장비를 같은 종류의 무작위 고유 아이템으로 만듭니다. 결과는 인벤 <b>빈 칸</b>으로 들어가 배치가 바뀌므로 한 개씩 꼼꼼히(천천히) 진행합니다.</p>
+      <p data-l="en">Turns normal gear into a random unique of the same type. The result goes to an <b>empty slot</b>, so the layout changes and it proceeds carefully, one by one.</p>
+      <div class="note warn" data-l="ko"><b>인벤 빈 칸 1칸 이상 필요</b>빈 칸이 없으면 결과가 바닥에 떨어집니다. 헬퍼는 시작하지 않고 진행 카드를 빨간색으로 바꾼 뒤 “인벤토리 한 칸을 비워 주세요”라고 알려 줍니다.</div>
+      <div class="note warn" data-l="en"><b>At least 1 free inventory slot</b>Without one the result drops on the ground. The helper will not start; the card turns red and it says “Please free up one inventory slot.”</div>
+    </div>
+    <div class="card recipe mythic">
+      <h3 data-l="ko">신화로 업그레이드</h3><h3 data-l="en">Upgrade to Mythic</h3>
+      <p data-l="ko">선조 고유 아이템을 신화로 만듭니다. 고유 아이템 제작과 같이 <b>빈 칸 1칸</b>이 필요하고 한 개씩 진행합니다. 재료(반짝이는 벼락불)를 많이 쓰니 대상을 확인하고 쓰세요.</p>
+      <p data-l="en">Upgrades ancestral uniques to mythic. Like unique crafting it needs <b>1 free slot</b> and goes one at a time. It uses expensive materials — double-check the items first.</p>
+    </div>
+  </section>
+
+  <!-- ④ 저해상도 -->
+  <section id="enchant" data-topic="enchant">
+    <h2><span class="num">✧</span><span data-l="ko">자동 마부</span><span data-l="en">Auto Enchant</span></h2>
+    <div class="card">
+      <div class="note warn" data-l="ko"><b>시작하기 전에 꼭 해 주세요</b>비술사 › 아이템 마법부여에 아이템을 올리고, <b>바꿀 속성을 직접 골라 [마법부여] → [속성 교체] 를 한 번 진행</b>해 두세요. 어떤 속성을 바꿀지는 사용자가 정합니다. 헬퍼는 그다음부터 그 속성 자리만 계속 바꿉니다.</div>
+      <div class="note warn" data-l="en"><b>Do this before you start</b>Put the item into Occultist › Enchant, <b>pick the affix you want to replace yourself and run [Enchant] → [Replace Affix] once</b>. You choose which affix to change; the helper then keeps rerolling that slot only.</div>
+      <p data-l="ko">원하는 속성·수치가 나올 때까지 비술사 속성 교체를 되풀이합니다. 매번 쓴 골드를 더해 한도를 넘기 전에 멈춥니다.</p>
+      <p data-l="en">Repeats the Occultist affix reroll until the affix and value you want appear. It adds up the gold each time and stops before the limit.</p>
+      <div class="flow"><span data-l="ko">[마법부여]</span><span data-l="en">[Enchant]</span><i>›</i>
+        <span data-l="ko">후보 2줄 읽기</span><span data-l="en">Read 2 candidates</span><i>›</i>
+        <span data-l="ko">목표면 그 줄 동그라미 선택</span><span data-l="en">Pick the target row's circle</span><i>›</i>
+        <span data-l="ko">[속성 교체]</span><span data-l="en">[Replace Affix]</span><i>›</i>
+        <span data-l="ko">결과 창 [닫기]</span><span data-l="en">Close the result</span></div>
+      <ul>
+        <li data-l="ko"><b>목표 속성</b>: 목록에서 고르거나 직접 씁니다. 한 번 쓴 목표는 목록 맨 위에 남습니다. 중간 글자로도 찾을 수 있습니다(예: '재생' → 생명력 재생).</li>
+        <li data-l="en"><b>Target affix</b>: pick from the list or type it. Recent targets stay at the top; partial words work (e.g. 'regen').</li>
+        <li data-l="ko"><b>목표 수치(이상)</b>: 7.0 이면 7.0 이상, 6.0 이면 6.1·6.9·7.0 에서도 멈춥니다. 목표 속성이 처음 나오면 수치와 상관없이 바꾸고, 그 뒤엔 지금보다 높을 때만 바꿉니다.</li>
+        <li data-l="en"><b>Target value (or higher)</b>: 7.0 stops at 7.0+, 6.0 also stops at 6.1·6.9·7.0. The first time the affix appears it is taken; after that only higher values replace it.</li>
+        <li data-l="ko"><b>골드 한도</b>: 다음 [마법부여] 금액까지 더해 한도를 넘으면 누르기 전에 멈춥니다. 진행 카드의 막대는 사용한 골드 ÷ 한도입니다.</li>
+        <li data-l="en"><b>Gold limit</b>: if the next enchant would go over, it stops before clicking. The card's bar shows spent ÷ limit.</li>
+        <li data-l="ko"><b>기록 보기</b>: 실행이 끝날 때마다 기록이 남고, [기록 보기] 창에서 요약 카드, 대시보드(속성 나온 횟수 막대 그래프, 전체 실행 보기 토글), 목록 탭으로 확인합니다. 한 번의 실행만 지우거나 전체를 지울 수 있습니다.</li>
+        <li data-l="en"><b>History</b>: every run is recorded. The [History] window has summary cards, a dashboard (affix frequency bar chart with an all-runs toggle) and list tabs. You can delete a single run or all of them.</li>
+        <li data-l="ko"><b>목표 도달</b>: 멈추고 알람과 음성으로 알립니다. [확인] · Esc · 시작 키 · 마우스 클릭으로 끄면 음성도 바로 끝납니다.</li>
+        <li data-l="en"><b>Goal reached</b>: it stops and alerts with sound and voice. Dismiss with [OK] · Esc · start key · a mouse click; the voice stops right away.</li>
+      </ul>
+      <div class="note tip" data-l="ko"><b>글자 읽기</b>후보 줄은 정확도가 높은 RapidOCR(PP-OCRv5 한국어)로 먼저 읽고, 못 읽으면 Windows OCR 로 읽습니다. 진행 카드 아래에 읽은 속성 이름과 수치가 보입니다.</div>
+      <div class="note tip" data-l="en"><b>Text reading</b>Candidate rows are read first with RapidOCR (PP-OCRv5 Korean) and fall back to Windows OCR. The card shows the matched affix names and values.</div>
+    </div>
+  </section>
+
+  <section id="talisman" data-topic="talisman">
+    <h2><span class="num">✿</span><span data-l="ko">자동 부적</span><span data-l="en">Auto Charm</span></h2>
+    <div class="card">
+      <div class="warn" style="background:#b3261e;color:#fff;border-radius:8px;padding:10px 14px;margin-bottom:10px;font-weight:700">
+        <span data-l="ko">⚠ A 풀과 B 풀을 둘 다 고르면 <u>한 번에 같이</u> 나와야 멈춥니다. 한쪽만 맞으면 계속 돌며 재료를 씁니다. 한쪽만 원하면 다른 풀을 ‘상관없음’ 으로 두세요.</span>
+        <span data-l="en">⚠ If you pick both pool A and pool B, they must appear <u>on the same roll</u> to stop. If only one matches, rolling continues and uses materials. To target one side, set the other pool to “Any”.</span>
+      </div>
+      <p data-l="ko">풀마다 후보를 2개까지 고를 수 있습니다. 같은 풀에서는 먼저 나온 후보로 맞은 것으로 봅니다. 포바·페르·믈로르·린타·베루 스위치로 원하는 조각만 남길 수 있고, 끄면 확률이 그만큼 줄어듭니다. 돌린 내용은 [기록 보기] 에 남습니다.</p>
+      <p data-l="en">Each pool takes up to two options, and whichever appears first counts. Piece switches keep only the charms you want, which lowers the chance. Every run is kept in [History].</p>
+      <p data-l="ko">호라드림의 함 제조법 <b>“세트 부적 무작위 변경”</b>으로 세트 부적을 굴려, 고른 속성이 나올 때까지 되풀이합니다. 부적은 굴려도 그대로 남습니다.</p>
+      <p data-l="en">Rerolls a <b>set charm</b> with the Horadric Cube recipe <b>“Reroll Set Charm”</b> over and over until the affixes you picked show up. The charm itself stays in the cube.</p>
+      <div class="flow"><span data-l="ko">F 한 번 길게 누르기</span><span data-l="en">Hold F once</span><i>›</i>
+        <span data-l="ko">툴팁 바뀔 때까지 대기</span><span data-l="en">Wait for tooltip change</span><i>›</i>
+        <span data-l="ko">속성 2줄 · ★ 읽기</span><span data-l="en">Read 2 affixes · ★</span><i>›</i>
+        <span data-l="ko">기록 · 목표면 멈춤</span><span data-l="en">Record · stop on goal</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3 data-l="ko">핵심 규칙: 속성은 항상 2개</h3><h3 data-l="en">Key rule: always 2 affixes</h3>
+        <p data-l="ko">세트 부적에는 속성이 정확히 <b>2개</b> 붙고, <b>A 묶음에서 하나 + B 묶음에서 하나</b>입니다. 같은 묶음의 속성 두 개는 절대 함께 나오지 않습니다. 줄 순서는 상관없습니다.</p>
+        <p data-l="en">Every set charm has exactly <b>2 affixes</b>: <b>one from pool A and one from pool B</b>. Two affixes from the same pool never appear together. The line order does not matter.</p>
+        <ul>
+          <li data-l="ko"><b>A 묶음</b>: 핵심 능력치 · 모든 능력치, 이동 속도, 최대 자원, 모든 저항, 방어도, 최대 생명력, 원소 쇄도 행운의 일격 피해, 직업 기술 등급 계열(예: 명사수 기술).</li>
+          <li data-l="en"><b>Pool A</b>: core stats / all stats, movement speed, maximum resource, all resistances, armor, maximum life, elemental surge lucky-hit damage, class skill-rank groups (e.g. Marksman skills).</li>
+          <li data-l="ko"><b>B 묶음</b>: 골드 획득, 경험치, 제작 재료, 물약 회복, 군중 제어 지속시간 감소, 개별 저항, 행운의 일격 군중 제어(예: 빙결).</li>
+          <li data-l="en"><b>Pool B</b>: gold find, experience, crafting materials, potion healing, crowd-control duration reduction, single resistances, lucky-hit crowd control (e.g. freeze).</li>
+        </ul>
+        <div class="note tip" data-l="ko"><b>예</b>최대 자원과 명사수 기술은 둘 다 A 묶음이라 한 부적에 같이 붙을 수 없습니다. 헬퍼는 A 에서 하나, B 에서 하나만 목표로 고르게 해서 불가능한 조합은 아예 고를 수 없습니다.</div>
+        <div class="note tip" data-l="en"><b>Example</b>Maximum resource and Marksman skills are both pool A, so they can never be on the same charm. The helper lets you pick one goal from A and one from B only, so impossible combinations cannot be chosen.</div>
+      </div>
+      <div class="card">
+        <h3 data-l="ko">★ (상위 속성) 와 아이템 위력</h3><h3 data-l="en">★ (greater affix) and Item Power</h3>
+        <p data-l="ko"><b>★</b> 는 최고 수치의 ×1.25(반올림)입니다. 예: 최대 자원 일반 15~20 → ★ 25, 명사수 기술 일반 2~3 → ★ 4, 경험치 2~10 → ★ 13.</p>
+        <p data-l="en"><b>★</b> is the top value ×1.25, rounded. E.g. maximum resource normal 15–20 → ★ 25, Marksman skills normal 2–3 → ★ 4, experience 2–10 → ★ 13.</p>
+        <p data-l="ko">일부 속성은 <b>아이템 위력 900</b> 부적에서만 최고 범위가 나옵니다(최대 자원은 850 부적 10~15, 900 부적 15~20). 목표가 900 을 필요로 하는데 부적이 850 이면 헬퍼는 시작하지 않고 빨간 경고와 음성으로 알립니다. 900 부적을 권장합니다.</p>
+        <p data-l="en">Some affixes only reach their top range on <b>Item Power 900</b> charms (maximum resource is 10–15 on an 850 charm, 15–20 on 900). If your goal needs 900 and the charm is 850, the helper refuses to start and warns in red with a voice message. A 900 charm is recommended.</p>
+      </div>
+      <div class="card">
+        <h3 data-l="ko">직업과 세트</h3><h3 data-l="en">Classes and sets</h3>
+        <p data-l="ko">8개 직업(원소술사 · 드루이드 · 야만용사 · 도적 · 강령술사 · 혼령사 · 성기사 · 흑마법사)의 세트와 공용 세트 5개(학살 · 숙련된 기법 · 생존 · 어두운 맹약 · 숙련)를 지원합니다.</p>
+        <p data-l="en">Supports the sets of all 8 classes (Sorcerer, Druid, Barbarian, Rogue, Necromancer, Spiritborn, Paladin, Warlock) and 5 common sets (Slaughter, Mastered Technique, Survival, Dark Covenant, Mastery).</p>
+      </div>
+      <div class="card">
+        <h3 data-l="ko">목표 조건</h3><h3 data-l="en">Goal conditions</h3>
+        <ul>
+          <li data-l="ko"><b>나오기만</b>: 그 속성이 붙기만 하면 됩니다.</li>
+          <li data-l="en"><b>Any roll</b>: the affix only has to appear.</li>
+          <li data-l="ko"><b>최소 수치</b>: 정한 수치 이상.</li>
+          <li data-l="en"><b>Minimum</b>: at or above the value you set.</li>
+          <li data-l="ko"><b>★ 필수</b>: 상위 속성이어야 합니다.</li>
+          <li data-l="en"><b>★ required</b>: it must be a greater affix.</li>
+          <li data-l="ko">목표 한 쪽은 <b>상관없음</b>으로 둘 수 있습니다.</li>
+          <li data-l="en">Either goal can be left as <b>Any</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 data-l="ko">확률과 재료표</h3><h3 data-l="en">Chance and materials table</h3>
+      <p data-l="ko">탭에 한 번 굴릴 때의 확률이 표시되고, 아래 재료표에서 <b>평균 · 50% · 90%</b> 확률로 목표를 얻는 데 필요한 <b>굴림 횟수</b>, <b>주입된 호라드림 수액</b>, <b>미가공 태고의 가루</b>, 그리고 적중 확률을 볼 수 있습니다. <b>내 재료</b> 줄과 비교해 모자라지 않은지 먼저 확인하세요.</p>
+      <p data-l="en">The tab shows the chance per roll. The materials table lists, for <b>average · 50% · 90%</b> chance, the number of <b>rolls</b>, <b>Infused Horadric Sap</b>, <b>Raw Ancient Dust</b> and the hit chance. Compare it with your own <b>My materials</b> row first.</p>
+      <p data-l="ko"><b>한 번 굴릴 때 비용</b>(게임 화면 기준): 미가공 태고의 가루 25 + 주입된 호라드림 수액 50.</p>
+      <p data-l="en"><b>Cost per roll</b> (game screen): Raw Ancient Dust 25 + Infused Horadric Sap 50.</p>
+    </div>
+
+    <div class="card">
+      <h3 data-l="ko">사용 순서</h3><h3 data-l="en">Steps</h3>
+      <ol class="check">
+        <li data-l="ko"><b>호라드림의 함</b>을 열고 세트 부적(900 권장)을 함 안에 넣습니다.</li>
+        <li data-l="en">Open the <b>Horadric Cube</b> and put the set charm (900 recommended) in it.</li>
+        <li data-l="ko">편의기능 › <b>자동 부적</b> 탭에서 직업 · 세트 · 목표를 고릅니다.</li>
+        <li data-l="en">On the Tools › <b>Auto Charm</b> tab pick the class, set and goals.</li>
+        <li data-l="ko">공용 시작 키(기본 <kbd>F11</kbd>)를 누릅니다.</li>
+        <li data-l="en">Press the shared start key (default <kbd>F11</kbd>).</li>
+        <li data-l="ko">시작하면 제조법 설명에서 <b>내 재료</b>를 읽고, “세트 부적 무작위 변경”이 아직 선택되어 있지 않으면 선택합니다(이미 선택되어 있으면 그대로 둡니다). 마우스를 함의 첫 칸 위로 옮겨 계속 둡니다.</li>
+        <li data-l="en">At start the helper reads <b>your materials</b> from the recipe tooltip, selects “Reroll Set Charm” if it is not selected yet (left as is if it already is), and moves the cursor onto the first cube slot and keeps it there.</li>
+        <li data-l="ko">매 굴림마다 <kbd>F</kbd> 를 한 번 누른 채 유지 → 툴팁이 바뀔 때까지 대기 → 속성 2개와 ★ 읽기 → 기록. 재료는 굴릴 때마다 차감해서 보여 줍니다.</li>
+        <li data-l="en">Each roll: hold <kbd>F</kbd> once → wait for the tooltip to change → read the 2 affixes and ★ → record. Materials are counted down on every roll.</li>
+      </ol>
+      <ul>
+        <li data-l="ko"><b>목표 도달</b>: 멈추고 알람과 음성이 <b>10초마다</b> 반복됩니다. [확인] · Esc · 시작 키 · 마우스 클릭 중 하나로 끕니다.</li>
+        <li data-l="en"><b>Goal reached</b>: it stops and the alarm and voice repeat <b>every 10 seconds</b> until you dismiss it with [OK] · Esc · the start key · any mouse click.</li>
+        <li data-l="ko"><b>일시정지 · 중지</b>: <kbd>F11</kbd> 을 다시 누르면 매크로만 멈추고 창은 그대로 둡니다. <kbd>Esc</kbd> 는 완전히 멈춥니다.</li>
+        <li data-l="en"><b>Pause · stop</b>: pressing <kbd>F11</kbd> again pauses the macro only (windows stay open). <kbd>Esc</kbd> stops completely.</li>
+        <li data-l="ko"><b>재료 부족</b>: 툴팁이 3번 연속 바뀌지 않으면 “재료 부족”으로 보고 멈춥니다.</li>
+        <li data-l="en"><b>Out of materials</b>: if the tooltip does not change 3 times in a row, it stops as “out of materials”.</li>
+        <li data-l="ko"><b>진행 카드</b>: 캐릭터 창 위에 굴린 횟수, 남은 재료 · 쓴 재료, 남은 굴림 수, 읽은 속성 2개가 보입니다.</li>
+        <li data-l="en"><b>Progress card</b>: over the character panel it shows rolls, materials left / used, rolls left and the two affixes just read.</li>
+      </ul>
+      <div class="note warn" data-l="ko"><b>팁</b>★ 두 개를 모두 요구하는 목표는 수십만 번이 필요할 수 있습니다. 먼저 재료표를 확인하세요. 현실적인 목표는 ★ 속성 하나 + 상관없음입니다.</div>
+      <div class="note warn" data-l="en"><b>Tip</b>A goal that needs two ★ affixes can take hundreds of thousands of rolls. Check the materials table first. A realistic goal is one ★ affix plus Any.</div>
+    </div>
+  </section>
+
+  <section id="fishing" data-topic="fishing">
+    <h2><span class="num">🎣</span><span data-l="ko">자동 낚시</span><span data-l="en">Auto Fishing</span></h2>
+    <div class="card">
+      <p data-l="ko">줄 던지기, 입질 감기, 전리품 줍기를 이어서 돌립니다. 물가에 서서 시작해 주세요.</p>
+      <p data-l="en">Casts, reels on a bite, and picks up the loot in a loop. Stand at the water's edge before you start.</p>
+      <div class="flow"><span data-l="ko">물가에 서기</span><span data-l="en">Stand at the water</span><i>›</i><span data-l="ko">물 쪽에 커서</span><span data-l="en">Aim at the water</span><i>›</i><span data-l="ko">시작</span><span data-l="en">Start</span></div>
+    </div>
+    <div class="card">
+      <h3 data-l="ko">처음 한 번: 사용 코드 받기</h3>
+      <h3 data-l="en">First time: get a usage code</h3>
+      <ol data-l="ko">
+        <li>상단 텔레그램 창에서 <b>텔레그램 연동</b>을 누르고 봇의 [시작]을 누릅니다. 승인을 기다리지 않습니다.</li>
+        <li>낚시 탭에서 <b>공지 채널</b>에 가입합니다. 가입이 확인되면 초록색 <b>가입 완료</b>로 바뀌고 다음 단계가 열립니다.</li>
+        <li><b>그룹</b>에 가입합니다.</li>
+        <li><b>사용 코드 받기</b>로 봇에게 코드를 받아 아래 칸에 넣습니다. 코드는 사람마다 다르고 한 번만 씁니다.</li>
+      </ol>
+      <ol data-l="en">
+        <li>Open the Telegram window, press <b>Link Telegram</b>, then tap [Start] in the bot. No waiting needed.</li>
+        <li>On the Fishing tab, join the <b>Notice channel</b>. It turns green with <b>Joined</b> and the next step opens.</li>
+        <li>Join the <b>Group</b>.</li>
+        <li>Use <b>Get usage code</b> to get a code from the bot and enter it below. Each code is personal and works once.</li>
+      </ol>
+      <p data-l="ko">같은 텔레그램 계정으로 연동한 다른 PC 는 코드 없이 열립니다. 연동을 끊거나 채널·그룹에서 나가면 낚시가 멈춥니다.</p>
+      <p data-l="en">Other PCs linked to the same Telegram account open without a code. Unlinking or leaving the channel or group stops fishing.</p>
+    </div>
+    <div class="card">
+      <h3 data-l="ko">게임 설정</h3>
+      <h3 data-l="en">Game settings</h3>
+      <table class="steps">
+        <tr><td data-l="ko">낚싯줄 던지기</td><td data-l="en">Cast</td><td data-l="ko">감정표현 바퀴의 낚싯줄 던지기에 지정한 키 (기본 F1)</td><td data-l="en">The key set for casting on the emote wheel (default F1)</td></tr>
+        <tr><td data-l="ko">감기 스킬</td><td data-l="en">Reel</td><td data-l="ko">줄을 던지면 스킬창이 모두 감기로 바뀝니다. 그 칸의 키 (기본 1)</td><td data-l="en">Skill slots turn into Reel after casting. Use that slot's key (default 1)</td></tr>
+        <tr><td data-l="ko">화면 확대/축소</td><td data-l="en">Zoom</td><td data-l="ko">게임에 지정한 키 (기본 F8)</td><td data-l="en">The key set in the game (default F8)</td></tr>
+        <tr><td data-l="ko">아이템 이름 표시</td><td data-l="en">Item names</td><td data-l="ko">게임플레이 설정에서 <b>단축키 누르면 10초간 표시</b>로 맞춥니다. 헬퍼가 Alt 로 이름을 켜서 읽습니다.</td><td data-l="en">Set it to <b>show for 10 seconds on key press</b> in Gameplay settings. The helper uses Alt to read names.</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3 data-l="ko">줍기</h3>
+      <h3 data-l="en">Picking up loot</h3>
+      <ul data-l="ko">
+        <li>줄을 던져 둔 채로 커서를 캐릭터 둘레로 돌리며 F 로 줍습니다. 회전 반경 안의 아이템만 세고 줍습니다.</li>
+        <li>캐릭터가 걸어가면 <b>줍기 회전 반경</b>을 줄이고, 아이템이 멀리 떨어지면 키웁니다.</li>
+        <li><b>줍기 제외</b>에 넣은 아이템(기본 날가죽)은 줍지도 세지도 않습니다.</li>
+        <li>회전 반경 안에 아이템이 <b>인벤 확인</b> 개수(기본 20개) 이상 남으면 인벤을 열어 빈 칸을 셉니다. 인벤이 차면 줍기만 쉬고 낚시는 계속합니다.</li>
+      </ul>
+      <ul data-l="en">
+        <li>With the line out, the cursor circles the character while pressing F. Only items inside the spin radius are counted and picked.</li>
+        <li>Reduce the <b>spin radius</b> if the character walks; raise it if items land far away.</li>
+        <li>Items on the <b>skip list</b> (default: Rawhide) are not picked or counted.</li>
+        <li>When the <b>inventory check</b> count (default 20) is left inside the radius, it opens the inventory to count free slots. If full, it stops looting but keeps fishing.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 data-l="ko">몹이 나올 때</h3>
+      <h3 data-l="en">When mobs appear</h3>
+      <ul data-l="ko">
+        <li>멀리 있는 몹은 공격하지 않습니다.</li>
+        <li>회전 반경 안에 몹 체력바가 보이거나, 공격으로 줄이 풀렸을 때 화면을 축소하고 <b>사용할 전투 스킬</b>로 정리한 뒤 다시 낚시합니다.</li>
+        <li>전투로 밀려나면 <b>낚시터 방향</b>에 고른 시계 방향으로 돌아옵니다. 물 쪽 시각을 골라 두세요.</li>
+      </ul>
+      <ul data-l="en">
+        <li>Distant mobs are left alone.</li>
+        <li>When a mob health bar is inside the spin radius, or an attack breaks the line, it zooms out, clears mobs with your <b>combat skills</b>, and fishes again.</li>
+        <li>If combat pushes you away, it returns along the clock directions set in <b>Fishing direction</b>. Pick the hours facing the water.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 data-l="ko">기록과 알림</h3>
+      <h3 data-l="en">Records and alerts</h3>
+      <ul data-l="ko">
+        <li><b>낚시현황</b>에서 날짜별 낚음·전리품 그래프를 봅니다. <b>기록 보기</b>에서 도감과 인벤 목록을 봅니다.</li>
+        <li><b>보고 주기</b>마다 인벤 사진과 낚시현황을 텔레그램으로 보냅니다. 0 이면 끕니다.</li>
+        <li>낚시 중 연결이 끊기면 [수락]과 [게임 시작]을 눌러 다시 들어가고 텔레그램으로 알립니다. 캐릭터가 낚시터가 아닌 곳에서 시작하면 줄이 안 던져져 멈춥니다.</li>
+      </ul>
+      <ul data-l="en">
+        <li><b>Fishing status</b> shows catches and loot by date. <b>Records</b> shows the catalog and inventory list.</li>
+        <li>Every <b>report interval</b>, an inventory picture and status go to Telegram. Set 0 to turn it off.</li>
+        <li>If the connection drops while fishing, it presses [Accept] and [Start Game] to return and alerts you on Telegram. If the character does not return to a fishing spot, casting fails and it stops.</li>
+      </ul>
+      <img src="../images/inven/16_fishing_record.png" alt="" style="max-width:100%;border-radius:8px;margin-top:8px">
+    </div>
+    <div class="card">
+      <h3 data-l="ko">안 될 때</h3>
+      <h3 data-l="en">Troubleshooting</h3>
+      <table class="steps">
+        <tr><td data-l="ko">시작이 안 눌림</td><td data-l="en">Start is disabled</td><td data-l="ko">사용 코드 단계를 끝냈는지, 채널·그룹에 남아 있는지 봅니다.</td><td data-l="en">Finish the code steps and stay in the channel and group.</td></tr>
+        <tr><td data-l="ko">줄이 안 던져짐</td><td data-l="en">Line will not cast</td><td data-l="ko">물가로 옮기고 던지기 키를 확인합니다. 8번 연속 안 되면 멈춥니다.</td><td data-l="en">Move to the water and check the cast key. It stops after 8 misses in a row.</td></tr>
+        <tr><td data-l="ko">이름을 못 읽음</td><td data-l="en">Names not read</td><td data-l="ko">아이템 이름 표시 설정을 다시 확인합니다.</td><td data-l="en">Check the item name setting again.</td></tr>
+        <tr><td data-l="ko">캐릭터가 걸어감</td><td data-l="en">Character walks</td><td data-l="ko">줍기 회전 반경을 줄이거나 회전 중심을 맞춥니다.</td><td data-l="en">Reduce the spin radius or adjust its center.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="overlay" data-topic="overlay">
+    <h2><span class="num">◆</span><span data-l="ko">오버레이 (게임 위 진행 카드)</span><span data-l="en">Overlays (progress card over the game)</span></h2>
+    <div class="card">
+      <p data-l="ko">선변성·제조법을 돌리는 동안 <b>캐릭터 창 그림 자리</b>(양옆 장비 칸 사이)에 진행 카드가 뜹니다. 크기와 글자는 인벤 칸 간격 비율로 정해져 해상도가 달라도 같은 모양입니다. 마우스로 누를 수 없고 게임 조작을 막지 않습니다.</p>
+      <p data-l="en">While a tool runs, a progress card appears over the <b>character portrait area</b> (between the equipment columns). Its size follows the inventory slot spacing, so it looks the same at any resolution. It cannot be clicked and never blocks game input.</p>
+      <div class="mocks">
+        <div><div class="mock" style="--k:#e5b85c;--p:39%"><div class="h"><span>호라드림의 함 · 제조법</span><span>⏱ 1:13</span></div><div class="t">속성 제거</div><div class="bar"><i></i></div><div class="pr"><span>진행 13 / 31</span><b>39%</b></div><div class="row"><span>지금 칸</span><b>13 / 31</b></div><div class="row"><span>이 아이템 변환</span><b>2</b></div><div class="row"><span>끝낸 칸</span><b>12</b></div><div class="now">› 변환 2</div><div class="ft">멈추기: 게임에서 Esc</div></div></div>
+        <div>
+          <ol class="legend-list" data-l="ko">
+            <li><b>머리글</b> - 무엇을 하는지(호라드림의 함 · 제조법 / 선변성)와 오른쪽 ⏱ 걸린 시간.</li>
+            <li><b>제목</b> - 지금 돌리는 기능. 제조법은 등급색(전설 주황 · 고유 금빛 · 신화 보라)으로 보입니다. 옆의 점은 도는 동안 깜빡입니다.</li>
+            <li><b>진행 막대</b> - 지나간 칸 / 전체. 건너뛴 칸도 진행으로 셉니다. 아래에 ‘진행 n / 전체’ 와 %.</li>
+            <li><b>지금 칸</b> - 몇 번째 대상 칸인지.</li>
+            <li><b>이 아이템 변환</b> - 한 아이템에 변환을 몇 번 눌렀는지(속성 제거·속성 추가처럼 반복하는 제조법).</li>
+            <li><b>끝낸 칸</b> - 실제로 끝까지 마친 칸 수.</li>
+            <li><b>› 지금 하는 일</b> - 아래 ‘단계 문구’ 표를 보세요.</li>
+            <li><b>아래 줄</b> - 멈추는 법(Esc). 고유·신화는 ‘빈 칸 1칸 필요’ 안내가 붙습니다.</li>
+          </ol>
+          <ol class="legend-list" data-l="en">
+            <li><b>Header</b> - what is running (Horadric Cube · Recipes / Transfigure) and ⏱ elapsed time.</li>
+            <li><b>Title</b> - the running tool, in rarity color for recipes (legendary orange · unique gold · mythic purple). The dot blinks while running.</li>
+            <li><b>Progress bar</b> - slots passed / total; skipped slots count too. Below: ‘Progress n / total’ and %.</li>
+            <li><b>Current slot</b> - which target slot is being worked on.</li>
+            <li><b>Converts on this item</b> - how many times Convert was pressed (repeating recipes such as Remove/Add Affix).</li>
+            <li><b>Slots done</b> - slots actually finished.</li>
+            <li><b>› Now</b> - see the step table below.</li>
+            <li><b>Footer</b> - how to stop (Esc); unique/mythic also show ‘1 free slot needed’.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <h3 data-l="ko">카드 색 3가지</h3><h3 data-l="en">Three card colors</h3>
+    <div class="mocks">
+      <div><div class="mock" style="--k:#e5b85c;--p:25%"><div class="h"><span>호라드림의 함 · 제조법</span><span>⏱ 1:13</span></div><div class="t">전설로 업그레이드</div><div class="bar"><i></i></div><div class="pr"><span>진행 4 / 16</span><b>25%</b></div><div class="row"><span>지금 칸</span><b>4 / 16</b></div><div class="row"><span>끝낸 칸</span><b>3</b></div><div class="now">› 속성 추가</div><div class="ft">멈추기: 게임에서 Esc</div></div>
+        <p class="muted" data-l="ko"><b>금색</b> - 진행 중</p><p class="muted" data-l="en"><b>Gold</b> - running</p></div>
+      <div><div class="mock" style="--k:#22c55e;--p:100%"><div class="h"><span>호라드림의 함 · 선변성</span><span>⏱ 1:13</span></div><div class="t">인벤 선변성</div><div class="bar"><i></i></div><div class="pr"><span>진행 28 / 28</span><b>100%</b></div><div class="row"><span>끝낸 칸</span><b>28</b></div><div class="now">› 28 칸을 돌았습니다.</div><div class="ft">멈추기: 게임에서 Esc</div></div>
+        <p class="muted" data-l="ko"><b>초록</b> - 끝남 (7초 뒤 사라짐)</p><p class="muted" data-l="en"><b>Green</b> - finished (fades after 7 s)</p></div>
+      <div><div class="mock" style="--k:#e5484d;--p:0%"><div class="h"><span>호라드림의 함 · 제조법</span><span>⏱ 1:13</span></div><div class="t">고유 아이템 제작</div><div class="bar"><i></i></div><div class="pr"><span>진행 0 / 19</span><b>0%</b></div><div class="row"><span>끝낸 칸</span><b>0</b></div><div class="now">› 인벤토리에 빈 칸이 없어 시작하지 않았습니다</div><div class="ft">멈추기: 게임에서 Esc</div></div>
+        <p class="muted" data-l="ko"><b>빨강</b> - 시작 못 함 (15초 남음) + 음성 “인벤토리 한 칸을 비워 주세요”</p>
+        <p class="muted" data-l="en"><b>Red</b> - could not start (stays 15 s) + voice “Please free up one inventory slot”</p></div>
+    </div>
+
+    <h3 data-l="ko">단계 문구 (› 지금 하는 일)</h3><h3 data-l="en">Step messages (› Now)</h3>
+    <div class="card">
+      <table class="steps" data-l="ko">
+        <tr><td>n 초 뒤 시작</td><td>확인 뒤 대기 중입니다. 이때 게임 창으로 넘어가세요.</td></tr>
+        <tr><td>아이템 올리기</td><td>칸을 우클릭해 큐브에 올리는 중입니다.</td></tr>
+        <tr><td>(제조법 이름)</td><td>제조법 줄을 찾아 누르는 중입니다. ‘(선택 유지)’ 는 이미 골라져 있어 누르지 않은 것입니다.</td></tr>
+        <tr><td>변환 · 변환 n</td><td>변환 버튼을 눌렀습니다. 숫자는 반복 횟수입니다.</td></tr>
+        <tr><td>수락(Enter)</td><td>귀속 확인 창이 떠서 Enter 를 눌렀습니다.</td></tr>
+        <tr><td>결과 대기</td><td>변환 연출이 끝나기를 기다립니다(느린 PC 는 길어집니다).</td></tr>
+        <tr><td>초기화</td><td>큐브를 비우고 아이템이 칸으로 돌아왔는지 확인합니다.</td></tr>
+        <tr><td>전설로 업그레이드</td><td>(전설) 속성이 4개가 되어 바로 전설로 올리는 중입니다.</td></tr>
+        <tr><td>안 되는 아이템 - 넘김</td><td>그 아이템엔 제조법이 안 되어 넘깁니다(재료가 모자랄 때도 여기로 옵니다).</td></tr>
+        <tr><td>계정 귀속 - 건너뜀</td><td>(선변성) 이미 귀속된 아이템을 재료 절약을 위해 넘깁니다.</td></tr>
+      </table>
+      <table class="steps" data-l="en">
+        <tr><td>Starting in n s</td><td>Waiting after confirm — switch to the game now.</td></tr>
+        <tr><td>Placing item</td><td>Right-clicking the slot into the cube.</td></tr>
+        <tr><td>(recipe name)</td><td>Finding and clicking the recipe row. ‘(kept)’ means it was already selected and not clicked.</td></tr>
+        <tr><td>Convert · Convert n</td><td>Convert was pressed; n is the repeat count.</td></tr>
+        <tr><td>Accept (Enter)</td><td>The bind confirmation appeared and Enter was pressed.</td></tr>
+        <tr><td>Waiting for result</td><td>Waiting for the conversion animation (longer on slow PCs).</td></tr>
+        <tr><td>Reset</td><td>Clearing the cube and checking the item returned to its slot.</td></tr>
+        <tr><td>Upgrade to Legendary</td><td>(Legendary) the item reached 4 affixes and is upgraded right away.</td></tr>
+        <tr><td>Not possible - skipped</td><td>The recipe does not apply to that item (also when materials run out).</td></tr>
+        <tr><td>Account-bound - skipped</td><td>(Transfigure) already bound, skipped to save materials.</td></tr>
+      </table>
+    </div>
+
+    <h3 data-l="ko">그 밖의 표시</h3><h3 data-l="en">Other indicators</h3>
+    <div class="grid">
+      <div class="card"><b data-l="ko">상단 상태 오버레이</b><b data-l="en">Top status overlay</b>
+        <p data-l="ko">시작·끝 안내 문구가 잠깐 뜹니다(시작 금색, 끝 주황). 헬퍼 설정에서 오버레이를 껐다면 뜨지 않습니다.</p>
+        <p data-l="en">Start/finish notices appear briefly (start gold, finish orange). Hidden if overlays are turned off in the helper settings.</p></div>
+      <div class="card"><b data-l="ko">칸 표시 네모</b><b data-l="en">Slot markers</b>
+        <p data-l="ko">선변성 탭에서 [자리 확인] 을 누르면 찍어 둔 첫 칸·끝 칸과 전체 칸 자리를 게임 위에 네모로 보여 줍니다.</p>
+        <p data-l="en">On the Transfigure tab, [Check slots] draws boxes over the marked first/last slot and every slot.</p></div>
+      <div class="card"><b data-l="ko">소리 · 음성</b><b data-l="en">Sound · voice</b>
+        <p data-l="ko">아이템 하나가 끝날 때 짧은 소리, 시작할 때 “속성 제거 시작합니다.”, 끝날 때 “30개 중 28개 성공했습니다.” 처럼 알려 줍니다(음성 안내 스위치).</p>
+        <p data-l="en">A short sound per item, “Starting Remove Affix.” at start and “28 of 30 succeeded.” at the end (Voice switch).</p></div>
+    </div>
+  </section>
+
+  <section id="lowres" data-topic="lowres">
+    <h2><span class="num">4</span><span data-l="ko">저해상도(1080p 이하)에서 준비할 것</span><span data-l="en">Preparing for lower resolutions (1080p and below)</span></h2>
+    <div class="card">
+      <p data-l="ko">헬퍼는 화면 글자(OCR)와 칸 색을 읽습니다. 화면이 작을수록 글자가 작아져 아래 준비가 중요합니다.</p>
+      <p data-l="en">The helper reads on-screen text (OCR) and slot colors. On smaller screens text gets small, so these settings matter.</p>
+      <table>
+        <tr><th data-l="ko">항목</th><th data-l="en">Item</th><th data-l="ko">권장</th><th data-l="en">Recommended</th></tr>
+        <tr><td data-l="ko">게임 해상도</td><td data-l="en">Game resolution</td>
+            <td data-l="ko">1920×1080 이상. 더 낮으면 제조법 글자를 못 읽을 수 있습니다.</td><td data-l="en">1920×1080 or higher. Lower may make recipe text unreadable.</td></tr>
+        <tr><td data-l="ko">화면 모드</td><td data-l="en">Display mode</td>
+            <td data-l="ko">전체 화면 또는 테두리 없는 창. 창을 옮기거나 크기를 바꿨다면 <b>인벤 자리를 다시 찍기</b>.</td><td data-l="en">Fullscreen or borderless. If you move/resize the window, <b>mark the inventory slots again</b>.</td></tr>
+        <tr><td data-l="ko">해상도를 바꿨을 때</td><td data-l="en">After changing resolution</td>
+            <td data-l="ko">첫 칸·끝 칸을 꼭 다시 찍습니다. 예전 자리로는 엉뚱한 곳을 누릅니다.</td><td data-l="en">Always re-mark the first/last slot. Old positions click the wrong place.</td></tr>
+        <tr><td data-l="ko">게임 UI 크기 · 글꼴</td><td data-l="en">Game UI scale · font</td>
+            <td data-l="ko">기본값 권장. 작게 줄이면 글자 읽기가 불안해집니다.</td><td data-l="en">Default recommended. Smaller UI makes text reading unreliable.</td></tr>
+        <tr><td data-l="ko">밝기 · 감마 · HDR</td><td data-l="en">Brightness · gamma · HDR</td>
+            <td data-l="ko">기본값 근처. 아주 어둡게 하면 마법/희귀 칸 색 판정과 어두워진 칸 판정이 틀릴 수 있습니다.</td><td data-l="en">Near default. Very dark settings can break the magic/rare color check and dimmed-slot detection.</td></tr>
+        <tr><td data-l="ko">Windows 배율</td><td data-l="en">Windows scaling</td>
+            <td data-l="ko">어떤 배율이든 됩니다(100~200%). 바꿨다면 헬퍼를 다시 켜고 자리를 다시 찍기.</td><td data-l="en">Any scaling works (100–200%). If changed, restart the helper and re-mark slots.</td></tr>
+        <tr><td data-l="ko">게임 언어</td><td data-l="en">Game language</td>
+            <td data-l="ko">지금은 <b>한국어 게임</b>에서 확인되었습니다. 헬퍼 언어와 게임 언어는 따로입니다.</td><td data-l="en">Currently verified with the <b>Korean game client</b>. Helper language and game language are separate.</td></tr>
+      </table>
+    </div>
+    <div class="note ok" data-l="ko"><b>저사양 PC</b>느린 PC 는 선변성 탭의 <b>결과 대기</b>와 <b>초기화 뒤</b> 시간을 조금 늘리면 안정적입니다.</div>
+    <div class="note ok" data-l="en"><b>Low-spec PCs</b>On slow PCs, slightly increase <b>Result wait</b> and <b>After reset</b> on the Transfigure tab.</div>
+  </section>
+
+  <!-- ⑤ 문제 해결 -->
+  <section id="trouble" data-topic="trouble">
+    <h2><span class="num">5</span><span data-l="ko">작동하지 않을 때 가장 먼저 확인할 것</span><span data-l="en">When it does not work — check these first</span></h2>
+    <ol class="check" data-l="ko">
+      <li><b>큐브와 인벤토리가 둘 다 열려 있나요?</b> ‘초기화를 못 찾았습니다’는 대부분 큐브가 닫혀 있을 때입니다.</li>
+      <li><b>디아블로 창이 맨 앞인가요?</b> 다른 창(디스코드 오버레이, 방송 프로그램 등)이 게임을 가리면 글자를 못 읽습니다.</li>
+      <li><b>인벤 첫 칸·끝 칸을 찍었나요?</b> 해상도·창 크기를 바꿨다면 다시 찍으세요.</li>
+      <li><b>게임 채팅창이 열려 있지 않나요?</b> 채팅창이 열려 있으면 큐브 버튼과 글자를 가려 ‘초기화·변환을 못 찾았습니다’ 가 납니다. <kbd>Enter</kbd> 나 <kbd>Esc</kbd> 로 채팅창을 닫고 시작하세요.</li>
+      <li><b>Windows 한국어 OCR(문자 인식)이 설치되어 있나요?</b> 없으면 헬퍼의 편의기능을 열 때 설치 안내가 뜹니다. <b>[Windows 설정 열기]</b> 를 누르면 언어 설정이 바로 열리고, 한국어 옆 [···] › 언어 옵션 › ‘광학 문자 인식’ [다운로드] 뒤 [다시 확인] 을 누르면 됩니다.</li>
+      <li><b>큐브가 비어 있는 상태에서 시작했나요?</b> 남은 아이템이 있으면 [초기화]로 먼저 내리세요.</li>
+      <li><b>고유 제작·신화 업그레이드라면 인벤에 빈 칸이 있나요?</b> 1칸 이상 필요합니다.</li>
+      <li><b>재료가 충분한가요?</b> 재료가 모자라면 변환 버튼이 켜지지 않아 그 아이템을 넘깁니다.</li>
+      <li><b>제조법 목록이 맨 위에 있나요?</b> 목록을 많이 내려 둔 상태면 찾는 데 오래 걸릴 수 있습니다.</li>
+    </ol>
+    <ol class="check" data-l="en">
+      <li><b>Are both the Cube and the inventory open?</b> “Could not find Reset” almost always means the cube is closed.</li>
+      <li><b>Is the Diablo window in front?</b> Other windows (Discord overlay, streaming tools) covering the game block text reading.</li>
+      <li><b>Did you mark the first/last inventory slot?</b> Re-mark after changing resolution or window size.</li>
+      <li><b>Is the game chat box open?</b> An open chat box covers the cube buttons and text, causing ‘could not find Reset/Convert’. Close it with <kbd>Enter</kbd> or <kbd>Esc</kbd> before starting.</li>
+      <li><b>Is Windows Korean OCR (text recognition) installed?</b> If not, the helper shows an install guide when you open Tools. <b>[Open Windows Settings]</b> opens the language settings directly: [···] next to Korean › Language options › ‘Optical character recognition’ [Download], then [Check again].</li>
+      <li><b>Did you start with an empty cube?</b> Clear leftovers with [Reset] first.</li>
+      <li><b>Unique/Mythic: is there a free inventory slot?</b> At least one is required.</li>
+      <li><b>Enough materials?</b> Without them the Convert button stays off and the item is skipped.</li>
+      <li><b>Is the recipe list scrolled to the top?</b> A list scrolled far down takes longer to search.</li>
+    </ol>
+    <div class="card">
+      <h3 data-l="ko">기록 파일 (원인 찾기용)</h3><h3 data-l="en">Log files (for finding the cause)</h3>
+      <p data-l="ko">마지막 실행의 칸별 기록은 <kbd>%APPDATA%\d4cute_helper\debug\alter_slots.txt</kbd> 에 남습니다. 글자를 못 찾은 순간의 화면은 같은 폴더의 <kbd>alter_miss_*.png</kbd> 입니다.</p>
+      <p data-l="en">Per-slot records of the last run are in <kbd>%APPDATA%\d4cute_helper\debug\alter_slots.txt</kbd>. Screens captured when text was not found are <kbd>alter_miss_*.png</kbd> in the same folder.</p>
+    </div>
+  </section>
+
+  <footer>d4cute helper · <span data-l="ko">편의기능 도움말</span><span data-l="en">Tools Guide</span></footer>
+</div>
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search).get("lang") || "";
+    var lang = q.toLowerCase().indexOf("ko") === 0 ? "ko" : (q ? "en" : ((navigator.language || "ko").indexOf("ko") === 0 ? "ko" : "en"));
+    function set(l) {
+      document.body.classList.toggle("en", l === "en");
+      document.documentElement.lang = l;
+      document.getElementById("b-ko").classList.toggle("on", l === "ko");
+      document.getElementById("b-en").classList.toggle("on", l === "en");
+    }
+    document.getElementById("b-ko").onclick = function () { set("ko"); };
+    document.getElementById("b-en").onclick = function () { set("en"); };
+    set(lang);
+    var RECIPES = ["strip", "legend", "unique", "mythic"];
+    function show(t) {
+      t = t || "all";
+      document.body.classList.toggle("home", t === "all");
+      document.body.classList.toggle("topic", t !== "all");
+      document.querySelectorAll("section").forEach(function (s) {
+        var tp = s.getAttribute("data-topic");
+        s.classList.toggle("show", tp === t || (tp === "recipe" && RECIPES.indexOf(t) >= 0));
+      });
+      document.querySelectorAll(".card.recipe").forEach(function (c) { c.classList.toggle("show", c.classList.contains(t)); });
+      window.scrollTo(0, 0);
+      try {   // 주소의 topic 도 같이 바꾼다 - 헬퍼의 [전체 도움말]·뒤로가기가 지금 화면을 알게
+        var u = new URL(location.href);
+        if (u.searchParams.get("topic") !== t) { u.searchParams.set("topic", t); history.pushState({ t: t }, "", u); }
+      } catch (e) {}
+    }
+    window.addEventListener("popstate", function () {
+      show((new URLSearchParams(location.search).get("topic") || "all").toLowerCase());
+    });
+    document.querySelectorAll("[data-go]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); show(a.getAttribute("data-go")); });
+    });
+    show((new URLSearchParams(location.search).get("topic") || "all").toLowerCase());
+  })();
+</script>
+</body>
+</html>

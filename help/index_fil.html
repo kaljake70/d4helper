@@ -1,0 +1,3241 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Opisyal na Gabay sa Paggamit ng d4cute helper (pinakabagong bersyon v1.30)</title>
+  <meta name="description" content="Kumpletong manwal ng Diablo IV d4cute helper v1.30 — pag-set up ng macro, mga convenience feature para sa Stat Alteration sa imbentaryo, real-time na alarma, mga gabay sa larawan/video, ang clan na 앙증맞은 at ang channel na 삼촌안잔다잉.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09080e;
+      --bg-surface: #121118;
+      --card: #171622;
+      --card-hover: #1e1d2c;
+      --card-subtle: #1f1e2b;
+      --line: #292737;
+      --line-bright: #3d3a52;
+      --fg: #e6e5ee;
+      --fg-dim: #9896a8;
+      --fg-muted: #6b697a;
+      
+      --gold: #e5b85c;
+      --gold-bright: #ffd778;
+      --gold-dim: #967530;
+      --gold-glow: rgba(229, 184, 92, 0.2);
+      
+      --ruby: #e5484d;
+      --ruby-dark: #3b1619;
+      --ruby-glow: rgba(229, 72, 77, 0.25);
+      
+      --blue: #3b82f6;
+      --blue-dark: #142445;
+      
+      --green: #22c55e;
+      --green-dark: #12311f;
+      
+      --sidebar-width: 320px;
+      --sidebar-mini-width: 68px;
+      --header-height: 58px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-title: 'Cinzel', 'Pretendard', serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.68;
+      overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    code, pre { overflow-wrap: anywhere; }
+    pre { overflow-x: auto; max-width: 100%; }
+    .video-embed { position: relative; padding-top: 56.25%; background: #000; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ─── 상단 글로벌 네비게이션 ─── */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(14, 13, 20, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-sidebar-btn {
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .toggle-sidebar-btn:hover {
+      background: var(--line);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-title {
+      font-family: var(--font-title);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 16px var(--gold-glow);
+    }
+    .brand-ver {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ruby);
+      background: var(--ruby-dark);
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid rgba(229, 72, 77, 0.4);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-link {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .nav-link:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .nav-link.highlight {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18), rgba(229, 184, 92, 0.05));
+      color: var(--gold-bright);
+      border: 1px solid var(--gold-dim);
+    }
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+      gap: 2px;
+      margin-left: 6px;
+    }
+    .lang-btn {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover {
+      color: var(--gold);
+    }
+    .lang-btn.active {
+      background: rgba(229, 184, 92, 0.2);
+      color: var(--gold-bright);
+      font-weight: 700;
+      border: 1px solid var(--gold-dim);
+    }
+
+    /* ─── 앱 레이아웃 ─── */
+    .layout-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+      margin-top: var(--header-height);
+    }
+
+    /* ─── 좌측 접이식 사이드바 ─── */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--line);
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 900;
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s;
+    }
+
+    /* 데스크탑 접힘 모드 */
+    @media (min-width: 1025px) {
+      body.sidebar-collapsed .sidebar {
+        width: var(--sidebar-mini-width);
+      }
+      body.sidebar-collapsed .sidebar .sidebar-tabs,
+      body.sidebar-collapsed .sidebar .tab-panel,
+      body.sidebar-collapsed .sidebar .sidebar-search-box,
+      body.sidebar-collapsed .sidebar .sidebar-community-card {
+        display: none !important;
+      }
+      body.sidebar-collapsed .sidebar .mini-icons-list {
+        display: flex !important;
+      }
+      body.sidebar-collapsed .content-wrap {
+        margin-left: var(--sidebar-mini-width);
+      }
+
+    }
+
+    /* 호버 펼침은 마우스 기기에서만 - 터치는 :hover 가 고착된다 */
+    @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+      /* ⭐️ 요청사항 1: 사이드바 접혔을 때 햄버거 메뉴 및 미니바 호버 시 사이드바 자동 확장(Hover Peek) */
+      body.sidebar-collapsed .sidebar:hover,
+      body.sidebar-collapsed .sidebar.hover-expanded {
+        width: var(--sidebar-width) !important;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.75);
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar:hover .tab-panel.active,
+      body.sidebar-collapsed .sidebar:hover .sidebar-search-box,
+      body.sidebar-collapsed .sidebar:hover .sidebar-community-card,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .tab-panel.active,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-search-box,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-community-card {
+        display: block !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs {
+        display: grid !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .mini-icons-list,
+      body.sidebar-collapsed .sidebar.hover-expanded .mini-icons-list {
+        display: none !important;
+      }
+    }
+
+    /* 접힘(미니) 모드용 아이콘 바 */
+    .mini-icons-list {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+    }
+    .mini-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mini-icon-btn:hover {
+      background: var(--line-bright);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+
+    /* 사이드바 내부 탭 (목차 / 이미지 / 영상) */
+    .sidebar-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      background: rgba(18, 17, 24, 0.85);
+    }
+    .sidebar-tab-btn {
+      padding: 10px 4px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--fg-dim);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.2s;
+    }
+    .sidebar-tab-btn span.tab-icon {
+      font-size: 15px;
+    }
+    .sidebar-tab-btn:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .sidebar-tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: var(--card-subtle);
+    }
+
+    /* 사이드바 검색창 */
+    .sidebar-search-box {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 8px 30px 8px 12px;
+      color: var(--fg);
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .sidebar-search-input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 8px var(--gold-glow);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--fg-muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+    .search-clear-btn.visible {
+      display: block;
+    }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: var(--line-bright);
+      border-radius: 4px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* 목차 리스트 */
+    .toc-tree {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-tree li {
+      margin-bottom: 2px;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all 0.15s;
+    }
+    .toc-link:hover {
+      color: var(--gold);
+      background: var(--card);
+    }
+    .toc-link.active {
+      color: var(--gold-bright);
+      background: rgba(229, 184, 92, 0.12);
+      font-weight: 600;
+      border-left: 3px solid var(--gold);
+    }
+    .toc-sub-tree {
+      list-style: none;
+      padding-left: 16px;
+      margin: 2px 0 4px;
+    }
+    .toc-sub-tree .toc-link {
+      font-size: 12.5px;
+      padding: 4px 8px;
+    }
+
+    /* 검색 결과 리스트 */
+    .search-results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-item-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--fg);
+      transition: all 0.15s;
+    }
+    .search-item-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .search-item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .search-item-sub {
+      font-size: 11px;
+      color: var(--fg-muted);
+      margin-bottom: 3px;
+    }
+    .search-item-snippet {
+      font-size: 12px;
+      color: var(--fg-dim);
+      line-height: 1.45;
+    }
+    .search-item-snippet mark {
+      background: rgba(229, 184, 92, 0.35);
+      color: #fff;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* 미디어 사이드바 리스트 (이미지 / 영상) */
+    .media-nav-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .media-nav-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 7px;
+      text-decoration: none;
+      color: var(--fg);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .media-nav-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .media-nav-thumb {
+      width: 58px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .media-nav-meta {
+      overflow: hidden;
+      flex: 1;
+    }
+    .media-nav-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-nav-desc {
+      font-size: 11px;
+      color: var(--fg-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .video-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--ruby-dark);
+      color: var(--ruby);
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-right: 4px;
+      font-weight: 700;
+    }
+
+    /* ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 카드 */
+    .sidebar-community-card {
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      background: rgba(14, 13, 20, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .community-box {
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
+      transition: all 0.2s;
+    }
+    .community-box:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .community-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .community-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .community-tag {
+      font-size: 10.5px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--card-subtle);
+      color: var(--fg-dim);
+    }
+    .community-desc {
+      font-size: 11px;
+      color: var(--fg-dim);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .community-links {
+      display: flex;
+      gap: 6px;
+    }
+    .comm-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .comm-btn.telegram {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.18) 0%, rgba(42, 171, 238, 0.08) 100%);
+      border: 1px solid rgba(42, 171, 238, 0.4);
+      color: #70c7fa;
+    }
+    .comm-btn.telegram:hover {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.35) 0%, rgba(42, 171, 238, 0.2) 100%);
+      border-color: #70c7fa;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.clan {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.16) 0%, rgba(234, 179, 8, 0.06) 100%);
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      color: #fde047;
+    }
+    .comm-btn.clan:hover {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.3) 0%, rgba(234, 179, 8, 0.15) 100%);
+      border-color: #fde047;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.youtube {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.18) 0%, rgba(229, 72, 77, 0.08) 100%);
+      border: 1px solid rgba(229, 72, 77, 0.4);
+      color: #ff999c;
+    }
+    .comm-btn.youtube:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.35) 0%, rgba(229, 72, 77, 0.2) 100%);
+      border-color: #ff999c;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── 본문 영역 ─── */
+    .content-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 26px 36px 100px;
+      max-width: 1060px;
+      min-width: 0;                 /* flex 아이템이 안쪽 표(min-width 480) 에 끌려 뷰포트보다 넓어지던 것 */
+      width: 100%;
+      transition: margin-left 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* 모바일 반응형 처리 */
+    @media (max-width: 1024px) {
+      .top-nav {
+        padding: 0 12px;
+      }
+      .content-wrap {
+        margin-left: 0;
+        padding: 18px 14px 80px;
+      }
+      .sidebar {
+        width: 86vw;
+        max-width: 320px;
+        transform: translateX(-100%);
+        box-shadow: none;
+      }
+      body.sidebar-open .sidebar {
+        transform: translateX(0);
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.85);
+      }
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        z-index: 850;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      body.sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.sidebar-open { overflow: hidden; }
+      .table-wrap::before {
+        content: '↔ 옆으로 밀어 표 전체 보기';
+        display: block;
+        font-size: 11.5px;
+        color: var(--fg-muted);
+        padding: 6px 10px 0;
+      }
+      .image-card.is-small { display: block; }
+      .hero-title {
+        font-size: 24px !important;
+      }
+      .hero-banner-img {
+        height: 180px !important;
+      }
+      .nav-right .nav-link:not(.highlight) {
+        display: none;
+      }
+    }
+
+    /* 스마트폰 초소형 화면 (480px 이하) */
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .content-wrap {
+        padding: 14px 10px 60px;
+      }
+      section.doc-section {
+        padding: 18px 14px !important;
+        margin-bottom: 20px !important;
+      }
+      .section-title {
+        font-size: 18px !important;
+      }
+      .hero-banner-overlay {
+        padding: 16px 14px !important;
+      }
+      .hero-title {
+        font-size: 20px !important;
+      }
+      .hero-desc {
+        font-size: 13px !important;
+      }
+    }
+
+    /* ─── 히어로 배너 섹션 ─── */
+    .hero-banner-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+      border: 1px solid var(--line-bright);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+    .hero-banner-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: brightness(0.65) contrast(1.1);
+    }
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 13, 20, 0.2) 0%, rgba(9, 8, 14, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px 28px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 184, 92, 0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: fit-content;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: 30px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 6px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .hero-desc {
+      color: var(--fg-dim);
+      font-size: 14.5px;
+      margin: 0;
+      max-width: 650px;
+    }
+
+    /* ─── 알림/콜아웃 박스 ─── */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .alert-box.info {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-left: 4px solid var(--blue);
+    }
+    .alert-box.gold {
+      background: rgba(229, 184, 92, 0.08);
+      border: 1px solid rgba(229, 184, 92, 0.3);
+      border-left: 4px solid var(--gold);
+    }
+    .alert-box.warn {
+      background: rgba(229, 72, 77, 0.08);
+      border: 1px solid rgba(229, 72, 77, 0.3);
+      border-left: 4px solid var(--ruby);
+    }
+    .alert-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── 문서 섹션 카드 ─── */
+    section.doc-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 26px;
+      scroll-margin-top: calc(var(--header-height) + 16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    section.doc-section:target {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-num {
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      color: var(--gold-bright);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    h3 {
+      font-size: 16.5px;
+      color: #fff;
+      margin: 22px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 15px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    p { margin: 8px 0; }
+    ul, ol { padding-left: 22px; margin: 8px 0; }
+    li { margin: 5px 0; }
+
+    /* 키 뱃지 및 칩 */
+    kbd {
+      background: #232230;
+      border: 1px solid var(--line-bright);
+      border-bottom: 2px solid #14131d;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+    /* 본문 링크 - 브라우저 기본 파랑은 어두운 배경에서 안 보인다 (사용자 지적 2026-10-22). 버튼류(class 있는 a)는 제외 */
+    .content-wrap a:not([class]),
+    .content-wrap a:not([class]):visited {
+      color: var(--gold-bright);
+      text-decoration: underline;
+      text-decoration-color: var(--gold-dim);
+      text-underline-offset: 3px;
+      font-weight: 600;
+    }
+    .content-wrap a:not([class]):hover { color: #fff; text-decoration-color: var(--gold); }
+    .content-wrap a:not([class]) code { color: inherit; }
+    .content-wrap a.chip { color: var(--fg); text-decoration: none; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-weight: 700;
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+    .chip.gold { background: rgba(229, 184, 92, 0.15); border-color: var(--gold-dim); color: var(--gold-bright); }
+    .chip.ruby { background: var(--ruby-dark); border-color: rgba(229, 72, 77, 0.4); color: #fff; }
+    .chip.green { background: var(--green-dark); border-color: rgba(34, 197, 94, 0.4); color: #fff; }
+    .chip.blue { background: var(--blue-dark); border-color: rgba(59, 130, 246, 0.4); color: #fff; }
+
+    /* 본문 검색 하이라이트 */
+    mark.search-highlight {
+      background: #ffd700;
+      color: #000;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+    }
+
+    /* 표(테이블) 반응형 */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 480px;
+    }
+    th, td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    th {
+      background: var(--bg-surface);
+      color: var(--gold);
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* ─── 이미지 썸네일 카드 ─── */
+    .image-card {
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .image-card:hover {
+      border-color: var(--line-bright);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+    .image-card.is-thumbnail .thumb-container {
+      position: relative;
+      cursor: zoom-in;
+      background: #000;
+      max-height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-card.is-thumbnail .thumb-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .image-card.is-thumbnail .thumb-container:hover img {
+      transform: scale(1.015);
+    }
+    .zoom-hint-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--line-bright);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+    .image-card.is-small {
+      display: inline-block;
+      max-width: 100%;
+    }
+    .image-card.is-small .thumb-container {
+      padding: 8px;
+      cursor: zoom-in;
+    }
+    .image-card.is-small img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .image-caption {
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── 플레이스홀더 영역 ─── */
+    .placeholder-box {
+      border: 2px dashed var(--line-bright);
+      background: rgba(26, 24, 36, 0.6);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .placeholder-icon {
+      font-size: 28px;
+      color: var(--gold-dim);
+      margin-bottom: 6px;
+    }
+    .placeholder-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .placeholder-desc {
+      font-size: 12.5px;
+      color: var(--fg-muted);
+      margin-bottom: 10px;
+    }
+    .placeholder-path {
+      display: inline-block;
+      background: #0d0c13;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--gold);
+    }
+
+    /* 비디오 카드 */
+    .video-card {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .video-info {
+      padding: 10px 14px;
+      font-size: 13px;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ─── 클랜 및 방송 채널 본문 섹션 카드 ─── */
+    .clan-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-card {
+      background: linear-gradient(180deg, var(--card) 0%, var(--bg-surface) 100%);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .clan-card.highlight-gold {
+      border-color: rgba(229, 184, 92, 0.3);
+    }
+    .clan-card.highlight-gold:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px var(--gold-glow);
+    }
+    .clan-card.highlight-ruby {
+      border-color: rgba(229, 72, 77, 0.3);
+    }
+    .clan-card.highlight-ruby:hover {
+      border-color: var(--ruby);
+      box-shadow: 0 8px 24px var(--ruby-glow);
+    }
+    .clan-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-card-crest {
+      font-size: 26px;
+      background: var(--card-subtle);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gold-dim);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+    }
+    .clan-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin: 0 0 3px;
+      letter-spacing: -0.2px;
+    }
+    .clan-card-sub {
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      margin: 0;
+    }
+
+    /* 럭셔리 액션 버튼 */
+    .clan-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      margin-top: auto;
+      align-self: flex-start;
+      cursor: pointer;
+    }
+    .clan-btn.gold {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18) 0%, rgba(229, 184, 92, 0.08) 100%);
+      color: var(--gold-bright);
+      border: 1px solid rgba(229, 184, 92, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 184, 92, 0.15);
+    }
+    .clan-btn.gold:hover {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.32) 0%, rgba(229, 184, 92, 0.16) 100%);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 4px 18px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+    .clan-btn.ruby {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.22) 0%, rgba(229, 72, 77, 0.1) 100%);
+      color: #ff999c;
+      border: 1px solid rgba(229, 72, 77, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 72, 77, 0.15);
+    }
+    .clan-btn.ruby:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.38) 0%, rgba(229, 72, 77, 0.18) 100%);
+      color: #fff;
+      border-color: var(--ruby);
+      box-shadow: 0 4px 18px var(--ruby-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ─── 가입 절차 & 클랜 생활 가이드 와이드 쇼케이스 ─── */
+    .clan-guide-container {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+    .clan-guide-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-guide-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 0;
+    }
+    .clan-guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-sub-panel {
+      background: rgba(14, 13, 20, 0.65);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .clan-sub-panel.blue-border {
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-top: 3px solid var(--blue);
+    }
+    .clan-sub-panel.gold-border {
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-top: 3px solid var(--gold);
+    }
+    .clan-sub-panel-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── 라이트박스 (전체화면 모달 뷰어) ─── */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 8, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      user-select: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-topbar {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .lightbox-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(229, 184, 92, 0.12);
+      padding: 2px 9px;
+      border-radius: 12px;
+    }
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: var(--gold);
+    }
+    .lightbox-close-btn {
+      background: var(--ruby-dark);
+      border-color: rgba(229, 72, 77, 0.4);
+    }
+    .lightbox-close-btn:hover {
+      background: var(--ruby);
+      color: #fff;
+    }
+
+    .lightbox-stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+    }
+    .lightbox-stage:active {
+      cursor: grabbing;
+    }
+    .lightbox-img {
+      max-width: 92%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85);
+      transition: transform 0.06s ease-out;
+      transform-origin: center center;
+    }
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 60px;
+      background: rgba(20, 19, 28, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(8px);
+      transition: all 0.15s;
+      z-index: 10;
+    }
+    .lightbox-nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .lightbox-prev-btn { left: 16px; }
+    .lightbox-next-btn { right: 16px; }
+
+    .lightbox-bottombar {
+      min-height: 48px;
+      background: rgba(14, 13, 20, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .lightbox-caption-text {
+      font-size: 13.5px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .lightbox-zoom-indicator {
+      font-size: 12.5px;
+      color: var(--gold);
+      font-weight: 600;
+      background: var(--card-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding-top: 20px;
+      color: var(--fg-muted);
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    /* ─── 국기 언어 선택기 (자바스크립트 0% 순수 HTML5 details/summary) ─── */
+    details.flag-picker {
+      position: relative;
+      display: inline-block;
+      margin-left: 8px;
+    }
+    details.flag-picker summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(22, 21, 32, 0.85);
+      border: 1px solid rgba(229, 184, 92, 0.4);
+      border-radius: 8px;
+      padding: 4px 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    details.flag-picker summary::-webkit-details-marker {
+      display: none;
+    }
+    details.flag-picker summary:hover {
+      border-color: var(--gold-bright);
+      box-shadow: 0 4px 14px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    details.flag-picker[open] summary {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.15);
+    }
+    details.flag-picker .flag-picker-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(18, 17, 26, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-radius: 12px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(229, 184, 92, 0.15);
+      z-index: 2000;
+      min-width: 150px;
+    }
+    .flag-active-img {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+    .flag-picker-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .flag-picker-item:hover {
+      background: rgba(229, 184, 92, 0.22);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+    .flag-picker-item.active {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.18);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .flag-picker-item img {
+      width: 26px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+
+
+    /* ─── 럭셔리 다크 판타지 텔레그램 상단 배너 ─── */
+    .telegram-banner-v3 {
+      position: relative;
+      background: radial-gradient(ellipse at 10% 50%, rgba(42, 171, 238, 0.2) 0%, rgba(18, 17, 24, 0.95) 60%),
+                  radial-gradient(ellipse at 90% 50%, rgba(229, 184, 92, 0.12) 0%, rgba(14, 13, 20, 0.98) 70%),
+                  #0e0d14;
+      border: 1px solid rgba(42, 171, 238, 0.35);
+      border-left: 5px solid #2AABEE;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin: 20px 0 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(42, 171, 238, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .tg-v3-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      flex: 1;
+    }
+    .tg-v3-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tg-v3-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .tg-v3-title {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--font-title);
+      color: #ffd778;
+      letter-spacing: 0.4px;
+      margin: 0;
+    }
+    .tg-v3-badge {
+      background: rgba(229, 72, 77, 0.2);
+      border: 1px solid rgba(229, 72, 77, 0.5);
+      color: #ff6b6b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tg-v3-desc {
+      font-size: 14px;
+      color: #c9c7d8;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+    .tg-v3-highlight-box {
+      display: inline-block;
+      background: rgba(42, 171, 238, 0.08);
+      border: 1px solid rgba(42, 171, 238, 0.25);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .tg-v3-highlight-box strong { color: #38bdf8; }
+    .tg-v3-highlight-box em { color: #fbbf24; font-style: normal; font-weight: 700; }
+    .tg-v3-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 165px;
+    }
+    .tg-v3-btn-channel {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      border-radius: 9px;
+      box-shadow: 0 4px 14px rgba(0, 136, 204, 0.4);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-channel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+      filter: brightness(1.1);
+    }
+    .tg-v3-btn-group {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e6e5ee;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 9px;
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-group:hover {
+      background: rgba(229, 184, 92, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+    @media (max-width: 860px) {
+      .telegram-banner-v3 {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+      }
+      .tg-v3-right {
+        flex-direction: row;
+      }
+      .tg-v3-btn-channel, .tg-v3-btn-group {
+        flex: 1;
+      }
+    }
+
+
+    /* ─── 2026-10-24: 텔레그램 배너 - 채널 버튼을 위에 꽉 찬 너비로, 설명은 아래 ─── */
+    .tg-top .tg-top-row { flex-direction: column !important; align-items: stretch !important; gap: 14px !important; }
+    .tg-top .tg-top-btns { order: -1; display: grid !important; grid-template-columns: 1fr 1fr; gap: 10px !important; }
+    .tg-top .tg-top-btns a { justify-content: center; padding: 13px 16px !important; font-size: 15px !important; }
+    .tg-top .tg-top-text { min-width: 0 !important; }
+    @media (max-width: 520px) {
+      .tg-top .tg-top-btns { grid-template-columns: 1fr; }
+    }
+
+    /* ─── 2026-10-24: 본문 이미지 - PC 는 적당한 크기로 가운데, 휴대폰은 꽉 차게. 클릭하면 라이트박스로 크게 ─── */
+    .image-card { max-width: 760px; margin: 18px auto; }
+    .image-card.is-small { display: block; max-width: 560px; }
+    .image-card.is-thumbnail .thumb-container { max-height: none; background: #08070c; padding: 10px; }
+    .image-card.is-thumbnail .thumb-container img,
+    .image-card.is-small img {
+      width: auto; max-width: 100%; max-height: 440px;
+      object-fit: contain; margin: 0 auto; border-radius: 6px;
+    }
+    .image-card.is-small .thumb-container { display: flex; justify-content: center; }
+    .image-caption { text-align: center; }
+    /* 두 장 이상 나란히 놓인 곳은 칸 너비를 그대로 쓴다 */
+    div[style*="display: flex"] > .image-card,
+    div[style*="display: grid"] > .image-card { max-width: none; margin: 0; flex: 1 1 280px; }
+    @media (max-width: 720px) {
+      .image-card, .image-card.is-small { max-width: 100%; }
+      .image-card.is-thumbnail .thumb-container, .image-card.is-small .thumb-container { padding: 0; }
+      .image-card.is-thumbnail .thumb-container img,
+      .image-card.is-small img { width: 100%; max-height: none; border-radius: 0; }
+    }
+
+    /* ─── 2026-10-24: 헤더가 내용 높이만큼 늘어나게 - 사진은 배경으로 깔고 글자 칸이 높이를 정한다(경고 칸 추가로 위가 잘리던 것) ─── */
+    .hero-banner-img { position: absolute; inset: 0; height: 100% !important; }
+    .hero-banner-overlay { position: relative; min-height: 250px; }
+    .hero-tag { align-self: flex-start; }
+    @media (max-width: 860px) { .hero-banner-overlay { min-height: 180px; } }
+</style>
+</head>
+<body>
+
+  <!-- 상단 글로벌 바 -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <button class="toggle-sidebar-btn" id="sidebarToggle" title="I-collapse/i-expand ang sidebar (pansamantalang lalabas kapag itinapat ang mouse)" aria-label="I-toggle ang sidebar">
+        ☰
+      </button>
+      <a href="#" class="brand">
+        <span class="brand-title">D4CUTE HELPER</span>
+        <span class="brand-ver">v1.30.x</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="#quickstart" class="nav-link">Pagsisimula</a>
+      <a href="#tools-alter" class="nav-link">Mga Tool sa Stat Alteration</a>
+      <a href="#community" class="nav-link">Clan & Channel</a>
+      <a href="https://github.com/kaljake70/d4helper" target="_blank" class="nav-link highlight">Repository ↗</a>
+      <details class="flag-picker">
+          <summary class="flag-picker-btn" title="Wika: Korean">
+            <img src="https://flagcdn.com/w40/ph.png" alt="fil" class="flag-active-img">
+          </summary>
+          <div class="flag-picker-dropdown">
+            <a href="index.html" class="flag-picker-item" title="Korean"><img src="https://flagcdn.com/w40/kr.png" alt="ko"></a>
+            <a href="index_en.html" class="flag-picker-item" title="English"><img src="https://flagcdn.com/w40/us.png" alt="en"></a>
+            <a href="index_ja.html" class="flag-picker-item" title="日本語 (Japanese)"><img src="https://flagcdn.com/w40/jp.png" alt="ja"></a>
+            <a href="index_zh-CN.html" class="flag-picker-item" title="简体中文 (Simplified Chinese)"><img src="https://flagcdn.com/w40/cn.png" alt="zh-CN"></a>
+            <a href="index_zh-TW.html" class="flag-picker-item" title="繁體中文 (Traditional Chinese)"><img src="https://flagcdn.com/w40/tw.png" alt="zh-TW"></a>
+            <a href="index_vi.html" class="flag-picker-item" title="Tiếng Việt (Vietnamese)"><img src="https://flagcdn.com/w40/vn.png" alt="vi"></a>
+            <a href="index_th.html" class="flag-picker-item" title="ไทย (Thai)"><img src="https://flagcdn.com/w40/th.png" alt="th"></a>
+            <a href="index_fil.html" class="flag-picker-item active" title="Filipino"><img src="https://flagcdn.com/w40/ph.png" alt="fil"></a>
+          </div>
+        </details>
+    </div>
+  </header>
+
+  <!-- 모바일 사이드바 배경 오버레이 -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="layout-container">
+
+    <!-- 좌측 사이드바 -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 사이드바 탭 전환 (목차 / 이미지 / 영상) -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab-btn active" data-tab="toc">
+          <span class="tab-icon">📑</span>
+          <span>Talaan ng Nilalaman</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="images">
+          <span class="tab-icon">🖼️</span>
+          <span>Mga Larawan (<span id="imgCount">0</span>)</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="videos">
+          <span class="tab-icon">🎬</span>
+          <span>Mga Video (<span id="vidCount">0</span>)</span>
+        </button>
+      </div>
+
+      <!-- 도움말 본문 전체 검색창 -->
+      <div class="sidebar-search-box">
+        <input type="text" id="sidebarSearch" class="sidebar-search-input" placeholder="Maghanap sa buong nilalaman ng tulong..." autocomplete="off">
+        <button class="search-clear-btn" id="searchClearBtn" title="Burahin ang hinahanap">✕</button>
+      </div>
+
+      <!-- 사이드바 스크롤 컨테이너 -->
+      <div class="sidebar-scroll">
+        
+        <!-- 0. 실시간 검색 결과 패널 (검색 시 활성화) -->
+        <div class="tab-panel" id="panel-search">
+          <div style="font-size:12px; color:var(--fg-dim); margin-bottom:10px; display:flex; justify-content:space-between;">
+            <span>Resulta ng paghahanap: <strong id="searchMatchCount" style="color:var(--gold);">0</strong>item</span>
+            <span style="font-size:11px; color:var(--fg-muted);">I-click para pumunta sa lugar na iyon</span>
+          </div>
+          <div class="search-results-list" id="searchResultsList">
+            <!-- 자바스크립트로 본문 검색 결과 목록 생성 -->
+          </div>
+        </div>
+
+        <!-- 1. 목차 패널 -->
+        <div class="tab-panel active" id="panel-toc">
+          <ul class="toc-tree">
+            <li><a href="#quickstart" class="toc-link">⚡ 1. 5-Minutong Quickstart at Pag-install</a></li>
+            <li>
+              <a href="#screen-ui" class="toc-link">🖥️ 2. Pinakabagong Layout ng Screen (1.30)</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#screen-topbar" class="toc-link">Top Bar at Pagkontrol sa Profile</a></li>
+                <li><a href="#screen-slots" class="toc-link">Slot Bar (7 slot na A~G, Sponsor, Mga gamit, Alarma)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#macro-engine" class="toc-link">⚙️ 3. Pag-set up ng Macro at Trigger Engine</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#macro-modes" class="toc-link">Serial · Async · Hold · Toggle · Once</a></li>
+                <li><a href="#macro-keys" class="toc-link">Trigger Key at Filter ng Pagkaantala sa Pagpindot</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sequence-builder" class="toc-link">📋 4. Sequence at Pagre-record ng Mouse</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#seq-cards" class="toc-link">Step Card at Bulk na Pagpapalit ng Delay</a></li>
+                <li><a href="#seq-recorder" class="toc-link">Real-time na Pagre-record ng Coordinate ng Mouse at Randomization</a></li>
+                <li><a href="#seq-drag-path" class="toc-link">Pagre-record ng Drag Path (Whirlwind · Concentration)</a></li>
+                <li><a href="#seq-rotation-pack" class="toc-link">🌀 360-Degree na Circular Rotation Pack (9 na Preset)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#tools-alter" class="toc-link">🧪 5. Mga Convenience Feature — Stat Alteration sa Imbentaryo</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alter-grid" class="toc-link">Awtomatikong Pagkalkula ng 33 Slot mula sa Una at Huling Slot</a></li>
+                <li><a href="#alter-safety" class="toc-link">Paglaktaw sa Bound Items at Pag-verify na Walang Laman ang Cube</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#alarm" class="toc-link">🔔 6. Smart Alarm System</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alarm-events" class="toc-link">Palaging Pagbabantay sa Legion/Boss sa Background</a></li>
+                <li><a href="#alarm-outputs" class="toc-link">In-game Banner at Korean na TTS Voice</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#window-modes" class="toc-link">🪟 7. Window Mode, Pin, at Overlay</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#window-mini" class="toc-link">Mini Window Mode (Napakaliit na Bar)</a></li>
+                <li><a href="#window-overlay" class="toc-link">In-game HUD Overlay</a></li>
+              </ul>
+            </li>
+            <li><a href="#safety-features" class="toc-link">🛡️ 8. Mga Safety Feature (Pause Key at Focus)</a></li>
+            <li><a href="#profile-sync" class="toc-link">💾 9. Pamamahala at Pagbabahagi ng Profile</a></li>
+            <li>
+              <a href="#telegram-support" class="toc-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="#2AABEE" style="vertical-align:-2px; margin-right:4px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> 10. Suporta sa Telegram at Debug Log</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#telegram-install" class="toc-link">Pag-install ng Telegram at Pagsali sa Group</a></li>
+                <li><a href="#log-viewer-guide" class="toc-link">Pagkopya ng Log at Pag-ulat ng Error para sa Solusyon</a></li>
+              </ul>
+            </li>
+            <li><a href="#community" class="toc-link">👑 11. Clan at ang Channel na 삼촌안잔다잉</a></li>
+            <li><a href="#faq" class="toc-link">❓ 12. Mga Madalas Itanong (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <!-- 2. 이미지 모아보기 패널 -->
+        <div class="tab-panel" id="panel-images">
+          <div class="media-nav-grid" id="sidebarImageGrid">
+            <!-- 자바스크립트로 본문 이미지들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+        <!-- 3. 영상 모아보기 패널 -->
+        <div class="tab-panel" id="panel-videos">
+          <div class="media-nav-grid" id="sidebarVideoGrid">
+            <!-- 자바스크립트로 본문 비디오/플레이스홀더들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 채널 바로가기 -->
+      <div class="sidebar-community-card">
+        <!-- 앙증맞은 클랜 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">⚔️ &lt;앙증맞은&gt; Rainbow Wings</span>
+            <span class="community-tag">Clan</span>
+          </div>
+          <div class="community-desc">In-game Clan ng Diablo IV · Clan Leader <strong>South Korea</strong> · Pagsali: maghanap sa laro (앙증맞은) → ipaalam sa channel → pag-apruba → huling pagtanggap (walang Discord)</div>
+          <div class="community-desc" style="color:var(--gold-bright); margin-top:4px;">🌏 Puwede ang dayuhan kung nakakapag-Korean</div>
+          <div class="community-links">
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" class="comm-btn telegram">💬 Telegram Group</a>
+            <a href="#community" class="comm-btn clan">📜 Impormasyon sa Clan</a>
+          </div>
+        </div>
+        <!-- 삼촌안잔다잉 채널 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">📺 Channel na 삼촌안잔다잉</span>
+            <span class="community-tag" style="color:var(--ruby); background:rgba(229,72,77,0.15);">Clan Leader</span>
+          </div>
+          <div class="community-desc">Channel ng game broadcast · mga tanong tungkol sa helper ay sa Telegram</div>
+          <div class="community-links">
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="comm-btn youtube">▶ YouTube Broadcast ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 접힘(미니) 모드용 아이콘 바 -->
+      <div class="mini-icons-list">
+        <button class="mini-icon-btn" onclick="document.getElementById('quickstart').scrollIntoView({behavior:'smooth'})" title="Pagsisimula">⚡</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('screen-ui').scrollIntoView({behavior:'smooth'})" title="Layout ng Screen">🖥️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('macro-engine').scrollIntoView({behavior:'smooth'})" title="Pag-set up ng Macro">⚙️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('tools-alter').scrollIntoView({behavior:'smooth'})" title="Stat Alteration sa Imbentaryo">🧪</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('alarm').scrollIntoView({behavior:'smooth'})" title="Smart Alarm">🔔</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})" title="Clan & Broadcast">👑</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})" title="Mga Madalas Itanong">❓</button>
+      </div>
+
+    </aside>
+
+    <!-- 우측 본문 콘텐츠 -->
+    <main class="content-wrap" id="mainContent">
+      
+      <!-- 히어로 배너 -->
+      <div class="hero-banner-card">
+        <img src="../images/hero_banner.jpg" alt="Banner ng Diablo IV d4cute helper" class="hero-banner-img">
+        <div class="hero-banner-overlay">
+          <span class="hero-tag">DIABLO IV HELPER MANUAL</span>
+          <h1 class="hero-title">Gabay sa Paggamit ng d4cute helper</h1>
+          <p class="hero-desc">Batay sa pinakabagong bersyon 1.30 — mga serial/async na macro sa 7 slot na A~G, awtomasyon ng Stat Alteration sa imbentaryo, real-time na alarma ng event, at pagpapakilala sa clan na 앙증맞은 at sa channel na 삼촌안잔다잉</p>
+        </div>
+      </div>
+
+      <!-- 📢 상단 텔레그램 공식 채널 필수 가입 배너 -->
+      <div class="telegram-top-banner tg-top" style="background: linear-gradient(135deg, rgba(42, 171, 238, 0.16) 0%, rgba(20, 36, 69, 0.45) 100%); border: 1.5px solid rgba(42, 171, 238, 0.45); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+        <div class="tg-top-row" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+          <div class="tg-top-text" style="flex: 1; min-width: 280px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px;">
+                📢 Sumali sa opisyal na Telegram channel!
+              </h3>
+              <span class="chip blue" style="font-weight: 700;">Lubos na inirerekomendang basahin</span>
+            </div>
+            <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--fg); line-height: 1.6;">
+              Ang pinakabagong <strong>anunsyo ng update, real-time na patch notes, pag-uulat ng error, at mabilis na teknikal na suporta ng d4cute helper</strong>ay pinakamabilis na ibinibigay sa pamamagitan ng Telegram.<br>
+              Lalo na ang bagong idinagdag na <strong style="color:var(--gold-bright);">🌀 kumpletong file ng 360-degree na Circular Rotation Pack (.d4seq)</strong>at <strong style="color:#2AABEE;">tunay na video ng pagpapakita ng pag-ikot</strong>ay maaari mong i-download nang libre sa channel!
+            </p>
+          </div>
+          <div class="tg-top-btns" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #2AABEE; color: #fff; text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 700; font-size: 13.5px; transition: all 0.2s; box-shadow: 0 2px 8px rgba(42, 171, 238, 0.4);">
+              <span>📢 Pumasok sa Announcement Channel ↗</span>
+            </a>
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid rgba(42, 171, 238, 0.4); color: var(--fg); text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 13.5px; transition: all 0.2s;">
+              <span>💬 Pumasok sa User Group ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상단 중요 알림 -->
+      <div class="alert-box gold">
+        <span class="alert-icon">💡</span>
+        <div>
+          <strong>Paalala</strong>: Sa helper window, kapag nag-click ka sa <span class="chip gold">?</span> button, mabubuksan anumang oras ang pinakabagong pahina ng tulong na ito. Maaari kang maghanap nang real-time sa nilalaman ng tulong gamit ang search box sa sidebar, at kapag nag-click ka sa isang larawan, gagana ang isang fullscreen viewer na may <strong>pag-zoom in/out gamit ang mouse wheel at pag-navigate sa nakaraan/susunod</strong>.
+        </div>
+      </div>
+
+      <!-- ─── 1. 시작하기 ─── -->
+      <section class="doc-section" id="quickstart">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">1</span> Unang 5 Minuto — Mula sa Pag-install hanggang sa Unang Macro</h2>
+        </div>
+        
+        <p>Ang d4cute helper ay isang mataas na performance na katulong na ligtas at maayos na tumutulong sa Diablo IV sa paulit-ulit na pag-cast ng skill, pagpapanatili ng buff, at nakakapagod na Stat Alteration ng imbentaryo gamit ang Horadric Cube.</p>
+
+        <ol>
+          <li><a href="https://da.gd/d4help" target="_blank"><strong>I-download ang Pinakabagong Installer</strong></a> — I-download at i-install ang installer (<code>d4cute_helper_setup.exe</code>), o direktang patakbuhin ang portable na executable file (<code>d4cute_helper.exe</code>). Kung magpakita ang Windows ng babalang "Unknown publisher", pindutin ang <em>More info → Run anyway</em>.</li>
+          <li>Kapag binuksan ang helper, awtomatikong magsisimula ang window sa pinakamaliit na default na laki kaya hindi nito natatakpan ang screen ng laro.</li>
+          <li>Sa profile bar, pumili ng profile na akma sa iyong class, o gumawa ng bago gamit ang <span class="chip green">＋</span> button.</li>
+          <li>Pindutin ang slot <span class="chip">A</span>at sa <strong>Pag-set up ng Macro</strong>, pindutin ang asul na button ng trigger key, at itakda ang mouse o keyboard key na gagamitin.</li>
+          <li><strong>Sequence</strong> Sa tab na ito, magdagdag ng mga skill key at delay na ika-cast, o pindutin ang <span class="chip">Record</span> button para eksaktong i-record ang mga key input mo sa totoong gameplay.</li>
+          <li>Sa ibaba, pindutin ang <span class="chip green">▶ Start</span> button, bumalik sa laro, at pindutin ang trigger key para gumana nang ligtas ang macro.</li>
+        </ol>
+
+        <div class="alert-box info">
+          <span class="alert-icon">🛡️</span>
+          <div><strong>Pagtukoy sa Aktibong Window ng Laro</strong>: Nagpapadala lang ang helper ng keyboard/mouse input sa laro kapag aktibo ang window ng Diablo IV. Awtomatikong humihinto ang input kapag nasa desktop o ibang window ka.</div>
+        </div>
+        <div class="alert-box gold">
+          <span class="alert-icon">🖥️</span>
+          <div><strong>Screen Mode ng Laro</strong>: Itakda ang display setting ng Diablo IV sa <strong>Windowed (Fullscreen)</strong> o Windowed mode. Sa exclusive fullscreen, hindi makikita ang overlay at maaaring pumalya ang pagbabasa ng screen ng Stat Alteration.</div>
+        </div>
+        <div class="video-card" data-video-title="[Video] Paano gamitin ang d4cute helper">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/Ff7MBqD4WaI" title="[Video] Paano gamitin ang d4cute helper" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>Video ng paggamit ng helper (channel na 삼촌안잔다잉)</strong></span>
+            <a href="https://youtu.be/Ff7MBqD4WaI" target="_blank" rel="noopener noreferrer" class="chip">Panoorin sa YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 2. 화면 구성 ─── -->
+      <section class="doc-section" id="screen-ui">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">2</span> Pinakabagong Layout ng Screen (v1.30)</h2>
+        </div>
+
+        <p>Sa bersyon 1.30, ang top bar at ang slot tab bar ay na-upgrade para maging mas madaling maintindihan at mas maganda.</p>
+
+        <!-- 메인 매크로 화면 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="Pangunahing screen ng d4cute helper — ang pinakabagong UI kung saan makikita sa isang tingin ang profile switch bar, mga macro slot (pinalawak sa 7 slot na A~G), direktang pag-type ng pangalan ng macro, Sponsor tab, mga gamit, at Alarm tab">
+          <div class="thumb-container">
+            <img src="../images/helper_main_macro.png" alt="Macro tab sa pangunahing screen ng helper">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Pangunahing screen ng d4cute helper 1.30 (sumusuporta sa 7 macro slot na A~G)</span>
+          </div>
+        </div>
+
+        <h3 id="screen-topbar">1) Top Bar at Mga Kontrol ng Profile</h3>
+        <ul>
+          <li><strong>Indicator ng Estado ng Pagtakbo</strong> — <span style="color:var(--green); font-weight:700;">● Huminto</span> / <span style="color:var(--green); font-weight:700;">● Tumatakbo</span> / <span style="color:var(--ruby); font-weight:700;">● Naka-pause</span> Ipinapakita ang estado gamit ang real-time na may kulay na tuldok.</li>
+          <li><strong>Mga Function Button sa Itaas</strong> — <span class="chip">Update</span>(kumikislap kapag may bagong patch), <span class="chip">Mga Setting (⚙)</span>, <span class="chip">Pagsubok (⌨)</span>(pag-verify ng pagpapadala ng input), paglipat sa mini window, always on top (pin), <span class="chip">···</span>(menu ng mga karagdagang tool).</li>
+          <li><strong>Profile Bar</strong> — 
+            <span class="chip">‹ ›</span> Mabilis kang makakapagpalit ng profile gamit ang mga button, at kapag nag-double-click ka sa combo box, maaari mong <strong>agad na palitan ang pangalan</strong>. <span class="chip green">＋</span>(bagong profile), <span class="chip">✎</span>(palitan ang pangalan), <span class="chip ruby">🗑</span>(tanggalin), <span class="chip blue" style="display:inline-flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Logo ng Telegram</span>, <span class="chip">Docs</span>(Season Docs), <span class="chip gold">?</span>(Help) na mga button. Sa bawat pagbukas, lumalabas ang window sa pinakamaliit na default na laki (minimum 900×700, lumalaki ayon sa font scale), at walang maximize na buong window.
+          </li>
+        </ul>
+
+        <h3 id="screen-slots">2) Slot Bar (Slot Navigation) — Pinalawak sa 7 slot (A~G)</h3>
+        <ul>
+          <li><span class="chip ruby">A</span> <span class="chip ruby">B</span> <span class="chip ruby">C</span> <span class="chip ruby">D</span> <span class="chip ruby">E</span> <span class="chip ruby">F</span> <span class="chip ruby">G</span> — <strong style="color:var(--gold);">Sa pinakabagong patch, ang mga macro slot ay malaki ang naging pagpapalawak mula sa dating 4 (A~D) tungo sa kabuuang 7 (A~G)</strong>! Maaari mo nang paghiwalayin nang maluwag ang mga komplikadong deal cycle, mobility skill, shield/buff maintenance, at mga skill para sa partikular na sitwasyon nang hindi kinukulangan ng slot. Ang naka-on na slot ay may naka-highlight na border, at kapag nagti-trigger ito, umiilaw ito na puting teksto sa pulang background.</li>
+          <li><strong>Direktang Pagpapangalan ng Macro</strong> — Sa macro settings screen ng bawat slot, sa input field na <span class="chip">Pangalan: [ Main Macro ]</span> ay maaari kang maglagay ng sarili at madaling intindihing pangalan para sa bawat slot. Ipinapakita rin ang pangalang ito nang malaki sa pinakaitaas ng tooltip na lumalabas kapag itinapat mo ang mouse sa slot button.</li>
+          <li><span class="chip">♡ Sponsor</span> — Lumalabas sa banner carousel ang paalalang "Libre ang helper", mga link ng inirerekomendang partner (Starlink at iba pa), at pagpapakilala sa channel ng clan leader. Walang anumang awtomatikong ipinapadala ang helper.</li>
+          <li><span class="chip">🔧 Mga gamit</span> — Isang pahinang UI na nakalaan sa awtomasyon ng Stat Alteration sa imbentaryo gamit ang Horadric Cube.</li>
+          <li><span class="chip">⏱ ▶ 4 (Alarma)</span> — Pag-set up ng alarma para sa Legion, World Boss, Helltide, at personal na timer. Sa kanan, ipinapakita bilang badge ang bilang ng mga alarmang kasalukuyang gumagana.</li>
+          <li><strong>Summary Chip sa Kanan ng Slot</strong> — Palaging ipinapakita nang real-time ang buod ng execution mode (Serial/Async), trigger mode (Hold/Toggle/Once), at trigger key ng kasalukuyang napiling slot.</li>
+        </ul>
+
+        <h3 id="screen-bottombar">3) Pinagsamang Control Bar sa Ibaba</h3>
+        <ul>
+          <li><span class="chip green">▶ Start</span> / <span class="chip ruby">■ Stop</span>: Sinisimulan o inihihinto ang lahat ng macro detection at execution ng helper (default na hotkey <kbd>F9</kbd>).</li>
+          <li><span class="chip blue">I-save</span>: Agad na permanenteng sine-save sa disk ang kasalukuyang binago mong profile at mga macro setting.</li>
+          <li><span class="chip">📁 I-reload</span>: Kapag nagkamali ka sa paghawak ng mga setting, ibinabalik ang profile sa huling na-save na estado.</li>
+          <li><span class="chip ruby" style="background:#cc0000; color:#fff; font-weight:700;">▶ 삼촌안잔다잉</span>: Isang click lang papunta sa game broadcast channel ng clan leader.</li>
+          <li><span class="chip">📤 I-export</span>: Sine-save ang kasalukuyang mga setting ng profile bilang <code>.d4cute</code> backup file.</li>
+          <li><span class="chip blue">📥 Mag-import</span>: Ini-import at agad na inilalapat ang <code>.d4cute</code> profile na ibinahagi ng ibang user o ng miyembro ng clan.</li>
+          <li><span class="chip">Minimize</span>: Minimina-minimize ang helper window sa taskbar.</li>
+        </ul>
+
+        <div class="image-card is-small" data-caption="Sponsor tab — paalalang libre ang helper, mga link ng inirerekomendang partner, at banner carousel ng channel ng clan leader">
+          <div class="thumb-container">
+            <img src="../images/helper_sponsor_tab.png" alt="Banner carousel ng Sponsor tab">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Sponsor Tab (Banner Carousel)</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 3. 매크로 설정 ─── -->
+      <section class="doc-section" id="macro-engine">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">3</span> Pag-set up ng Macro — Execution Mode · Trigger Mode · Trigger Key</h2>
+        </div>
+
+        <h3 id="macro-modes">1) Execution Mode at Trigger Mode</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 110px;">Kategorya</th>
+                <th style="width: 100px;">Pangalan ng Mode</th>
+                <th>Paliwanag at Inirerekomendang Gamit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" style="font-weight: 700; color: var(--gold);">Execution Mode</td>
+                <td><strong>Serial</strong></td>
+                <td>Nagca-cast nang sunod-sunod mula Step 1 hanggang sa huling step, at inuulit mula sa simula. Angkop sa nakatakdang skill combo at deal cycle rotation.</td>
+              </tr>
+              <tr>
+                <td><strong>Async</strong></td>
+                <td>Bawat step ay paulit-ulit na tumatakbo nang hiwalay ayon sa sarili nitong cooldown (oras ng paghihintay). Pinakaangkop sa pagpapanatili ng shield/buff skills na magkakaiba ang cooldown.</td>
+              </tr>
+              <tr>
+                <td rowspan="3" style="font-weight: 700; color: var(--ruby);">Trigger Mode</td>
+                <td><strong>Hold</strong></td>
+                <td>Tumatakbo ang macro <strong>habang hawak mo lang ang trigger key</strong> at agad itong humihinto kapag binitawan mo ang key. Inirerekomenda para sa pangunahing damage skill.</td>
+              </tr>
+              <tr>
+                <td><strong>Toggle</strong></td>
+                <td>Mag-o-on kapag pinindot nang isang beses ang trigger key at mag-o-off kapag pinindot ulit. Binabawasan ang pagod ng daliri sa matagal na farming o pag-ikot sa dungeon.</td>
+              </tr>
+              <tr>
+                <td><strong>Once</strong></td>
+                <td>Kapag pinindot ang trigger key, isang beses nitong ginagawa ang sequence mula simula hanggang dulo at kusa itong humihinto. Angkop sa tuloy-tuloy na paggawa ng potion, pagbili ng gear, at iba pa.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="macro-keys">2) Pagpili ng Trigger Key at Masusing Pag-tune</h3>
+        <ul>
+          <li><strong>Flexible na Trigger Key</strong>: Sinusuportahan ang lahat ng key ng keyboard, kaliwa/kanang click ng mouse, wheel pataas/pababa, side button, at <kbd>Ctrl</kbd> · <kbd>Shift</kbd> · <kbd>Alt</kbd> mga kombinasyon ng key. Maaari mong itakda ang parehong trigger key sa maraming slot para sabay-sabay silang mag-trigger. Pero hindi ito maaaring mag-overlap sa start hotkey ng convenience feature (Stat Alteration) — tatanggihan ito sa pagpili kapag nag-overlap.</li>
+          <li><strong>Press Delay</strong>:
+            Binabalewala ang maiikling tapik na click, at nag-o-on lang ang macro kapag matagal na pinindot nang lampas sa itinakdang oras (hal. 250~300ms). <strong>Ito ay isang kinakailangang setting para maiwasan ang pagsara ng inventory o stash window kapag right-click ang gamit na trigger key</strong>.
+          </li>
+          <li><strong>Release Buffer</strong>:
+            Pinahahaba ang pagtakbo ng macro sa itinakdang oras kahit nabitawan mo na ang trigger key. Binibigyan ka nito ng palugit para hindi maputol ang atake habang nagla-loot ng mga item sa sahig pagkatapos manghuli.
+          </li>
+          <li><strong>Companion Keys</strong>:
+            Maaari kang magtakda ng mga key na patuloy na pinipindot kasabay habang tumatakbo ang macro (hal. stand-still attack key <kbd>Shift</kbd>, force move key, at iba pa).
+          </li>
+        </ul>
+
+        <!-- 키 피커 캡처 -->
+        <div class="image-card is-small" data-caption="Popup para sa pagtatakda ng trigger key — ligtas at madaling pagpili ng keyboard key, mouse button, at mga kombinasyon ng key.">
+          <div class="thumb-container">
+            <img src="../images/helper_key_picker.png" alt="Dialog sa pagpili ng trigger key">
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Popup sa Pagpili ng Trigger Key</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 4. 시퀀스 빌더 & 실시간 녹화 ─── -->
+      <section class="doc-section" id="sequence-builder">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">4</span> Sequence Builder · Bulk na Pagpapalit ng Delay · Pagre-record ng Mouse</h2>
+        </div>
+
+        <h3 id="seq-cards">1) Step Card at Bulk na Operasyon</h3>
+        <ul>
+          <li>Kapag nag-click ka sa step card, maaari mong palitan nang paisa-isa ang key, action mode, at delay (oras ng paghihintay, ms).</li>
+          <li><strong>Mga Opsyon sa Mode</strong>:
+            <ul>
+              <li><em>Single</em>: Isang beses na input ng key</li>
+              <li><em>Burst</em>: Mabilis na pag-tap sa itinakdang pagitan</li>
+              <li><em>Hold</em>: Hawak ang key sa loob ng itinakdang oras</li>
+            </ul>
+          </li>
+          <li><span class="chip">Bulk na Pagpapalit ng Delay</span>: Pinapalitan nang sabay ang oras ng paghihintay ng lahat ng step sa nais na halaga (ms) o porsyento (%).</li>
+          <li><span class="chip">Lahat → Burst/Single</span>: Isang click para palitan ang action mode ng lahat ng nakarehistrong step.</li>
+        </ul>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <div class="image-card is-small" data-caption="Step editor — tumpak na pagtatakda ng key, mode (Single/Burst/Hold), at delay">
+            <div class="thumb-container">
+              <img src="../images/helper_step_editor.png" alt="Step editor">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>Window ng Pag-edit ng Isang Step</span></div>
+          </div>
+          <div class="image-card is-small" data-caption="Tool para sa bulk na pagpapalit ng delay — madaling i-tune ang pagitan ng lahat ng step">
+            <div class="thumb-container">
+              <img src="../images/helper_bulk_delay.png" alt="Dialog ng bulk na pagpapalit ng delay">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>Popup ng Bulk na Pagpapalit ng Delay</span></div>
+          </div>
+        </div>
+
+        <h3 id="seq-recorder">2) Real-time na Pagre-record ng Coordinate ng Mouse at Humanized na Random na Pagkakaiba</h3>
+        <ul>
+          <li><span class="chip">Record</span> Pindutin ang button, pagkatapos ay mag-input ng key at mouse sa screen ng laro, at mare-record nang buo ang pagkakasunod-sunod at pagitan ng oras.</li>
+          <li><strong>Pagtatala ng Coordinate ng Screen</strong>: Kapag nag-click ang mouse, nare-record ang absolute coordinate (X, Y) ng screen na na-click, kaya awtomatikong kinaki-click ng macro ang lugar na iyon sa playback.</li>
+          <li><strong>Humanized na Random na Pagkakaiba</strong>:
+            <ul>
+              <li><strong>Posisyon ng Click ± px</strong>: Sa bawat click, nagbibigay ng hindi regular na pagkakaiba sa loob ng itinakdang radius ng pixel para maiwasan ang mekanikal na pagtukoy.</li>
+              <li><strong>Random na Pagbabago %</strong>: Hinahaluan ng random na pagkaantala na may tiyak na porsyento ang bawat pagitan ng step para gayahin ang natural na galaw ng kamay.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3 id="seq-drag-path">3) Pagre-record ng Drag Path — Pati ang Landas ng Paggalaw habang Nakapindot (1.32.0)</h3>
+        <ul>
+          <li>Habang nagre-record, kapag ginalaw mo ang mouse <strong>nang nakapindot ang button</strong> , mare-record din ang landas na iyon. Mula sa huling record point, nagtatala ng coordinate kapag lumampas sa <strong>8px</strong> ang galaw, o kapag lumipas ang <strong>16ms</strong> , kaya siksik ang rekord ng mabilis na pag-ikot at tuloy-tuloy ang mabagal na galaw.</li>
+          <li>Sa playback, pinipindot ang button sa lugar kung saan ito pinindot, <strong>ginagalaw ang cursor sa parehong landas ayon sa nakatalang oras,</strong> at binibitawan sa lugar kung saan ito binitawan. Sa naunang bersyon, dalawang punto lang (lugar ng pagpindot at pagbitaw) ang naaalala kaya biglang lumilipat ang cursor.</li>
+          <li><strong>Mga channeling skill tulad ng Whirlwind · Concentration</strong>: Ilagay ang skill sa laro sa <span class="chip">kanang button ng mouse</span>, at kung iikot mo ito habang nakapindot ang kanang button sa pagre-record, mare-record at mape-playback ang pag-ikot nang buo. Pareho rin ang paggalaw habang nakapindot ang kaliwang button.</li>
+          <li><strong>Random na Pagbabago %</strong>ay inilalapat nang isang beses sa buong oras ng landas, <strong>Posisyon ng Click ± px</strong>ay inilalapat nang isang beses lang sa buong landas kaya hindi nanginginig ang cursor.</li>
+          <li>Kapag itinama mo ang posisyon gamit ang numero sa step editor, o pinindot mo ang <span class="chip">I-clear ang Drag</span>, itatapon ang landas at magpe-playback ito ng paglukso gaya ng dati.</li>
+          <li>Hanggang 600 punto ang sine-save sa isang drag (mga 10 segundo kung 16ms ang pagitan). Absolute screen coordinate ang landas, kaya i-record ito ulit kung binago mo ang resolution o posisyon ng window.</li>
+        </ul>
+
+        <!-- 비디오 플레이스홀더 (마우스 녹화) -->
+        <div class="video-card" data-video-title="[Gabay na Video] Mga tip sa pagsulat ng macro sequence at real-time na pagre-record">
+          <div class="placeholder-box" style="margin: 0; border: none; border-radius: 0;">
+            <div class="placeholder-icon">🎬</div>
+            <div class="placeholder-title">Tutorial na video sa pagre-record ng macro sequence (inihahanda)</div>
+            <div class="placeholder-desc">Kapag ibinigay mo ang address ng YouTube video, papalitan ito agad dito ng embedded na video na puwedeng i-play.</div>
+            <span class="placeholder-path">YouTube Video Slot: seq-record-guide</span>
+          </div>
+          <div class="video-info">
+            <span><strong>Video 1</strong>: Mga praktikal na tip sa pagre-record ng macro at pag-tune ng delay</span>
+            <span class="chip ruby">Inihahanda</span>
+          </div>
+        </div>
+
+        <!-- 🌀 4) 완성형 360도 원형 회전팩 (9종 프리셋) & 다운로드 안내 -->
+        <h3 id="seq-rotation-pack">4) Kumpletong 360-Degree na Circular Rotation Pack (9 na Preset) at Pag-download</h3>
+        <p>
+          Kapag mano-manong nire-record ang drag, madaling mapiga ang bilog, hindi eksakto ang anggulo ng pag-ikot, at humihinto o nauutal sa simula at dulo.<br>
+          Para dito, nagbibigay kami ng <strong>perpektong saradong 360-degree na circular rotation sequence pack (9 na preset) na eksaktong kinalkula sa matematika</strong>.
+        </p>
+
+        <!-- 텔레그램 다운로드 강조 배너 -->
+        <div class="alert-box gold" style="margin: 16px 0; border-left: 4px solid var(--gold);">
+          <span class="alert-icon">🎁</span>
+          <div>
+            <strong style="color:var(--gold-bright); font-size:15px;">Tunay na Demo Video at Gabay sa Pag-download ng Rotation Pack</strong><br>
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">Sa opisyal na Telegram announcement channel (@d4_notice)</a> at sa 
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">user group (@d4cute_helper)</a>, 
+            <strong>makukuha mo ang tunay na in-game 360-degree rotation demo video</strong>at ang kumpletong <strong><code>sequences.d4seq</code> rotation pack file</strong>nang libre at agad!
+          </div>
+        </div>
+
+        <div style="overflow-x: auto; margin: 18px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line);">
+            <thead>
+              <tr style="background: rgba(229, 184, 92, 0.12); color: var(--gold-bright); border-bottom: 1px solid var(--line-bright); text-align: left;">
+                <th style="padding: 10px 14px;">Pangalan ng Sequence</th>
+                <th style="padding: 10px 14px;">Radius ng Pag-ikot (Radius)</th>
+                <th style="padding: 10px 14px;">Oras ng 1 Ikot (`press_ms`)</th>
+                <th style="padding: 10px 14px;">Katangian at Inirerekomendang Gamit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">1. Maliit na Mabilis na Ikot</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">1.5 segundo (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Saklaw na malapit sa karakter, mabilis at magaan na pag-target sa lahat ng direksyon</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); background: rgba(229, 184, 92, 0.05);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">2. Katamtamang Mabilis na Ikot</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">1.5 segundo (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);"><strong style="color:var(--gold);">★ Karaniwang Rekomendasyon</strong> — Makinis na mabilis na ikot na may pinakamainam na radius para sa default na resolution</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">3. Malaking Mabilis na Ikot</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">1.5 segundo (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Malawak na mabilis na ikot na humahagod hanggang sa gilid ng screen</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">4. Maliit na Ikot</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">2.5 segundo (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Matatag na channeling na may katamtamang bilis ng ikot sa malapitan</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">5. Katamtamang Ikot</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">2.5 segundo (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Matatag na ikot na katamtaman ang bilis sa default na radius</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">6. Malaking Ikot</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">2.5 segundo (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Banayad at maluwag na ikot sa malawak na saklaw</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">7. Maliit na Napakabilis</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">0.75 segundo (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Agarang pag-target ng ikot sa malapitan (isang buong ikot sa loob lang ng 0.75 segundo)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">8. Katamtamang Napakabilis</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">0.75 segundo (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Napakabilis na pag-atake sa lahat ng direksyon na parang kidlat, sa default na radius</td>
+              </tr>
+              <tr>
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">9. Malaking Napakabilis</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">0.75 segundo (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Ikot na bumabalot sa buong screen nang napakabilis</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 style="color:var(--gold); margin: 20px 0 8px 0; font-size:15px;">🔧 Paano Gamitin ang Rotation Pack at Mga Tip sa Setting</h4>
+        <ol style="margin-top: 6px; padding-left: 20px; line-height: 1.8;">
+          <li><strong>Pag-import (Import)</strong>: Mula sa Telegram, i-download ang <code>sequences.d4seq</code> file, at sa ibaba ng helper window, pindutin ang <span class="chip">Mag-import</span> button, pumili ng file, at mairerehistro nang sabay ang 9 na sequence.</li>
+          <li><strong>Pag-assign sa Slot</strong>: Pindutin ang macro slot na gusto mo (A~G), at sa <strong>Sequence Library</strong>, piliin ang paborito mong preset sa 9 na nasa itaas.</li>
+          <li><strong>Paano kung gusto kong isang ikot lang at tumigil?</strong>:
+            Itakda ang trigger mode ng macro sa <strong style="color:var(--gold-bright);">[Once (Isang Beses)]</strong>. Sa bawat pindot ng key, <strong>eksaktong isang ikot lang ang gagawin nito at kusa at malinis na titigil sa kinaroroonan.</strong>
+          </li>
+          <li><strong>Paano kung gusto kong tuloy-tuloy ang ikot habang hawak ko ang key?</strong>:
+            Itakda ang trigger mode sa <strong>[Hold (Habang Hawak)]</strong> o <strong>[Toggle]</strong>. Ang delay sa pagitan ng mga step (<code>interval_ms</code>) ay naka-optimize sa <code>0ms</code>, kaya <strong>tuloy-tuloy na umiikot na parang umaagos na tubig, nang walang pagkabitin o pag-aatubili sa simula at dulo</strong>.
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 5. 편의기능 — 인벤 선변성 ─── -->
+      <section class="doc-section" id="tools-alter">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">5</span> Mga Convenience Feature — Stat Alteration sa Imbentaryo (Isang Pahinang UI)</h2>
+        </div>
+
+        <p>Ang bagong inayos sa bersyon 1.30 na <strong>Inventory Stat Alteration Tool</strong>ay nag-a-automate ng Stat Alteration ng Legendary at Unique gear gamit ang Horadric Cube sa ilang operasyon lang.</p>
+
+        <!-- 선변성 도구 탭 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="Nakalaang tab ng Stat Alteration sa imbentaryo — pinakabagong layout na pinagsama sa isang screen ang pagtutuwid ng coordinate ng unang/huling slot, switch sa paglaktaw ng hindi-bound, start/stop hotkey, at pag-adjust ng paghihintay sa resulta">
+          <div class="thumb-container">
+            <img src="../images/helper_alter_tool.png" alt="Isang pahinang UI ng Stat Alteration sa imbentaryo">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Mga Convenience Feature: Isang Pahinang UI ng Stat Alteration sa Imbentaryo gamit ang Horadric Cube</span>
+          </div>
+        </div>
+
+        <h3 id="alter-grid">1) Awtomatikong Pagkalkula ng 33-Slot Grid at Pagsisimula</h3>
+        <ol>
+          <li>Sa laro, buksan ang <strong>Inventory</strong>at ang <strong>Horadric Cube</strong> window.</li>
+          <li><span class="chip gold">Pumili ng Unang Slot</span>button, pagkatapos ay ilagay ang mouse sa pinakaunang slot (kaliwang itaas) ng imbentaryo sa laro, at pindutin ang <kbd>Enter</kbd>.</li>
+          <li><span class="chip gold">Pumili ng Huling Slot</span>button, ilagay ang mouse sa pinakahuling slot (kanang ibaba) ng imbentaryo, at pindutin ang <kbd>Enter</kbd>. (Para kanselahin anumang oras, pindutin ang <kbd>Esc</kbd>)</li>
+          <li>Kapag naitakda mo lang ang posisyon ng dalawang punto, awtomatiko at tumpak na makakalkula ang center coordinate ng 33 slot ng imbentaryo.</li>
+          <li>Sa screen ng laro, pindutin ang start hotkey (default: <kbd>F10</kbd>, maaaring palitan sa pagpindot sa asul na key button) at magsisimula nang buong awtomatiko ang Stat Alteration. Palaging gumagana ang hotkey kahit hindi nakabukas ang tab ng mga convenience feature.</li>
+        </ol>
+
+        <h3 id="alter-safety">2) Mekanismo ng Operasyon at Matalinong Safety Feature</h3>
+        <ul>
+          <li><strong>Matalinong Paulit-ulit na Loop</strong>:
+            Iniikot ang bawat slot ng imbentaryo at <em>awtomatikong isinasagawa ang Right-click → ilagay sa Horadric Cube → i-click ang button ng pagbabago ng item → Transform → Accept (<kbd>Enter</kbd>) → Reset</em>.
+          </li>
+          <li><strong>Switch sa Paglaktaw ng Account Bound Items</strong>:
+            Kapag naka-on ang switch, nilalaktawan ang mga bound item at hindi-bound na gear lang ang pinipili at binabago. Kapag naka-off, pati bound gear ay binabago, at ligtas na ipinapadala lang ang <kbd>Enter</kbd>kapag lumabas ang accept popup window.
+          </li>
+          <li><strong>Pag-verify na Walang Laman ang Cube (Cube Empty Check)</strong>:
+            Pagkatapos ng reset, sinusuri kung walang laman ang unang slot ng cube gamit ang <strong>larawan</strong>(natatandaan nito ang hitsurang walang laman at may laman noong inilagay ang unang item), at sa kapaligirang hindi mahuli ang larawan, tumutulong ang pagbasa sa teksto ng header ng cube sa paghatol. Kapag hindi walang laman, pipindutin ulit ang reset, at kung hindi pa rin nawalan ng laman, hihinto ito — isang safeguard ito para hindi magpatong ang dalawang item.
+          </li>
+          <li><strong>Emergency Stop</strong>: Habang gumagana, kapag pinindot mo ang keyboard key na <kbd>Esc</kbd> saanman, agad na hihinto ang Stat Alteration.</li>
+          <li><strong>Mga Setting para sa Mabagal na PC</strong>: <span class="chip">Delay Bago Magsimula (ms)</span>(palugit para makalipat sa window ng laro pagkatapos pindutin ang start button), <span class="chip">Paghihintay sa Resulta (ms)</span>(default 3000 — pinakamataas na paghihintay hanggang matapos ang pagbabago pagkatapos ng transform at accept at mamatay ang transform button; lilipat agad kapag dumating ang signal), <span class="chip">Delay Pagkatapos ng Reset (ms)</span>(default 0 — karagdagang paghihintay pagkatapos ng reset). Kung nagpapatong ang mga item o nilalaktawan ang pagbabago sa PC na mabagal ang animation, dagdagan ang paghihintay sa resulta.</li>
+          <li><strong>Talaan ng Takbo</strong>: Sa bawat ikot, <code>%APPDATA%\d4cute_helper\debug\alter_slots.txt</code> ay nag-iiwan ng hatol para sa bawat slot. Kapag may problema, i-upload ang file na ito sa Telegram group.</li>
+        </ul>
+
+        <!-- 인게임 실화면 플레이스홀더 -->
+        <div class="placeholder-box">
+          <div class="placeholder-icon">📸</div>
+          <div class="placeholder-title">[In-game Screenshot Slot] Screen ng pagpapatakbo ng Stat Alteration gamit ang Horadric Cube</div>
+          <div class="placeholder-desc">Kapag nag-upload ka ng tunay na capture image kung saan bukas ang Horadric Cube at imbentaryo sa laro, agad itong ikokonekta.</div>
+          <span class="placeholder-path">Image Slot: _work/d4help-repo/images/inven/alter_ingame_live.png</span>
+        </div>
+
+        <!-- 선변성 유튜브 비디오 슬롯 -->
+        <div class="video-card" data-video-title="[Video] Paano gamitin ang tool ng Stat Alteration sa imbentaryo">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/O2mSUAEX-xM" title="[Video] Paano gamitin ang tool ng Stat Alteration sa imbentaryo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>Video ng paggamit ng Stat Alteration tool (channel na 삼촌안잔다잉)</strong></span>
+            <a href="https://youtu.be/O2mSUAEX-xM" target="_blank" rel="noopener noreferrer" class="chip">Panoorin sa YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 6. 스마트 알람 시스템 ─── -->
+      <section class="doc-section" id="alarm">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">6</span> Smart Alarm System — Event · Personal · Alerto sa Screen · Boses (TTS)</h2>
+        </div>
+
+        <p>Isa itong mataas na performance na background alarm engine na nagpapaalala para hindi mo makaligtaan ang mga pangunahing time-based na content ng Diablo IV (Legion invasion, World Boss, Helltide, at iba pa) at ang sarili mong mga timer.</p>
+
+        <h3 id="alarm-events">1) Mga Abiso ng Event (World Boss · Helltide · Legion)</h3>
+        <p>Real-time na nakakonekta sa website sa labas ng laro (diablo4.life) at awtomatikong kinakalkula ang pinakabagong oras ng paglitaw ng boss at Helltide.</p>
+        
+        <!-- 이벤트 알림 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Tab ng mga abiso ng event — gabay sa oras ng paglitaw ng World Boss, Helltide, at Legion, mga toggle ng paunang abiso na 5 min/3 min/1 min/pagsisimula, at pag-adjust ng pagkakasunod-sunod ng priyoridad (▲/▼) kapag nag-overlap">
+          <div class="thumb-container">
+            <img src="../images/alarm_event_schedule_list.png" alt="Listahan ng mga abiso ng event at priyoridad">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Mga Abiso ng Event (iskedyul ng World Boss, Helltide, Legion at oras ng abiso)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Pagpili ng Oras ng Abiso</strong>: Para sa bawat event, maaari mong i-on at i-off nang hiwalay ang oras na <span class="chip blue">5 min</span>, <span class="chip blue">3 min</span>, <span class="chip blue">1 min</span> bago magsimula at ang oras ng <span class="chip blue">pagsisimula</span> .</li>
+          <li><strong>Pagkakasunod-sunod ng Priyoridad Kapag Nag-overlap</strong>: <kbd>▲</kbd> <kbd>▼</kbd> Pindutin ang mga button para baguhin ang pagkakasunod-sunod ng mga event. Kung maraming abiso ang sabay na dumating sa parehong oras, ang event na nasa itaas ang unang tutunog at sabay-sabay na ipapakita sa screen.</li>
+          <li><strong>Pagtatakda ng Anchor ng Legion</strong>: Maaari mo ring mano-manong i-adjust ang oras ng paglitaw ng Legion bilang anchor na 0 minuto bago, ayon sa sitwasyon sa iyong screen.</li>
+        </ul>
+
+        <h3 id="alarm-personal">2) Mga Personal na Alarma (Custom na Timer at Paulit-ulit na Pagitan)</h3>
+        <p>Maaari kang magrehistro ng walang limitasyong sariling custom na timer, gaya ng alarma sa pag-expire ng 30-minutong elixir, dungeon cooldown, at paalala sa pahinga.</p>
+
+        <!-- 개인 알람 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Tab ng personal na alarma — button na + Idagdag, paulit-ulit na pagitan (hal. walang-limitasyong timer na tuwing 10 min para mag-ehersisyo ng tiyan), real-time na status toggle, at edit/tanggal">
+          <div class="thumb-container">
+            <img src="../images/alarm_personal_timer_list.png" alt="Listahan ng mga timer ng personal na alarma">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Mga Setting ng Personal na Alarma (listahan ng custom na paulit-ulit na timer)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><span class="chip blue">＋ Idagdag</span>: Magrehistro sa pamamagitan ng pagtatakda ng gusto mong pangalan, pagitan (sa minuto o takdang oras), at batayan ng pagsisimula.</li>
+          <li><strong>Switch On/Off</strong>: Agad mong maibubukas o maisasara ang mga timer na kailangan mo lang gamit ang switch, at real-time na ipinapakita ang natitirang oras bago ang susunod na abiso.</li>
+        </ul>
+
+        <h3 id="alarm-display">3) Alerto sa Screen (Text Overlay Banner sa Laro)</h3>
+        <p>Naglalagay ng teksto sa screen para madali mong makita ang mahahalagang abiso nang hindi hinaharangan ang tanaw mo habang naglalaro.</p>
+
+        <!-- 화면 알림 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Mga setting ng alerto sa screen — posisyon (sa itaas ng ulo ng karakter, vertical offset -59px), laki ng teksto (35px), kulay (#FFD700), bold/outline na epekto, opacity ng background (24), tagal ng pagpapakita (15 segundo), at preview">
+          <div class="thumb-container">
+            <img src="../images/alarm_banner_display_settings.png" alt="Mga setting ng banner ng alerto sa screen">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Mga Setting ng Alerto sa Screen (posisyon, laki ng teksto, kulay, outline, at tagal ng pagpapakita)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Posisyon ng Alarma at Vertical Offset</strong>: <span class="chip">Sa itaas ng karakter</span> at iba pa — piliin ang gusto mong posisyon at i-fine-tune ang vertical pixel offset (hal. -59 px).</li>
+          <li><strong>Mga Opsyon sa Readability</strong>: Laki ng teksto (px), color palette (Gold #FFD700, atbp.), <strong>Matapang</strong> at sa <strong>Balangkas</strong> — kapag in-on ang mga switch, malinaw na makikita ang teksto kahit sa madilim na dungeon o sa gitna ng magarbong skill effect.</li>
+          <li><span class="chip">Silipin</span> button para agad masubukan kung paano ito ipapakita sa laro.</li>
+        </ul>
+
+        <h3 id="alarm-sound">4) Default na Tunog · Boses (TTS at Sound Effect)</h3>
+        <p>Nagbibigay ng natural na Korean na voice guidance sa pamamagitan ng alarm sound effect at ng Supertonic 3 na AI voice engine.</p>
+
+        <!-- 기본 사운드 음성 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Mga setting ng default na tunog · boses — sound file (Ring01), paraan ng abiso (Tunog lang / Tunog + Boses / Boses lang), Supertonic 3 Korean voice engine (F1 Female, bilis 0.90x, kontrol sa volume), at real-time na pagsubok">
+          <div class="thumb-container">
+            <img src="../images/alarm_sound_voice_settings.png" alt="Mga setting ng default na tunog at boses">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Default na Tunog · Boses (Supertonic 3 Korean Voice at Sound Effect)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Paraan ng Abiso</strong>: <span class="chip">Tunog lang</span>, <span class="chip gold">Tunog + Boses</span>, <span class="chip">Boses lang</span> Sumusuporta sa 3 mode.</li>
+          <li><strong>Voice Engine</strong>: Built-in <strong>Supertonic 3</strong> voice engine — binabasa nang malinaw sa Korean gamit ang mga boses gaya ng 'F1 Female', at malaya mong maaayos ang bilis ng pagsasalita (hal. 0.90x) at volume (0~100).</li>
+          <li><span class="chip">▶ Pagsubok</span> Sa button, agad mong makukumpirma ang aktwal na kalidad ng voice output.</li>
+        </ul>
+      </section>
+
+      <!-- ─── 7. 창 모드, 핀, 오버레이 ─── -->
+      <section class="doc-section" id="window-modes">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">7</span> Window Mode · Always on Top (Pin) · In-game Overlay</h2>
+        </div>
+
+        <h3 id="window-mini">1) Mini Window Mode (Mini Bar)</h3>
+        <p>Isa itong mode na parang napakaliit na bar na isang linya lang, na maaari mong ilagay sa sulok ng monitor ng screen ng laro.</p>
+
+        <!-- 미니바 스크린샷 카드 -->
+        <div class="image-card is-small" data-caption="Mini window mode — estado ng pagtakbo ng slot A~G, start/stop, shortcut sa mga convenience feature, at button pabalik sa pangunahing window">
+          <div class="thumb-container">
+            <img src="../images/helper_mini_bar.png" alt="Screen ng mini bar mode">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Napakaliit na Mini Bar Mode</span></div>
+        </div>
+
+        <ul>
+          <li>Umiilaw ang kasalukuyang estado ng pagtakbo ng 7 slot na A~G kaya makikita mo ito nang real-time.</li>
+          <li><span class="chip green">pagsisimula</span> / <span class="chip">Stop</span> button, button ng mga convenience feature (wrench) — kapag pinindot ito, babalik ka sa pangunahing window at bubuksan ang tab ng mga convenience feature (ang pagsisimula ng Stat Alteration ay sa hotkey o sa start button ng tab na iyon), at may built-in na always on top (pin) button.</li>
+          <li>Kapag pinindot mo ang return button (parisukat), agad kang babalik sa pangunahing window sa orihinal na laki.</li>
+        </ul>
+
+        <h3 id="window-overlay">2) In-game HUD Overlay</h3>
+        <p>Isa itong kailangang HUD tool na nakalutang nang semi-transparent sa ibabaw ng screen ng laro para makita mo nang real-time ang takbo ng macro. Malinaw na ipinapakita ang mga gumaganang macro slot, hold key, at listahan ng mga key na kasalukuyang pinipindot.</p>
+
+        <!-- 1. 인게임 오버레이 실화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Aktwal na screen ng in-game HUD overlay — real-time na pagpapakita ng gumaganang macro slot (•A, •B na umiilaw nang pula), hold key (Hawakan RClick), at listahan ng mga pinipindot na key (Pinindot 2 F F F F 4)">
+          <div class="thumb-container">
+            <img src="../images/overlay_ingame_live_display.png" alt="Aktwal na screen ng in-game HUD overlay">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>In-game HUD Overlay (gumaganang slot, hold key, at real-time na listahan ng pinipindot na key)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Estado ng Gumaganang Macro Slot</strong>:
+            <span class="chip ruby">•A</span> <span class="chip ruby">•B</span> — tulad ng nakikita sa itaas, umiilaw na may pulang border at tuldok (•) ang slot na kasalukuyang nagti-trigger at tumatakbo, at madaling makilala sa isang tingin ang hindi aktibong slot (<span class="chip">C</span>) at ang slot na naghihintay ng toggle (<span class="chip green">○D</span>).
+          </li>
+          <li><strong>Output ng Hold Key (Hold / Companion)</strong>:
+            Real-time na ipinapakita sa kanang itaas ang mga key na kasalukuyang patuloy na pinipindot (hal.: <code>Hawakan RClick</code>, <code>Hawakan Shift</code> at iba pa).
+          </li>
+          <li><strong>Real-time na Listahan ng Pinipindot na Key (Key Log)</strong>:
+            Tuloy-tuloy na ipinapakita sa ibaba ang mga skill key na real-time na pinipindot sa kasalukuyang sequence (hal.: <code>Pinindot 2 F F F F 4</code>), kaya agad mong makukumpirma habang naglalaro kung tama ang pagkakasabay ng skill rotation.
+          </li>
+          <li><strong>Progreso ng Stat Alteration</strong>: Habang gumagana ang Stat Alteration gamit ang Horadric Cube, lumalabas sa overlay ang numero ng kasalukuyang slot at ang progreso.</li>
+        </ul>
+
+        <!-- 2. 오버레이 설정 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Mga pandaigdigang setting — detalyadong pag-customize ng overlay (pagpili ng monitor, posisyon sa kanang ibaba, X/Y pixel offset, opacity 40%, laki 118%, lapad 409px, at real-time na preview)">
+          <div class="thumb-container">
+            <img src="../images/overlay_configuration_settings.png" alt="Screen ng detalyadong setting ng overlay">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Detalyadong Setting ng Overlay (monitor, posisyon, X/Y offset, opacity, laki, at lapad)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Ipakita ang Overlay ng Laro</strong>: Ito ang master switch para i-on at i-off ang overlay.</li>
+          <li><strong>Pagpili ng Monitor</strong>: Sa dual at multi-monitor na kapaligiran, maaari mong direktang itakda sa dropdown ang monitor kung saan nakabukas ang Diablo IV (hal.: <code>2: LG HDR 4K (2560×1440)</code>).</li>
+          <li><strong>Posisyon sa Screen at Tumpak na Pixel Offset</strong>:
+            Pumili ng isa sa 9 na bahagi ng screen (hal.: <code>Kanan</code> <code>Ibaba</code>), pagkatapos ay gamit ang <span class="chip">X Offset</span>(-13 px) at <span class="chip">Y Offset</span>(-3 px), i-fine-tune ang posisyon sa antas ng pixel para hindi matakpan ang minimap o UI ng laro.
+          </li>
+          <li><strong>Opacity at Laki at Lapad</strong>:
+            Gamit ang mga slider, i-optimize sa iyong paningin ang <span class="chip">Opacity</span>(default 40% semi-transparent), <span class="chip">Laki</span>(scale tulad ng 118%), <span class="chip">Lapad</span>(409 px).
+          </li>
+          <li><span class="chip blue">👁 Silipin</span>: Kahit hindi mo pa pinapatakbo ang macro, kapag pinindot mo ang button, agad na lilitaw ang overlay sa screen sa itinakdang posisyon at laki kaya madaling suriin.</li>
+        </ul>
+      </section>
+
+      <!-- ─── 8. 안전장치 ─── -->
+      <section class="doc-section" id="safety-features">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">8</span> Mga Safety Feature — Pause Key (Stop Keys) · Pagtukoy sa Window ng Laro</h2>
+        </div>
+
+        <ul>
+          <li><strong>Pause Key (Stop Keys, default: <kbd>Enter</kbd> <kbd>Tab</kbd> <kbd>T</kbd> <kbd>I</kbd>)</strong>:
+            Pagbubukas ng chat window (<kbd>Enter</kbd>), pagbubukas ng mapa (<kbd>Tab</kbd>), dimensional gate (<kbd>T</kbd>), pagbubukas ng imbentaryo (<kbd>I</kbd>) at iba pa — para hindi magpaputok ng skill ang macro nang walang saysay kapag nagbukas ka ng interface ng laro, <strong>pansamantalang ihihinto agad ang input</strong>. Pagkatapos makipag-usap, kapag pinindot mo ulit ang trigger key, magpapatuloy ang macro.
+          </li>
+          <li><strong>Pagtukoy sa Window ng Laro</strong>:
+            Gumagana lang kapag ang proseso ng Diablo IV ang aktibong window. Sa mga setting, maaari mo ring direktang i-customize ang pagtutugma sa isang partikular na pamagat ng window o pangalan ng proseso.
+          </li>
+          <li><strong>Tool sa Pag-verify ng Pagpapadala ng Input</strong>:
+            Kapag pinindot mo ang <span class="chip">Pagsubok</span> button sa top bar, maaari mong suriin nang maaga kung normal na naipapasok sa system ang virtual na key input kahit sa labas ng laro.
+          </li>
+        </ul>
+
+        <h3 id="input-test">3) Window ng Input Test</h3>
+        <p>Kapag pinindot mo ang <span class="chip">Pagsubok</span> button sa top bar, may lalabas na maliit na window, at makikita mo mismo kung pumapasok nang buo ang key at mouse input na ipinapadala ng macro. Ito ang unang tool sa pagsusuri para malaman kung "hindi makapagpadala ng input ang helper, o hindi ito tinatanggap ng laro" kapag walang nangyayari kahit pinindot mo ang trigger key.</p>
+        <div class="image-card is-small" data-caption="Window ng Input Test — suriin kung aktwal na pumapasok ang key at mouse input na ipinapadala ng macro">
+          <div class="thumb-container">
+            <img src="../images/helper_input_test.png" alt="Window ng input test">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Window ng input test</span></div>
+        </div>
+        <!-- 설정창 캡처 -->
+        <div class="image-card is-thumbnail" data-caption="Window ng pandaigdigang setting — pag-customize ng safety pause key, pagtatakda ng proseso para sa pagtukoy ng window ng laro, pag-adjust ng posisyon/opacity ng overlay">
+          <div class="thumb-container">
+            <img src="../images/helper_settings_dialog.png" alt="Dialog ng pandaigdigang setting">
+            <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Dialog ng Mga Pandaigdigang Setting ng Helper (⚙)</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 9. 프로필 관리 & 공유 ─── -->
+      <section class="doc-section" id="profile-sync">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">9</span> Pamamahala ng Profile · Backup · Pagbabahagi sa Mga Miyembro ng Clan</h2>
+        </div>
+
+        <ul>
+          <li>Sa isang profile, magkakasamang naka-save ang lahat ng sequence, delay, at trigger key setting ng mga slot A~G (kabuuang 7).</li>
+          <li>Kung hihiwalayin mo ang mga profile ayon sa class at build tulad ng Sorcerer, Barbarian, Druid, Necromancer, Rogue, at Spiritborn, mapapalitan ang lahat ng setting sa isang click lang.</li>
+          <li><span class="chip">I-export</span>: Maaari mong i-export ang kasalukuyang mga setting bilang <code>.d4cute</code> file para ligtas na i-backup o ibahagi sa mga miyembro ng clan.</li>
+          <li><span class="chip blue">Mag-import</span>: Agad na ilalapat sa iyong helper ang <code>.d4cute</code> profile file na ibinahagi ng ibang user.</li>
+          <li><span class="chip">I-save</span> Kailangan mong pindutin ang button para ligtas na maisulat sa disk, at kung nagkamali ka ng galaw, maaari kang bumalik sa huling na-save na punto gamit ang <span class="chip">I-reload</span>.</li>
+        </ul>
+      </section>
+
+      <!-- ─── 10. 텔레그램 지원 & 디버그 로그 ─── -->
+      <section class="doc-section" id="telegram-support">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">10</span> Suporta sa Telegram at Debug Log Viewer</h2>
+        </div>
+
+        <p>
+          Kapag nag-click ka sa asul na <span class="chip blue" style="display:inline-flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Logo ng Telegram</span> icon sa profile bar sa itaas ng helper, bubukas ang dialog ng koneksyon sa Telegram. Mabilis mong makikita ang balita tungkol sa bagong bersyon, <strong style="color:var(--gold);">@d4cute_helper</strong> makakapagtanong at makakapag-ulat ng bug sa user group, at kapag may error, <strong style="color:var(--ruby);">makakakuha ka ng debug log sa isang click</strong>para makatanggap ng tulong sa paglutas.
+        </p>
+
+        <!-- 텔레그램 및 로그 뷰어 스크린샷 2종 갤러리 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 20px 0;">
+          <div class="image-card is-thumbnail" data-caption="Dialog ng Telegram — announcement channel (@d4_notice), user communication group (@d4cute_helper), QR code para agad makapasok gamit ang smartphone, at mga button para sa pagtingin ng log at pag-install ng Telegram">
+            <div class="thumb-container">
+              <img src="../images/telegram_qr_dialog.png" alt="Dialog ng koneksyon sa Telegram at QR code">
+              <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>Popup ng Koneksyon sa Telegram (announcement/user group/QR code/pag-install)</span>
+            </div>
+          </div>
+          
+          <div class="image-card is-thumbnail" data-caption="Dialog ng log viewer — pagtingin ng log ayon sa petsa, toggle para i-filter ang babala at error lang, pagkopya ng huling 200 linya, pagkopya ng error lang, at pagbukas ng lokal na log folder">
+            <div class="thumb-container">
+              <img src="../images/log_viewer_error_copy.png" alt="Dialog ng debug log viewer">
+              <span class="zoom-hint-badge">🔍 I-click para palakihin</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>One-click na Debug Log Viewer (kopyahin ang error lang / kopyahin ang huling 200 linya)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1) 텔레그램 설치 및 계정 준비 -->
+        <h3 id="telegram-install">1) Pag-install ng Telegram at Paghahanda</h3>
+        <p>
+          Ang Telegram ay isang global na messenger na magaan at ligtas na tumatakbo sa PC at smartphone. Kung hindi pa naka-install ang Telegram sa PC o mobile mo, madali kang makakapaghanda sa mga paraan sa ibaba.
+        </p>
+        <div class="alert-box info" style="margin: 12px 0 18px;">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>Ligtas na Opisyal na Gabay sa Pag-install</strong><br>
+            Kapag pinindot mo ang <span class="chip blue">I-install ang Telegram</span> button sa ibaba ng Telegram window ng helper, bubukas ang browser papunta sa opisyal na website ng Telegram (<a href="https://telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">telegram.org</a>). 
+            <span style="color:var(--green); font-weight:600;">Hindi basta-basta nagda-download o nag-i-install ng executable file ang helper kaya makakagamit ka nang panatag.</span>
+          </div>
+        </div>
+        <ul>
+          <li><strong>Smartphone (Mobile)</strong>: <span style="color:var(--gold); font-weight:600;">Google Play Store</span> o <span style="color:var(--gold); font-weight:600;">Apple App Store</span>, <code>Telegram</code>at hanapin ang Telegram para i-download nang libre. Matatapos ang pagpaparehistro sa loob lang ng 1 minuto sa pamamagitan ng beripikasyon ng numero ng telepono.</li>
+          <li><strong>PC (Desktop)</strong>: <a href="https://desktop.telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">Telegram Desktop ↗</a> Mula sa opisyal na pahina, i-download at i-install ang installer version para sa Windows, pagkatapos ay sa Telegram mobile app, pumunta sa <span class="chip">Settings → Devices → Link Desktop Device</span>at i-scan ang QR code para agad na makapag-log in nang walang password.</li>
+        </ul>
+
+        <!-- 2) 채널 및 그룹방 가입 방법 -->
+        <h3 id="telegram-channels">2) Paano Sumali sa Channel at User Group</h3>
+        <p>
+          Ang d4cute helper ay may dalawang opisyal na Telegram room ayon sa layunin.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0 20px;">
+          <div class="clan-card" style="padding: 16px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">📢</span>
+              <strong style="color:var(--gold); font-size:16px;">Announcement-only na Channel</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              Isa itong one-way na notification channel na naghahatid ng balita tungkol sa update ng bagong bersyon, estado ng pagtugon sa season patch, at mga agarang paalala.
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700;">@d4_notice ↗</a>
+              <span class="chip">Mag-subscribe sa Announcement</span>
+            </div>
+          </div>
+
+          <div class="clan-card" style="padding: 16px; border-color: rgba(59, 130, 246, 0.4);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">💬</span>
+              <strong style="color:var(--blue); font-size:16px;">User Communication Group</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              <strong>Ang pagbabahagi ng tip sa setting ng helper, mga tanong, mungkahi sa feature, at pag-uulat ng error ay dito lang tinatanggap!</strong>
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper ↗</a>
+              <span class="chip blue">Mga Tanong/Ulat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box gold" style="margin: 12px 0 18px;">
+          <span class="alert-icon">⚠️</span>
+          <div>
+            <strong>Paalala sa Channel ng Mga Tanong</strong><br>
+            Ang YouTube channel na 삼촌안잔다잉 ay isang personal na broadcast space para sa pag-enjoy sa gameplay ng Diablo IV at pakikipag-usap. <span style="color:var(--ruby); font-weight:700;">Hindi tumatanggap ng anumang tanong tungkol sa helper sa YouTube live chat o mga komento</span>, kaya tiyaking pumunta sa opisyal na Telegram group (<span style="color:var(--blue); font-weight:700;">@d4cute_helper</span>).
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">📱 2 Madaling Paraan ng Pagpasok sa Group</h4>
+        <ul>
+          <li><strong>Paraan A (pag-scan ng QR gamit ang camera ng smartphone — pinakamainam na rekomendasyon!)</strong>: Buksan ang default na camera app ng smartphone at itapat sa <strong style="color:var(--gold);">malaking QR code</strong>sa kanan ng screen, at lalabas sa itaas ang dilaw na banner ng link ng Telegram. Sa isang pindot lang, <span class="chip blue">@d4cute_helper</span> makakapasok ka agad sa group.</li>
+          <li><strong>Paraan B (direktang buksan ang Telegram sa PC)</strong>: Sa window, pindutin ang <span class="chip">Buksan</span> button o i-click ang web link (<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">https://t.me/d4cute_helper</a>), at dederetso ka sa Telegram client sa PC.</li>
+        </ul>
+
+        <!-- 3) 로그 뷰어를 통한 오류 복사 & 문제 해결 -->
+        <h3 id="log-viewer-guide">3) Pagkopya ng Error sa Pamamagitan ng Pagtingin ng Log at Paraan ng Paglutas ng Problema</h3>
+        <p>
+          Kapag biglang huminto ang macro, nagka-error habang nasa Stat Alteration, o may lumitaw na hindi inaasahang galaw, para maipaliwanag mo ang sitwasyon sa gumawa, ang <strong style="color:var(--gold);">log data</strong>ang pinakatiyak na susi.
+        </p>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">🔍 Layout ng Log Viewer at Gamit ng mga Button</h4>
+        <ul>
+          <li><strong><span style="color:var(--gold); font-weight:700;">Dropdown ng Petsa ng Log</span></strong>: Piliin ang petsa kung kailan nangyari ang error (default: petsa ngayon). Ang mga log ay <span class="chip">awtomatikong iniingatan sa nakaraang 7 araw</span>at pagkatapos ay sunod-sunod na binubura simula sa pinakaluma.</li>
+          <li><strong><span class="chip">Babala at Error Lang</span> toggle switch</strong>: Itinatago ang libu-libong linya ng karaniwang <code>INFO</code> log, at pinipili para makita ang mga item ng babala ng system (<span style="color:#f59e0b; font-weight:700;">WARN</span>) at error (<span style="color:var(--ruby); font-weight:700;">ERROR</span>) lang.</li>
+          <li><strong><span class="chip">I-refresh</span></strong>: Agad na nire-reload sa screen ang pinakabagong log na real-time na naiipon habang nakabukas ang helper.</li>
+          <li><strong><span class="chip">Buksan ang Folder</span></strong>: Direktang binubuksan ang folder sa Windows Explorer kung saan naka-save ang mga orihinal na text file ng log (<code>%APPDATA%\d4cute_helper\logs</code>).</li>
+          <li><strong><span class="chip gold">Kopyahin ang Huling 200 Linya</span></strong>: Kinokopya sa clipboard ang huling 200 linya ng log para maintindihan ang konteksto kung anong mga key ang pinindot at anong mga event ang nangyari bago ang error.</li>
+          <li><strong><span class="chip ruby">Kopyahin ang Mga Error Lamang</span></strong>: Mula sa buong log, tumpak na kinukuha at inilalagay sa clipboard ang mga error (<span style="color:var(--ruby); font-weight:700;">ERROR</span>) at exception stack trace lang.</li>
+          <li><strong><span class="chip">Pagkopya ng Napili</span></strong>: Sa text window, i-drag gamit ang mouse ang bahaging gusto mo at kopyahin lang ang bahaging iyon.</li>
+        </ul>
+
+        <div class="alert-box info" style="margin: 14px 0 18px;">
+          <span class="alert-icon">🛡️</span>
+          <div>
+            <strong>Proteksyon sa Privacy at Pagharang sa Awtomatikong Pagpapadala</strong><br>
+            <ul style="margin: 6px 0 0 18px; padding: 0;">
+              <li><strong>Awtomatikong Pag-mask ng Username</strong>: Sa mga file path sa log (hal.: <code>C:\Users\Juan\...</code>), awtomatikong itinatago ang pangalan ng user account at kinokopya nang hindi na makikilala, kaya walang dapat ikabahala tungkol sa pagkalantad ng privacy.</li>
+              <li><strong>Pagharang sa Awtomatikong Pagpapadala sa Labas</strong>: Gaya ng nakasulat sa paalala sa ibaba ("<em>I-paste ang kinopya sa Telegram group at ipadala ito — walang anumang awtomatikong ipinapadala ang helper.</em>"), hindi palihim na nagpapadala ng log mo sa labas sa pamamagitan ng internet ang helper. Ligtas lang itong naibabahagi kapag ikaw mismo ang kumopya at nag-paste.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 18px 0 10px;">🚀 3-Hakbang na Gabay sa Pagpapadala ng Error Log at Mabilis na Paglutas</h4>
+        <ol style="line-height: 1.85;">
+          <li>
+            <strong style="color:var(--gold);">Hakbang 1: Kopyahin ang log</strong><br>
+            Sa sandaling magkaproblema, sa dialog ng Telegram, pindutin ang <span class="chip gold">📁 Tingnan ang Mga Log</span> button, at sa ibaba ng window, i-click ang <span class="chip ruby">Kopyahin ang Mga Error Lamang</span> o <span class="chip gold">Kopyahin ang Huling 200 Linya</span> button.<br>
+            <span style="font-size: 13px; color: var(--fg-dim);">※ Sa pinakaunang linya ng kinopyang log, awtomatikong nakakabit ang meta information ng bersyon ng helper, OS environment, at display scaling, kaya agad na makikita ng developer ang kapaligiran mo.</span>
+          </li>
+          <li>
+            <strong style="color:var(--blue);">Hakbang 2: I-paste sa Telegram group</strong><br>
+            Sa smartphone o PC, pumunta sa <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a> group, i-click ang message input box, at gawin ang <kbd>Ctrl</kbd> + <kbd>V</kbd>(sa mobile, matagal na pindutin ang input box at piliin ang paste).
+          </li>
+          <li>
+            <strong style="color:var(--green);">Hakbang 3: Magdagdag ng paliwanag sa nangyari</strong><br>
+            Kasama ng log, mag-iwan din ng <em>"sa anong sitwasyon nangyari ang problema"</em> na 1~2 linya:<br>
+            <div style="background:var(--card-subtle); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--gold); margin:8px 0; font-size:13px; color:var(--fg-dim);">
+              Halimbawa 1: "Pagkasimula ng Stat Alteration sa imbentaryo, humihinto ito sa hakbang ng pag-verify na walang laman ang cube sa ika-12 slot. Iniiwan ko ang log."<br>
+              Halimbawa 2: "Binago ko ang posisyon ng overlay sa mga pandaigdigang setting pero hindi lumilitaw ang overlay sa screen."
+            </div>
+            Kung maglalakip ka rin ng screenshot o larawan mula sa telepono, mas mabilis at mas tumpak na masusuri at mapa-patch ang problema.
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 11. 클랜 & 방송 커뮤니티 ─── -->
+      <section class="doc-section" id="community">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">11</span> Clan na 앙증맞은 at Channel na 삼촌안잔다잉</h2>
+        </div>
+
+        <p>Ito ang clan kung saan aktibo ang gumawa, at ang game broadcast channel ng clan leader nito. Pareho silang hiwalay sa helper.</p>
+
+        <!-- 상단 2열: 클랜 개요 카드 & 삼촌안잔다잉 방송 채널 카드 (높이 균형 & 럭셔리 디자인) -->
+        <div class="clan-showcase-grid">
+          <!-- 1. 앙증맞은 클랜 개요 -->
+          <div class="clan-card highlight-gold">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest">⚔️</div>
+                <div>
+                  <h3 class="clan-card-title">&lt;앙증맞은&gt; Rainbow Wings</h3>
+                  <p class="clan-card-sub">In-game Clan ng Diablo IV · Clan Leader: South Korea (삼촌안잔다잉)</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 14px; line-height: 1.75;">
+                Ito ay in-game na friendly na clan kung saan kasama ang gumawa. Ang motto ay <strong>"Ang tulong ay palitan"</strong> — mas mahalaga ang give and take na nagtutulungan kaysa sa one-sided na bus run, at ugaliing maghanap muna.
+              </p>
+              <ul style="font-size:13px; color:var(--fg-dim); margin:0 0 16px 18px; padding:0; line-height:1.75;">
+                <li>Bawat season, sama-samang nag-aakyat ng mataas na Pit tier, nag-i-infinite Torch run, at gumagawa ng boss party</li>
+                <li>Sama-samang nagfa-farm ng Mythic Unique gear at tinatapos ang Season Journey</li>
+                <li>Walang Discord; pagkatapos mag-apply sa laro, kinukumpirma ito sa YouTube channel</li>
+              </ul>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn gold">
+              <span>Channel na 삼촌안잔다잉 — Ipaalam na sumali ka ↗</span>
+            </a>
+          </div>
+
+          <!-- 2. 삼촌안잔다잉 게임 방송 채널 -->
+          <div class="clan-card highlight-ruby">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest" style="border-color: rgba(229, 72, 77, 0.45); background: rgba(229, 72, 77, 0.1);">📺</div>
+                <div>
+                  <h3 class="clan-card-title" style="color: #ff999c;">삼촌안잔다잉</h3>
+                  <p class="clan-card-sub">🌙 Habang tulog ang lahat, naglalaro si Uncle! · Sabay na broadcast sa YouTube at CHZZK</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 10px; line-height: 1.75;">
+                Ito ang <strong>game broadcast channel</strong>na pinapatakbo ng clan leader (hindi ito channel ng gumawa). Nagbabahagi ito ng mga tunay na karanasan at gabay mula sa sarili nitong paglalaro, na nakasentro sa Diablo IV.
+              </p>
+              <ul style="font-size:13px; margin:0 0 12px 18px; padding:0; color:var(--fg-dim); line-height:1.75;">
+                <li>Mga gabay sa pagpapalakas ng karakter, build, skill, at Conqueror kada season at mga tip sa gear setup</li>
+                <li>Karanasan sa Public Test Realm (PTR), mga pagbabago sa patch, at Shorts na may pause-and-watch na 'Pocket Guide'</li>
+              </ul>
+              <div class="alert-box gold" style="margin: 0 0 16px; padding: 10px 14px; font-size: 12.5px;">
+                <span class="alert-icon">⚠️</span>
+                <div><strong>Hindi tumatanggap ng tanong tungkol sa helper at macro sa channel na ito.</strong> Purong game-enjoyment broadcast ang channel, at ang mga tanong at ulat ng bug tungkol sa helper ay tinatanggap lang sa opisyal na Telegram group (<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a>).</div>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn ruby">
+              <span>Direktang Link sa YouTube ng 삼촌안잔다잉 ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 하단 전폭 와이드: 클랜 가입 4단계 & 가입 후 활동/생활 가이드 -->
+        <div class="clan-guide-container">
+          <div class="clan-guide-header">
+            <span style="font-size:24px;">🛡️</span>
+            <div>
+              <h3 class="clan-guide-title">&lt;앙증맞은&gt; Rainbow Wings — Gabay sa Pagsali sa Clan at Pangunahing Pamumuhay</h3>
+              <p style="margin:2px 0 0; font-size:12.5px; color:var(--fg-dim);">Binubuo namin ang kultura ng clan sa Diablo IV na may pagmamalasakit sa isa't isa at masayang pagsasama.</p>
+            </div>
+          </div>
+
+          <div style="margin:0 0 14px; padding:10px 14px; border:1px solid rgba(229,184,92,0.4); border-left:4px solid var(--gold); border-radius:8px; background:rgba(229,184,92,0.08); font-size:13.5px; line-height:1.6; color:var(--fg);">🌏 Puwedeng sumali ang mga dayuhang manlalaro. Pero Korean ang gamit sa usapan ng clan, kaya kailangan mong makapag-usap sa Korean. Kung hindi ka nakakapag-Korean, mahihirapan kang sumali.</div>
+
+          <div class="clan-guide-grid">
+            <!-- 1. 가입 절차 4단계 패널 -->
+            <div class="clan-sub-panel blue-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--blue);">
+                <span>🎥</span> <strong>4 na Hakbang sa Pagsali</strong> <span class="chip" style="font-size:11px; margin-left:auto;">Walang pagsali sa Discord!</span>
+              </h4>
+              <ol style="margin:0 0 0 18px; padding:0; line-height:1.9; font-size:13.5px; color:var(--fg);">
+                <li>Maghanap ng clan sa laro → Hanapin ang <strong>앙증맞은</strong> → <strong>Mag-apply</strong></li>
+                <li><strong>Ipaalam sa channel na 삼촌안잔다잉</strong>(live broadcast, atbp.) na nag-apply ka</li>
+                <li><strong>Ang clan leader at mga manager</strong>ay titingnan ang aplikasyon at <strong>aaprubahan</strong>ito</li>
+                <li>Kapag pinindot ng nag-apply sa laro ang <strong>final na pag-apruba (pagtanggap)</strong>, kumpleto na ang pagsali</li>
+              </ol>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; color:var(--fg-muted);">
+                ※ Hindi nagpapatakbo ng Discord, at ang pag-apruba sa clan ay dumadaan sa live na pagkumpirma sa broadcast ng 삼촌안잔다잉.
+              </div>
+            </div>
+
+            <!-- 2. 가입 후 활동 가이드 & 생활 수칙 패널 -->
+            <div class="clan-sub-panel gold-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--gold-bright);">
+                <span>🤝</span> <strong>Mga Gawain Pagkatapos Sumali at Pangunahing Panuntunan ng Clan</strong>
+              </h4>
+              <ul style="margin:0 0 0 18px; padding:0; line-height:1.85; font-size:13px; color:var(--fg-dim);">
+                <li><strong style="color:var(--fg);">Masayang Unang Bati at Pagbuo ng Samahan</strong>: Pagkatapos maaprubahan ang pagsali, mag-iwan ng unang bati sa in-game guild chat. Habang nagbabatian kayo gamit ang nickname ng isa't isa, mabilis kayong magiging malapit.</li>
+                <li><strong style="color:var(--fg);">Paghingi ng Tulong at Kultura ng Palitan ng Tulong</strong>: Kapag kailangan mo ng tulong sa pagpapalakas, mataas na Pit tier, boss summon party, at iba pa, magtanong nang maluwag sa <strong>guild chat o sa YouTube live broadcast</strong>. <em>"Ang tulong ay palitan (give and take)"</em> — sa diwang ito, tumulong din sa ibang kasama sa clan sa susunod.</li>
+                <li><strong style="color:var(--fg);">Pangunahing Paggalang at Pagrespeto sa Isa't Isa</strong>: Dahil isa itong social space kung saan magkakasama ang iba't ibang user, gumamit ng magalang na pananalita (bawal ang pang-aalipusta at pagmumura). Hinihikayat din ang magaan na paghahanap bago magtanong.</li>
+                <li><strong style="color:var(--fg);">Season Off at Pagbabalik sa Bagong Season</strong>: Kung hindi ka nakapasok nang mahigit 10 araw pagkatapos ng season off, maaari kang matanggal sa listahan ng miyembro, pero kapag nagsimula ang bagong season, maaari kang mag-apply ulit anumang oras nang maluwag.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 12. FAQ ─── -->
+      <section class="doc-section" id="faq">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">12</span> Mga Madalas Itanong (FAQ) at Paglutas ng Problema</h2>
+        </div>
+
+        <h3>T. Pinindot ko ang trigger key pero hindi lumalabas ang skill.</h3>
+        <ul>
+          <li>Tiyaking ang estado sa top bar ay <strong>Tumatakbo</strong>(kung na-click na ang<span class="chip green">▶ Start</span> button).</li>
+          <li>Tiyaking naka-on ang <strong>macro enable switch</strong>ng napiling slot, at may kahit 1 step man lang sa Sequence tab.</li>
+          <li>Kailangang nasa harap ng screen at naka-focus ang window ng laro ng Diablo IV.</li>
+          <li>Kung naka-pause ito sa pagbubukas ng chat o imbentaryo dahil sa <strong>pause key</strong>, pindutin ulit ang trigger key nang isang beses para ipagpatuloy.</li>
+        </ul>
+
+        <h3>T. Right-click ang gamit kong trigger key pero palaging nagsasara ang window sa imbentaryo o stash.</h3>
+        <p>Sa Macro Settings, itakda ang <strong>Press Delay</strong>sa <code>250ms ~ 300ms</code>. Sa ganitong paraan, ang 'maikling click' kapag nire-right-click mo para maglipat ng item ay direktang ipapasa sa laro, at tuma-on lang ang macro kapag matagal mong pinindot, kaya tuluyang mawawala ang maling pagsara ng window.</p>
+
+        <h3>T. Hindi makita ng Stat Alteration gamit ang Horadric Cube ang button o humihinto ito.</h3>
+        <p>Sa bersyon 1.30, malaki ang naging pagpapalakas sa logic ng OCR text recognition at sa pag-verify na walang laman ang cube. Maaaring mahirap ang pagkilala kapag sobrang malabo ang teksto sa graphics setting ng laro o sobrang labis ang UI scale, kaya kung magpapatuloy ang problema, sa folder na <code>%APPDATA%\d4cute_helper\debug\</code> , kopyahin ang file na <code>alter_slots.txt</code> at itanong ito sa Telegram group.</p>
+
+        <h3>T. Sa Stat Alteration, nagpapatong ang dalawang item o lumilipat sa susunod na slot nang walang pagbabago.</h3>
+        <p>Sintomas ito na nangyayari sa PC na mabagal ang animation ng pagbabago. Sa tab ng mga convenience feature, taasan ang <strong>Paghihintay sa Resulta (ms)</strong>(hal. 3000 → 5000), at kung umuulit pa rin, i-upload sa group ang <code>debug\alter_slots.txt</code> . Mula sa 1.30.1, sinusuri nito kung walang laman gamit ang larawan ng unang slot ng cube at pinipindot ang Enter kahit huli lumabas ang accept window.</p>
+
+        <h3>T. Saan ako magtatanong tungkol sa helper at macro?</h3>
+        <p>Telegram user group <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer"><code>@d4cute_helper</code></a> lang ang tumatanggap. Ang YouTube channel na 삼촌안잔다잉 ay broadcast para mag-enjoy sa laro kaya hindi ito tumatanggap ng tanong tungkol sa helper at macro.</p>
+
+        <h3>T. Pumuputi o kumikislap ang window (white-screen na pangyayari).</h3>
+        <p>Inayos sa 1.30 ang puting screen sa pamamagitan ng pagpapalit ng renderer ng built-in browser. Kung lumitaw pa rin ito, i-upload sa Telegram group ang screen capture at ang resulta ng <span class="chip">Kopyahin ang Mga Error Lamang</span> sa log viewer.</p>
+      </section>
+
+      <footer>
+        <div>d4cute helper v1.30.0 Documentation · Crafted with Care</div>
+        <div><a href="#quickstart" style="color: var(--gold);">Pumunta sa Itaas ↑</a></div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ─── 고기능 라이트박스 뷰어 모달 (마우스 휠 줌 / 팬 / 이전/다음 / 캡션) ─── -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true">
+    <div class="lightbox-topbar">
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" id="zoomOutBtn" title="Paliitin (mouse wheel pababa)">－</button>
+        <span class="lightbox-zoom-indicator" id="zoomLevel">100%</span>
+        <button class="lightbox-btn" id="zoomInBtn" title="Palakihin (mouse wheel pataas)">＋</button>
+        <button class="lightbox-btn" id="zoomResetBtn" title="Orihinal na laki">I-reset</button>
+        <button class="lightbox-btn lightbox-close-btn" id="lightboxCloseBtn" title="Isara (ESC)">✕ Isara</button>
+      </div>
+    </div>
+    
+    <div class="lightbox-stage" id="lightboxStage">
+      <button class="lightbox-nav-btn lightbox-prev-btn" id="lightboxPrevBtn" title="Nakaraang larawan (←)">❮</button>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-nav-btn lightbox-next-btn" id="lightboxNextBtn" title="Susunod na larawan (→)">❯</button>
+    </div>
+
+    <div class="lightbox-bottombar">
+      <div class="lightbox-caption-text" id="lightboxCaption">Paglalarawan ng Larawan</div>
+      <div style="font-size: 12px; color: var(--fg-muted);">Mag-zoom in/out gamit ang mouse wheel · mag-navigate gamit ang kaliwa/kanang arrow key</div>
+    </div>
+  </div>
+
+  <!-- ─── 인터랙션 자바스크립트 ─── -->
+  <script>
+    (function() {
+      // 1. DOM 요소
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+      const tabBtns = document.querySelectorAll('.sidebar-tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      const sidebarSearch = document.getElementById('sidebarSearch');
+      const searchClearBtn = document.getElementById('searchClearBtn');
+      const searchResultsList = document.getElementById('searchResultsList');
+      const searchMatchCount = document.getElementById('searchMatchCount');
+      const tocLinks = document.querySelectorAll('.toc-link');
+      
+      const imgCountSpan = document.getElementById('imgCount');
+      const vidCountSpan = document.getElementById('vidCount');
+      const sidebarImageGrid = document.getElementById('sidebarImageGrid');
+      const sidebarVideoGrid = document.getElementById('sidebarVideoGrid');
+
+      // 라이트박스 요소
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+      const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+      const lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
+      const lightboxNextBtn = document.getElementById('lightboxNextBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const zoomResetBtn = document.getElementById('zoomResetBtn');
+      const zoomLevelSpan = document.getElementById('zoomLevel');
+      const lightboxStage = document.getElementById('lightboxStage');
+
+      // 2. 사이드바 접기/펼치기 토글 & ⭐️ 요청사항 1: 햄버거/미니바 마우스 호버 자동 펼침(Hover Peek)
+      sidebarToggle.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          document.body.classList.toggle('sidebar-open');
+        } else {
+          document.body.classList.toggle('sidebar-collapsed');
+          sidebar.classList.remove('hover-expanded');
+        }
+      });
+
+      if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', () => {
+          document.body.classList.remove('sidebar-open');
+        });
+      }
+
+      // 데스크탑 접힘 모드에서 햄버거 버튼 또는 사이드바 미니바에 마우스 올리면 자동 슬라이드 노출
+      let hoverTimeout = null;
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      function onMouseEnterTrigger() {
+        if (canHover && window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          clearTimeout(hoverTimeout);
+          sidebar.classList.add('hover-expanded');
+        }
+      }
+      function onMouseLeaveTrigger() {
+        if (window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          hoverTimeout = setTimeout(() => {
+            sidebar.classList.remove('hover-expanded');
+          }, 250);
+        }
+      }
+
+      sidebarToggle.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebarToggle.addEventListener('mouseleave', onMouseLeaveTrigger);
+      sidebar.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebar.addEventListener('mouseleave', onMouseLeaveTrigger);
+
+      // 모바일에서 외부 클릭 시 닫기
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024 && document.body.classList.contains('sidebar-open')) {
+          if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            document.body.classList.remove('sidebar-open');
+          }
+        }
+      });
+
+      // 3. 사이드바 탭 전환
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const targetPanel = document.getElementById(`panel-${btn.dataset.tab}`);
+          if (targetPanel) targetPanel.classList.add('active');
+        });
+      });
+
+      // 4. 본문 내 이미지 & 비디오 자동 수집
+      const imageCards = Array.from(document.querySelectorAll('.image-card'));
+      const videoCards = Array.from(document.querySelectorAll('.video-card'));
+      
+      const imageList = [];
+      imageCards.forEach((card, idx) => {
+        const img = card.querySelector('img');
+        const caption = card.dataset.caption || (card.querySelector('.image-caption span:last-child') ? card.querySelector('.image-caption span:last-child').innerText : img.alt);
+        if (img) {
+          card.id = `img-item-${idx}`;
+          imageList.push({
+            src: img.src,
+            alt: img.alt,
+            caption: caption,
+            cardEl: card,
+            idx: idx
+          });
+
+          // 사이드바 이미지 탭에 카드 추가
+          const navCard = document.createElement('a');
+          navCard.className = 'media-nav-card';
+          navCard.href = `#${card.id}`;
+          navCard.innerHTML = `
+            <img src="${img.src}" class="media-nav-thumb" alt="${img.alt}" loading="lazy">
+            <div class="media-nav-meta">
+              <div class="media-nav-title">${img.alt || caption}</div>
+              <div class="media-nav-desc">${caption}</div>
+            </div>
+          `;
+          navCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.transition = 'outline 0.3s, box-shadow 0.3s';
+            card.style.outline = '2px solid var(--gold)';
+            card.style.boxShadow = '0 0 25px var(--gold-glow)';
+            setTimeout(() => {
+              card.style.outline = 'none';
+              card.style.boxShadow = '';
+            }, 1800);
+            if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+          });
+          sidebarImageGrid.appendChild(navCard);
+
+          // 이미지 클릭 시 라이트박스 열기
+          const thumbContainer = card.querySelector('.thumb-container');
+          if (thumbContainer) {
+            thumbContainer.addEventListener('click', () => openLightbox(idx));
+          }
+        }
+      });
+      imgCountSpan.innerText = imageList.length;
+
+      // 영상 목록 사이드바 생성
+      videoCards.forEach((vcard, vidx) => {
+        const title = vcard.dataset.videoTitle || `Gabay sa Video ${vidx + 1}`;
+        vcard.id = `vid-item-${vidx}`;
+
+        const navCard = document.createElement('a');
+        navCard.className = 'media-nav-card';
+        navCard.href = `#${vcard.id}`;
+        navCard.innerHTML = `
+          <div class="media-nav-thumb" style="display:flex;align-items:center;justify-content:center;background:#181622;color:var(--ruby);font-size:18px;">▶</div>
+          <div class="media-nav-meta">
+            <div class="media-nav-title"><span class="video-badge">VIDEO</span>${title}</div>
+            <div class="media-nav-desc">I-click para pumunta sa lokasyon ng video</div>
+          </div>
+        `;
+        navCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          vcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          vcard.style.outline = '2px solid var(--ruby)';
+          setTimeout(() => { vcard.style.outline = 'none'; }, 1800);
+          if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+        });
+        sidebarVideoGrid.appendChild(navCard);
+      });
+      vidCountSpan.innerText = videoCards.length;
+
+      // ⭐️ 요청사항 3: 도움말 본문 전체 실시간 검색 기능
+      const sections = Array.from(document.querySelectorAll('section.doc-section'));
+      
+      // 검색용 텍스트 인덱싱
+      // 소제목(h3) 단위로 인덱싱 - 섹션당 1건이던 결과가 소절마다 나온다. 소제목 앞 도입부는 섹션 제목으로.
+      const searchIndex = [];
+      sections.forEach(sec => {
+        const title = sec.querySelector('.section-title') ? sec.querySelector('.section-title').innerText : '';
+        let cur = { id: sec.id, title: title, sub: '', element: sec, parts: [] };
+        Array.from(sec.children).forEach(child => {
+          if (child.tagName === 'H3') {
+            if (cur.parts.length) searchIndex.push(cur);
+            cur = { id: child.id || sec.id, title: title, sub: child.innerText, element: child, parts: [] };
+            return;
+          }
+          if (child.classList && child.classList.contains('section-header')) return;
+          cur.parts.push(child);
+        });
+        if (cur.parts.length) searchIndex.push(cur);
+      });
+      searchIndex.forEach(item => {
+        item.rawText = (item.sub ? item.sub + ' ' : '') + item.parts.map(p => p.innerText).join(' ');
+      });
+
+      function clearHighlights() {
+        document.querySelectorAll('mark.search-highlight').forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(document.createTextNode(m.textContent), m);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(root, query) {
+        if (!query) return;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.parentElement && !['SCRIPT', 'STYLE', 'BUTTON'].includes(node.parentElement.tagName)) {
+            textNodes.push(node);
+          }
+        }
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        textNodes.forEach(tNode => {
+          const val = tNode.nodeValue;
+          if (regex.test(val)) {
+            const span = document.createElement('span');
+            span.innerHTML = val.replace(regex, '<mark class="search-highlight">$1</mark>');
+            tNode.parentNode.replaceChild(span, tNode);
+          }
+        });
+      }
+
+      sidebarSearch.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        clearHighlights();
+
+        if (query.length > 0) {
+          searchClearBtn.classList.add('visible');
+          // 검색 결과 패널 열기
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-search').classList.add('active');
+          tabBtns.forEach(b => b.classList.remove('active'));
+
+          searchResultsList.innerHTML = '';
+          const lowerQ = query.toLowerCase();
+          let matchCount = 0;
+
+          searchIndex.forEach(item => {
+            const idx = item.rawText.toLowerCase().indexOf(lowerQ);
+            if (idx !== -1) {
+              matchCount++;
+              // 스니펫 생성
+              const start = Math.max(0, idx - 30);
+              const end = Math.min(item.rawText.length, idx + query.length + 50);
+              let snippet = item.rawText.substring(start, end).replace(/\s+/g, ' ');
+              if (start > 0) snippet = '...' + snippet;
+              if (end < item.rawText.length) snippet = snippet + '...';
+
+              const card = document.createElement('div');
+              card.className = 'search-item-card';
+              card.innerHTML = `
+                  <div class="search-item-title">${item.title}</div>
+                  ${item.sub ? `<div class="search-item-sub">› ${item.sub}</div>` : ''}
+                  <div class="search-item-snippet">${snippet}</div>
+                `;
+              card.addEventListener('click', () => {
+                item.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                clearHighlights();
+                item.parts.forEach(p => highlightText(p, query));
+                if (item.sub) highlightText(item.element, query);
+                if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+              });
+              searchResultsList.appendChild(card);
+            }
+          });
+
+          searchMatchCount.innerText = matchCount;
+          if (matchCount === 0) {
+            searchResultsList.innerHTML = `<div style="font-size:12.5px; color:var(--fg-muted); padding:16px 0; text-align:center;">Walang resulta ng paghahanap.</div>`;
+          }
+        } else {
+          searchClearBtn.classList.remove('visible');
+          // 목차 패널로 복귀
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-toc').classList.add('active');
+          tabBtns[0].classList.add('active');
+        }
+      });
+
+      searchClearBtn.addEventListener('click', () => {
+        sidebarSearch.value = '';
+        sidebarSearch.dispatchEvent(new Event('input'));
+        sidebarSearch.focus();
+      });
+
+      // 5. 스크롤 스파이 (ScrollSpy)
+      window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset + 120;
+        let currentId = '';
+        sections.forEach(sec => {
+          if (sec.offsetTop <= scrollY) {
+            currentId = sec.id;
+          }
+        });
+        tocLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${currentId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }, { passive: true });
+
+      // 6. 고기능 라이트박스 로직
+      let currentImageIdx = 0;
+      let zoomScale = 1.0;
+      let panX = 0, panY = 0;
+      let isDragging = false;
+      let startX = 0, startY = 0;
+
+      function updateTransform() {
+        lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+        zoomLevelSpan.innerText = `${Math.round(zoomScale * 100)}%`;
+      }
+
+      function resetZoom() {
+        zoomScale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateTransform();
+      }
+
+      function openLightbox(idx) {
+        if (!imageList[idx]) return;
+        currentImageIdx = idx;
+        const item = imageList[idx];
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.alt;
+        lightboxCaption.innerText = item.caption || item.alt;
+        lightboxCounter.innerText = `${idx + 1} / ${imageList.length}`;
+        resetZoom();
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function showPrevImage() {
+        if (currentImageIdx > 0) {
+          openLightbox(currentImageIdx - 1);
+        } else {
+          openLightbox(imageList.length - 1);
+        }
+      }
+
+      function showNextImage() {
+        if (currentImageIdx < imageList.length - 1) {
+          openLightbox(currentImageIdx + 1);
+        } else {
+          openLightbox(0);
+        }
+      }
+
+      lightboxCloseBtn.addEventListener('click', closeLightbox);
+      lightboxPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+      lightboxNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+
+      zoomInBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale < 4.0) { zoomScale = Math.min(4.0, zoomScale + 0.25); updateTransform(); }
+      });
+      zoomOutBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale > 0.5) { zoomScale = Math.max(0.5, zoomScale - 0.25); updateTransform(); }
+      });
+      zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+
+      lightboxStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.15 : -0.15;
+        const newScale = zoomScale + delta;
+        if (newScale >= 0.5 && newScale <= 4.0) {
+          zoomScale = newScale;
+          updateTransform();
+        }
+      }, { passive: false });
+
+      lightboxStage.addEventListener('mousedown', (e) => {
+        if (e.target === lightboxPrevBtn || e.target === lightboxNextBtn) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform();
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      lightboxStage.addEventListener('click', (e) => {
+        if (e.target === lightboxStage) {
+          closeLightbox();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === '+' || e.key === '=') { zoomScale = Math.min(4.0, zoomScale + 0.2); updateTransform(); }
+        if (e.key === '-') { zoomScale = Math.max(0.5, zoomScale - 0.2); updateTransform(); }
+      });
+
+    })();
+  </script>
+</body>
+</html>

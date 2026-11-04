@@ -1,0 +1,54 @@
+name: 프로필 공유
+description: 내가 만든 d4cute helper 매크로 프로필(.d4cute)을 클랜원과 공유합니다
+title: "[프로필] "
+labels: ["프로필 공유"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        헬퍼 → 프로필 카드 → **내보내기 (.d4cute)** 로 저장한 파일을 **zip 으로 압축**한 뒤, 맨 아래 "파일 첨부" 칸에 드래그해서 올려 주세요. (GitHub 는 `.d4cute` 그대로는 첨부가 안 됩니다.)
+  - type: dropdown
+    id: class
+    attributes:
+      label: 직업
+      options:
+        - 성기사
+        - 혼령사
+        - 야만용사
+        - 원소술사
+        - 강령술사
+        - 드루이드
+        - 도적
+        - 공용
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: 프로필 이름
+      placeholder: 예) 성기사 축복망치 로테
+    validations:
+      required: true
+  - type: textarea
+    id: desc
+    attributes:
+      label: 용도 · 빌드 설명
+      description: 어떤 빌드 · 상황용인지, 슬롯 A~D 가 각각 무엇인지
+      placeholder: |
+        A: 메인 로테 (RClick 홀드) — 2 → 3 → 4
+        B: 물약 (토글)
+    validations:
+      required: true
+  - type: textarea
+    id: keys
+    attributes:
+      label: 발동키 · 주의할 점
+      description: 발동키, 토글 정지 키, 딜레이 조정이 필요한 부분
+  - type: textarea
+    id: file
+    attributes:
+      label: 파일 첨부
+      description: 여기에 zip 파일을 드래그하면 링크가 자동으로 들어갑니다
+      placeholder: zip 파일을 이 칸에 끌어다 놓으세요
+    validations:
+      required: true

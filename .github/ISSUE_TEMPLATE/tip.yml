@@ -1,0 +1,36 @@
+name: 💡 사용 팁
+description: 설정 · 플레이 팁을 클랜원과 공유합니다
+title: "[팁] "
+labels: ["사용 팁"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        좋은 팁은 README 나 시즌 문서에 옮겨 적습니다(작성자 표기).
+  - type: dropdown
+    id: topic
+    attributes:
+      label: 주제
+      options:
+        - 발동키 · 누름 인식 지연
+        - 시퀀스 · 딜레이 · Burst
+        - 동반 키
+        - 알람 · 이벤트 알림
+        - 프로필 · 직업별 설정
+        - 게임 플레이(파밍 · 빌드)
+        - 기타
+    validations:
+      required: true
+  - type: textarea
+    id: tip
+    attributes:
+      label: 팁 내용
+      placeholder: |
+        예) 오른쪽 클릭 발동키는 누름 인식 지연을 "길게 (300 ms)" 로 두면 인벤토리 우클릭 착용 때 매크로가 안 켜진다
+    validations:
+      required: true
+  - type: textarea
+    id: attach
+    attributes:
+      label: 스크린샷 · 프로필 파일(선택)
+      description: 프로필(.d4cute)은 zip 으로 압축해서 드래그하세요

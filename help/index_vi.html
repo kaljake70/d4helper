@@ -1,0 +1,3226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Hướng dẫn sử dụng chính thức d4cute helper (bản mới nhất v1.30)</title>
+  <meta name="description" content="Sổ tay tổng hợp d4cute helper v1.30 cho Diablo IV — cài đặt macro, tiện ích Thay đổi chỉ số trong kho đồ, báo thức thời gian thực, hướng dẫn hình ảnh/video, clan 앙증맞은 (Angjeungmajeun) và kênh 삼촌안잔다잉.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09080e;
+      --bg-surface: #121118;
+      --card: #171622;
+      --card-hover: #1e1d2c;
+      --card-subtle: #1f1e2b;
+      --line: #292737;
+      --line-bright: #3d3a52;
+      --fg: #e6e5ee;
+      --fg-dim: #9896a8;
+      --fg-muted: #6b697a;
+      
+      --gold: #e5b85c;
+      --gold-bright: #ffd778;
+      --gold-dim: #967530;
+      --gold-glow: rgba(229, 184, 92, 0.2);
+      
+      --ruby: #e5484d;
+      --ruby-dark: #3b1619;
+      --ruby-glow: rgba(229, 72, 77, 0.25);
+      
+      --blue: #3b82f6;
+      --blue-dark: #142445;
+      
+      --green: #22c55e;
+      --green-dark: #12311f;
+      
+      --sidebar-width: 320px;
+      --sidebar-mini-width: 68px;
+      --header-height: 58px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-title: 'Cinzel', 'Pretendard', serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.68;
+      overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    code, pre { overflow-wrap: anywhere; }
+    pre { overflow-x: auto; max-width: 100%; }
+    .video-embed { position: relative; padding-top: 56.25%; background: #000; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ─── 상단 글로벌 네비게이션 ─── */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(14, 13, 20, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-sidebar-btn {
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .toggle-sidebar-btn:hover {
+      background: var(--line);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-title {
+      font-family: var(--font-title);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 16px var(--gold-glow);
+    }
+    .brand-ver {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ruby);
+      background: var(--ruby-dark);
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid rgba(229, 72, 77, 0.4);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-link {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .nav-link:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .nav-link.highlight {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18), rgba(229, 184, 92, 0.05));
+      color: var(--gold-bright);
+      border: 1px solid var(--gold-dim);
+    }
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+      gap: 2px;
+      margin-left: 6px;
+    }
+    .lang-btn {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover {
+      color: var(--gold);
+    }
+    .lang-btn.active {
+      background: rgba(229, 184, 92, 0.2);
+      color: var(--gold-bright);
+      font-weight: 700;
+      border: 1px solid var(--gold-dim);
+    }
+
+    /* ─── 앱 레이아웃 ─── */
+    .layout-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+      margin-top: var(--header-height);
+    }
+
+    /* ─── 좌측 접이식 사이드바 ─── */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--line);
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 900;
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s;
+    }
+
+    /* 데스크탑 접힘 모드 */
+    @media (min-width: 1025px) {
+      body.sidebar-collapsed .sidebar {
+        width: var(--sidebar-mini-width);
+      }
+      body.sidebar-collapsed .sidebar .sidebar-tabs,
+      body.sidebar-collapsed .sidebar .tab-panel,
+      body.sidebar-collapsed .sidebar .sidebar-search-box,
+      body.sidebar-collapsed .sidebar .sidebar-community-card {
+        display: none !important;
+      }
+      body.sidebar-collapsed .sidebar .mini-icons-list {
+        display: flex !important;
+      }
+      body.sidebar-collapsed .content-wrap {
+        margin-left: var(--sidebar-mini-width);
+      }
+
+    }
+
+    /* 호버 펼침은 마우스 기기에서만 - 터치는 :hover 가 고착된다 */
+    @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+      /* ⭐️ 요청사항 1: 사이드바 접혔을 때 햄버거 메뉴 및 미니바 호버 시 사이드바 자동 확장(Hover Peek) */
+      body.sidebar-collapsed .sidebar:hover,
+      body.sidebar-collapsed .sidebar.hover-expanded {
+        width: var(--sidebar-width) !important;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.75);
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar:hover .tab-panel.active,
+      body.sidebar-collapsed .sidebar:hover .sidebar-search-box,
+      body.sidebar-collapsed .sidebar:hover .sidebar-community-card,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .tab-panel.active,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-search-box,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-community-card {
+        display: block !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs {
+        display: grid !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .mini-icons-list,
+      body.sidebar-collapsed .sidebar.hover-expanded .mini-icons-list {
+        display: none !important;
+      }
+    }
+
+    /* 접힘(미니) 모드용 아이콘 바 */
+    .mini-icons-list {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+    }
+    .mini-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mini-icon-btn:hover {
+      background: var(--line-bright);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+
+    /* 사이드바 내부 탭 (목차 / 이미지 / 영상) */
+    .sidebar-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      background: rgba(18, 17, 24, 0.85);
+    }
+    .sidebar-tab-btn {
+      padding: 10px 4px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--fg-dim);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.2s;
+    }
+    .sidebar-tab-btn span.tab-icon {
+      font-size: 15px;
+    }
+    .sidebar-tab-btn:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .sidebar-tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: var(--card-subtle);
+    }
+
+    /* 사이드바 검색창 */
+    .sidebar-search-box {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 8px 30px 8px 12px;
+      color: var(--fg);
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .sidebar-search-input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 8px var(--gold-glow);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--fg-muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+    .search-clear-btn.visible {
+      display: block;
+    }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: var(--line-bright);
+      border-radius: 4px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* 목차 리스트 */
+    .toc-tree {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-tree li {
+      margin-bottom: 2px;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all 0.15s;
+    }
+    .toc-link:hover {
+      color: var(--gold);
+      background: var(--card);
+    }
+    .toc-link.active {
+      color: var(--gold-bright);
+      background: rgba(229, 184, 92, 0.12);
+      font-weight: 600;
+      border-left: 3px solid var(--gold);
+    }
+    .toc-sub-tree {
+      list-style: none;
+      padding-left: 16px;
+      margin: 2px 0 4px;
+    }
+    .toc-sub-tree .toc-link {
+      font-size: 12.5px;
+      padding: 4px 8px;
+    }
+
+    /* 검색 결과 리스트 */
+    .search-results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-item-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--fg);
+      transition: all 0.15s;
+    }
+    .search-item-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .search-item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .search-item-sub {
+      font-size: 11px;
+      color: var(--fg-muted);
+      margin-bottom: 3px;
+    }
+    .search-item-snippet {
+      font-size: 12px;
+      color: var(--fg-dim);
+      line-height: 1.45;
+    }
+    .search-item-snippet mark {
+      background: rgba(229, 184, 92, 0.35);
+      color: #fff;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* 미디어 사이드바 리스트 (이미지 / 영상) */
+    .media-nav-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .media-nav-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 7px;
+      text-decoration: none;
+      color: var(--fg);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .media-nav-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .media-nav-thumb {
+      width: 58px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .media-nav-meta {
+      overflow: hidden;
+      flex: 1;
+    }
+    .media-nav-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-nav-desc {
+      font-size: 11px;
+      color: var(--fg-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .video-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--ruby-dark);
+      color: var(--ruby);
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-right: 4px;
+      font-weight: 700;
+    }
+
+    /* ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 카드 */
+    .sidebar-community-card {
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      background: rgba(14, 13, 20, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .community-box {
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
+      transition: all 0.2s;
+    }
+    .community-box:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .community-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .community-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .community-tag {
+      font-size: 10.5px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--card-subtle);
+      color: var(--fg-dim);
+    }
+    .community-desc {
+      font-size: 11px;
+      color: var(--fg-dim);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .community-links {
+      display: flex;
+      gap: 6px;
+    }
+    .comm-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .comm-btn.telegram {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.18) 0%, rgba(42, 171, 238, 0.08) 100%);
+      border: 1px solid rgba(42, 171, 238, 0.4);
+      color: #70c7fa;
+    }
+    .comm-btn.telegram:hover {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.35) 0%, rgba(42, 171, 238, 0.2) 100%);
+      border-color: #70c7fa;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.clan {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.16) 0%, rgba(234, 179, 8, 0.06) 100%);
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      color: #fde047;
+    }
+    .comm-btn.clan:hover {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.3) 0%, rgba(234, 179, 8, 0.15) 100%);
+      border-color: #fde047;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.youtube {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.18) 0%, rgba(229, 72, 77, 0.08) 100%);
+      border: 1px solid rgba(229, 72, 77, 0.4);
+      color: #ff999c;
+    }
+    .comm-btn.youtube:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.35) 0%, rgba(229, 72, 77, 0.2) 100%);
+      border-color: #ff999c;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── 본문 영역 ─── */
+    .content-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 26px 36px 100px;
+      max-width: 1060px;
+      min-width: 0;                 /* flex 아이템이 안쪽 표(min-width 480) 에 끌려 뷰포트보다 넓어지던 것 */
+      width: 100%;
+      transition: margin-left 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* 모바일 반응형 처리 */
+    @media (max-width: 1024px) {
+      .top-nav {
+        padding: 0 12px;
+      }
+      .content-wrap {
+        margin-left: 0;
+        padding: 18px 14px 80px;
+      }
+      .sidebar {
+        width: 86vw;
+        max-width: 320px;
+        transform: translateX(-100%);
+        box-shadow: none;
+      }
+      body.sidebar-open .sidebar {
+        transform: translateX(0);
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.85);
+      }
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        z-index: 850;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      body.sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.sidebar-open { overflow: hidden; }
+      .table-wrap::before {
+        content: '↔ 옆으로 밀어 표 전체 보기';
+        display: block;
+        font-size: 11.5px;
+        color: var(--fg-muted);
+        padding: 6px 10px 0;
+      }
+      .image-card.is-small { display: block; }
+      .hero-title {
+        font-size: 24px !important;
+      }
+      .hero-banner-img {
+        height: 180px !important;
+      }
+      .nav-right .nav-link:not(.highlight) {
+        display: none;
+      }
+    }
+
+    /* 스마트폰 초소형 화면 (480px 이하) */
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .content-wrap {
+        padding: 14px 10px 60px;
+      }
+      section.doc-section {
+        padding: 18px 14px !important;
+        margin-bottom: 20px !important;
+      }
+      .section-title {
+        font-size: 18px !important;
+      }
+      .hero-banner-overlay {
+        padding: 16px 14px !important;
+      }
+      .hero-title {
+        font-size: 20px !important;
+      }
+      .hero-desc {
+        font-size: 13px !important;
+      }
+    }
+
+    /* ─── 히어로 배너 섹션 ─── */
+    .hero-banner-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+      border: 1px solid var(--line-bright);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+    .hero-banner-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: brightness(0.65) contrast(1.1);
+    }
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 13, 20, 0.2) 0%, rgba(9, 8, 14, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px 28px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 184, 92, 0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: fit-content;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: 30px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 6px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .hero-desc {
+      color: var(--fg-dim);
+      font-size: 14.5px;
+      margin: 0;
+      max-width: 650px;
+    }
+
+    /* ─── 알림/콜아웃 박스 ─── */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .alert-box.info {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-left: 4px solid var(--blue);
+    }
+    .alert-box.gold {
+      background: rgba(229, 184, 92, 0.08);
+      border: 1px solid rgba(229, 184, 92, 0.3);
+      border-left: 4px solid var(--gold);
+    }
+    .alert-box.warn {
+      background: rgba(229, 72, 77, 0.08);
+      border: 1px solid rgba(229, 72, 77, 0.3);
+      border-left: 4px solid var(--ruby);
+    }
+    .alert-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── 문서 섹션 카드 ─── */
+    section.doc-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 26px;
+      scroll-margin-top: calc(var(--header-height) + 16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    section.doc-section:target {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-num {
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      color: var(--gold-bright);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    h3 {
+      font-size: 16.5px;
+      color: #fff;
+      margin: 22px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 15px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    p { margin: 8px 0; }
+    ul, ol { padding-left: 22px; margin: 8px 0; }
+    li { margin: 5px 0; }
+
+    /* 키 뱃지 및 칩 */
+    kbd {
+      background: #232230;
+      border: 1px solid var(--line-bright);
+      border-bottom: 2px solid #14131d;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+    /* 본문 링크 - 브라우저 기본 파랑은 어두운 배경에서 안 보인다 (사용자 지적 2026-10-22). 버튼류(class 있는 a)는 제외 */
+    .content-wrap a:not([class]),
+    .content-wrap a:not([class]):visited {
+      color: var(--gold-bright);
+      text-decoration: underline;
+      text-decoration-color: var(--gold-dim);
+      text-underline-offset: 3px;
+      font-weight: 600;
+    }
+    .content-wrap a:not([class]):hover { color: #fff; text-decoration-color: var(--gold); }
+    .content-wrap a:not([class]) code { color: inherit; }
+    .content-wrap a.chip { color: var(--fg); text-decoration: none; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-weight: 700;
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+    .chip.gold { background: rgba(229, 184, 92, 0.15); border-color: var(--gold-dim); color: var(--gold-bright); }
+    .chip.ruby { background: var(--ruby-dark); border-color: rgba(229, 72, 77, 0.4); color: #fff; }
+    .chip.green { background: var(--green-dark); border-color: rgba(34, 197, 94, 0.4); color: #fff; }
+    .chip.blue { background: var(--blue-dark); border-color: rgba(59, 130, 246, 0.4); color: #fff; }
+
+    /* 본문 검색 하이라이트 */
+    mark.search-highlight {
+      background: #ffd700;
+      color: #000;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+    }
+
+    /* 표(테이블) 반응형 */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 480px;
+    }
+    th, td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    th {
+      background: var(--bg-surface);
+      color: var(--gold);
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* ─── 이미지 썸네일 카드 ─── */
+    .image-card {
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .image-card:hover {
+      border-color: var(--line-bright);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+    .image-card.is-thumbnail .thumb-container {
+      position: relative;
+      cursor: zoom-in;
+      background: #000;
+      max-height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-card.is-thumbnail .thumb-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .image-card.is-thumbnail .thumb-container:hover img {
+      transform: scale(1.015);
+    }
+    .zoom-hint-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--line-bright);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+    .image-card.is-small {
+      display: inline-block;
+      max-width: 100%;
+    }
+    .image-card.is-small .thumb-container {
+      padding: 8px;
+      cursor: zoom-in;
+    }
+    .image-card.is-small img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .image-caption {
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── 플레이스홀더 영역 ─── */
+    .placeholder-box {
+      border: 2px dashed var(--line-bright);
+      background: rgba(26, 24, 36, 0.6);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .placeholder-icon {
+      font-size: 28px;
+      color: var(--gold-dim);
+      margin-bottom: 6px;
+    }
+    .placeholder-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .placeholder-desc {
+      font-size: 12.5px;
+      color: var(--fg-muted);
+      margin-bottom: 10px;
+    }
+    .placeholder-path {
+      display: inline-block;
+      background: #0d0c13;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--gold);
+    }
+
+    /* 비디오 카드 */
+    .video-card {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .video-info {
+      padding: 10px 14px;
+      font-size: 13px;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ─── 클랜 및 방송 채널 본문 섹션 카드 ─── */
+    .clan-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-card {
+      background: linear-gradient(180deg, var(--card) 0%, var(--bg-surface) 100%);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .clan-card.highlight-gold {
+      border-color: rgba(229, 184, 92, 0.3);
+    }
+    .clan-card.highlight-gold:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px var(--gold-glow);
+    }
+    .clan-card.highlight-ruby {
+      border-color: rgba(229, 72, 77, 0.3);
+    }
+    .clan-card.highlight-ruby:hover {
+      border-color: var(--ruby);
+      box-shadow: 0 8px 24px var(--ruby-glow);
+    }
+    .clan-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-card-crest {
+      font-size: 26px;
+      background: var(--card-subtle);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gold-dim);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+    }
+    .clan-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin: 0 0 3px;
+      letter-spacing: -0.2px;
+    }
+    .clan-card-sub {
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      margin: 0;
+    }
+
+    /* 럭셔리 액션 버튼 */
+    .clan-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      margin-top: auto;
+      align-self: flex-start;
+      cursor: pointer;
+    }
+    .clan-btn.gold {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18) 0%, rgba(229, 184, 92, 0.08) 100%);
+      color: var(--gold-bright);
+      border: 1px solid rgba(229, 184, 92, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 184, 92, 0.15);
+    }
+    .clan-btn.gold:hover {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.32) 0%, rgba(229, 184, 92, 0.16) 100%);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 4px 18px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+    .clan-btn.ruby {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.22) 0%, rgba(229, 72, 77, 0.1) 100%);
+      color: #ff999c;
+      border: 1px solid rgba(229, 72, 77, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 72, 77, 0.15);
+    }
+    .clan-btn.ruby:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.38) 0%, rgba(229, 72, 77, 0.18) 100%);
+      color: #fff;
+      border-color: var(--ruby);
+      box-shadow: 0 4px 18px var(--ruby-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ─── 가입 절차 & 클랜 생활 가이드 와이드 쇼케이스 ─── */
+    .clan-guide-container {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+    .clan-guide-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-guide-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 0;
+    }
+    .clan-guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-sub-panel {
+      background: rgba(14, 13, 20, 0.65);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .clan-sub-panel.blue-border {
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-top: 3px solid var(--blue);
+    }
+    .clan-sub-panel.gold-border {
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-top: 3px solid var(--gold);
+    }
+    .clan-sub-panel-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── 라이트박스 (전체화면 모달 뷰어) ─── */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 8, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      user-select: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-topbar {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .lightbox-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(229, 184, 92, 0.12);
+      padding: 2px 9px;
+      border-radius: 12px;
+    }
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: var(--gold);
+    }
+    .lightbox-close-btn {
+      background: var(--ruby-dark);
+      border-color: rgba(229, 72, 77, 0.4);
+    }
+    .lightbox-close-btn:hover {
+      background: var(--ruby);
+      color: #fff;
+    }
+
+    .lightbox-stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+    }
+    .lightbox-stage:active {
+      cursor: grabbing;
+    }
+    .lightbox-img {
+      max-width: 92%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85);
+      transition: transform 0.06s ease-out;
+      transform-origin: center center;
+    }
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 60px;
+      background: rgba(20, 19, 28, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(8px);
+      transition: all 0.15s;
+      z-index: 10;
+    }
+    .lightbox-nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .lightbox-prev-btn { left: 16px; }
+    .lightbox-next-btn { right: 16px; }
+
+    .lightbox-bottombar {
+      min-height: 48px;
+      background: rgba(14, 13, 20, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .lightbox-caption-text {
+      font-size: 13.5px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .lightbox-zoom-indicator {
+      font-size: 12.5px;
+      color: var(--gold);
+      font-weight: 600;
+      background: var(--card-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding-top: 20px;
+      color: var(--fg-muted);
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    /* ─── 국기 언어 선택기 (자바스크립트 0% 순수 HTML5 details/summary) ─── */
+    details.flag-picker {
+      position: relative;
+      display: inline-block;
+      margin-left: 8px;
+    }
+    details.flag-picker summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(22, 21, 32, 0.85);
+      border: 1px solid rgba(229, 184, 92, 0.4);
+      border-radius: 8px;
+      padding: 4px 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    details.flag-picker summary::-webkit-details-marker {
+      display: none;
+    }
+    details.flag-picker summary:hover {
+      border-color: var(--gold-bright);
+      box-shadow: 0 4px 14px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    details.flag-picker[open] summary {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.15);
+    }
+    details.flag-picker .flag-picker-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(18, 17, 26, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-radius: 12px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(229, 184, 92, 0.15);
+      z-index: 2000;
+      min-width: 150px;
+    }
+    .flag-active-img {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+    .flag-picker-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .flag-picker-item:hover {
+      background: rgba(229, 184, 92, 0.22);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+    .flag-picker-item.active {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.18);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .flag-picker-item img {
+      width: 26px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+
+
+    /* ─── 럭셔리 다크 판타지 텔레그램 상단 배너 ─── */
+    .telegram-banner-v3 {
+      position: relative;
+      background: radial-gradient(ellipse at 10% 50%, rgba(42, 171, 238, 0.2) 0%, rgba(18, 17, 24, 0.95) 60%),
+                  radial-gradient(ellipse at 90% 50%, rgba(229, 184, 92, 0.12) 0%, rgba(14, 13, 20, 0.98) 70%),
+                  #0e0d14;
+      border: 1px solid rgba(42, 171, 238, 0.35);
+      border-left: 5px solid #2AABEE;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin: 20px 0 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(42, 171, 238, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .tg-v3-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      flex: 1;
+    }
+    .tg-v3-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tg-v3-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .tg-v3-title {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--font-title);
+      color: #ffd778;
+      letter-spacing: 0.4px;
+      margin: 0;
+    }
+    .tg-v3-badge {
+      background: rgba(229, 72, 77, 0.2);
+      border: 1px solid rgba(229, 72, 77, 0.5);
+      color: #ff6b6b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tg-v3-desc {
+      font-size: 14px;
+      color: #c9c7d8;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+    .tg-v3-highlight-box {
+      display: inline-block;
+      background: rgba(42, 171, 238, 0.08);
+      border: 1px solid rgba(42, 171, 238, 0.25);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .tg-v3-highlight-box strong { color: #38bdf8; }
+    .tg-v3-highlight-box em { color: #fbbf24; font-style: normal; font-weight: 700; }
+    .tg-v3-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 165px;
+    }
+    .tg-v3-btn-channel {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      border-radius: 9px;
+      box-shadow: 0 4px 14px rgba(0, 136, 204, 0.4);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-channel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+      filter: brightness(1.1);
+    }
+    .tg-v3-btn-group {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e6e5ee;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 9px;
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-group:hover {
+      background: rgba(229, 184, 92, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+    @media (max-width: 860px) {
+      .telegram-banner-v3 {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+      }
+      .tg-v3-right {
+        flex-direction: row;
+      }
+      .tg-v3-btn-channel, .tg-v3-btn-group {
+        flex: 1;
+      }
+    }
+
+
+    /* ─── 2026-10-24: 텔레그램 배너 - 채널 버튼을 위에 꽉 찬 너비로, 설명은 아래 ─── */
+    .tg-top .tg-top-row { flex-direction: column !important; align-items: stretch !important; gap: 14px !important; }
+    .tg-top .tg-top-btns { order: -1; display: grid !important; grid-template-columns: 1fr 1fr; gap: 10px !important; }
+    .tg-top .tg-top-btns a { justify-content: center; padding: 13px 16px !important; font-size: 15px !important; }
+    .tg-top .tg-top-text { min-width: 0 !important; }
+    @media (max-width: 520px) {
+      .tg-top .tg-top-btns { grid-template-columns: 1fr; }
+    }
+
+    /* ─── 2026-10-24: 본문 이미지 - PC 는 적당한 크기로 가운데, 휴대폰은 꽉 차게. 클릭하면 라이트박스로 크게 ─── */
+    .image-card { max-width: 760px; margin: 18px auto; }
+    .image-card.is-small { display: block; max-width: 560px; }
+    .image-card.is-thumbnail .thumb-container { max-height: none; background: #08070c; padding: 10px; }
+    .image-card.is-thumbnail .thumb-container img,
+    .image-card.is-small img {
+      width: auto; max-width: 100%; max-height: 440px;
+      object-fit: contain; margin: 0 auto; border-radius: 6px;
+    }
+    .image-card.is-small .thumb-container { display: flex; justify-content: center; }
+    .image-caption { text-align: center; }
+    /* 두 장 이상 나란히 놓인 곳은 칸 너비를 그대로 쓴다 */
+    div[style*="display: flex"] > .image-card,
+    div[style*="display: grid"] > .image-card { max-width: none; margin: 0; flex: 1 1 280px; }
+    @media (max-width: 720px) {
+      .image-card, .image-card.is-small { max-width: 100%; }
+      .image-card.is-thumbnail .thumb-container, .image-card.is-small .thumb-container { padding: 0; }
+      .image-card.is-thumbnail .thumb-container img,
+      .image-card.is-small img { width: 100%; max-height: none; border-radius: 0; }
+    }
+
+    /* ─── 2026-10-24: 헤더가 내용 높이만큼 늘어나게 - 사진은 배경으로 깔고 글자 칸이 높이를 정한다(경고 칸 추가로 위가 잘리던 것) ─── */
+    .hero-banner-img { position: absolute; inset: 0; height: 100% !important; }
+    .hero-banner-overlay { position: relative; min-height: 250px; }
+    .hero-tag { align-self: flex-start; }
+    @media (max-width: 860px) { .hero-banner-overlay { min-height: 180px; } }
+</style>
+</head>
+<body>
+
+  <!-- 상단 글로벌 바 -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <button class="toggle-sidebar-btn" id="sidebarToggle" title="Thu gọn/mở rộng thanh bên (rê chuột vào để hiện tạm thời)" aria-label="Bật/tắt thanh bên">
+        ☰
+      </button>
+      <a href="#" class="brand">
+        <span class="brand-title">D4CUTE HELPER</span>
+        <span class="brand-ver">v1.30.x</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="#quickstart" class="nav-link">Bắt đầu</a>
+      <a href="#tools-alter" class="nav-link">Công cụ Thay đổi chỉ số</a>
+      <a href="#community" class="nav-link">Clan & Kênh</a>
+      <a href="https://github.com/kaljake70/d4helper" target="_blank" class="nav-link highlight">Kho mã nguồn ↗</a>
+      <details class="flag-picker">
+          <summary class="flag-picker-btn" title="Language: Tiếng Việt">
+            <img src="https://flagcdn.com/w40/vn.png" alt="vi" class="flag-active-img">
+          </summary>
+          <div class="flag-picker-dropdown">
+            <a href="index.html" class="flag-picker-item" title="Tiếng Hàn (Korean)"><img src="https://flagcdn.com/w40/kr.png" alt="ko"></a>
+            <a href="index_en.html" class="flag-picker-item" title="English"><img src="https://flagcdn.com/w40/us.png" alt="en"></a>
+            <a href="index_ja.html" class="flag-picker-item" title="日本語 (Japanese)"><img src="https://flagcdn.com/w40/jp.png" alt="ja"></a>
+            <a href="index_zh-CN.html" class="flag-picker-item" title="简体中文 (Simplified Chinese)"><img src="https://flagcdn.com/w40/cn.png" alt="zh-CN"></a>
+            <a href="index_zh-TW.html" class="flag-picker-item" title="繁體中文 (Traditional Chinese)"><img src="https://flagcdn.com/w40/tw.png" alt="zh-TW"></a>
+            <a href="index_vi.html" class="flag-picker-item active" title="Tiếng Việt (Vietnamese)"><img src="https://flagcdn.com/w40/vn.png" alt="vi"></a>
+            <a href="index_th.html" class="flag-picker-item" title="ไทย (Thai)"><img src="https://flagcdn.com/w40/th.png" alt="th"></a>
+            <a href="index_fil.html" class="flag-picker-item" title="Filipino"><img src="https://flagcdn.com/w40/ph.png" alt="fil"></a>
+          </div>
+        </details>
+    </div>
+  </header>
+
+  <!-- 모바일 사이드바 배경 오버레이 -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="layout-container">
+
+    <!-- 좌측 사이드바 -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 사이드바 탭 전환 (목차 / 이미지 / 영상) -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab-btn active" data-tab="toc">
+          <span class="tab-icon">📑</span>
+          <span>Mục lục</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="images">
+          <span class="tab-icon">🖼️</span>
+          <span>Hình ảnh (<span id="imgCount">0</span>)</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="videos">
+          <span class="tab-icon">🎬</span>
+          <span>Video (<span id="vidCount">0</span>)</span>
+        </button>
+      </div>
+
+      <!-- 도움말 본문 전체 검색창 -->
+      <div class="sidebar-search-box">
+        <input type="text" id="sidebarSearch" class="sidebar-search-input" placeholder="Tìm trong toàn bộ nội dung trợ giúp..." autocomplete="off">
+        <button class="search-clear-btn" id="searchClearBtn" title="Xóa từ khóa tìm kiếm">✕</button>
+      </div>
+
+      <!-- 사이드바 스크롤 컨테이너 -->
+      <div class="sidebar-scroll">
+        
+        <!-- 0. 실시간 검색 결과 패널 (검색 시 활성화) -->
+        <div class="tab-panel" id="panel-search">
+          <div style="font-size:12px; color:var(--fg-dim); margin-bottom:10px; display:flex; justify-content:space-between;">
+            <span>Kết quả tìm kiếm: <strong id="searchMatchCount" style="color:var(--gold);">0</strong>mục</span>
+            <span style="font-size:11px; color:var(--fg-muted);">Nhấp để chuyển đến vị trí đó</span>
+          </div>
+          <div class="search-results-list" id="searchResultsList">
+            <!-- 자바스크립트로 본문 검색 결과 목록 생성 -->
+          </div>
+        </div>
+
+        <!-- 1. 목차 패널 -->
+        <div class="tab-panel active" id="panel-toc">
+          <ul class="toc-tree">
+            <li><a href="#quickstart" class="toc-link">⚡ 1. Bắt đầu nhanh trong 5 phút & Cài đặt</a></li>
+            <li>
+              <a href="#screen-ui" class="toc-link">🖥️ 2. Giao diện mới nhất (1.30)</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#screen-topbar" class="toc-link">Thanh trên cùng & thao tác với hồ sơ</a></li>
+                <li><a href="#screen-slots" class="toc-link">Thanh slot (7 slot A~G, Nhà tài trợ, Công cụ, Báo thức)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#macro-engine" class="toc-link">⚙️ 3. Cài đặt macro & cơ chế kích hoạt</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#macro-modes" class="toc-link">Tuần tự · Độc lập · Giữ · Toggle · 1 lần</a></li>
+                <li><a href="#macro-keys" class="toc-link">Phím kích hoạt & bộ lọc độ trễ nhấn</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sequence-builder" class="toc-link">📋 4. Trình tự & ghi chuột</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#seq-cards" class="toc-link">Thẻ bước & đổi độ trễ hàng loạt</a></li>
+                <li><a href="#seq-recorder" class="toc-link">Ghi tọa độ chuột thời gian thực & ngẫu nhiên hóa</a></li>
+                <li><a href="#seq-drag-path" class="toc-link">Ghi quỹ đạo kéo (Whirlwind · Channeling)</a></li>
+                <li><a href="#seq-rotation-pack" class="toc-link">🌀 Gói xoay vòng tròn 360 độ (9 preset)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#tools-alter" class="toc-link">🧪 5. Tiện ích — Thay đổi chỉ số trong kho đồ</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alter-grid" class="toc-link">Tự động tính 33 ô từ ô đầu/ô cuối</a></li>
+                <li><a href="#alter-safety" class="toc-link">Bỏ qua vật phẩm ràng buộc & kiểm tra Cube trống</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#alarm" class="toc-link">🔔 6. Hệ thống báo thức thông minh</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alarm-events" class="toc-link">Giám sát nền liên tục Legion/Boss</a></li>
+                <li><a href="#alarm-outputs" class="toc-link">Banner trong game & giọng nói TTS tiếng Hàn</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#window-modes" class="toc-link">🪟 7. Chế độ cửa sổ, ghim, lớp phủ</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#window-mini" class="toc-link">Chế độ cửa sổ mini (thanh siêu nhỏ)</a></li>
+                <li><a href="#window-overlay" class="toc-link">Lớp phủ HUD trong game</a></li>
+              </ul>
+            </li>
+            <li><a href="#safety-features" class="toc-link">🛡️ 8. Cơ chế an toàn (Phím chờ & tiêu điểm)</a></li>
+            <li><a href="#profile-sync" class="toc-link">💾 9. Quản lý & chia sẻ hồ sơ</a></li>
+            <li>
+              <a href="#telegram-support" class="toc-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="#2AABEE" style="vertical-align:-2px; margin-right:4px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> 10. Hỗ trợ Telegram & nhật ký gỡ lỗi</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#telegram-install" class="toc-link">Cài đặt Telegram & tham gia nhóm</a></li>
+                <li><a href="#log-viewer-guide" class="toc-link">Sao chép nhật ký & báo cáo lỗi để được xử lý</a></li>
+              </ul>
+            </li>
+            <li><a href="#community" class="toc-link">👑 11. Clan & kênh 삼촌안잔다잉</a></li>
+            <li><a href="#faq" class="toc-link">❓ 12. Câu hỏi thường gặp (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <!-- 2. 이미지 모아보기 패널 -->
+        <div class="tab-panel" id="panel-images">
+          <div class="media-nav-grid" id="sidebarImageGrid">
+            <!-- 자바스크립트로 본문 이미지들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+        <!-- 3. 영상 모아보기 패널 -->
+        <div class="tab-panel" id="panel-videos">
+          <div class="media-nav-grid" id="sidebarVideoGrid">
+            <!-- 자바스크립트로 본문 비디오/플레이스홀더들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 채널 바로가기 -->
+      <div class="sidebar-community-card">
+        <!-- 앙증맞은 클랜 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">⚔️ &lt;앙증맞은&gt; Cánh Cầu Vồng</span>
+            <span class="community-tag">Clan</span>
+          </div>
+          <div class="community-desc">Clan trong game Diablo IV · Trưởng clan <strong>Daehanminguk</strong> · Gia nhập: tìm trong game (앙증맞은) → báo trên kênh → được duyệt → chấp nhận cuối cùng (không có Discord)</div>
+          <div class="community-desc" style="color:var(--gold-bright); margin-top:4px;">🌏 Người nước ngoài tham gia được nếu giao tiếp được tiếng Hàn</div>
+          <div class="community-links">
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" class="comm-btn telegram">💬 Nhóm Telegram</a>
+            <a href="#community" class="comm-btn clan">📜 Giới thiệu clan</a>
+          </div>
+        </div>
+        <!-- 삼촌안잔다잉 채널 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">📺 Kênh 삼촌안잔다잉</span>
+            <span class="community-tag" style="color:var(--ruby); background:rgba(229,72,77,0.15);">Trưởng clan</span>
+          </div>
+          <div class="community-desc">Kênh phát sóng game · Hỏi về helper trên Telegram</div>
+          <div class="community-links">
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="comm-btn youtube">▶ Phát sóng YouTube ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 접힘(미니) 모드용 아이콘 바 -->
+      <div class="mini-icons-list">
+        <button class="mini-icon-btn" onclick="document.getElementById('quickstart').scrollIntoView({behavior:'smooth'})" title="Bắt đầu">⚡</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('screen-ui').scrollIntoView({behavior:'smooth'})" title="Giao diện">🖥️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('macro-engine').scrollIntoView({behavior:'smooth'})" title="Cài đặt macro">⚙️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('tools-alter').scrollIntoView({behavior:'smooth'})" title="Thay đổi chỉ số kho đồ">🧪</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('alarm').scrollIntoView({behavior:'smooth'})" title="Báo thức thông minh">🔔</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})" title="Clan & Phát sóng">👑</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})" title="Câu hỏi thường gặp">❓</button>
+      </div>
+
+    </aside>
+
+    <!-- 우측 본문 콘텐츠 -->
+    <main class="content-wrap" id="mainContent">
+      
+      <!-- 히어로 배너 -->
+      <div class="hero-banner-card">
+        <img src="../images/hero_banner.jpg" alt="Banner d4cute helper cho Diablo IV" class="hero-banner-img">
+        <div class="hero-banner-overlay">
+          <span class="hero-tag">DIABLO IV HELPER MANUAL</span>
+          <h1 class="hero-title">Hướng dẫn sử dụng d4cute helper</h1>
+          <p class="hero-desc">Theo phiên bản mới nhất 1.30 — macro tuần tự/độc lập cho 7 slot A~G, tự động hóa Thay đổi chỉ số trong kho đồ, báo thức sự kiện thời gian thực, giới thiệu clan 앙증맞은 và kênh 삼촌안잔다잉</p>
+        </div>
+      </div>
+
+      <!-- 📢 상단 텔레그램 공식 채널 필수 가입 배너 -->
+      <div class="telegram-top-banner tg-top" style="background: linear-gradient(135deg, rgba(42, 171, 238, 0.16) 0%, rgba(20, 36, 69, 0.45) 100%); border: 1.5px solid rgba(42, 171, 238, 0.45); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+        <div class="tg-top-row" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+          <div class="tg-top-text" style="flex: 1; min-width: 280px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px;">
+                📢 Hãy tham gia kênh Telegram chính thức!
+              </h3>
+              <span class="chip blue" style="font-weight: 700;">Nên đọc</span>
+            </div>
+            <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--fg); line-height: 1.6;">
+              Thông báo cập nhật mới nhất của d4cute helper, <strong>ghi chú bản vá thời gian thực, báo lỗi và hỗ trợ kỹ thuật nhanh</strong>được gửi nhanh nhất qua Telegram.<br>
+              Đặc biệt, bạn có thể tải miễn phí ngay trên kênh <strong style="color:var(--gold-bright);">🌀 Tệp hoàn chỉnh Gói xoay vòng tròn 360 độ (.d4seq)</strong>và <strong style="color:#2AABEE;">video trình diễn xoay thực tế</strong>vừa được bổ sung lần này!
+            </p>
+          </div>
+          <div class="tg-top-btns" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #2AABEE; color: #fff; text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 700; font-size: 13.5px; transition: all 0.2s; box-shadow: 0 2px 8px rgba(42, 171, 238, 0.4);">
+              <span>📢 Vào kênh thông báo ↗</span>
+            </a>
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid rgba(42, 171, 238, 0.4); color: var(--fg); text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 13.5px; transition: all 0.2s;">
+              <span>💬 Vào nhóm người dùng ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상단 중요 알림 -->
+      <div class="alert-box gold">
+        <span class="alert-icon">💡</span>
+        <div>
+          <strong>Lưu ý</strong>: Nút <span class="chip gold">?</span> của cửa sổ helper — nhấp vào là trang trợ giúp mới nhất này mở ra bất cứ lúc nào. Bạn có thể tìm kiếm nội dung trợ giúp theo thời gian thực bằng ô tìm kiếm ở thanh bên, và khi nhấp vào hình ảnh, trình xem toàn màn hình sẽ mở ra với <strong>phóng to/thu nhỏ bằng con lăn chuột và chuyển ảnh trước/sau</strong>.
+        </div>
+      </div>
+
+      <!-- ─── 1. 시작하기 ─── -->
+      <section class="doc-section" id="quickstart">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">1</span> 5 phút đầu — từ cài đặt đến khi chạy macro đầu tiên</h2>
+        </div>
+        
+        <p>d4cute helper là công cụ hiệu năng cao hỗ trợ bạn khi chơi Diablo IV một cách thoải mái và an toàn: thi triển kỹ năng lặp lại, duy trì buff và thao tác Thay đổi chỉ số phức tạp trong kho đồ bằng Horadric Cube.</p>
+
+        <ol>
+          <li><a href="https://da.gd/d4help" target="_blank"><strong>Tải bản cài đặt mới nhất</strong></a> — Tải và cài bản cài đặt (<code>d4cute_helper_setup.exe</code>), hoặc chạy ngay tệp thực thi không cần cài (<code>d4cute_helper.exe</code>). Nếu Windows hiện cảnh báo "Nhà xuất bản không xác định", hãy nhấn <em>Thông tin khác → Vẫn chạy</em>.</li>
+          <li>Khi bật helper, cửa sổ tự động khởi động ở kích thước mặc định nhỏ nhất nên không che màn hình game.</li>
+          <li>Ở thanh hồ sơ, chọn hồ sơ phù hợp với class của bạn hoặc tạo mới bằng nút <span class="chip green">＋</span> .</li>
+          <li>Nhấn slot <span class="chip">A</span>, rồi trong <strong>Cài đặt macro</strong>, nhấn nút phím kích hoạt màu xanh và chỉ định phím chuột hoặc bàn phím sẽ dùng.</li>
+          <li><strong>Trình tự</strong> — thêm phím kỹ năng cần thi triển và độ trễ vào tab này, hoặc nhấn nút <span class="chip">Ghi</span> để ghi lại nguyên vẹn thao tác phím khi chơi thực tế.</li>
+          <li>Nhấn nút <span class="chip green">▶ Start</span> ở phía dưới, quay lại game rồi nhấn phím kích hoạt, macro sẽ chạy an toàn.</li>
+        </ol>
+
+        <div class="alert-box info">
+          <span class="alert-icon">🛡️</span>
+          <div><strong>Phát hiện cửa sổ game đang hoạt động</strong>: Helper chỉ gửi đầu vào bàn phím/chuột vào game khi cửa sổ Diablo IV đang hoạt động. Khi bạn đang ở màn hình nền hoặc làm việc ở cửa sổ khác, đầu vào sẽ tự động dừng.</div>
+        </div>
+        <div class="alert-box gold">
+          <span class="alert-icon">🖥️</span>
+          <div><strong>Chế độ hiển thị game</strong>: Hãy đặt cài đặt màn hình Diablo IV ở <strong>chế độ cửa sổ không viền (toàn màn hình)</strong> hoặc chế độ cửa sổ. Ở toàn màn hình độc quyền, lớp phủ sẽ không hiện và việc đọc màn hình của Thay đổi chỉ số có thể thất bại.</div>
+        </div>
+        <div class="video-card" data-video-title="[Video] Cách dùng d4cute helper">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/Ff7MBqD4WaI" title="[Video] Cách dùng d4cute helper" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>Hướng dẫn dùng helper qua video (kênh 삼촌안잔다잉)</strong></span>
+            <a href="https://youtu.be/Ff7MBqD4WaI" target="_blank" rel="noopener noreferrer" class="chip">Xem trên YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 2. 화면 구성 ─── -->
+      <section class="doc-section" id="screen-ui">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">2</span> Giao diện mới nhất (v1.30)</h2>
+        </div>
+
+        <p>Ở bản 1.30, thanh trên cùng và thanh tab slot được nâng cấp trực quan và đẹp hơn.</p>
+
+        <!-- 메인 매크로 화면 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="Màn hình chính d4cute helper — UI mới nhất với thanh chuyển hồ sơ, slot macro (mở rộng thành 7 slot A~G), nhập tên macro trực tiếp, tab Nhà tài trợ, Công cụ và Báo thức được bố trí gọn trong một cái nhìn">
+          <div class="thumb-container">
+            <img src="../images/helper_main_macro.png" alt="Tab macro trên màn hình chính của helper">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Màn hình chính d4cute helper 1.30 (hỗ trợ mở rộng 7 slot macro A~G)</span>
+          </div>
+        </div>
+
+        <h3 id="screen-topbar">1) Thanh trên cùng & điều khiển hồ sơ</h3>
+        <ul>
+          <li><strong>Chỉ báo trạng thái chạy</strong> — <span style="color:var(--green); font-weight:700;">● Đã dừng</span> / <span style="color:var(--green); font-weight:700;">● Đang chạy</span> / <span style="color:var(--ruby); font-weight:700;">● Tạm dừng</span> Trạng thái được hiển thị bằng chấm màu theo thời gian thực.</li>
+          <li><strong>Các nút chức năng phía trên</strong> — <span class="chip">Cập nhật</span>(nhấp nháy khi phát hiện bản vá mới), <span class="chip">Cài đặt (⚙)</span>, <span class="chip">Kiểm tra (⌨)</span>(kiểm tra việc gửi đầu vào), chuyển sang cửa sổ mini, luôn ở trên cùng (ghim), <span class="chip">···</span>(menu công cụ bổ sung).</li>
+          <li><strong>Thanh hồ sơ (Profile Bar)</strong> — 
+            <span class="chip">‹ ›</span> Bạn có thể chuyển nhanh hồ sơ bằng các nút, và <strong>nhấp đúp vào hộp combo để đổi tên ngay</strong>. <span class="chip green">＋</span>(hồ sơ mới), <span class="chip">✎</span>(đổi tên), <span class="chip ruby">🗑</span>(xóa), <span class="chip blue" style="display:inline-flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> logo Telegram</span>, <span class="chip">Tài liệu</span>(tài liệu theo mùa), <span class="chip gold">?</span>(trợ giúp) đều có sẵn. Cửa sổ mỗi lần bật đều mở ở kích thước mặc định nhỏ nhất (tối thiểu 900×700, lớn hơn theo tỷ lệ phông chữ) và không có chế độ toàn cửa sổ (phóng to tối đa).
+          </li>
+        </ul>
+
+        <h3 id="screen-slots">2) Thanh slot (Slot Navigation) — mở rộng mạnh lên 7 slot (A~G)</h3>
+        <ul>
+          <li><span class="chip ruby">A</span> <span class="chip ruby">B</span> <span class="chip ruby">C</span> <span class="chip ruby">D</span> <span class="chip ruby">E</span> <span class="chip ruby">F</span> <span class="chip ruby">G</span> — <strong style="color:var(--gold);">Nhờ bản vá mới nhất, slot macro được mở rộng mạnh từ 4 slot (A~D) trước đây lên tổng cộng 7 slot (A~G)</strong>! Bạn có thể đăng ký riêng chu trình sát thương phức tạp, kỹ năng di chuyển, duy trì khiên/buff và các kỹ năng chuyên dụng cho tình huống đặc biệt mà không lo thiếu slot. Slot đang bật được làm nổi viền, và khi đang kích hoạt sẽ sáng lên với nền đỏ chữ trắng.</li>
+          <li><strong>Tự đặt tên macro</strong> — Trong màn hình cài đặt macro của mỗi slot, <span class="chip">Tên: [ Macro chính ]</span> bạn có thể nhập tên riêng dễ nhớ cho từng slot qua ô nhập. Tên này cũng hiển thị lớn ở đầu tooltip khi rê chuột lên nút slot.</li>
+          <li><span class="chip">♡ Nhà tài trợ</span> — Thông báo "Helper miễn phí", liên kết giới thiệu đối tác (Starlink, v.v.) và giới thiệu kênh của trưởng clan hiển thị dưới dạng băng chuyền banner. Helper không tự động gửi bất cứ thứ gì.</li>
+          <li><span class="chip">🔧 Công cụ</span> — Giao diện một trang chuyên dụng để tự động hóa Thay đổi chỉ số kho đồ bằng Horadric Cube.</li>
+          <li><span class="chip">⏱ ▶ 4 (Báo thức)</span> — Cài đặt báo thức Legion, World Boss, Helltide và hẹn giờ cá nhân. Số báo thức đang hoạt động được hiển thị bằng huy hiệu ở bên phải.</li>
+          <li><strong>Chip tóm tắt bên phải slot</strong> — Cách thực thi (Tuần tự/Độc lập), cách kích hoạt (Giữ/Toggle/1 lần) và phím kích hoạt của slot đang chọn luôn được tóm tắt theo thời gian thực.</li>
+        </ul>
+
+        <h3 id="screen-bottombar">3) Thanh điều khiển tích hợp phía dưới</h3>
+        <ul>
+          <li><span class="chip green">▶ Start</span> / <span class="chip ruby">■ Dừng lại</span>: Bắt đầu hoặc dừng toàn bộ việc phát hiện và chạy macro của helper (phím tắt mặc định <kbd>F9</kbd>).</li>
+          <li><span class="chip blue">Lưu</span>: Lưu vĩnh viễn ngay vào ổ đĩa hồ sơ và cài đặt macro bạn vừa chỉnh sửa.</li>
+          <li><span class="chip">📁 Tải lại</span>: Khi lỡ chỉnh sai cài đặt, khôi phục hồ sơ về trạng thái đã lưu gần nhất.</li>
+          <li><span class="chip ruby" style="background:#cc0000; color:#fff; font-weight:700;">▶ 삼촌안잔다잉</span>: Chuyển đến kênh phát sóng game của trưởng clan chỉ bằng một lần nhấp.</li>
+          <li><span class="chip">📤 Xuất</span>: Lưu cài đặt hồ sơ hiện tại thành <code>.d4cute</code> tệp sao lưu.</li>
+          <li><span class="chip blue">📥 Nhập</span>: Tải hồ sơ do người dùng khác hoặc thành viên clan chia sẻ <code>.d4cute</code> và áp dụng ngay.</li>
+          <li><span class="chip">Thu nhỏ</span>: Thu nhỏ cửa sổ helper xuống thanh tác vụ.</li>
+        </ul>
+
+        <div class="image-card is-small" data-caption="Tab Nhà tài trợ — thông báo helper miễn phí, liên kết giới thiệu đối tác và băng chuyền banner kênh của trưởng clan">
+          <div class="thumb-container">
+            <img src="../images/helper_sponsor_tab.png" alt="Băng chuyền banner tab Nhà tài trợ">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Tab Nhà tài trợ (băng chuyền banner)</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 3. 매크로 설정 ─── -->
+      <section class="doc-section" id="macro-engine">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">3</span> Cài đặt macro — Cách thực thi · Cách kích hoạt · Phím kích hoạt</h2>
+        </div>
+
+        <h3 id="macro-modes">1) Cách thực thi và cách kích hoạt</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 110px;">Phân loại</th>
+                <th style="width: 100px;">Tên chế độ</th>
+                <th>Mô tả & nơi nên dùng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" style="font-weight: 700; color: var(--gold);">Cách thực thi</td>
+                <td><strong>Tuần tự</strong></td>
+                <td>Thi triển lần lượt từ bước 1 đến bước cuối rồi lặp lại từ đầu. Phù hợp với combo kỹ năng cố định và vòng xoay chu trình sát thương.</td>
+              </tr>
+              <tr>
+                <td><strong>Độc lập</strong></td>
+                <td>Mỗi bước lặp lại độc lập theo thời gian hồi (thời gian chờ) riêng đã đặt. Tối ưu để duy trì các kỹ năng khiên/buff có thời gian hồi khác nhau.</td>
+              </tr>
+              <tr>
+                <td rowspan="3" style="font-weight: 700; color: var(--ruby);">Cách kích hoạt</td>
+                <td><strong>Giữ</strong></td>
+                <td>Macro chỉ chạy khi bạn <strong>đang giữ phím kích hoạt</strong> , và dừng ngay khi nhả phím. Khuyến nghị cho các kỹ năng gây sát thương chính.</td>
+              </tr>
+              <tr>
+                <td><strong>Toggle</strong></td>
+                <td>Nhấn phím kích hoạt một lần để bật, nhấn lần nữa để tắt. Giúp đỡ mỏi ngón tay khi cày lâu hoặc chạy vòng dungeon.</td>
+              </tr>
+              <tr>
+                <td><strong>1 lần</strong></td>
+                <td>Khi nhấn phím kích hoạt, trình tự được thực hiện một lần từ đầu đến cuối rồi tự kết thúc. Phù hợp để chế tạo thuốc liên tục, mua trang bị, v.v.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="macro-keys">2) Chọn phím kích hoạt & tinh chỉnh chính xác</h3>
+        <ul>
+          <li><strong>Phím kích hoạt linh hoạt</strong>: Hỗ trợ mọi phím bàn phím, nhấp chuột trái/phải, lăn con lăn lên/xuống, nút bên và các phím tổ hợp <kbd>Ctrl</kbd> · <kbd>Shift</kbd> · <kbd>Alt</kbd> — tất cả đều được hỗ trợ. Bạn cũng có thể chỉ định cùng một phím kích hoạt cho nhiều slot để kích hoạt liên kết đồng thời. Tuy nhiên không thể trùng với phím tắt bắt đầu của tiện ích (Thay đổi chỉ số) — nếu trùng, hệ thống sẽ từ chối khi bạn chọn.</li>
+          <li><strong>Độ trễ nhận diện nhấn (Press Delay)</strong>: Bỏ qua những cú nhấp chạm nhanh, macro chỉ bật khi bạn nhấn giữ lâu hơn thời gian chỉ định (ví dụ 250~300ms). <strong>Cài đặt bắt buộc để ngăn cửa sổ kho đồ hoặc kho chứa bị đóng khi dùng nhấp chuột phải làm phím kích hoạt</strong>.
+          </li>
+          <li><strong>Nhả và giữ (Release Buffer)</strong>: Kéo dài hoạt động macro thêm một khoảng thời gian chỉ định ngay cả sau khi bạn nhả phím kích hoạt. Tạo khoảng đệm để đòn tấn công không bị ngắt trong lúc nhặt vật phẩm quanh đó ngay sau khi săn quái.
+          </li>
+          <li><strong>Phím đồng hành (Companion Keys)</strong>: Bạn có thể chỉ định các phím được nhấn giữ liên tục trong khi macro chạy (ví dụ: tấn công đứng yên bắt buộc <kbd>Shift</kbd>, phím di chuyển bắt buộc, v.v.).
+          </li>
+        </ul>
+
+        <!-- 키 피커 캡처 -->
+        <div class="image-card is-small" data-caption="Cửa sổ chọn phím kích hoạt — chọn phím bàn phím, nút chuột và phím tổ hợp một cách an toàn và trực quan.">
+          <div class="thumb-container">
+            <img src="../images/helper_key_picker.png" alt="Hộp thoại chọn phím kích hoạt">
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Cửa sổ chọn phím kích hoạt</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 4. 시퀀스 빌더 & 실시간 녹화 ─── -->
+      <section class="doc-section" id="sequence-builder">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">4</span> Trình tạo trình tự · Đổi độ trễ hàng loạt · Ghi chuột</h2>
+        </div>
+
+        <h3 id="seq-cards">1) Thẻ bước & thao tác hàng loạt</h3>
+        <ul>
+          <li>Nhấp vào thẻ bước để thay đổi riêng từng phím, chế độ thao tác và độ trễ (thời gian chờ, ms).</li>
+          <li><strong>Tùy chọn chế độ</strong>:
+            <ul>
+              <li><em>Single</em>: Nhấn phím 1 lần duy nhất</li>
+              <li><em>Burst</em>: Nhấn liên tục tốc độ cao theo khoảng cách chỉ định</li>
+              <li><em>Hold</em>: Nhấn giữ phím trong thời gian chỉ định</li>
+            </ul>
+          </li>
+          <li><span class="chip">Đổi độ trễ hàng loạt</span>: Thay đổi thời gian chờ của tất cả các bước cùng lúc theo giá trị (ms) hoặc tỷ lệ (%) mong muốn.</li>
+          <li><span class="chip">Tất cả → Burst/Single</span>: Chuyển chế độ thao tác của mọi bước đã đăng ký cùng lúc chỉ bằng một cú nhấp.</li>
+        </ul>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <div class="image-card is-small" data-caption="Trình chỉnh sửa bước — thiết lập chính xác phím, chế độ (Single/Burst/Hold) và độ trễ">
+            <div class="thumb-container">
+              <img src="../images/helper_step_editor.png" alt="Trình chỉnh sửa bước">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>Cửa sổ chỉnh sửa từng bước</span></div>
+          </div>
+          <div class="image-card is-small" data-caption="Công cụ đổi độ trễ hàng loạt — dễ dàng tinh chỉnh khoảng cách của tất cả các bước">
+            <div class="thumb-container">
+              <img src="../images/helper_bulk_delay.png" alt="Hộp thoại đổi độ trễ hàng loạt">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>Cửa sổ đổi độ trễ hàng loạt</span></div>
+          </div>
+        </div>
+
+        <h3 id="seq-recorder">2) Ghi tọa độ chuột thời gian thực & sai lệch ngẫu nhiên mô phỏng người</h3>
+        <ul>
+          <li><span class="chip">Ghi</span> Nhấn nút rồi nhập phím và chuột trên màn hình game, thứ tự và khoảng thời gian sẽ được ghi lại nguyên vẹn.</li>
+          <li><strong>Ghi tọa độ màn hình</strong>: Khi nhấp chuột, tọa độ tuyệt đối (X, Y) của màn hình tại thời điểm nhấp được ghi lại, và khi phát lại macro sẽ tự động nhấp vào vị trí đó.</li>
+          <li><strong>Sai lệch ngẫu nhiên mô phỏng người</strong>:
+            <ul>
+              <li><strong>Vị trí nhấp ± px</strong>: Mỗi lần nhấp tạo sai lệch ngẫu nhiên trong bán kính pixel chỉ định để tránh bị phát hiện là máy móc.</li>
+              <li><strong>Biến thiên ngẫu nhiên %</strong>: Trộn thêm độ trễ ngẫu nhiên theo tỷ lệ nhất định vào mỗi khoảng giữa các bước để mô phỏng thao tác tay tự nhiên.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3 id="seq-drag-path">3) Ghi quỹ đạo kéo — cả đường di chuyển khi giữ nút (1.32.0)</h3>
+        <ul>
+          <li>Khi đang ghi, nếu bạn <strong>giữ nút chuột và di chuyển</strong> thì đường đi đó cũng được ghi lại. Tọa độ được ghi mỗi khi con trỏ cách điểm ghi cuối cùng hơn <strong>8px</strong> hoặc cứ mỗi <strong>16ms</strong> trôi qua, nên xoay nhanh được ghi dày đặc còn di chuyển chậm vẫn liền mạch.</li>
+          <li>Khi phát lại, helper nhấn nút tại vị trí đã nhấn rồi <strong>theo đúng thời điểm đã ghi, đi theo cùng một đường</strong> để di chuyển con trỏ, và nhả nút tại vị trí đã nhả. Các phiên bản trước chỉ nhớ hai điểm nhấn và nhả nên con trỏ dịch chuyển tức thời.</li>
+          <li><strong>Kỹ năng channeling như Whirlwind · Channeling</strong>: Trong game, hãy đặt kỹ năng <span class="chip">Chuột phải</span>(RClick), khi ghi hãy xoay tròn trong lúc giữ nút phải thì chuyển động xoay đó được ghi và phát lại nguyên vẹn. Giữ nút trái rồi di chuyển cũng tương tự.</li>
+          <li><strong>Biến thiên ngẫu nhiên %</strong>chỉ áp dụng một lần cho toàn bộ thời gian quỹ đạo, <strong>Vị trí nhấp ± px</strong>chỉ áp dụng một lần cho toàn bộ quỹ đạo nên con trỏ không bị rung.</li>
+          <li>Nếu bạn sửa vị trí bằng số trong trình chỉnh sửa bước hoặc nhấn <span class="chip">Xóa kéo</span>thì quỹ đạo bị loại bỏ và phát lại kiểu nhảy điểm như trước.</li>
+          <li>Một lần kéo lưu tối đa 600 điểm (khoảng 10 giây nếu cách nhau 16ms). Quỹ đạo dùng tọa độ tuyệt đối của màn hình, nên nếu bạn đã đổi độ phân giải hoặc vị trí cửa sổ thì hãy ghi lại.</li>
+        </ul>
+
+        <!-- 비디오 플레이스홀더 (마우스 녹화) -->
+        <div class="video-card" data-video-title="[Video hướng dẫn] Mẹo tạo trình tự macro và ghi thời gian thực">
+          <div class="placeholder-box" style="margin: 0; border: none; border-radius: 0;">
+            <div class="placeholder-icon">🎬</div>
+            <div class="placeholder-title">Video hướng dẫn ghi trình tự macro (đang chuẩn bị)</div>
+            <div class="placeholder-desc">Nếu bạn gửi địa chỉ video YouTube, nó sẽ được thay bằng video nhúng có thể phát ngay tại đây.</div>
+            <span class="placeholder-path">YouTube Video Slot: seq-record-guide</span>
+          </div>
+          <div class="video-info">
+            <span><strong>Video 1</strong>: Mẹo thực tế về ghi macro và tinh chỉnh độ trễ</span>
+            <span class="chip ruby">Đang chuẩn bị</span>
+          </div>
+        </div>
+
+        <!-- 🌀 4) 완성형 360도 원형 회전팩 (9종 프리셋) & 다운로드 안내 -->
+        <h3 id="seq-rotation-pack">4) Gói xoay vòng tròn 360 độ hoàn chỉnh (9 preset) & tải về</h3>
+        <p>
+          Nếu bạn tự ghi thao tác kéo bằng tay thì vòng tròn dễ bị méo, góc xoay không khớp chính xác, và dễ bị khựng ở điểm đầu và cuối.<br>
+          Vì vậy chúng tôi cung cấp <strong>Gói trình tự xoay vòng tròn khép kín 360 độ hoàn hảo (9 preset) được tính toán chính xác bằng toán học</strong>.
+        </p>
+
+        <!-- 텔레그램 다운로드 강조 배너 -->
+        <div class="alert-box gold" style="margin: 16px 0; border-left: 4px solid var(--gold);">
+          <span class="alert-icon">🎁</span>
+          <div>
+            <strong style="color:var(--gold-bright); font-size:15px;">Video trình diễn thực tế & hướng dẫn tải gói xoay</strong><br>
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">kênh thông báo Telegram chính thức (@d4_notice)</a> và 
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">nhóm người dùng (@d4cute_helper)</a>, tại đây bạn có thể 
+            <strong>video trình diễn xoay 360 độ thực tế trong game</strong>và bản hoàn chỉnh <strong><code>sequences.d4seq</code> tệp gói xoay</strong>tải miễn phí ngay!
+          </div>
+        </div>
+
+        <div style="overflow-x: auto; margin: 18px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line);">
+            <thead>
+              <tr style="background: rgba(229, 184, 92, 0.12); color: var(--gold-bright); border-bottom: 1px solid var(--line-bright); text-align: left;">
+                <th style="padding: 10px 14px;">Tên trình tự</th>
+                <th style="padding: 10px 14px;">Bán kính xoay (Radius)</th>
+                <th style="padding: 10px 14px;">Thời gian 1 vòng (`press_ms`)</th>
+                <th style="padding: 10px 14px;">Đặc điểm & công dụng khuyên dùng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">1. Xoay nhanh nhỏ</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">1.5 giây (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Phạm vi gần nhân vật, nhắm mục tiêu mọi hướng nhanh và gọn</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); background: rgba(229, 184, 92, 0.05);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">2. Xoay nhanh vừa</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">1.5 giây (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);"><strong style="color:var(--gold);">★ Khuyên dùng chuẩn</strong> — Xoay nhanh mượt mà với bán kính tối ưu cho độ phân giải mặc định</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">3. Xoay nhanh lớn</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">1.5 giây (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Xoay nhanh phạm vi rộng, quét ra tận rìa màn hình</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">4. Xoay nhỏ</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">2.5 giây (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Channeling xoay tốc độ trung bình ổn định ở phạm vi gần</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">5. Xoay vừa</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">2.5 giây (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Xoay tốc độ trung bình ổn định với bán kính mặc định</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">6. Xoay lớn</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">2.5 giây (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Xoay mượt mà, thong thả trên phạm vi rộng</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">7. Siêu nhanh nhỏ</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">0.75 giây (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Nhắm mục tiêu xoay tức thì ở phạm vi gần (xoay một vòng chỉ trong 0.75 giây)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">8. Siêu nhanh vừa</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">0.75 giây (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Tấn công mọi hướng siêu nhanh như chớp với bán kính mặc định</td>
+              </tr>
+              <tr>
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">9. Siêu nhanh lớn</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">0.75 giây (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">Xoay siêu nhanh quét khắp toàn màn hình</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 style="color:var(--gold); margin: 20px 0 8px 0; font-size:15px;">🔧 Cách dùng gói xoay và mẹo cài đặt</h4>
+        <ol style="margin-top: 6px; padding-left: 20px; line-height: 1.8;">
+          <li><strong>Nhập (Import)</strong>: Chuẩn bị tệp <code>sequences.d4seq</code> đã tải từ Telegram, rồi ở phía dưới cửa sổ helper nhấn nút <span class="chip">Nhập</span> và chọn tệp, 9 trình tự sẽ được đăng ký cùng một lúc.</li>
+          <li><strong>Gán slot</strong>: Nhấn slot macro mong muốn (A~G), rồi trong <strong>Thư viện trình tự</strong>hãy chọn preset bạn thích trong 9 loại ở trên.</li>
+          <li><strong>Muốn chỉ xoay đúng một vòng rồi dừng?</strong>: Hãy đặt cách kích hoạt macro thành <strong style="color:var(--gold-bright);">[Chạy 1 lần (Once)]</strong>. Mỗi lần nhấn phím, <strong>macro chỉ xoay đúng 1 vòng rồi tự động dừng gọn tại chỗ.</strong>
+          </li>
+          <li><strong>Muốn tiếp tục xoay khi đang giữ phím?</strong>: Hãy đặt cách kích hoạt thành <strong>[Giữ phím (Hold)]</strong> hoặc <strong>[Toggle]</strong>. Độ trễ giữa các bước (<code>interval_ms</code>) được tối ưu hóa ở mức <code>0ms</code>, nên macro sẽ <strong>xoay liên tục mượt mà như nước chảy, không bị vướng hay khựng ở đầu và cuối</strong>.
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 5. 편의기능 — 인벤 선변성 ─── -->
+      <section class="doc-section" id="tools-alter">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">5</span> Tiện ích — Thay đổi chỉ số trong kho đồ (giao diện một trang)</h2>
+        </div>
+
+        <p>Được đổi mới ở phiên bản 1.30, <strong>công cụ Thay đổi chỉ số trong kho đồ</strong>tự động hóa việc Thay đổi chỉ số cho trang bị Huyền thoại · Độc nhất bằng Horadric Cube chỉ với vài thao tác.</p>
+
+        <!-- 선변성 도구 탭 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="Tab chuyên dụng Thay đổi chỉ số trong kho đồ — bố cục mới nhất tích hợp trong một màn hình: hiệu chỉnh tọa độ ô đầu/ô cuối, công tắc bỏ qua vật phẩm không ràng buộc, phím tắt bắt đầu/dừng và điều chỉnh thời gian chờ kết quả">
+          <div class="thumb-container">
+            <img src="../images/helper_alter_tool.png" alt="Giao diện một trang Thay đổi chỉ số kho đồ">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Tiện ích: Giao diện một trang Thay đổi chỉ số kho đồ bằng Horadric Cube</span>
+          </div>
+        </div>
+
+        <h3 id="alter-grid">1) Tự động tính lưới 33 ô và bắt đầu</h3>
+        <ol>
+          <li>Trong game, mở cửa sổ <strong>Kho đồ</strong>và <strong>Horadric Cube</strong> .</li>
+          <li><span class="chip gold">Chọn Khe đầu tiên</span>— nhấn nút này rồi rê chuột đến ô đầu tiên (trên cùng bên trái) của kho đồ trong game và nhấn <kbd>Enter</kbd>.</li>
+          <li><span class="chip gold">Chọn Khe cuối cùng</span>— nhấn nút này, rê chuột đến ô cuối cùng (dưới cùng bên phải) của kho đồ rồi nhấn <kbd>Enter</kbd>. (Có thể hủy bất cứ lúc nào bằng <kbd>Esc</kbd>)</li>
+          <li>Chỉ cần chỉ định vị trí hai điểm, tọa độ tâm của 33 ô kho đồ sẽ được tự động tính chính xác.</li>
+          <li>Trên màn hình game, nhấn phím tắt bắt đầu (mặc định <kbd>F10</kbd>, có thể đổi bằng cách nhấn nút phím màu xanh) thì Thay đổi chỉ số sẽ bắt đầu hoàn toàn tự động. Phím tắt luôn hoạt động ngay cả khi bạn không mở tab Tiện ích.</li>
+        </ol>
+
+        <h3 id="alter-safety">2) Cơ chế hoạt động & cơ chế an toàn thông minh</h3>
+        <ul>
+          <li><strong>Vòng lặp thông minh</strong>: Duyệt qua từng ô của kho đồ và tự động thực hiện <em>nhấp chuột phải → đặt lên Horadric Cube → nhấp nút biến đổi vật phẩm → Biến đổi → Chấp nhận (<kbd>Enter</kbd>) → Đặt lại</em>.
+          </li>
+          <li><strong>Công tắc bỏ qua vật phẩm ràng buộc tài khoản</strong>: Khi bật công tắc, vật phẩm ràng buộc sẽ bị bỏ qua và chỉ biến đổi trang bị không ràng buộc. Khi tắt công tắc, trang bị ràng buộc cũng được biến đổi và chỉ gửi an toàn phím <kbd>Enter</kbd>khi cửa sổ xác nhận chấp nhận hiện lên.
+          </li>
+          <li><strong>Kiểm tra Cube trống (Cube Empty Check)</strong>: Sau khi đặt lại, kiểm tra Cube đã trống chưa bằng <strong>hình ảnh ô đầu tiên của Cube</strong>(ghi nhớ dạng trống và dạng đầy khi đặt vật phẩm đầu tiên lên); ở môi trường không bắt được hình ảnh, việc kiểm tra được hỗ trợ thêm bằng chữ tiêu đề của Cube. Nếu chưa trống thì nhấn Đặt lại một lần nữa, và nếu cuối cùng vẫn không trống thì dừng — đây là cơ chế ngăn hai vật phẩm bị đặt chồng lên nhau.
+          </li>
+          <li><strong>Dừng khẩn cấp</strong>: Trong khi đang chạy, nhấn phím <kbd>Esc</kbd> trên bàn phím ở bất cứ đâu để Thay đổi chỉ số dừng ngay lập tức.</li>
+          <li><strong>Giá trị chỉnh cho PC chậm</strong>: <span class="chip">Trước khi bắt đầu ms</span>(khoảng thời gian để chuyển sang cửa sổ game sau khi nhấn nút bắt đầu), <span class="chip">Chờ kết quả ms</span>(mặc định 3000 — thời gian chờ tối đa cho đến khi việc biến đổi kết thúc và nút biến đổi tắt sau khi Biến đổi/Chấp nhận; khi có tín hiệu thì chuyển tiếp ngay), <span class="chip">Sau khi đặt lại ms</span>(mặc định 0 — chờ thêm sau khi đặt lại). Nếu trên PC có hiệu ứng chậm mà vật phẩm bị chồng lên nhau hoặc bị bỏ qua mà không biến đổi, hãy tăng Chờ kết quả.</li>
+          <li><strong>Nhật ký chạy</strong>: Mỗi khi chạy xong một vòng, kết quả xử lý từng ô được ghi vào <code>%APPDATA%\d4cute_helper\debug\alter_slots.txt</code> . Khi có sự cố, hãy đăng tệp này lên nhóm Telegram.</li>
+        </ul>
+
+        <!-- 인게임 실화면 플레이스홀더 -->
+        <div class="placeholder-box">
+          <div class="placeholder-icon">📸</div>
+          <div class="placeholder-title">[Vị trí ảnh chụp trong game] Màn hình hoạt động Thay đổi chỉ số bằng Horadric Cube</div>
+          <div class="placeholder-desc">Nếu bạn gửi ảnh chụp thực tế lúc Horadric Cube và kho đồ đang mở trong game, nó sẽ được gắn vào ngay.</div>
+          <span class="placeholder-path">Image Slot: _work/d4help-repo/images/inven/alter_ingame_live.png</span>
+        </div>
+
+        <!-- 선변성 유튜브 비디오 슬롯 -->
+        <div class="video-card" data-video-title="[Video] Cách dùng công cụ Thay đổi chỉ số trong kho đồ">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/O2mSUAEX-xM" title="[Video] Cách dùng công cụ Thay đổi chỉ số trong kho đồ" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>Video hướng dẫn dùng công cụ Thay đổi chỉ số (kênh 삼촌안잔다잉)</strong></span>
+            <a href="https://youtu.be/O2mSUAEX-xM" target="_blank" rel="noopener noreferrer" class="chip">Xem trên YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 6. 스마트 알람 시스템 ─── -->
+      <section class="doc-section" id="alarm">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">6</span> Hệ thống báo thức thông minh — Sự kiện · Cá nhân · Thông báo trên màn hình · Giọng nói (TTS)</h2>
+        </div>
+
+        <p>Đây là động cơ báo thức nền hiệu năng cao giúp bạn không bỏ lỡ các nội dung theo giờ chính của Diablo IV (Legion tấn công, World Boss, Helltide, v.v.) và hẹn giờ cá nhân của bạn.</p>
+
+        <h3 id="alarm-events">1) Thông báo sự kiện (World Boss · Helltide · Legion)</h3>
+        <p>Liên kết thời gian thực với trang web bên ngoài game (diablo4.life) để tự động tính thời điểm xuất hiện mới nhất của Boss và Helltide.</p>
+        
+        <!-- 이벤트 알림 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Tab thông báo sự kiện — hướng dẫn giờ xuất hiện World Boss, Helltide, Legion, công tắc báo trước 5 phút/3 phút/1 phút/lúc bắt đầu, điều chỉnh thứ tự ưu tiên khi trùng (▲/▼)">
+          <div class="thumb-container">
+            <img src="../images/alarm_event_schedule_list.png" alt="Danh sách thông báo sự kiện và thứ tự ưu tiên">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Thông báo sự kiện (lịch World Boss, Helltide, Legion và các mốc báo trước)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Chọn mốc thông báo</strong>: Với mỗi sự kiện, <span class="chip blue">5 phút</span>, <span class="chip blue">3 phút</span>, <span class="chip blue">1 phút</span> trước và lúc <span class="chip blue">bắt đầu</span> đều có thể bật/tắt độc lập.</li>
+          <li><strong>Thứ tự ưu tiên khi trùng</strong>: <kbd>▲</kbd> <kbd>▼</kbd> Nhấn các nút để đổi thứ tự giữa các sự kiện. Khi nhiều thông báo trùng cùng một thời điểm, sự kiện nằm ở trên sẽ phát âm thanh trước và được hiển thị cùng lúc trên màn hình.</li>
+          <li><strong>Cài đặt điểm mốc Legion</strong>: Bạn cũng có thể hiệu chỉnh thủ công thời điểm Legion xuất hiện cho khớp với tình hình màn hình của mình, lấy mốc 0 phút trước.</li>
+        </ul>
+
+        <h3 id="alarm-personal">2) Báo thức cá nhân (hẹn giờ tùy chỉnh & chu kỳ lặp)</h3>
+        <p>Bạn có thể đăng ký không giới hạn các hẹn giờ tùy chỉnh của riêng mình, như báo thức hết hạn Elixir 30 phút, thời gian hồi dungeon, nhắc nghỉ ngơi.</p>
+
+        <!-- 개인 알람 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Tab báo thức cá nhân — nút + Thêm báo thức, lặp theo chu kỳ (ví dụ: hẹn giờ không giới hạn tập thể dục bụng mỗi 10 phút), công tắc trạng thái thời gian thực và chỉnh sửa/xóa">
+          <div class="thumb-container">
+            <img src="../images/alarm_personal_timer_list.png" alt="Danh sách hẹn giờ báo thức cá nhân">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Cài đặt báo thức cá nhân (danh sách hẹn giờ lặp tùy chỉnh)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><span class="chip blue">＋ Thêm báo thức</span>: Đăng ký bằng cách đặt tên mong muốn, chu kỳ (theo phút hoặc thời điểm chỉ định) và mốc bắt đầu.</li>
+          <li><strong>Công tắc On/Off</strong>: Bạn có thể bật/tắt ngay từng hẹn giờ cần thiết bằng công tắc, và thời gian còn lại đến lần báo tiếp theo được hiển thị theo thời gian thực.</li>
+        </ul>
+
+        <h3 id="alarm-display">3) Thông báo trên màn hình (banner chữ phủ trong game)</h3>
+        <p>Hiển thị chữ trên màn hình để bạn xem trực quan các thông báo quan trọng mà không làm vướng tầm nhìn khi đang chơi.</p>
+
+        <!-- 화면 알림 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Cài đặt thông báo trên màn hình — vị trí (trên đầu nhân vật, độ lệch dọc -59px), cỡ chữ (35px), màu (#FFD700), hiệu ứng in đậm/viền chữ, độ mờ nền (24), thời gian hiển thị (15 giây) và xem trước">
+          <div class="thumb-container">
+            <img src="../images/alarm_banner_display_settings.png" alt="Cài đặt banner thông báo trên màn hình">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Cài đặt thông báo trên màn hình (vị trí, cỡ chữ, màu, viền chữ và thời gian hiển thị)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Vị trí báo thức & độ lệch dọc</strong>: <span class="chip">Trên đầu nhân vật</span> và các vị trí khác tùy ý; có thể tinh chỉnh độ lệch dọc theo pixel (ví dụ: -59 px).</li>
+          <li><strong>Tùy chọn dễ đọc</strong>: Cỡ chữ (px), bảng màu (vàng #FFD700, v.v.), <strong>In đậm</strong> và <strong>Viền chữ</strong> Khi bật các công tắc này, chữ hiện rõ ngay cả trong dungeon tối hay giữa các hiệu ứng kỹ năng rực rỡ.</li>
+          <li><span class="chip">Xem trước</span> Nhấn nút để thử ngay xem thông báo hiển thị thế nào trong game.</li>
+        </ul>
+
+        <h3 id="alarm-sound">4) Âm thanh · Giọng nói cơ bản (TTS & hiệu ứng âm thanh)</h3>
+        <p>Cung cấp hướng dẫn bằng giọng nói tiếng Hàn tự nhiên thông qua âm báo hiệu ứng và động cơ giọng nói AI Supertonic 3.</p>
+
+        <!-- 기본 사운드 음성 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Cài đặt âm thanh · giọng nói cơ bản — tệp âm thanh (Ring01), cách thông báo (chỉ âm báo / âm báo+giọng nói / chỉ giọng nói), động cơ giọng nói tiếng Hàn Supertonic 3 (F1 nữ, tốc độ 0.90x, chỉnh âm lượng) và thử nghiệm thời gian thực">
+          <div class="thumb-container">
+            <img src="../images/alarm_sound_voice_settings.png" alt="Cài đặt âm thanh và giọng nói cơ bản">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Âm thanh · Giọng nói cơ bản (giọng nói tiếng Hàn Supertonic 3 và hiệu ứng âm thanh)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Chế độ thông báo</strong>: <span class="chip">Chỉ âm báo</span>, <span class="chip gold">Âm báo ＋ Giọng nói</span>, <span class="chip">Chỉ giọng nói</span> Hỗ trợ 3 chế độ.</li>
+          <li><strong>Động cơ giọng nói</strong>: Tích hợp sẵn <strong>Supertonic 3</strong> động cơ giọng nói — đọc bằng phát âm tiếng Hàn rõ ràng như "F1 Nữ", và bạn có thể tự do chỉnh tốc độ nói (0.90x, v.v.) và âm lượng (0~100).</li>
+          <li><span class="chip">▶ Kiểm tra</span> Bạn có thể kiểm tra ngay chất lượng giọng nói thực tế bằng nút này.</li>
+        </ul>
+      </section>
+
+      <!-- ─── 7. 창 모드, 핀, 오버레이 ─── -->
+      <section class="doc-section" id="window-modes">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">7</span> Chế độ cửa sổ · Luôn ở trên cùng (ghim) · Lớp phủ trong game</h2>
+        </div>
+
+        <h3 id="window-mini">1) Chế độ cửa sổ mini (Mini Bar)</h3>
+        <p>Chế độ dạng thanh một dòng siêu nhỏ, bạn có thể đặt nhỏ gọn ở một góc màn hình bên cạnh game.</p>
+
+        <!-- 미니바 스크린샷 카드 -->
+        <div class="image-card is-small" data-caption="Chế độ cửa sổ mini — trạng thái hoạt động slot A~G, bắt đầu/dừng, lối tắt tiện ích, nút quay về cửa sổ chính">
+          <div class="thumb-container">
+            <img src="../images/helper_mini_bar.png" alt="Màn hình chế độ thanh mini">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Chế độ thanh mini siêu nhỏ</span></div>
+        </div>
+
+        <ul>
+          <li>Trạng thái hoạt động hiện tại của 7 slot A~G được hiển thị sáng lên theo thời gian thực.</li>
+          <li><span class="chip green">bắt đầu</span> / <span class="chip">Nút Dừng lại</span> , nút Tiện ích (cờ lê) — nhấn để quay về cửa sổ chính và mở tab Tiện ích (bắt đầu Thay đổi chỉ số bằng phím tắt hoặc nút bắt đầu của tab đó), và có tích hợp nút luôn ở trên cùng (ghim).</li>
+          <li>Nhấn nút quay về (hình vuông) để lập tức trở lại cửa sổ chính với kích thước ban đầu.</li>
+        </ul>
+
+        <h3 id="window-overlay">2) Lớp phủ HUD trong game</h3>
+        <p>Đây là công cụ HUD cần thiết hiển thị bán trong suốt trên màn hình game để xem tình hình hoạt động macro theo thời gian thực. Các slot macro đang chạy, phím duy trì và danh sách phím đang được nhấn hiện lên một cách trong suốt.</p>
+
+        <!-- 1. 인게임 오버레이 실화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Lớp phủ HUD trong game trên màn hình thực — hiển thị thời gian thực slot macro đang chạy (•A, •B sáng đỏ), phím duy trì (Giữ RClick), danh sách phím đang nhấn (Đã nhấn 2 F F F F 4)">
+          <div class="thumb-container">
+            <img src="../images/overlay_ingame_live_display.png" alt="Lớp phủ HUD trong game trên màn hình thực">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Lớp phủ HUD trong game (slot đang chạy, phím duy trì, danh sách phím đang bấm thời gian thực)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Trạng thái slot macro đang chạy</strong>:
+            <span class="chip ruby">•A</span> <span class="chip ruby">•B</span> — slot đang kích hoạt và chạy sáng lên với viền đỏ và dấu chấm (•); có thể phân biệt ngay slot không hoạt động (<span class="chip">C</span>) và slot chờ toggle (<span class="chip green">○D</span>) chỉ trong một cái nhìn.
+          </li>
+          <li><strong>Hiển thị phím duy trì (Hold / Companion)</strong>: Các phím đang được nhấn liên tục (ví dụ: <code>Giữ RClick</code>, <code>Giữ Shift</code> v.v.) được hiển thị theo thời gian thực ở góc trên bên phải.
+          </li>
+          <li><strong>Danh sách phím đang nhấn thời gian thực (Key Log)</strong>: Ở phía dưới, các phím kỹ năng đang được bấm theo thời gian thực trong trình tự hiện tại (ví dụ: <code>Đã nhấn 2 F F F F 4</code>) được xuất liên tục, giúp bạn xem ngay trong lúc chơi xem vòng xoay kỹ năng có khớp chính xác hay không.
+          </li>
+          <li><strong>Tiến độ Thay đổi chỉ số</strong>: Khi Thay đổi chỉ số bằng Horadric Cube đang chạy, số ô hiện tại và tiến độ sẽ hiện trên lớp phủ.</li>
+        </ul>
+
+        <!-- 2. 오버레이 설정 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="Cài đặt chung — tùy chỉnh chi tiết lớp phủ (chọn màn hình, vị trí phía dưới bên phải, độ lệch pixel X/Y, độ mờ 40%, kích thước 118%, chiều rộng 409px và xem trước thời gian thực)">
+          <div class="thumb-container">
+            <img src="../images/overlay_configuration_settings.png" alt="Màn hình cài đặt chi tiết lớp phủ">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>Cài đặt chi tiết lớp phủ (màn hình, vị trí, độ lệch X/Y, độ mờ, kích thước, điều chỉnh chiều rộng)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Hiển thị lớp phủ trò chơi</strong>: Công tắc chính để bật/tắt lớp phủ.</li>
+          <li><strong>Chọn màn hình</strong>: Trong môi trường hai hoặc nhiều màn hình, bạn có thể chỉ định trực tiếp bằng danh sách thả xuống màn hình đang chạy Diablo IV (ví dụ: <code>2: LG HDR 4K (2560×1440)</code>).</li>
+          <li><strong>Vị trí màn hình & độ lệch pixel chính xác</strong>: Chọn một trong 9 vùng của màn hình (ví dụ: <code>Phải</code> <code>Dưới</code>), sau đó dùng <span class="chip">Độ lệch X</span>(-13 px) và <span class="chip">Độ lệch Y</span>(-3 px) để tinh chỉnh vị trí theo từng pixel sao cho không che minimap hay giao diện game.
+          </li>
+          <li><strong>Độ mờ & Kích thước & Chiều rộng</strong>: Dùng thanh trượt để tối ưu theo tầm nhìn của bạn: <span class="chip">Độ mờ</span>(mặc định 40%, bán trong suốt), <span class="chip">Kích thước</span>(tỷ lệ như 118%), <span class="chip">Chiều rộng</span>(409 px).
+          </li>
+          <li><span class="chip blue">👁 Xem trước</span>: Ngay cả khi không chạy macro, nhấn nút này thì lớp phủ sẽ hiện ngay trên màn hình với vị trí và kích thước đã đặt, rất tiện để kiểm tra.</li>
+        </ul>
+      </section>
+
+      <!-- ─── 8. 안전장치 ─── -->
+      <section class="doc-section" id="safety-features">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">8</span> Cơ chế an toàn — Phím chờ (Stop Keys) · Phát hiện cửa sổ game</h2>
+        </div>
+
+        <ul>
+          <li><strong>Phím chờ (Stop Keys, mặc định: <kbd>Enter</kbd> <kbd>Tab</kbd> <kbd>T</kbd> <kbd>I</kbd>)</strong>: Khi bạn mở các giao diện game như mở khung chat (<kbd>Enter</kbd>), mở bản đồ (<kbd>Tab</kbd>), cổng dịch chuyển (<kbd>T</kbd>), mở kho đồ (<kbd>I</kbd>), helper sẽ <strong>tạm dừng đầu vào ngay lập tức</strong>để macro không xả kỹ năng lung tung. Sau khi trò chuyện xong và nhấn lại phím kích hoạt, macro sẽ tiếp tục.
+          </li>
+          <li><strong>Phát hiện cửa sổ game</strong>: Chỉ hoạt động khi tiến trình Diablo IV là cửa sổ đang hoạt động. Trong cài đặt, bạn cũng có thể tự đặt khớp tùy chỉnh theo tiêu đề cửa sổ hoặc tên tiến trình cụ thể.
+          </li>
+          <li><strong>Công cụ kiểm tra gửi đầu vào</strong>: Ở thanh trên cùng, nhấn nút <span class="chip">Kiểm tra</span> để kiểm tra trước, ngay cả ngoài game, xem đầu vào phím ảo có được đưa vào hệ thống đúng cách hay không.
+          </li>
+        </ul>
+
+        <h3 id="input-test">3) Cửa sổ kiểm tra đầu vào</h3>
+        <p>Nhấn nút ở thanh trên cùng <span class="chip">Kiểm tra</span> sẽ hiện một cửa sổ nhỏ, cho phép bạn nhìn thấy các đầu vào phím·chuột mà macro gửi có thực sự đến nơi hay không. Đây là công cụ kiểm tra đầu tiên để phân biệt "helper không gửi được đầu vào hay game không nhận" khi nhấn phím kích hoạt mà không có gì xảy ra.</p>
+        <div class="image-card is-small" data-caption="Cửa sổ kiểm tra đầu vào — xem đầu vào phím·chuột mà macro gửi có thực sự đến nơi không">
+          <div class="thumb-container">
+            <img src="../images/helper_input_test.png" alt="Cửa sổ kiểm tra đầu vào">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Cửa sổ kiểm tra đầu vào</span></div>
+        </div>
+        <!-- 설정창 캡처 -->
+        <div class="image-card is-thumbnail" data-caption="Cửa sổ cài đặt chung — tùy chỉnh phím chờ an toàn, chỉ định tiến trình phát hiện cửa sổ game, điều chỉnh vị trí/độ mờ lớp phủ">
+          <div class="thumb-container">
+            <img src="../images/helper_settings_dialog.png" alt="Hộp thoại cài đặt chung">
+            <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+          </div>
+          <div class="image-caption"><span>📷</span> <span>Hộp thoại cài đặt chung (⚙) của helper</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 9. 프로필 관리 & 공유 ─── -->
+      <section class="doc-section" id="profile-sync">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">9</span> Quản lý hồ sơ · Sao lưu · Chia sẻ với thành viên clan</h2>
+        </div>
+
+        <ul>
+          <li>Một hồ sơ lưu trọn gói toàn bộ trình tự, độ trễ và cài đặt phím kích hoạt của các slot A~G (tổng 7 slot).</li>
+          <li>Nếu bạn tách hồ sơ theo class và theo build như Elementalist (Sorcerer), Barbarian, Druid, Necromancer, Rogue, Spiritborn, thì chỉ một cú nhấp là thay toàn bộ cài đặt.</li>
+          <li><span class="chip">Xuất</span>: Xuất cài đặt hiện tại ra <code>.d4cute</code> tệp để sao lưu an toàn hoặc chia sẻ cho thành viên clan.</li>
+          <li><span class="chip blue">Nhập</span>: Tải tệp hồ sơ <code>.d4cute</code> do người dùng khác chia sẻ và áp dụng ngay vào helper của bạn.</li>
+          <li><span class="chip">Lưu</span> : chỉ khi nhấn nút này nội dung mới được ghi an toàn vào ổ đĩa, và khi lỡ chỉnh sai, bạn có thể nhấn <span class="chip">Tải lại</span>để quay về thời điểm lưu cuối cùng.</li>
+        </ul>
+      </section>
+
+      <!-- ─── 10. 텔레그램 지원 & 디버그 로그 ─── -->
+      <section class="doc-section" id="telegram-support">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">10</span> Hỗ trợ Telegram & trình xem nhật ký gỡ lỗi</h2>
+        </div>
+
+        <p>
+          Nhấp vào biểu tượng màu xanh <span class="chip blue" style="display:inline-flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> logo Telegram</span> trên thanh hồ sơ ở phía trên của helper để mở hộp thoại liên kết Telegram. Bạn có thể nhanh chóng xem tin về phiên bản mới, <strong style="color:var(--gold);">@d4cute_helper</strong> hỏi đáp và báo lỗi ở nhóm người dùng, và khi xảy ra lỗi, <strong style="color:var(--ruby);">trích xuất nhật ký gỡ lỗi chỉ bằng một cú nhấp</strong>để được hỗ trợ giải quyết.
+        </p>
+
+        <!-- 텔레그램 및 로그 뷰어 스크린샷 2종 갤러리 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 20px 0;">
+          <div class="image-card is-thumbnail" data-caption="Hộp thoại Telegram — kênh thông báo (@d4_notice), nhóm trao đổi người dùng (@d4cute_helper), mã QR vào nhóm ngay bằng điện thoại, các nút xem nhật ký và cài đặt Telegram">
+            <div class="thumb-container">
+              <img src="../images/telegram_qr_dialog.png" alt="Hộp thoại liên kết Telegram và mã QR">
+              <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>Cửa sổ liên kết Telegram (thông báo/nhóm người dùng/mã QR/cài đặt)</span>
+            </div>
+          </div>
+          
+          <div class="image-card is-thumbnail" data-caption="Hộp thoại trình xem nhật ký — xem nhật ký theo ngày, công tắc lọc chỉ cảnh báo·lỗi, sao chép 200 dòng gần nhất, chỉ sao chép lỗi, mở thư mục nhật ký cục bộ">
+            <div class="thumb-container">
+              <img src="../images/log_viewer_error_copy.png" alt="Hộp thoại trình xem nhật ký gỡ lỗi">
+              <span class="zoom-hint-badge">🔍 Nhấp để phóng to</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>Trình xem nhật ký gỡ lỗi một cú nhấp (chỉ sao chép lỗi/sao chép 200 dòng gần nhất)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1) 텔레그램 설치 및 계정 준비 -->
+        <h3 id="telegram-install">1) Cài đặt Telegram và chuẩn bị trước</h3>
+        <p>
+          Telegram là ứng dụng nhắn tin toàn cầu chạy nhẹ và an toàn trên PC và điện thoại. Nếu PC hoặc điện thoại của bạn chưa cài Telegram, bạn có thể chuẩn bị dễ dàng theo cách dưới đây.
+        </p>
+        <div class="alert-box info" style="margin: 12px 0 18px;">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>Hướng dẫn cài đặt chính thức an toàn</strong><br>
+            Ở phía dưới cửa sổ Telegram của helper, <span class="chip blue">Cài đặt Telegram</span> nhấn nút, trình duyệt sẽ mở trang web chính thức của Telegram (<a href="https://telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">telegram.org</a>). 
+            <span style="color:var(--green); font-weight:600;">Helper không tự ý tải về hay cài đặt tệp thực thi, vì vậy bạn cứ yên tâm sử dụng.</span>
+          </div>
+        </div>
+        <ul>
+          <li><strong>Điện thoại (di động)</strong>: <span style="color:var(--gold); font-weight:600;">Google Play Store</span> hoặc <span style="color:var(--gold); font-weight:600;">Apple App Store</span>, tại đây bạn có thể <code>Telegram</code>— tìm kiếm rồi tải miễn phí. Chỉ cần xác minh số điện thoại là đăng ký xong trong 1 phút.</li>
+          <li><strong>PC (máy tính để bàn)</strong>: <a href="https://desktop.telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">Telegram Desktop ↗</a> Tải bản cài đặt dành cho Windows từ trang chính thức và cài đặt, sau đó trong ứng dụng Telegram trên di động, <span class="chip">Cài đặt → Thiết bị → Liên kết thiết bị máy tính</span>, quét mã QR là đăng nhập ngay mà không cần mật khẩu.</li>
+        </ul>
+
+        <!-- 2) 채널 및 그룹방 가입 방법 -->
+        <h3 id="telegram-channels">2) Cách tham gia kênh & nhóm người dùng</h3>
+        <p>
+          d4cute helper vận hành hai phòng Telegram chính thức tùy theo mục đích.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0 20px;">
+          <div class="clan-card" style="padding: 16px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">📢</span>
+              <strong style="color:var(--gold); font-size:16px;">Kênh chỉ để thông báo</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              Là kênh thông báo một chiều, chuyển tin cập nhật phiên bản mới, tình hình ứng phó bản vá mùa và hướng dẫn khẩn cấp.
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700;">@d4_notice ↗</a>
+              <span class="chip">Đăng ký nhận thông báo</span>
+            </div>
+          </div>
+
+          <div class="clan-card" style="padding: 16px; border-color: rgba(59, 130, 246, 0.4);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">💬</span>
+              <strong style="color:var(--blue); font-size:16px;">Nhóm trao đổi người dùng</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              <strong>Chia sẻ mẹo cài đặt helper, câu hỏi, đề xuất tính năng và báo lỗi chỉ được tiếp nhận ở đây!</strong>
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper ↗</a>
+              <span class="chip blue">Hỏi đáp/Báo lỗi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box gold" style="margin: 12px 0 18px;">
+          <span class="alert-icon">⚠️</span>
+          <div>
+            <strong>Lưu ý về kênh hỏi đáp</strong><br>
+            Kênh YouTube 삼촌안잔다잉 là không gian phát sóng cá nhân để chơi Diablo IV và giao lưu. <span style="color:var(--ruby); font-weight:700;">Chúng tôi tuyệt đối không nhận câu hỏi về helper qua chat phát sóng hay bình luận YouTube</span>, vì vậy hãy nhất định ghé nhóm Telegram chính thức (<span style="color:var(--blue); font-weight:700;">@d4cute_helper</span>).
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">📱 2 cách vào nhóm dễ dàng</h4>
+        <ul>
+          <li><strong>Cách A (quét mã QR bằng camera điện thoại — khuyên dùng nhất!)</strong>: Mở ứng dụng camera mặc định của điện thoại và hướng vào <strong style="color:var(--gold);">mã QR lớn</strong>ở bên phải màn hình, một banner liên kết Telegram màu vàng sẽ hiện ở phía trên. Chỉ cần chạm một lần là <span class="chip blue">@d4cute_helper</span> bạn vào ngay được nhóm.</li>
+          <li><strong>Cách B (mở thẳng Telegram trên PC)</strong>: Trong cửa sổ, nhấn nút <span class="chip">Mở</span> hoặc nhấp liên kết web (<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">https://t.me/d4cute_helper</a>) để vào thẳng ứng dụng Telegram trên PC.</li>
+        </ul>
+
+        <!-- 3) 로그 뷰어를 통한 오류 복사 & 문제 해결 -->
+        <h3 id="log-viewer-guide">3) Sao chép lỗi & cách xử lý sự cố qua Xem nhật ký</h3>
+        <p>
+          Khi macro đột nhiên dừng, xảy ra lỗi giữa chừng lúc Thay đổi chỉ số hoặc có hành vi bất ngờ, để giải thích tình huống cho tác giả thì <strong style="color:var(--gold);">dữ liệu nhật ký</strong>là chìa khóa chắc chắn nhất.
+        </p>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">🔍 Bố cục màn hình trình xem nhật ký & chức năng các nút</h4>
+        <ul>
+          <li><strong><span style="color:var(--gold); font-weight:700;">Danh sách thả xuống ngày nhật ký</span></strong>: Chọn ngày xảy ra lỗi (mặc định là hôm nay). Nhật ký <span class="chip">được tự động lưu trong 7 ngày gần nhất</span>, sau đó các tệp cũ nhất bị xóa dần.</li>
+          <li><strong><span class="chip">Chỉ cảnh báo·lỗi</span> công tắc</strong>: Ẩn hàng nghìn dòng nhật ký thông thường <code>INFO</code> , chỉ lọc ra các mục cảnh báo hệ thống (<span style="color:#f59e0b; font-weight:700;">WARN</span>) và lỗi (<span style="color:var(--ruby); font-weight:700;">ERROR</span>) để xem.</li>
+          <li><strong><span class="chip">Làm mới</span></strong>: Tải lại ngay lên màn hình các nhật ký mới nhất đang được ghi theo thời gian thực khi helper vẫn bật.</li>
+          <li><strong><span class="chip">Mở thư mục</span></strong>: Mở trực tiếp thư mục Windows Explorer chứa các tệp văn bản nhật ký gốc (<code>%APPDATA%\d4cute_helper\logs</code>).</li>
+          <li><strong><span class="chip gold">Sao chép 200 dòng gần nhất</span></strong>: Sao chép 200 dòng nhật ký gần nhất vào clipboard để nắm được ngữ cảnh: phím nào đã được nhấn và sự kiện nào đã xảy ra ngay trước khi có lỗi.</li>
+          <li><strong><span class="chip ruby">Chỉ sao chép lỗi</span></strong>: Trích xuất chính xác chỉ các dòng lỗi (<span style="color:var(--ruby); font-weight:700;">ERROR</span>) và ngoại lệ stack trace từ toàn bộ nhật ký vào clipboard.</li>
+          <li><strong><span class="chip">Sao chép lựa chọn</span></strong>: Kéo chuột chọn phần mong muốn trong khung văn bản rồi chỉ sao chép đoạn đó.</li>
+        </ul>
+
+        <div class="alert-box info" style="margin: 14px 0 18px;">
+          <span class="alert-icon">🛡️</span>
+          <div>
+            <strong>Bảo vệ thông tin cá nhân & chặn tự động gửi</strong><br>
+            <ul style="margin: 6px 0 0 18px; padding: 0;">
+              <li><strong>Tự động che tên người dùng</strong>: Trong đường dẫn tệp của nhật ký (ví dụ: <code>C:\Users\NguyenVanA\...</code>), tên tài khoản người dùng được tự động che đi để không thể nhận ra khi sao chép, nên bạn không phải lo lộ thông tin riêng tư.</li>
+              <li><strong>Chặn gửi tự động ra bên ngoài</strong>: Như thông báo ở phía dưới ("<em>Hãy dán nội dung đã sao chép vào nhóm Telegram để gửi — helper không tự động gửi bất cứ thứ gì.</em>"), helper không bí mật gửi nhật ký của bạn ra bên ngoài qua internet. Nội dung chỉ được chia sẻ an toàn khi chính bạn sao chép và dán.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 18px 0 10px;">🚀 Hướng dẫn 3 bước gửi nhật ký lỗi và xử lý nhanh</h4>
+        <ol style="line-height: 1.85;">
+          <li>
+            <strong style="color:var(--gold);">Bước 1: Sao chép nhật ký</strong><br>
+            Ngay khi xảy ra sự cố, trong hộp thoại Telegram nhấn nút <span class="chip gold">📁 Xem nhật ký</span> rồi ở phía dưới cửa sổ, nhấp nút <span class="chip ruby">Chỉ sao chép lỗi</span> hoặc <span class="chip gold">Sao chép 200 dòng gần nhất</span> .<br>
+            <span style="font-size: 13px; color: var(--fg-dim);">※ Dòng đầu tiên của nhật ký đã sao chép được tự động kèm thông tin meta gồm phiên bản helper, môi trường hệ điều hành và tỷ lệ độ phân giải, giúp nhà phát triển nắm ngay môi trường của bạn.</span>
+          </li>
+          <li>
+            <strong style="color:var(--blue);">Bước 2: Dán vào nhóm Telegram</strong><br>
+            Trên điện thoại hoặc PC, vào nhóm <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a> ; sau đó nhấp vào khung nhập tin nhắn và nhấn <kbd>Ctrl</kbd> + <kbd>V</kbd>để dán (trên di động, nhấn giữ khung nhập rồi chọn Dán).
+          </li>
+          <li>
+            <strong style="color:var(--green);">Bước 3: Mô tả thêm tình huống phát sinh</strong><br>
+            Cùng với nhật ký, hãy để lại <em>"sự cố xảy ra trong tình huống nào"</em> trong 1~2 dòng:<br>
+            <div style="background:var(--card-subtle); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--gold); margin:8px 0; font-size:13px; color:var(--fg-dim);">
+              Ví dụ 1: "Sau khi bắt đầu Thay đổi chỉ số kho đồ, ở ô thứ 12 nó dừng ở bước kiểm tra Cube trống. Tôi gửi kèm nhật ký."<br>
+              Ví dụ 2: "Tôi đã đổi vị trí lớp phủ trong cài đặt chung nhưng lớp phủ không hiện trên màn hình."
+            </div>
+            Nếu bạn đính kèm cả ảnh chụp màn hình hoặc ảnh chụp bằng điện thoại thì việc chẩn đoán và vá lỗi sẽ nhanh và chính xác hơn.
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 11. 클랜 & 방송 커뮤니티 ─── -->
+      <section class="doc-section" id="community">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">11</span> Clan 앙증맞은 & kênh 삼촌안잔다잉</h2>
+        </div>
+
+        <p>Đây là clan nơi tác giả hoạt động và kênh phát sóng game của trưởng clan đó. Cả hai đều là nơi riêng biệt, không thuộc về helper.</p>
+
+        <!-- 상단 2열: 클랜 개요 카드 & 삼촌안잔다잉 방송 채널 카드 (높이 균형 & 럭셔리 디자인) -->
+        <div class="clan-showcase-grid">
+          <!-- 1. 앙증맞은 클랜 개요 -->
+          <div class="clan-card highlight-gold">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest">⚔️</div>
+                <div>
+                  <h3 class="clan-card-title">&lt;앙증맞은&gt; Cánh Cầu Vồng</h3>
+                  <p class="clan-card-sub">Clan trong game Diablo IV · Trưởng clan Daehanminguk (삼촌안잔다잉)</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 14px; line-height: 1.75;">
+                Đây là clan giao lưu trong game mà tác giả cùng hoạt động. Phương châm là <strong>"Giúp đỡ là đổi công"</strong> — chăm sóc lẫn nhau theo kiểu give and take hơn là cõng một chiều, và tập thói quen tự tìm hiểu.
+              </p>
+              <ul style="font-size:13px; color:var(--fg-dim); margin:0 0 16px 18px; padding:0; line-height:1.75;">
+                <li>Mỗi mùa cùng leo Pit cấp cao, chạy Torch vô hạn và đánh party Boss</li>
+                <li>Cùng cày trang bị Mythic Unique và hoàn thành Hành trình mùa</li>
+                <li>Không vận hành Discord; sau khi đăng ký trong game, xác nhận trên kênh YouTube</li>
+              </ul>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn gold">
+              <span>Kênh 삼촌안잔다잉 — thông báo bạn đã gia nhập ↗</span>
+            </a>
+          </div>
+
+          <!-- 2. 삼촌안잔다잉 게임 방송 채널 -->
+          <div class="clan-card highlight-ruby">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest" style="border-color: rgba(229, 72, 77, 0.45); background: rgba(229, 72, 77, 0.1);">📺</div>
+                <div>
+                  <h3 class="clan-card-title" style="color: #ff999c;">삼촌안잔다잉</h3>
+                  <p class="clan-card-sub">🌙 Khi mọi người ngủ, "chú" vẫn đang chơi game! · Phát sóng đồng thời YouTube·Chzzk</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 10px; line-height: 1.75;">
+                Đây là <strong>kênh phát sóng game</strong>do trưởng clan điều hành (không phải kênh của tác giả). Chia sẻ những trải nghiệm sống động và hướng dẫn do chính chủ kênh chơi, xoay quanh Diablo IV.
+              </p>
+              <ul style="font-size:13px; margin:0 0 12px 18px; padding:0; color:var(--fg-dim); line-height:1.75;">
+                <li>Hướng dẫn luyện nhân vật, build, kỹ năng, Conqueror theo từng mùa & mẹo thiết lập trang bị</li>
+                <li>Trải nghiệm máy chủ thử nghiệm công khai (PTR), điểm thay đổi của bản vá và Shorts xem tạm dừng "Cẩm nang trong lòng bàn tay"</li>
+              </ul>
+              <div class="alert-box gold" style="margin: 0 0 16px; padding: 10px 14px; font-size: 12.5px;">
+                <span class="alert-icon">⚠️</span>
+                <div><strong>Câu hỏi về helper·macro không được nhận ở kênh này.</strong> Kênh chỉ thuần túy là phát sóng thưởng thức game; hỏi đáp về helper và báo lỗi chỉ được tiếp nhận ở nhóm Telegram chính thức (<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a>).</div>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn ruby">
+              <span>Đến thẳng YouTube 삼촌안잔다잉 ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 하단 전폭 와이드: 클랜 가입 4단계 & 가입 후 활동/생활 가이드 -->
+        <div class="clan-guide-container">
+          <div class="clan-guide-header">
+            <span style="font-size:24px;">🛡️</span>
+            <div>
+              <h3 class="clan-guide-title">Hướng dẫn gia nhập clan &lt;앙증맞은&gt; Cánh Cầu Vồng và sinh hoạt cơ bản</h3>
+              <p style="margin:2px 0 0; font-size:12.5px; color:var(--fg-dim);">Chúng tôi cùng xây dựng văn hóa clan Diablo IV quan tâm lẫn nhau và vui vẻ cùng chơi.</p>
+            </div>
+          </div>
+
+          <div style="margin:0 0 14px; padding:10px 14px; border:1px solid rgba(229,184,92,0.4); border-left:4px solid var(--gold); border-radius:8px; background:rgba(229,184,92,0.08); font-size:13.5px; line-height:1.6; color:var(--fg);">🌏 Người chơi nước ngoài cũng có thể tham gia. Tuy nhiên clan giao tiếp bằng tiếng Hàn nên bạn cần nói chuyện được bằng tiếng Hàn. Nếu không giao tiếp được bằng tiếng Hàn thì khó có thể tham gia.</div>
+
+          <div class="clan-guide-grid">
+            <!-- 1. 가입 절차 4단계 패널 -->
+            <div class="clan-sub-panel blue-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--blue);">
+                <span>🎥</span> <strong>4 bước gia nhập</strong> <span class="chip" style="font-size:11px; margin-left:auto;">Không cần tham gia Discord!</span>
+              </h4>
+              <ol style="margin:0 0 0 18px; padding:0; line-height:1.9; font-size:13.5px; color:var(--fg);">
+                <li>Trong game, tìm kiếm clan → tìm <strong>앙증맞은</strong> → <strong>Gửi đơn gia nhập</strong></li>
+                <li><strong>Trên kênh 삼촌안잔다잉</strong>(phát sóng trực tiếp, v.v.), thông báo rằng bạn đã gia nhập</li>
+                <li><strong>Trưởng clan và quản trị viên</strong>xem xét đơn đăng ký rồi <strong>duyệt</strong>.</li>
+                <li>Người đăng ký lại vào game và nhấn <strong>chấp nhận cuối cùng</strong>là hoàn tất gia nhập</li>
+              </ol>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; color:var(--fg-muted);">
+                ※ Chúng tôi không vận hành Discord, và việc duyệt vào clan được thực hiện thông qua xác nhận trong buổi phát sóng trực tiếp của 삼촌안잔다잉.
+              </div>
+            </div>
+
+            <!-- 2. 가입 후 활동 가이드 & 생활 수칙 패널 -->
+            <div class="clan-sub-panel gold-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--gold-bright);">
+                <span>🤝</span> <strong>Hoạt động sau khi gia nhập & quy tắc sinh hoạt cơ bản của clan</strong>
+              </h4>
+              <ul style="margin:0 0 0 18px; padding:0; line-height:1.85; font-size:13px; color:var(--fg-dim);">
+                <li><strong style="color:var(--fg);">Lời chào đầu tiên thân thiện & xây dựng sự thân quen</strong>: Sau khi được duyệt, hãy để lại lời chào đầu tiên ở khung chat bang hội trong game. Gọi nickname của nhau khi chào hỏi, bạn sẽ nhanh chóng thân thiết.</li>
+                <li><strong style="color:var(--fg);">Nhờ giúp đỡ & văn hóa đổi công</strong>: Khi cần giúp như luyện nhân vật, leo Pit cấp cao, party triệu hồi Boss, v.v., hãy thoải mái nhờ qua <strong>khung chat bang hội hoặc buổi phát sóng trực tiếp YouTube</strong>. <em>"Giúp đỡ là đổi công (give and take)"</em> Với tinh thần đó, sau này bạn hãy cùng giúp đỡ các thành viên khác là được.</li>
+                <li><strong style="color:var(--fg);">Lễ độ cơ bản & tôn trọng lẫn nhau</strong>: Đây là không gian giao lưu có nhiều người dùng khác nhau, vì vậy hãy dùng lời lẽ quan tâm (không miệt thị, không chửi thề). Chúng tôi cũng khuyến khích tập thói quen tìm hiểu sơ qua trước khi hỏi.</li>
+                <li><strong style="color:var(--fg);">Hết mùa & quay lại mùa mới</strong>: Nếu bạn không đăng nhập hơn 10 ngày sau khi hết mùa, danh sách thành viên có thể được dọn dẹp, nhưng khi mùa mới bắt đầu bạn có thể thoải mái đăng ký gia nhập lại bất cứ lúc nào.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 12. FAQ ─── -->
+      <section class="doc-section" id="faq">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">12</span> Câu hỏi thường gặp (FAQ) & xử lý sự cố</h2>
+        </div>
+
+        <h3>Q. Tôi nhấn phím kích hoạt nhưng kỹ năng không được dùng.</h3>
+        <ul>
+          <li>Kiểm tra trạng thái ở thanh trên cùng có phải là <strong>Đang chạy</strong>hay không (nút<span class="chip green">▶ Start</span> đã được nhấn chưa).</li>
+          <li>Kiểm tra <strong>công tắc Hoạt động macro</strong>của slot đã chọn có đang bật không, và tab Trình tự có ít nhất 1 bước không.</li>
+          <li>Cửa sổ game Diablo IV phải đang được lấy tiêu điểm ở trên cùng màn hình.</li>
+          <li>Nếu bạn mở khung chat hoặc kho đồ và macro đang tạm dừng do <strong>Phím chờ</strong>, hãy nhấn phím kích hoạt thêm một lần nữa để bỏ tạm dừng.</li>
+        </ul>
+
+        <h3>Q. Tôi dùng chuột phải làm phím kích hoạt nhưng cửa sổ kho đồ hoặc kho chứa cứ bị đóng.</h3>
+        <p>Trong cài đặt macro, hãy đặt <strong>Độ trễ nhận diện nhấn (Press Delay)</strong>thành <code>250ms ~ 300ms</code>. Khi đó cú "nhấp ngắn" lúc nhấp chuột phải để chuyển vật phẩm được truyền nguyên vẹn vào game, và macro chỉ bật khi bạn nhấn giữ, nên sự cố đóng cửa sổ do thao tác nhầm sẽ biến mất hoàn toàn.</p>
+
+        <h3>Q. Thay đổi chỉ số bằng Horadric Cube không tìm thấy nút hoặc bị dừng.</h3>
+        <p>Ở phiên bản 1.30, logic nhận diện chữ OCR và kiểm tra Cube trống đã được tăng cường mạnh. Nếu chữ trong cài đặt đồ họa của game quá mờ hoặc tỷ lệ UI cực đoan thì việc nhận diện có thể khó, nên nếu sự cố vẫn tiếp diễn, hãy xem thư mục <code>%APPDATA%\d4cute_helper\debug\</code> , sao chép tệp <code>alter_slots.txt</code> trong đó rồi hỏi ở nhóm Telegram.</p>
+
+        <h3>Q. Trong Thay đổi chỉ số, hai vật phẩm bị chồng lên nhau, hoặc nhảy sang ô tiếp theo mà không biến đổi.</h3>
+        <p>Đây là triệu chứng xảy ra trên PC có hiệu ứng biến đổi chậm. Trong tab Tiện ích, hãy tăng <strong>Chờ kết quả ms</strong>lên (ví dụ: 3000 → 5000); nếu vẫn lặp lại, hãy đăng <code>debug\alter_slots.txt</code> lên nhóm. Từ 1.30.1, helper kiểm tra Cube đã trống chưa bằng hình ảnh ô đầu tiên của Cube và vẫn nhấn Enter dù cửa sổ chấp nhận hiện muộn.</p>
+
+        <h3>Q. Tôi hỏi về helper·macro ở đâu?</h3>
+        <p>Nhóm người dùng Telegram <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer"><code>@d4cute_helper</code></a> là nơi duy nhất tiếp nhận. Kênh YouTube 삼촌안잔다잉 là buổi phát sóng thưởng thức game nên không nhận câu hỏi về helper·macro.</p>
+
+        <h3>Q. Cửa sổ hiện trắng hoặc nhấp nháy (hiện tượng trắng màn hình).</h3>
+        <p>Ở 1.30, lỗi trắng màn hình đã được sửa bằng cách đổi trình kết xuất của trình duyệt tích hợp. Nếu vẫn thấy lại, trong Trình xem nhật ký hãy dùng nút <span class="chip">Chỉ sao chép lỗi</span> rồi đăng kết quả cùng ảnh chụp màn hình lên nhóm Telegram.</p>
+      </section>
+
+      <footer>
+        <div>d4cute helper v1.30.0 Documentation · Crafted with Care</div>
+        <div><a href="#quickstart" style="color: var(--gold);">Lên đầu trang ↑</a></div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ─── 고기능 라이트박스 뷰어 모달 (마우스 휠 줌 / 팬 / 이전/다음 / 캡션) ─── -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true">
+    <div class="lightbox-topbar">
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" id="zoomOutBtn" title="Thu nhỏ (cuộn chuột xuống)">－</button>
+        <span class="lightbox-zoom-indicator" id="zoomLevel">100%</span>
+        <button class="lightbox-btn" id="zoomInBtn" title="Phóng to (cuộn chuột lên)">＋</button>
+        <button class="lightbox-btn" id="zoomResetBtn" title="Kích thước gốc">Đặt lại</button>
+        <button class="lightbox-btn lightbox-close-btn" id="lightboxCloseBtn" title="Đóng (ESC)">✕ Đóng</button>
+      </div>
+    </div>
+    
+    <div class="lightbox-stage" id="lightboxStage">
+      <button class="lightbox-nav-btn lightbox-prev-btn" id="lightboxPrevBtn" title="Ảnh trước (←)">❮</button>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-nav-btn lightbox-next-btn" id="lightboxNextBtn" title="Ảnh sau (→)">❯</button>
+    </div>
+
+    <div class="lightbox-bottombar">
+      <div class="lightbox-caption-text" id="lightboxCaption">Mô tả ảnh</div>
+      <div style="font-size: 12px; color: var(--fg-muted);">Phóng to/thu nhỏ bằng con lăn chuột · Dùng phím mũi tên trái/phải để chuyển ảnh</div>
+    </div>
+  </div>
+
+  <!-- ─── 인터랙션 자바스크립트 ─── -->
+  <script>
+    (function() {
+      // 1. DOM 요소
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+      const tabBtns = document.querySelectorAll('.sidebar-tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      const sidebarSearch = document.getElementById('sidebarSearch');
+      const searchClearBtn = document.getElementById('searchClearBtn');
+      const searchResultsList = document.getElementById('searchResultsList');
+      const searchMatchCount = document.getElementById('searchMatchCount');
+      const tocLinks = document.querySelectorAll('.toc-link');
+      
+      const imgCountSpan = document.getElementById('imgCount');
+      const vidCountSpan = document.getElementById('vidCount');
+      const sidebarImageGrid = document.getElementById('sidebarImageGrid');
+      const sidebarVideoGrid = document.getElementById('sidebarVideoGrid');
+
+      // 라이트박스 요소
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+      const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+      const lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
+      const lightboxNextBtn = document.getElementById('lightboxNextBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const zoomResetBtn = document.getElementById('zoomResetBtn');
+      const zoomLevelSpan = document.getElementById('zoomLevel');
+      const lightboxStage = document.getElementById('lightboxStage');
+
+      // 2. 사이드바 접기/펼치기 토글 & ⭐️ 요청사항 1: 햄버거/미니바 마우스 호버 자동 펼침(Hover Peek)
+      sidebarToggle.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          document.body.classList.toggle('sidebar-open');
+        } else {
+          document.body.classList.toggle('sidebar-collapsed');
+          sidebar.classList.remove('hover-expanded');
+        }
+      });
+
+      if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', () => {
+          document.body.classList.remove('sidebar-open');
+        });
+      }
+
+      // 데스크탑 접힘 모드에서 햄버거 버튼 또는 사이드바 미니바에 마우스 올리면 자동 슬라이드 노출
+      let hoverTimeout = null;
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      function onMouseEnterTrigger() {
+        if (canHover && window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          clearTimeout(hoverTimeout);
+          sidebar.classList.add('hover-expanded');
+        }
+      }
+      function onMouseLeaveTrigger() {
+        if (window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          hoverTimeout = setTimeout(() => {
+            sidebar.classList.remove('hover-expanded');
+          }, 250);
+        }
+      }
+
+      sidebarToggle.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebarToggle.addEventListener('mouseleave', onMouseLeaveTrigger);
+      sidebar.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebar.addEventListener('mouseleave', onMouseLeaveTrigger);
+
+      // 모바일에서 외부 클릭 시 닫기
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024 && document.body.classList.contains('sidebar-open')) {
+          if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            document.body.classList.remove('sidebar-open');
+          }
+        }
+      });
+
+      // 3. 사이드바 탭 전환
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const targetPanel = document.getElementById(`panel-${btn.dataset.tab}`);
+          if (targetPanel) targetPanel.classList.add('active');
+        });
+      });
+
+      // 4. 본문 내 이미지 & 비디오 자동 수집
+      const imageCards = Array.from(document.querySelectorAll('.image-card'));
+      const videoCards = Array.from(document.querySelectorAll('.video-card'));
+      
+      const imageList = [];
+      imageCards.forEach((card, idx) => {
+        const img = card.querySelector('img');
+        const caption = card.dataset.caption || (card.querySelector('.image-caption span:last-child') ? card.querySelector('.image-caption span:last-child').innerText : img.alt);
+        if (img) {
+          card.id = `img-item-${idx}`;
+          imageList.push({
+            src: img.src,
+            alt: img.alt,
+            caption: caption,
+            cardEl: card,
+            idx: idx
+          });
+
+          // 사이드바 이미지 탭에 카드 추가
+          const navCard = document.createElement('a');
+          navCard.className = 'media-nav-card';
+          navCard.href = `#${card.id}`;
+          navCard.innerHTML = `
+            <img src="${img.src}" class="media-nav-thumb" alt="${img.alt}" loading="lazy">
+            <div class="media-nav-meta">
+              <div class="media-nav-title">${img.alt || caption}</div>
+              <div class="media-nav-desc">${caption}</div>
+            </div>
+          `;
+          navCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.transition = 'outline 0.3s, box-shadow 0.3s';
+            card.style.outline = '2px solid var(--gold)';
+            card.style.boxShadow = '0 0 25px var(--gold-glow)';
+            setTimeout(() => {
+              card.style.outline = 'none';
+              card.style.boxShadow = '';
+            }, 1800);
+            if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+          });
+          sidebarImageGrid.appendChild(navCard);
+
+          // 이미지 클릭 시 라이트박스 열기
+          const thumbContainer = card.querySelector('.thumb-container');
+          if (thumbContainer) {
+            thumbContainer.addEventListener('click', () => openLightbox(idx));
+          }
+        }
+      });
+      imgCountSpan.innerText = imageList.length;
+
+      // 영상 목록 사이드바 생성
+      videoCards.forEach((vcard, vidx) => {
+        const title = vcard.dataset.videoTitle || `Video hướng dẫn ${vidx + 1}`;
+        vcard.id = `vid-item-${vidx}`;
+
+        const navCard = document.createElement('a');
+        navCard.className = 'media-nav-card';
+        navCard.href = `#${vcard.id}`;
+        navCard.innerHTML = `
+          <div class="media-nav-thumb" style="display:flex;align-items:center;justify-content:center;background:#181622;color:var(--ruby);font-size:18px;">▶</div>
+          <div class="media-nav-meta">
+            <div class="media-nav-title"><span class="video-badge">VIDEO</span>${title}</div>
+            <div class="media-nav-desc">Nhấp để chuyển đến vị trí video đó</div>
+          </div>
+        `;
+        navCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          vcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          vcard.style.outline = '2px solid var(--ruby)';
+          setTimeout(() => { vcard.style.outline = 'none'; }, 1800);
+          if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+        });
+        sidebarVideoGrid.appendChild(navCard);
+      });
+      vidCountSpan.innerText = videoCards.length;
+
+      // ⭐️ 요청사항 3: 도움말 본문 전체 실시간 검색 기능
+      const sections = Array.from(document.querySelectorAll('section.doc-section'));
+      
+      // 검색용 텍스트 인덱싱
+      // 소제목(h3) 단위로 인덱싱 - 섹션당 1건이던 결과가 소절마다 나온다. 소제목 앞 도입부는 섹션 제목으로.
+      const searchIndex = [];
+      sections.forEach(sec => {
+        const title = sec.querySelector('.section-title') ? sec.querySelector('.section-title').innerText : '';
+        let cur = { id: sec.id, title: title, sub: '', element: sec, parts: [] };
+        Array.from(sec.children).forEach(child => {
+          if (child.tagName === 'H3') {
+            if (cur.parts.length) searchIndex.push(cur);
+            cur = { id: child.id || sec.id, title: title, sub: child.innerText, element: child, parts: [] };
+            return;
+          }
+          if (child.classList && child.classList.contains('section-header')) return;
+          cur.parts.push(child);
+        });
+        if (cur.parts.length) searchIndex.push(cur);
+      });
+      searchIndex.forEach(item => {
+        item.rawText = (item.sub ? item.sub + ' ' : '') + item.parts.map(p => p.innerText).join(' ');
+      });
+
+      function clearHighlights() {
+        document.querySelectorAll('mark.search-highlight').forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(document.createTextNode(m.textContent), m);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(root, query) {
+        if (!query) return;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.parentElement && !['SCRIPT', 'STYLE', 'BUTTON'].includes(node.parentElement.tagName)) {
+            textNodes.push(node);
+          }
+        }
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        textNodes.forEach(tNode => {
+          const val = tNode.nodeValue;
+          if (regex.test(val)) {
+            const span = document.createElement('span');
+            span.innerHTML = val.replace(regex, '<mark class="search-highlight">$1</mark>');
+            tNode.parentNode.replaceChild(span, tNode);
+          }
+        });
+      }
+
+      sidebarSearch.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        clearHighlights();
+
+        if (query.length > 0) {
+          searchClearBtn.classList.add('visible');
+          // 검색 결과 패널 열기
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-search').classList.add('active');
+          tabBtns.forEach(b => b.classList.remove('active'));
+
+          searchResultsList.innerHTML = '';
+          const lowerQ = query.toLowerCase();
+          let matchCount = 0;
+
+          searchIndex.forEach(item => {
+            const idx = item.rawText.toLowerCase().indexOf(lowerQ);
+            if (idx !== -1) {
+              matchCount++;
+              // 스니펫 생성
+              const start = Math.max(0, idx - 30);
+              const end = Math.min(item.rawText.length, idx + query.length + 50);
+              let snippet = item.rawText.substring(start, end).replace(/\s+/g, ' ');
+              if (start > 0) snippet = '...' + snippet;
+              if (end < item.rawText.length) snippet = snippet + '...';
+
+              const card = document.createElement('div');
+              card.className = 'search-item-card';
+              card.innerHTML = `
+                  <div class="search-item-title">${item.title}</div>
+                  ${item.sub ? `<div class="search-item-sub">› ${item.sub}</div>` : ''}
+                  <div class="search-item-snippet">${snippet}</div>
+                `;
+              card.addEventListener('click', () => {
+                item.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                clearHighlights();
+                item.parts.forEach(p => highlightText(p, query));
+                if (item.sub) highlightText(item.element, query);
+                if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+              });
+              searchResultsList.appendChild(card);
+            }
+          });
+
+          searchMatchCount.innerText = matchCount;
+          if (matchCount === 0) {
+            searchResultsList.innerHTML = `<div style="font-size:12.5px; color:var(--fg-muted); padding:16px 0; text-align:center;">Không tìm thấy kết quả.</div>`;
+          }
+        } else {
+          searchClearBtn.classList.remove('visible');
+          // 목차 패널로 복귀
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-toc').classList.add('active');
+          tabBtns[0].classList.add('active');
+        }
+      });
+
+      searchClearBtn.addEventListener('click', () => {
+        sidebarSearch.value = '';
+        sidebarSearch.dispatchEvent(new Event('input'));
+        sidebarSearch.focus();
+      });
+
+      // 5. 스크롤 스파이 (ScrollSpy)
+      window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset + 120;
+        let currentId = '';
+        sections.forEach(sec => {
+          if (sec.offsetTop <= scrollY) {
+            currentId = sec.id;
+          }
+        });
+        tocLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${currentId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }, { passive: true });
+
+      // 6. 고기능 라이트박스 로직
+      let currentImageIdx = 0;
+      let zoomScale = 1.0;
+      let panX = 0, panY = 0;
+      let isDragging = false;
+      let startX = 0, startY = 0;
+
+      function updateTransform() {
+        lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+        zoomLevelSpan.innerText = `${Math.round(zoomScale * 100)}%`;
+      }
+
+      function resetZoom() {
+        zoomScale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateTransform();
+      }
+
+      function openLightbox(idx) {
+        if (!imageList[idx]) return;
+        currentImageIdx = idx;
+        const item = imageList[idx];
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.alt;
+        lightboxCaption.innerText = item.caption || item.alt;
+        lightboxCounter.innerText = `${idx + 1} / ${imageList.length}`;
+        resetZoom();
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function showPrevImage() {
+        if (currentImageIdx > 0) {
+          openLightbox(currentImageIdx - 1);
+        } else {
+          openLightbox(imageList.length - 1);
+        }
+      }
+
+      function showNextImage() {
+        if (currentImageIdx < imageList.length - 1) {
+          openLightbox(currentImageIdx + 1);
+        } else {
+          openLightbox(0);
+        }
+      }
+
+      lightboxCloseBtn.addEventListener('click', closeLightbox);
+      lightboxPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+      lightboxNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+
+      zoomInBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale < 4.0) { zoomScale = Math.min(4.0, zoomScale + 0.25); updateTransform(); }
+      });
+      zoomOutBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale > 0.5) { zoomScale = Math.max(0.5, zoomScale - 0.25); updateTransform(); }
+      });
+      zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+
+      lightboxStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.15 : -0.15;
+        const newScale = zoomScale + delta;
+        if (newScale >= 0.5 && newScale <= 4.0) {
+          zoomScale = newScale;
+          updateTransform();
+        }
+      }, { passive: false });
+
+      lightboxStage.addEventListener('mousedown', (e) => {
+        if (e.target === lightboxPrevBtn || e.target === lightboxNextBtn) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform();
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      lightboxStage.addEventListener('click', (e) => {
+        if (e.target === lightboxStage) {
+          closeLightbox();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === '+' || e.key === '=') { zoomScale = Math.min(4.0, zoomScale + 0.2); updateTransform(); }
+        if (e.key === '-') { zoomScale = Math.max(0.5, zoomScale - 0.2); updateTransform(); }
+      });
+
+    })();
+  </script>
+</body>
+</html>

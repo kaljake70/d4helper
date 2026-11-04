@@ -1,0 +1,59 @@
+name: 🐛 버그 신고
+description: 헬퍼가 잘못 동작하거나 오류가 날 때
+title: "[버그] "
+labels: ["버그"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        아래 칸을 채워 주시면 빨리 찾을 수 있습니다. 스크린샷은 칸에 드래그하면 바로 붙습니다.
+  - type: input
+    id: version
+    attributes:
+      label: 헬퍼 버전
+      description: 앱 상단 제목에 보이는 버전 (예 v1.4.1). About 창에서도 볼 수 있습니다.
+      placeholder: v1.4.1
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 어느 부분인가요?
+      options:
+        - 매크로 실행(발동키 · 시퀀스 · 홀드/토글)
+        - 동반 키
+        - 알람 · 이벤트 알림 · 화면 알림
+        - 프로필(내보내기 · 가져오기)
+        - 자동 업데이트 · 설치
+        - 오버레이 · 전역 설정
+        - 기타
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 무슨 일이 있었나요?
+      description: 어떤 조작을 했고, 무엇이 기대와 달랐는지
+      placeholder: |
+        예) 오른쪽 클릭을 발동키로 두고 인벤토리에서 아이템을 우클릭했더니 창이 닫혔다
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 다시 만드는 순서
+      placeholder: |
+        1. 슬롯 A 발동키 RClick, 홀드, 누름 인식 지연 즉시(0 ms)
+        2. 인벤토리(I) 열고 아이템 우클릭
+        3. 창이 닫힘
+  - type: textarea
+    id: env
+    attributes:
+      label: 환경
+      description: Windows 버전, 게임 창 모드(창/테두리 없는 창/전체화면), 모니터 수 등
+      placeholder: Windows 11, 테두리 없는 창, 모니터 2 개
+  - type: textarea
+    id: attach
+    attributes:
+      label: 스크린샷 · 프로필 파일(선택)
+      description: 프로필(.d4cute)은 zip 으로 압축해서 드래그하세요

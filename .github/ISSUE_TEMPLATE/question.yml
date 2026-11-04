@@ -1,0 +1,36 @@
+name: ❓ 질문
+description: 사용법 · 설정 · 동작이 궁금할 때 (답변이 달리면 "답변 완료" 라벨이 붙습니다)
+title: "[질문] "
+labels: ["질문"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        먼저 [README 기능 설명](https://github.com/kaljake70/d4helper#기능-설명) 과 [답변 완료된 질문](https://github.com/kaljake70/d4helper/issues?q=label%3A%22답변+완료%22) 에 같은 내용이 있는지 한 번 봐 주세요.
+  - type: dropdown
+    id: topic
+    attributes:
+      label: 주제
+      options:
+        - 발동키 · 누름 인식 지연 · 홀드/토글
+        - 시퀀스 · 딜레이 · Burst
+        - 동반 키
+        - 알람 · 이벤트 알림 · 화면 알림
+        - 프로필 · 직업별 설정
+        - 설치 · 업데이트
+        - 기타
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: 질문
+      placeholder: |
+        예) 홀드 방식에서 누름 인식 지연을 몇 ms 로 두는 게 좋나요?
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: 해 본 것(선택)
+      description: 이미 시도한 설정이나 확인한 문서

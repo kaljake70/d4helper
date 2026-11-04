@@ -1,0 +1,3226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>d4cute helper 官方使用說明書 (v1.30 最新版)</title>
+  <meta name="description" content="暗黑破壞神4 d4cute helper v1.30 完整手冊 — 巨集設定、背包預變性便利功能、即時警報、圖片/影片指南、앙증맞은 (Angjeungmajeun) 戰隊及 삼촌안잔다잉 頻道。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09080e;
+      --bg-surface: #121118;
+      --card: #171622;
+      --card-hover: #1e1d2c;
+      --card-subtle: #1f1e2b;
+      --line: #292737;
+      --line-bright: #3d3a52;
+      --fg: #e6e5ee;
+      --fg-dim: #9896a8;
+      --fg-muted: #6b697a;
+      
+      --gold: #e5b85c;
+      --gold-bright: #ffd778;
+      --gold-dim: #967530;
+      --gold-glow: rgba(229, 184, 92, 0.2);
+      
+      --ruby: #e5484d;
+      --ruby-dark: #3b1619;
+      --ruby-glow: rgba(229, 72, 77, 0.25);
+      
+      --blue: #3b82f6;
+      --blue-dark: #142445;
+      
+      --green: #22c55e;
+      --green-dark: #12311f;
+      
+      --sidebar-width: 320px;
+      --sidebar-mini-width: 68px;
+      --header-height: 58px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-title: 'Cinzel', 'Pretendard', serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.68;
+      overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    code, pre { overflow-wrap: anywhere; }
+    pre { overflow-x: auto; max-width: 100%; }
+    .video-embed { position: relative; padding-top: 56.25%; background: #000; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ─── 상단 글로벌 네비게이션 ─── */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(14, 13, 20, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-sidebar-btn {
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .toggle-sidebar-btn:hover {
+      background: var(--line);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-title {
+      font-family: var(--font-title);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 16px var(--gold-glow);
+    }
+    .brand-ver {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ruby);
+      background: var(--ruby-dark);
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid rgba(229, 72, 77, 0.4);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-link {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .nav-link:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .nav-link.highlight {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18), rgba(229, 184, 92, 0.05));
+      color: var(--gold-bright);
+      border: 1px solid var(--gold-dim);
+    }
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+      gap: 2px;
+      margin-left: 6px;
+    }
+    .lang-btn {
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover {
+      color: var(--gold);
+    }
+    .lang-btn.active {
+      background: rgba(229, 184, 92, 0.2);
+      color: var(--gold-bright);
+      font-weight: 700;
+      border: 1px solid var(--gold-dim);
+    }
+
+    /* ─── 앱 레이아웃 ─── */
+    .layout-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+      margin-top: var(--header-height);
+    }
+
+    /* ─── 좌측 접이식 사이드바 ─── */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--line);
+      position: fixed;
+      top: var(--header-height);
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 900;
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s;
+    }
+
+    /* 데스크탑 접힘 모드 */
+    @media (min-width: 1025px) {
+      body.sidebar-collapsed .sidebar {
+        width: var(--sidebar-mini-width);
+      }
+      body.sidebar-collapsed .sidebar .sidebar-tabs,
+      body.sidebar-collapsed .sidebar .tab-panel,
+      body.sidebar-collapsed .sidebar .sidebar-search-box,
+      body.sidebar-collapsed .sidebar .sidebar-community-card {
+        display: none !important;
+      }
+      body.sidebar-collapsed .sidebar .mini-icons-list {
+        display: flex !important;
+      }
+      body.sidebar-collapsed .content-wrap {
+        margin-left: var(--sidebar-mini-width);
+      }
+
+    }
+
+    /* 호버 펼침은 마우스 기기에서만 - 터치는 :hover 가 고착된다 */
+    @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+      /* ⭐️ 요청사항 1: 사이드바 접혔을 때 햄버거 메뉴 및 미니바 호버 시 사이드바 자동 확장(Hover Peek) */
+      body.sidebar-collapsed .sidebar:hover,
+      body.sidebar-collapsed .sidebar.hover-expanded {
+        width: var(--sidebar-width) !important;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.75);
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar:hover .tab-panel.active,
+      body.sidebar-collapsed .sidebar:hover .sidebar-search-box,
+      body.sidebar-collapsed .sidebar:hover .sidebar-community-card,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .tab-panel.active,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-search-box,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-community-card {
+        display: block !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .sidebar-tabs,
+      body.sidebar-collapsed .sidebar.hover-expanded .sidebar-tabs {
+        display: grid !important;
+      }
+      body.sidebar-collapsed .sidebar:hover .mini-icons-list,
+      body.sidebar-collapsed .sidebar.hover-expanded .mini-icons-list {
+        display: none !important;
+      }
+    }
+
+    /* 접힘(미니) 모드용 아이콘 바 */
+    .mini-icons-list {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+    }
+    .mini-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--fg-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mini-icon-btn:hover {
+      background: var(--line-bright);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+
+    /* 사이드바 내부 탭 (목차 / 이미지 / 영상) */
+    .sidebar-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+      background: rgba(18, 17, 24, 0.85);
+    }
+    .sidebar-tab-btn {
+      padding: 10px 4px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--fg-dim);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.2s;
+    }
+    .sidebar-tab-btn span.tab-icon {
+      font-size: 15px;
+    }
+    .sidebar-tab-btn:hover {
+      color: var(--fg);
+      background: var(--card);
+    }
+    .sidebar-tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: var(--card-subtle);
+    }
+
+    /* 사이드바 검색창 */
+    .sidebar-search-box {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .sidebar-search-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 8px 30px 8px 12px;
+      color: var(--fg);
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .sidebar-search-input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 8px var(--gold-glow);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--fg-muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+    .search-clear-btn.visible {
+      display: block;
+    }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: var(--line-bright);
+      border-radius: 4px;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* 목차 리스트 */
+    .toc-tree {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-tree li {
+      margin-bottom: 2px;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all 0.15s;
+    }
+    .toc-link:hover {
+      color: var(--gold);
+      background: var(--card);
+    }
+    .toc-link.active {
+      color: var(--gold-bright);
+      background: rgba(229, 184, 92, 0.12);
+      font-weight: 600;
+      border-left: 3px solid var(--gold);
+    }
+    .toc-sub-tree {
+      list-style: none;
+      padding-left: 16px;
+      margin: 2px 0 4px;
+    }
+    .toc-sub-tree .toc-link {
+      font-size: 12.5px;
+      padding: 4px 8px;
+    }
+
+    /* 검색 결과 리스트 */
+    .search-results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-item-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--fg);
+      transition: all 0.15s;
+    }
+    .search-item-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .search-item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .search-item-sub {
+      font-size: 11px;
+      color: var(--fg-muted);
+      margin-bottom: 3px;
+    }
+    .search-item-snippet {
+      font-size: 12px;
+      color: var(--fg-dim);
+      line-height: 1.45;
+    }
+    .search-item-snippet mark {
+      background: rgba(229, 184, 92, 0.35);
+      color: #fff;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* 미디어 사이드바 리스트 (이미지 / 영상) */
+    .media-nav-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .media-nav-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 7px;
+      text-decoration: none;
+      color: var(--fg);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .media-nav-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .media-nav-thumb {
+      width: 58px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .media-nav-meta {
+      overflow: hidden;
+      flex: 1;
+    }
+    .media-nav-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-nav-desc {
+      font-size: 11px;
+      color: var(--fg-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .video-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--ruby-dark);
+      color: var(--ruby);
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-right: 4px;
+      font-weight: 700;
+    }
+
+    /* ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 카드 */
+    .sidebar-community-card {
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      background: rgba(14, 13, 20, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .community-box {
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
+      transition: all 0.2s;
+    }
+    .community-box:hover {
+      border-color: var(--gold-dim);
+      background: var(--card-hover);
+    }
+    .community-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .community-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .community-tag {
+      font-size: 10.5px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--card-subtle);
+      color: var(--fg-dim);
+    }
+    .community-desc {
+      font-size: 11px;
+      color: var(--fg-dim);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .community-links {
+      display: flex;
+      gap: 6px;
+    }
+    .comm-btn {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .comm-btn.telegram {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.18) 0%, rgba(42, 171, 238, 0.08) 100%);
+      border: 1px solid rgba(42, 171, 238, 0.4);
+      color: #70c7fa;
+    }
+    .comm-btn.telegram:hover {
+      background: linear-gradient(135deg, rgba(42, 171, 238, 0.35) 0%, rgba(42, 171, 238, 0.2) 100%);
+      border-color: #70c7fa;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.clan {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.16) 0%, rgba(234, 179, 8, 0.06) 100%);
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      color: #fde047;
+    }
+    .comm-btn.clan:hover {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.3) 0%, rgba(234, 179, 8, 0.15) 100%);
+      border-color: #fde047;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .comm-btn.youtube {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.18) 0%, rgba(229, 72, 77, 0.08) 100%);
+      border: 1px solid rgba(229, 72, 77, 0.4);
+      color: #ff999c;
+    }
+    .comm-btn.youtube:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.35) 0%, rgba(229, 72, 77, 0.2) 100%);
+      border-color: #ff999c;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── 본문 영역 ─── */
+    .content-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 26px 36px 100px;
+      max-width: 1060px;
+      min-width: 0;                 /* flex 아이템이 안쪽 표(min-width 480) 에 끌려 뷰포트보다 넓어지던 것 */
+      width: 100%;
+      transition: margin-left 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* 모바일 반응형 처리 */
+    @media (max-width: 1024px) {
+      .top-nav {
+        padding: 0 12px;
+      }
+      .content-wrap {
+        margin-left: 0;
+        padding: 18px 14px 80px;
+      }
+      .sidebar {
+        width: 86vw;
+        max-width: 320px;
+        transform: translateX(-100%);
+        box-shadow: none;
+      }
+      body.sidebar-open .sidebar {
+        transform: translateX(0);
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.85);
+      }
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        z-index: 850;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      body.sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.sidebar-open { overflow: hidden; }
+      .table-wrap::before {
+        content: '↔ 옆으로 밀어 표 전체 보기';
+        display: block;
+        font-size: 11.5px;
+        color: var(--fg-muted);
+        padding: 6px 10px 0;
+      }
+      .image-card.is-small { display: block; }
+      .hero-title {
+        font-size: 24px !important;
+      }
+      .hero-banner-img {
+        height: 180px !important;
+      }
+      .nav-right .nav-link:not(.highlight) {
+        display: none;
+      }
+    }
+
+    /* 스마트폰 초소형 화면 (480px 이하) */
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .content-wrap {
+        padding: 14px 10px 60px;
+      }
+      section.doc-section {
+        padding: 18px 14px !important;
+        margin-bottom: 20px !important;
+      }
+      .section-title {
+        font-size: 18px !important;
+      }
+      .hero-banner-overlay {
+        padding: 16px 14px !important;
+      }
+      .hero-title {
+        font-size: 20px !important;
+      }
+      .hero-desc {
+        font-size: 13px !important;
+      }
+    }
+
+    /* ─── 히어로 배너 섹션 ─── */
+    .hero-banner-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+      border: 1px solid var(--line-bright);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+    .hero-banner-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: brightness(0.65) contrast(1.1);
+    }
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14, 13, 20, 0.2) 0%, rgba(9, 8, 14, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px 28px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 184, 92, 0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: fit-content;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: 30px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 6px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .hero-desc {
+      color: var(--fg-dim);
+      font-size: 14.5px;
+      margin: 0;
+      max-width: 650px;
+    }
+
+    /* ─── 알림/콜아웃 박스 ─── */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+    }
+    .alert-box.info {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-left: 4px solid var(--blue);
+    }
+    .alert-box.gold {
+      background: rgba(229, 184, 92, 0.08);
+      border: 1px solid rgba(229, 184, 92, 0.3);
+      border-left: 4px solid var(--gold);
+    }
+    .alert-box.warn {
+      background: rgba(229, 72, 77, 0.08);
+      border: 1px solid rgba(229, 72, 77, 0.3);
+      border-left: 4px solid var(--ruby);
+    }
+    .alert-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── 문서 섹션 카드 ─── */
+    section.doc-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-bottom: 26px;
+      scroll-margin-top: calc(var(--header-height) + 16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    section.doc-section:target {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-num {
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      color: var(--gold-bright);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    h3 {
+      font-size: 16.5px;
+      color: #fff;
+      margin: 22px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 15px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    p { margin: 8px 0; }
+    ul, ol { padding-left: 22px; margin: 8px 0; }
+    li { margin: 5px 0; }
+
+    /* 키 뱃지 및 칩 */
+    kbd {
+      background: #232230;
+      border: 1px solid var(--line-bright);
+      border-bottom: 2px solid #14131d;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+    /* 본문 링크 - 브라우저 기본 파랑은 어두운 배경에서 안 보인다 (사용자 지적 2026-10-22). 버튼류(class 있는 a)는 제외 */
+    .content-wrap a:not([class]),
+    .content-wrap a:not([class]):visited {
+      color: var(--gold-bright);
+      text-decoration: underline;
+      text-decoration-color: var(--gold-dim);
+      text-underline-offset: 3px;
+      font-weight: 600;
+    }
+    .content-wrap a:not([class]):hover { color: #fff; text-decoration-color: var(--gold); }
+    .content-wrap a:not([class]) code { color: inherit; }
+    .content-wrap a.chip { color: var(--fg); text-decoration: none; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--card-subtle);
+      border: 1px solid var(--line-bright);
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-weight: 700;
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+    .chip.gold { background: rgba(229, 184, 92, 0.15); border-color: var(--gold-dim); color: var(--gold-bright); }
+    .chip.ruby { background: var(--ruby-dark); border-color: rgba(229, 72, 77, 0.4); color: #fff; }
+    .chip.green { background: var(--green-dark); border-color: rgba(34, 197, 94, 0.4); color: #fff; }
+    .chip.blue { background: var(--blue-dark); border-color: rgba(59, 130, 246, 0.4); color: #fff; }
+
+    /* 본문 검색 하이라이트 */
+    mark.search-highlight {
+      background: #ffd700;
+      color: #000;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+    }
+
+    /* 표(테이블) 반응형 */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 480px;
+    }
+    th, td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    th {
+      background: var(--bg-surface);
+      color: var(--gold);
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* ─── 이미지 썸네일 카드 ─── */
+    .image-card {
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .image-card:hover {
+      border-color: var(--line-bright);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+    .image-card.is-thumbnail .thumb-container {
+      position: relative;
+      cursor: zoom-in;
+      background: #000;
+      max-height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-card.is-thumbnail .thumb-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .image-card.is-thumbnail .thumb-container:hover img {
+      transform: scale(1.015);
+    }
+    .zoom-hint-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--line-bright);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+    .image-card.is-small {
+      display: inline-block;
+      max-width: 100%;
+    }
+    .image-card.is-small .thumb-container {
+      padding: 8px;
+      cursor: zoom-in;
+    }
+    .image-card.is-small img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .image-caption {
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── 플레이스홀더 영역 ─── */
+    .placeholder-box {
+      border: 2px dashed var(--line-bright);
+      background: rgba(26, 24, 36, 0.6);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .placeholder-icon {
+      font-size: 28px;
+      color: var(--gold-dim);
+      margin-bottom: 6px;
+    }
+    .placeholder-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .placeholder-desc {
+      font-size: 12.5px;
+      color: var(--fg-muted);
+      margin-bottom: 10px;
+    }
+    .placeholder-path {
+      display: inline-block;
+      background: #0d0c13;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: var(--gold);
+    }
+
+    /* 비디오 카드 */
+    .video-card {
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .video-info {
+      padding: 10px 14px;
+      font-size: 13px;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ─── 클랜 및 방송 채널 본문 섹션 카드 ─── */
+    .clan-showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-card {
+      background: linear-gradient(180deg, var(--card) 0%, var(--bg-surface) 100%);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .clan-card.highlight-gold {
+      border-color: rgba(229, 184, 92, 0.3);
+    }
+    .clan-card.highlight-gold:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px var(--gold-glow);
+    }
+    .clan-card.highlight-ruby {
+      border-color: rgba(229, 72, 77, 0.3);
+    }
+    .clan-card.highlight-ruby:hover {
+      border-color: var(--ruby);
+      box-shadow: 0 8px 24px var(--ruby-glow);
+    }
+    .clan-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-card-crest {
+      font-size: 26px;
+      background: var(--card-subtle);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gold-dim);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+    }
+    .clan-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin: 0 0 3px;
+      letter-spacing: -0.2px;
+    }
+    .clan-card-sub {
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      margin: 0;
+    }
+
+    /* 럭셔리 액션 버튼 */
+    .clan-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      margin-top: auto;
+      align-self: flex-start;
+      cursor: pointer;
+    }
+    .clan-btn.gold {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.18) 0%, rgba(229, 184, 92, 0.08) 100%);
+      color: var(--gold-bright);
+      border: 1px solid rgba(229, 184, 92, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 184, 92, 0.15);
+    }
+    .clan-btn.gold:hover {
+      background: linear-gradient(135deg, rgba(229, 184, 92, 0.32) 0%, rgba(229, 184, 92, 0.16) 100%);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 4px 18px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+    .clan-btn.ruby {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.22) 0%, rgba(229, 72, 77, 0.1) 100%);
+      color: #ff999c;
+      border: 1px solid rgba(229, 72, 77, 0.45);
+      box-shadow: 0 2px 10px rgba(229, 72, 77, 0.15);
+    }
+    .clan-btn.ruby:hover {
+      background: linear-gradient(135deg, rgba(229, 72, 77, 0.38) 0%, rgba(229, 72, 77, 0.18) 100%);
+      color: #fff;
+      border-color: var(--ruby);
+      box-shadow: 0 4px 18px var(--ruby-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ─── 가입 절차 & 클랜 생활 가이드 와이드 쇼케이스 ─── */
+    .clan-guide-container {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line-bright);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+    .clan-guide-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .clan-guide-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 0;
+    }
+    .clan-guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 820px) {
+      .clan-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .clan-sub-panel {
+      background: rgba(14, 13, 20, 0.65);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .clan-sub-panel.blue-border {
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-top: 3px solid var(--blue);
+    }
+    .clan-sub-panel.gold-border {
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-top: 3px solid var(--gold);
+    }
+    .clan-sub-panel-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── 라이트박스 (전체화면 모달 뷰어) ─── */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 8, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      user-select: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-topbar {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .lightbox-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(229, 184, 92, 0.12);
+      padding: 2px 9px;
+      border-radius: 12px;
+    }
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: var(--gold);
+    }
+    .lightbox-close-btn {
+      background: var(--ruby-dark);
+      border-color: rgba(229, 72, 77, 0.4);
+    }
+    .lightbox-close-btn:hover {
+      background: var(--ruby);
+      color: #fff;
+    }
+
+    .lightbox-stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+    }
+    .lightbox-stage:active {
+      cursor: grabbing;
+    }
+    .lightbox-img {
+      max-width: 92%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85);
+      transition: transform 0.06s ease-out;
+      transform-origin: center center;
+    }
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 60px;
+      background: rgba(20, 19, 28, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(8px);
+      transition: all 0.15s;
+      z-index: 10;
+    }
+    .lightbox-nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .lightbox-prev-btn { left: 16px; }
+    .lightbox-next-btn { right: 16px; }
+
+    .lightbox-bottombar {
+      min-height: 48px;
+      background: rgba(14, 13, 20, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .lightbox-caption-text {
+      font-size: 13.5px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .lightbox-zoom-indicator {
+      font-size: 12.5px;
+      color: var(--gold);
+      font-weight: 600;
+      background: var(--card-subtle);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+      padding-top: 20px;
+      color: var(--fg-muted);
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    /* ─── 국기 언어 선택기 (자바스크립트 0% 순수 HTML5 details/summary) ─── */
+    details.flag-picker {
+      position: relative;
+      display: inline-block;
+      margin-left: 8px;
+    }
+    details.flag-picker summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(22, 21, 32, 0.85);
+      border: 1px solid rgba(229, 184, 92, 0.4);
+      border-radius: 8px;
+      padding: 4px 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    details.flag-picker summary::-webkit-details-marker {
+      display: none;
+    }
+    details.flag-picker summary:hover {
+      border-color: var(--gold-bright);
+      box-shadow: 0 4px 14px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+    details.flag-picker[open] summary {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.15);
+    }
+    details.flag-picker .flag-picker-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(18, 17, 26, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      border-radius: 12px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(229, 184, 92, 0.15);
+      z-index: 2000;
+      min-width: 150px;
+    }
+    .flag-active-img {
+      width: 24px;
+      height: 16px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+    .flag-picker-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .flag-picker-item:hover {
+      background: rgba(229, 184, 92, 0.22);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+    .flag-picker-item.active {
+      border-color: var(--gold);
+      background: rgba(229, 184, 92, 0.18);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .flag-picker-item img {
+      width: 26px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+
+
+    /* ─── 럭셔리 다크 판타지 텔레그램 상단 배너 ─── */
+    .telegram-banner-v3 {
+      position: relative;
+      background: radial-gradient(ellipse at 10% 50%, rgba(42, 171, 238, 0.2) 0%, rgba(18, 17, 24, 0.95) 60%),
+                  radial-gradient(ellipse at 90% 50%, rgba(229, 184, 92, 0.12) 0%, rgba(14, 13, 20, 0.98) 70%),
+                  #0e0d14;
+      border: 1px solid rgba(42, 171, 238, 0.35);
+      border-left: 5px solid #2AABEE;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin: 20px 0 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(42, 171, 238, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .tg-v3-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      flex: 1;
+    }
+    .tg-v3-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tg-v3-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .tg-v3-title {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--font-title);
+      color: #ffd778;
+      letter-spacing: 0.4px;
+      margin: 0;
+    }
+    .tg-v3-badge {
+      background: rgba(229, 72, 77, 0.2);
+      border: 1px solid rgba(229, 72, 77, 0.5);
+      color: #ff6b6b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tg-v3-desc {
+      font-size: 14px;
+      color: #c9c7d8;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+    .tg-v3-highlight-box {
+      display: inline-block;
+      background: rgba(42, 171, 238, 0.08);
+      border: 1px solid rgba(42, 171, 238, 0.25);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .tg-v3-highlight-box strong { color: #38bdf8; }
+    .tg-v3-highlight-box em { color: #fbbf24; font-style: normal; font-weight: 700; }
+    .tg-v3-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+      min-width: 165px;
+    }
+    .tg-v3-btn-channel {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      background: linear-gradient(135deg, #0088cc 0%, #00b4d8 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      border-radius: 9px;
+      box-shadow: 0 4px 14px rgba(0, 136, 204, 0.4);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-channel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+      filter: brightness(1.1);
+    }
+    .tg-v3-btn-group {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e6e5ee;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 9px;
+      border: 1px solid rgba(229, 184, 92, 0.35);
+      transition: all 0.2s ease;
+    }
+    .tg-v3-btn-group:hover {
+      background: rgba(229, 184, 92, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+    @media (max-width: 860px) {
+      .telegram-banner-v3 {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+      }
+      .tg-v3-right {
+        flex-direction: row;
+      }
+      .tg-v3-btn-channel, .tg-v3-btn-group {
+        flex: 1;
+      }
+    }
+
+
+    /* ─── 2026-10-24: 텔레그램 배너 - 채널 버튼을 위에 꽉 찬 너비로, 설명은 아래 ─── */
+    .tg-top .tg-top-row { flex-direction: column !important; align-items: stretch !important; gap: 14px !important; }
+    .tg-top .tg-top-btns { order: -1; display: grid !important; grid-template-columns: 1fr 1fr; gap: 10px !important; }
+    .tg-top .tg-top-btns a { justify-content: center; padding: 13px 16px !important; font-size: 15px !important; }
+    .tg-top .tg-top-text { min-width: 0 !important; }
+    @media (max-width: 520px) {
+      .tg-top .tg-top-btns { grid-template-columns: 1fr; }
+    }
+
+    /* ─── 2026-10-24: 본문 이미지 - PC 는 적당한 크기로 가운데, 휴대폰은 꽉 차게. 클릭하면 라이트박스로 크게 ─── */
+    .image-card { max-width: 760px; margin: 18px auto; }
+    .image-card.is-small { display: block; max-width: 560px; }
+    .image-card.is-thumbnail .thumb-container { max-height: none; background: #08070c; padding: 10px; }
+    .image-card.is-thumbnail .thumb-container img,
+    .image-card.is-small img {
+      width: auto; max-width: 100%; max-height: 440px;
+      object-fit: contain; margin: 0 auto; border-radius: 6px;
+    }
+    .image-card.is-small .thumb-container { display: flex; justify-content: center; }
+    .image-caption { text-align: center; }
+    /* 두 장 이상 나란히 놓인 곳은 칸 너비를 그대로 쓴다 */
+    div[style*="display: flex"] > .image-card,
+    div[style*="display: grid"] > .image-card { max-width: none; margin: 0; flex: 1 1 280px; }
+    @media (max-width: 720px) {
+      .image-card, .image-card.is-small { max-width: 100%; }
+      .image-card.is-thumbnail .thumb-container, .image-card.is-small .thumb-container { padding: 0; }
+      .image-card.is-thumbnail .thumb-container img,
+      .image-card.is-small img { width: 100%; max-height: none; border-radius: 0; }
+    }
+
+    /* ─── 2026-10-24: 헤더가 내용 높이만큼 늘어나게 - 사진은 배경으로 깔고 글자 칸이 높이를 정한다(경고 칸 추가로 위가 잘리던 것) ─── */
+    .hero-banner-img { position: absolute; inset: 0; height: 100% !important; }
+    .hero-banner-overlay { position: relative; min-height: 250px; }
+    .hero-tag { align-self: flex-start; }
+    @media (max-width: 860px) { .hero-banner-overlay { min-height: 180px; } }
+</style>
+</head>
+<body>
+
+  <!-- 상단 글로벌 바 -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <button class="toggle-sidebar-btn" id="sidebarToggle" title="收合/展開側邊欄 (滑鼠移上去會暫時顯示)" aria-label="切換側邊欄">
+        ☰
+      </button>
+      <a href="#" class="brand">
+        <span class="brand-title">D4CUTE HELPER</span>
+        <span class="brand-ver">v1.30.x</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="#quickstart" class="nav-link">開始使用</a>
+      <a href="#tools-alter" class="nav-link">預變性工具</a>
+      <a href="#community" class="nav-link">戰隊 & 頻道</a>
+      <a href="https://github.com/kaljake70/d4helper" target="_blank" class="nav-link highlight">儲存庫 ↗</a>
+      <details class="flag-picker">
+          <summary class="flag-picker-btn" title="Language: 繁體中文">
+            <img src="https://flagcdn.com/w40/tw.png" alt="zh-TW" class="flag-active-img">
+          </summary>
+          <div class="flag-picker-dropdown">
+            <a href="index.html" class="flag-picker-item" title="繁體中文 (Traditional Chinese)"><img src="https://flagcdn.com/w40/kr.png" alt="ko"></a>
+            <a href="index_en.html" class="flag-picker-item" title="English"><img src="https://flagcdn.com/w40/us.png" alt="en"></a>
+            <a href="index_ja.html" class="flag-picker-item" title="日本語 (Japanese)"><img src="https://flagcdn.com/w40/jp.png" alt="ja"></a>
+            <a href="index_zh-CN.html" class="flag-picker-item" title="简体中文 (Simplified Chinese)"><img src="https://flagcdn.com/w40/cn.png" alt="zh-CN"></a>
+            <a href="index_zh-TW.html" class="flag-picker-item active" title="繁體中文 (Traditional Chinese)"><img src="https://flagcdn.com/w40/tw.png" alt="zh-TW"></a>
+            <a href="index_vi.html" class="flag-picker-item" title="Tiếng Việt (Vietnamese)"><img src="https://flagcdn.com/w40/vn.png" alt="vi"></a>
+            <a href="index_th.html" class="flag-picker-item" title="ไทย (Thai)"><img src="https://flagcdn.com/w40/th.png" alt="th"></a>
+            <a href="index_fil.html" class="flag-picker-item" title="Filipino"><img src="https://flagcdn.com/w40/ph.png" alt="fil"></a>
+          </div>
+        </details>
+    </div>
+  </header>
+
+  <!-- 모바일 사이드바 배경 오버레이 -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="layout-container">
+
+    <!-- 좌측 사이드바 -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 사이드바 탭 전환 (목차 / 이미지 / 영상) -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab-btn active" data-tab="toc">
+          <span class="tab-icon">📑</span>
+          <span>目錄</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="images">
+          <span class="tab-icon">🖼️</span>
+          <span>圖片 (<span id="imgCount">0</span>)</span>
+        </button>
+        <button class="sidebar-tab-btn" data-tab="videos">
+          <span class="tab-icon">🎬</span>
+          <span>影片 (<span id="vidCount">0</span>)</span>
+        </button>
+      </div>
+
+      <!-- 도움말 본문 전체 검색창 -->
+      <div class="sidebar-search-box">
+        <input type="text" id="sidebarSearch" class="sidebar-search-input" placeholder="搜尋整份說明內容..." autocomplete="off">
+        <button class="search-clear-btn" id="searchClearBtn" title="清除搜尋字詞">✕</button>
+      </div>
+
+      <!-- 사이드바 스크롤 컨테이너 -->
+      <div class="sidebar-scroll">
+        
+        <!-- 0. 실시간 검색 결과 패널 (검색 시 활성화) -->
+        <div class="tab-panel" id="panel-search">
+          <div style="font-size:12px; color:var(--fg-dim); margin-bottom:10px; display:flex; justify-content:space-between;">
+            <span>搜尋結果： <strong id="searchMatchCount" style="color:var(--gold);">0</strong>筆</span>
+            <span style="font-size:11px; color:var(--fg-muted);">點擊即可前往該位置</span>
+          </div>
+          <div class="search-results-list" id="searchResultsList">
+            <!-- 자바스크립트로 본문 검색 결과 목록 생성 -->
+          </div>
+        </div>
+
+        <!-- 1. 목차 패널 -->
+        <div class="tab-panel active" id="panel-toc">
+          <ul class="toc-tree">
+            <li><a href="#quickstart" class="toc-link">⚡ 1. 5 分鐘快速入門 & 安裝</a></li>
+            <li>
+              <a href="#screen-ui" class="toc-link">🖥️ 2. 最新畫面配置 (1.30)</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#screen-topbar" class="toc-link">頂端列 & 設定檔操作</a></li>
+                <li><a href="#screen-slots" class="toc-link">欄位列 (A~G 共 7 個欄位、贊助、便利、警報)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#macro-engine" class="toc-link">⚙️ 3. 巨集設定 & 啟動引擎</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#macro-modes" class="toc-link">順序 · 獨立 · 按住 · 切換 · 一次</a></li>
+                <li><a href="#macro-keys" class="toc-link">啟動鍵與按壓延遲過濾</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sequence-builder" class="toc-link">📋 4. 序列 & 滑鼠錄製</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#seq-cards" class="toc-link">步驟卡片與批次延遲變更</a></li>
+                <li><a href="#seq-recorder" class="toc-link">即時滑鼠座標錄製 & 隨機化</a></li>
+                <li><a href="#seq-drag-path" class="toc-link">拖曳軌跡錄製 (旋風斬 · 凝神)</a></li>
+                <li><a href="#seq-rotation-pack" class="toc-link">🌀 360 度圓形旋轉包 (9 種預設)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#tools-alter" class="toc-link">🧪 5. 便利功能 — 背包預變性</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alter-grid" class="toc-link">自動計算第一格/最後一格共 33 格</a></li>
+                <li><a href="#alter-safety" class="toc-link">跳過綁定物品 & 方塊清空驗證</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#alarm" class="toc-link">🔔 6. 智慧警報系統</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#alarm-events" class="toc-link">軍團/首領常駐背景監控</a></li>
+                <li><a href="#alarm-outputs" class="toc-link">遊戲內橫幅 & 語音 (TTS)</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#window-modes" class="toc-link">🪟 7. 視窗模式、釘選、覆蓋層</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#window-mini" class="toc-link">迷你視窗模式 (超小型列)</a></li>
+                <li><a href="#window-overlay" class="toc-link">遊戲內 HUD 覆蓋層</a></li>
+              </ul>
+            </li>
+            <li><a href="#safety-features" class="toc-link">🛡️ 8. 安全裝置 (待機鍵 & 焦點)</a></li>
+            <li><a href="#profile-sync" class="toc-link">💾 9. 設定檔管理 & 分享</a></li>
+            <li>
+              <a href="#telegram-support" class="toc-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="#2AABEE" style="vertical-align:-2px; margin-right:4px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> 10. Telegram 支援 & 除錯記錄</a>
+              <ul class="toc-sub-tree">
+                <li><a href="#telegram-install" class="toc-link">安裝 Telegram & 加入群組</a></li>
+                <li><a href="#log-viewer-guide" class="toc-link">複製記錄與回報錯誤</a></li>
+              </ul>
+            </li>
+            <li><a href="#community" class="toc-link">👑 11. 戰隊 & 삼촌안잔다잉 頻道</a></li>
+            <li><a href="#faq" class="toc-link">❓ 12. 常見問題 (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <!-- 2. 이미지 모아보기 패널 -->
+        <div class="tab-panel" id="panel-images">
+          <div class="media-nav-grid" id="sidebarImageGrid">
+            <!-- 자바스크립트로 본문 이미지들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+        <!-- 3. 영상 모아보기 패널 -->
+        <div class="tab-panel" id="panel-videos">
+          <div class="media-nav-grid" id="sidebarVideoGrid">
+            <!-- 자바스크립트로 본문 비디오/플레이스홀더들이 자동 수집되어 렌더링됩니다 -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ⭐️ 요청사항 4: 사이드바 하단 앙증맞은 클랜 & 삼촌안잔다잉 채널 바로가기 -->
+      <div class="sidebar-community-card">
+        <!-- 앙증맞은 클랜 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">⚔️ &lt;앙증맞은&gt; 彩虹之翼</span>
+            <span class="community-tag">戰隊</span>
+          </div>
+          <div class="community-desc">暗黑4 遊戲內戰隊 · 隊長 <strong>韓國</strong> · 加入：遊戲內搜尋(앙증맞은) → 在頻道通知 → 核准 → 最後接受 (沒有 Discord)</div>
+          <div class="community-desc" style="color:var(--gold-bright); margin-top:4px;">🌏 能用韓語溝通的外國玩家也可加入</div>
+          <div class="community-links">
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" class="comm-btn telegram">💬 Telegram 群組</a>
+            <a href="#community" class="comm-btn clan">📜 戰隊介紹</a>
+          </div>
+        </div>
+        <!-- 삼촌안잔다잉 채널 박스 -->
+        <div class="community-box">
+          <div class="community-head">
+            <span class="community-title">📺 삼촌안잔다잉 頻道</span>
+            <span class="community-tag" style="color:var(--ruby); background:rgba(229,72,77,0.15);">隊長</span>
+          </div>
+          <div class="community-desc">遊戲直播頻道 · 助手相關問題請至 Telegram 詢問</div>
+          <div class="community-links">
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="comm-btn youtube">▶ YouTube 直播 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 접힘(미니) 모드용 아이콘 바 -->
+      <div class="mini-icons-list">
+        <button class="mini-icon-btn" onclick="document.getElementById('quickstart').scrollIntoView({behavior:'smooth'})" title="開始使用">⚡</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('screen-ui').scrollIntoView({behavior:'smooth'})" title="畫面配置">🖥️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('macro-engine').scrollIntoView({behavior:'smooth'})" title="巨集設定">⚙️</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('tools-alter').scrollIntoView({behavior:'smooth'})" title="背包預變性">🧪</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('alarm').scrollIntoView({behavior:'smooth'})" title="智慧警報">🔔</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})" title="戰隊 & 直播">👑</button>
+        <button class="mini-icon-btn" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})" title="常見問題">❓</button>
+      </div>
+
+    </aside>
+
+    <!-- 우측 본문 콘텐츠 -->
+    <main class="content-wrap" id="mainContent">
+      
+      <!-- 히어로 배너 -->
+      <div class="hero-banner-card">
+        <img src="../images/hero_banner.jpg" alt="暗黑破壞神4 d4cute 助手橫幅" class="hero-banner-img">
+        <div class="hero-banner-overlay">
+          <span class="hero-tag">DIABLO IV HELPER MANUAL</span>
+          <h1 class="hero-title">d4cute helper 使用說明書</h1>
+          <p class="hero-desc">以 1.30 最新版本為準 — A~G 7 個欄位的順序/獨立巨集、背包預變性自動化、即時事件警報，並介紹 앙증맞은 戰隊與 삼촌안잔다잉 頻道</p>
+        </div>
+      </div>
+
+      <!-- 📢 상단 텔레그램 공식 채널 필수 가입 배너 -->
+      <div class="telegram-top-banner tg-top" style="background: linear-gradient(135deg, rgba(42, 171, 238, 0.16) 0%, rgba(20, 36, 69, 0.45) 100%); border: 1.5px solid rgba(42, 171, 238, 0.45); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+        <div class="tg-top-row" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+          <div class="tg-top-text" style="flex: 1; min-width: 280px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px;">
+                📢 請務必加入 Telegram 官方頻道！
+              </h3>
+              <span class="chip blue" style="font-weight: 700;">建議必讀</span>
+            </div>
+            <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--fg); line-height: 1.6;">
+              d4cute 助手的 <strong>最新更新公告、即時更新日誌、錯誤回報及快速技術支援</strong>會透過 Telegram 以最快速度傳達。<br>
+              特別是這次新增的 <strong style="color:var(--gold-bright);">🌀 360 度圓形旋轉包(.d4seq) 完成版檔案</strong>與 <strong style="color:#2AABEE;">實際旋轉示範影片</strong>，可以直接在頻道免費下載！
+            </p>
+          </div>
+          <div class="tg-top-btns" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #2AABEE; color: #fff; text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 700; font-size: 13.5px; transition: all 0.2s; box-shadow: 0 2px 8px rgba(42, 171, 238, 0.4);">
+              <span>📢 進入公告頻道 ↗</span>
+            </a>
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid rgba(42, 171, 238, 0.4); color: var(--fg); text-decoration: none; padding: 10px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 13.5px; transition: all 0.2s;">
+              <span>💬 進入使用者群組 ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상단 중요 알림 -->
+      <div class="alert-box gold">
+        <span class="alert-icon">💡</span>
+        <div>
+          <strong>提示</strong>：點擊助手視窗的 <span class="chip gold">?</span> 按鈕即可隨時開啟這份最新說明頁面。可以用側邊欄搜尋框即時搜尋說明內文，點擊圖片則會開啟全螢幕檢視器，支援 <strong>滑鼠滾輪縮放及上一張/下一張瀏覽</strong>。
+        </div>
+      </div>
+
+      <!-- ─── 1. 시작하기 ─── -->
+      <section class="doc-section" id="quickstart">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">1</span> 最初 5 分鐘 — 從安裝到第一個巨集啟動</h2>
+        </div>
+        
+        <p>d4cute helper 是在遊玩暗黑破壞神4時，舒適且安全地輔助重複施放技能、維持增益，以及繁瑣的背包赫拉迪姆方塊預變性作業的高效能小幫手。</p>
+
+        <ol>
+          <li><a href="https://da.gd/d4help" target="_blank"><strong>下載最新安裝檔</strong></a> — 下載安裝檔 (<code>d4cute_helper_setup.exe</code>) 進行安裝，或直接執行免安裝執行檔 (<code>d4cute_helper.exe</code>)。如果 Windows 跳出「不明發行者」警告，請按 <em>其他資訊 → 仍要執行</em>。</li>
+          <li>開啟助手後，視窗大小會自動以最小的預設尺寸啟動，不會遮住遊戲畫面。</li>
+          <li>在設定檔列中選擇符合自己職業的設定檔，或用 <span class="chip green">＋</span> 按鈕新建一個。</li>
+          <li>欄位 <span class="chip">A</span>，然後在 <strong>巨集設定</strong>中按下藍色的啟動鍵按鈕，指定要使用的滑鼠或鍵盤按鍵。</li>
+          <li><strong>序列</strong> 分頁中新增要施放的技能鍵與延遲，或按下 <span class="chip">錄製</span> 按鈕，把實際遊戲中的按鍵輸入原樣記錄下來。</li>
+          <li>按下底部的 <span class="chip green">▶ 開始</span> 按鈕後回到遊戲，按下啟動鍵，巨集就會安全運作。</li>
+        </ol>
+
+        <div class="alert-box info">
+          <span class="alert-icon">🛡️</span>
+          <div><strong>遊戲視窗啟用偵測</strong>：助手只有在暗黑破壞神4視窗處於啟用狀態時，才會把鍵盤/滑鼠輸入傳送到遊戲。在桌面或操作其他視窗時，輸入會自動停止。</div>
+        </div>
+        <div class="alert-box gold">
+          <span class="alert-icon">🖥️</span>
+          <div><strong>遊戲畫面模式</strong>：請將暗黑破壞神4的顯示設定調成 <strong>無邊框視窗(全螢幕)</strong> 或視窗模式。在全螢幕(獨佔)下覆蓋層不會顯示，預變性的畫面讀取也可能失敗。</div>
+        </div>
+        <div class="video-card" data-video-title="[影片] d4cute helper 使用方法">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/Ff7MBqD4WaI" title="[影片] d4cute helper 使用方法" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>用影片學習助手使用方法 (삼촌안잔다잉 頻道)</strong></span>
+            <a href="https://youtu.be/Ff7MBqD4WaI" target="_blank" rel="noopener noreferrer" class="chip">在 YouTube 觀看 ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 2. 화면 구성 ─── -->
+      <section class="doc-section" id="screen-ui">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">2</span> 最新畫面配置 (v1.30)</h2>
+        </div>
+
+        <p>1.30 版將頂端列與欄位分頁列升級得更直覺、更美觀。</p>
+
+        <!-- 메인 매크로 화면 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="d4cute helper 主畫面 — 設定檔切換列、巨集欄位(擴充為 A~G 共 7 個欄位)、可直接輸入巨集名稱、贊助分頁、便利功能、警報分頁一覽無遺的最新介面">
+          <div class="thumb-container">
+            <img src="../images/helper_main_macro.png" alt="助手主畫面 巨集分頁">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>d4cute helper 1.30 主畫面 (支援 A~G 7 個巨集欄位擴充)</span>
+          </div>
+        </div>
+
+        <h3 id="screen-topbar">1) 頂端列 & 設定檔控制</h3>
+        <ul>
+          <li><strong>執行狀態指示燈</strong> — <span style="color:var(--green); font-weight:700;">● 已停止</span> / <span style="color:var(--green); font-weight:700;">● 執行中</span> / <span style="color:var(--ruby); font-weight:700;">● 暫停</span> 以即時色點顯示狀態。</li>
+          <li><strong>頂端功能按鈕</strong> — <span class="chip">更新</span>(偵測到新修補時會閃爍)、 <span class="chip">設定(⚙)</span>, <span class="chip">測試(⌨)</span>(輸入傳送驗證)、迷你視窗切換、永遠置頂(釘選)、 <span class="chip">···</span>(額外工具選單)。</li>
+          <li><strong>設定檔列 (Profile Bar)</strong> — 
+            <span class="chip">‹ ›</span> 按鈕可以快速切換設定檔， <strong>在下拉選單上按兩下即可立刻變更名稱</strong>。 <span class="chip green">＋</span>(新設定檔)、 <span class="chip">✎</span>(重新命名)、 <span class="chip ruby">🗑</span>(刪除)、 <span class="chip blue" style="display:inline-flex; align-items:center; gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Telegram 標誌</span>, <span class="chip">文件</span>(賽季文件)、 <span class="chip gold">?</span>(說明) 按鈕。視窗每次開啟都會以最小的預設尺寸顯示(下限 900×700，會依字型比例變大)，沒有全視窗(最大化)。
+          </li>
+        </ul>
+
+        <h3 id="screen-slots">2) 欄位列 (Slot Navigation) — 大幅擴充為 7 個欄位 (A~G)</h3>
+        <ul>
+          <li><span class="chip ruby">A</span> <span class="chip ruby">B</span> <span class="chip ruby">C</span> <span class="chip ruby">D</span> <span class="chip ruby">E</span> <span class="chip ruby">F</span> <span class="chip ruby">G</span> — <strong style="color:var(--gold);">透過最新修補，巨集欄位從原本的 4 個 (A~D) 大幅擴充為共 7 個 (A~G)</strong>！複雜的輸出循環、位移技能、護盾/增益維持，以及特定情況專用技能，都能寬裕地分開註冊，不用再擔心欄位不夠。已開啟的欄位邊框會強調顯示，發動中則以紅底白字亮起。</li>
+          <li><strong>直接指定巨集名稱</strong> — 在各欄位的巨集設定畫面中， <span class="chip">名稱：[ 主要巨集 ]</span> 輸入欄位讓你為每個欄位輸入直觀好記的專屬名稱。把滑鼠移到欄位按鈕上時，彈出提示的最上方也會以大字顯示這個名稱。</li>
+          <li><span class="chip">♡ 贊助</span> — 會以橫幅輪播顯示「助手免費」的聲明、合作夥伴推薦連結(Starlink 等)及隊長頻道介紹。助手不會自動傳送任何東西。</li>
+          <li><span class="chip">🔧 便利</span> — 赫拉迪姆方塊背包預變性自動化專用的單頁介面。</li>
+          <li><span class="chip">⏱ ▶ 4 (警報)</span> — 設定軍團、世界首領、地獄浪潮及個人計時器警報。右側會以徽章顯示目前運作中的警報數量。</li>
+          <li><strong>欄位右側摘要標籤</strong> — 隨時即時摘要顯示目前選取欄位的執行方式(順序/獨立)、發動方式(按住/切換/一次)及啟動鍵。</li>
+        </ul>
+
+        <h3 id="screen-bottombar">3) 底部整合控制列</h3>
+        <ul>
+          <li><span class="chip green">▶ 開始</span> / <span class="chip ruby">■ 停止</span>：開始或停止助手的所有巨集偵測與執行 (預設快速鍵 <kbd>F9</kbd>).</li>
+          <li><span class="chip blue">儲存</span>：把目前修改的設定檔及巨集設定立即永久儲存到磁碟。</li>
+          <li><span class="chip">📁 載入</span>：不小心改錯設定時，把設定檔還原成最後儲存的狀態。</li>
+          <li><span class="chip ruby" style="background:#cc0000; color:#fff; font-weight:700;">▶ 삼촌안잔다잉</span>：一鍵前往隊長的遊戲直播頻道。</li>
+          <li><span class="chip">📤 匯出</span>：把目前的設定檔設定儲存成 <code>.d4cute</code> 備份檔。</li>
+          <li><span class="chip blue">📥 匯入</span>：載入其他使用者或戰隊成員分享的 <code>.d4cute</code> 設定檔並立即套用。</li>
+          <li><span class="chip">最小化</span>：把助手視窗最小化到工作列。</li>
+        </ul>
+
+        <div class="image-card is-small" data-caption="贊助分頁 — 助手免費聲明、合作夥伴推薦連結、隊長頻道橫幅輪播">
+          <div class="thumb-container">
+            <img src="../images/helper_sponsor_tab.png" alt="贊助分頁橫幅輪播">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>贊助分頁 (橫幅輪播)</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 3. 매크로 설정 ─── -->
+      <section class="doc-section" id="macro-engine">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">3</span> 巨集設定 — 執行方式 · 發動方式 · 啟動鍵</h2>
+        </div>
+
+        <h3 id="macro-modes">1) 執行方式及發動方式</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 110px;">類別</th>
+                <th style="width: 100px;">模式名稱</th>
+                <th>說明及建議用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" style="font-weight: 700; color: var(--gold);">執行方式</td>
+                <td><strong>順序</strong></td>
+                <td>從步驟 1 依序施放到最後一個步驟後，再從頭重複。適合固定的技能連段及輸出循環輪替。</td>
+              </tr>
+              <tr>
+                <td><strong>獨立</strong></td>
+                <td>每個步驟依各自設定的冷卻(等待時間)獨立重複執行。最適合維持冷卻各不相同的護盾/增益技能。</td>
+              </tr>
+              <tr>
+                <td rowspan="3" style="font-weight: 700; color: var(--ruby);">發動方式</td>
+                <td><strong>按住</strong></td>
+                <td>只有在 <strong>按住啟動鍵的期間</strong> 巨集才會運轉，放開按鍵就立即停止。建議用於主力輸出技能。</td>
+              </tr>
+              <tr>
+                <td><strong>切換</strong></td>
+                <td>按一次啟動鍵開啟，再按一次關閉。長時間刷寶或巡迴地城時可減輕手指疲勞。</td>
+              </tr>
+              <tr>
+                <td><strong>一次</strong></td>
+                <td>按下啟動鍵後，序列會從頭到尾執行 1 次並自行結束。適合連續製作藥水、購買裝備等。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="macro-keys">2) 啟動鍵選擇及精細調整</h3>
+        <ul>
+          <li><strong>彈性的啟動鍵</strong>：支援鍵盤所有按鍵、滑鼠左/右鍵、滾輪上/下、側鍵，以及 <kbd>Ctrl</kbd> · <kbd>Shift</kbd> · <kbd>Alt</kbd> 組合鍵。也可以對多個欄位指定相同的啟動鍵，同時連動發動。但不能與便利功能(預變性)的開始快速鍵重複 — 重複時選擇時會被拒絕。</li>
+          <li><strong>按壓辨識延遲 (Press Delay)</strong>：輕輕點一下的按擊會被忽略，只有按住超過指定時間(例如 250~300ms)時巨集才會開啟。 <strong>這是用右鍵當啟動鍵時，防止背包或倉庫視窗被關閉的必要設定</strong>。
+          </li>
+          <li><strong>放開後維持 (Release Buffer)</strong>：即使放開啟動鍵，巨集仍會在指定時間內延長維持運作。讓你在戰鬥後撿拾周圍地上物品時，攻擊不會中斷。
+          </li>
+          <li><strong>伴隨鍵 (Companion Keys)</strong>：可以指定巨集運作期間持續一起按住的按鍵 (例如原地強制攻擊 <kbd>Shift</kbd>、強制移動鍵等)。
+          </li>
+        </ul>
+
+        <!-- 키 피커 캡처 -->
+        <div class="image-card is-small" data-caption="啟動鍵指定彈出視窗 — 可安全且直觀地選擇鍵盤按鍵、滑鼠按鈕及組合鍵。">
+          <div class="thumb-container">
+            <img src="../images/helper_key_picker.png" alt="啟動鍵選擇對話框">
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>啟動鍵選擇彈出視窗</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 4. 시퀀스 빌더 & 실시간 녹화 ─── -->
+      <section class="doc-section" id="sequence-builder">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">4</span> 序列編輯器 · 批次變更延遲 · 滑鼠錄製</h2>
+        </div>
+
+        <h3 id="seq-cards">1) 步驟卡片及批次操作</h3>
+        <ul>
+          <li>點擊步驟卡片即可個別變更按鍵、動作模式、延遲(等待時間，ms)。</li>
+          <li><strong>模式選項</strong>:
+            <ul>
+              <li><em>Single</em>：按鍵輸入 1 次</li>
+              <li><em>Burst</em>：以指定間隔高速連點</li>
+              <li><em>Hold</em>：在指定時間內持續按住按鍵</li>
+            </ul>
+          </li>
+          <li><span class="chip">批次變更延遲</span>：一次把所有步驟的等待時間變更為想要的數值(ms)或比例(%)。</li>
+          <li><span class="chip">全部 → Burst/Single</span>：一鍵批次切換所有已註冊步驟的動作模式。</li>
+        </ul>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <div class="image-card is-small" data-caption="步驟編輯器 — 精確設定按鍵、模式(Single/Burst/Hold)、延遲">
+            <div class="thumb-container">
+              <img src="../images/helper_step_editor.png" alt="步驟編輯器">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>單一步驟編輯視窗</span></div>
+          </div>
+          <div class="image-card is-small" data-caption="批次變更延遲工具 — 輕鬆調整全部步驟間隔">
+            <div class="thumb-container">
+              <img src="../images/helper_bulk_delay.png" alt="批次變更延遲對話框">
+            </div>
+            <div class="image-caption"><span>📷</span> <span>批次變更延遲彈出視窗</span></div>
+          </div>
+        </div>
+
+        <h3 id="seq-recorder">2) 即時滑鼠座標錄製及擬人化隨機誤差</h3>
+        <ul>
+          <li><span class="chip">錄製</span> 按下按鈕後在遊戲畫面輸入按鍵與滑鼠，順序與時間間隔就會原樣被記錄。</li>
+          <li><strong>螢幕座標記錄</strong>：點擊滑鼠時，會記錄當時點擊的螢幕絕對座標 (X, Y)，巨集重播時會自動點擊該位置。</li>
+          <li><strong>擬人化隨機誤差</strong>:
+            <ul>
+              <li><strong>點擊位置 ± px</strong>：每次點擊都在指定的像素半徑內不規則地加入誤差，以防止被機械式偵測。</li>
+              <li><strong>隨機變動 %</strong>：在每個步驟間隔混入一定比例的隨機延遲，模仿自然的手部動作。</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3 id="seq-drag-path">3) 拖曳軌跡錄製 — 連按住後移動的路徑也能記錄 (1.32.0)</h3>
+        <ul>
+          <li>錄製時 <strong>按住滑鼠按鈕移動</strong> ，該路徑也會一併記錄。從最後記錄點移動超過 <strong>8px</strong> ，或每經過 <strong>16ms</strong> 就記下座標，因此快速旋轉會記得很細密、緩慢移動也不會斷斷續續。</li>
+          <li>重播時會在按下的位置按住按鈕，然後 <strong>依記錄的時間點沿同一條路徑</strong> 移動游標，並在放開的位置放開。舊版只記住按下與放開兩個點，所以會瞬間移動。</li>
+          <li><strong>旋風斬 · 凝神 這類引導技能</strong>：在遊戲中將技能 <span class="chip">滑鼠右鍵</span>上，錄製時按住右鍵繞圈轉動，該旋轉就會原樣被錄製、重播。按住左鍵移動也是一樣。</li>
+          <li><strong>隨機變動 %</strong>只會套用於整條軌跡的總時間一次， <strong>點擊位置 ± px</strong>只會對整條軌跡套用一次，因此游標不會抖動。</li>
+          <li>可在步驟編輯器中用數值修改位置，或 <span class="chip">清除拖曳</span>，軌跡就會被捨棄，改回以前那樣的跳點重播。</li>
+          <li>單次拖曳最多儲存 600 個點 (以 16ms 間隔約為 10 秒)。軌跡是螢幕絕對座標，若更改過解析度或視窗位置，請重新錄製。</li>
+        </ul>
+
+        <!-- 비디오 플레이스홀더 (마우스 녹화) -->
+        <div class="video-card" data-video-title="[影片指南] 巨集序列製作及即時錄製技巧">
+          <div class="placeholder-box" style="margin: 0; border: none; border-radius: 0;">
+            <div class="placeholder-icon">🎬</div>
+            <div class="placeholder-title">巨集序列錄製教學影片 (準備中)</div>
+            <div class="placeholder-desc">提供 YouTube 影片網址後，這裡會直接換成可播放的嵌入影片。</div>
+            <span class="placeholder-path">YouTube Video Slot: seq-record-guide</span>
+          </div>
+          <div class="video-info">
+            <span><strong>影片 1</strong>：巨集錄製及延遲調校實戰技巧</span>
+            <span class="chip ruby">準備中</span>
+          </div>
+        </div>
+
+        <!-- 🌀 4) 완성형 360도 원형 회전팩 (9종 프리셋) & 다운로드 안내 -->
+        <h3 id="seq-rotation-pack">4) 完成版 360 度圓形旋轉包 (9 種預設) & 下載</h3>
+        <p>
+          用手直接錄製拖曳時，容易發生圓形被壓扁、旋轉角度對不準，以及起點和終點處停頓的現象。<br>
+          為此我們提供經過精密數學計算的 <strong>完美 360 度封閉曲線圓形旋轉序列包 (9 種預設)</strong>。
+        </p>
+
+        <!-- 텔레그램 다운로드 강조 배너 -->
+        <div class="alert-box gold" style="margin: 16px 0; border-left: 4px solid var(--gold);">
+          <span class="alert-icon">🎁</span>
+          <div>
+            <strong style="color:var(--gold-bright); font-size:15px;">實際示範影片及旋轉包下載說明</strong><br>
+            <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">官方 Telegram 公告頻道(@d4_notice)</a> 以及 
+            <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700; text-decoration:underline;">使用者群組(@d4cute_helper)</a>中可以 
+            <strong>遊戲內實際 360 度旋轉示範影片</strong>與完成版 <strong><code>sequences.d4seq</code> 旋轉包檔案</strong>，直接免費下載！
+          </div>
+        </div>
+
+        <div style="overflow-x: auto; margin: 18px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line);">
+            <thead>
+              <tr style="background: rgba(229, 184, 92, 0.12); color: var(--gold-bright); border-bottom: 1px solid var(--line-bright); text-align: left;">
+                <th style="padding: 10px 14px;">序列名稱</th>
+                <th style="padding: 10px 14px;">旋轉半徑 (Radius)</th>
+                <th style="padding: 10px 14px;">單圈時間 (`press_ms`)</th>
+                <th style="padding: 10px 14px;">特色及建議用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">1. 小型快速旋轉</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">1.5 秒 (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">角色近身範圍，快速輕快的全方位鎖定</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); background: rgba(229, 184, 92, 0.05);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">2. 中型快速旋轉</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">1.5 秒 (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);"><strong style="color:var(--gold);">★ 標準推薦</strong> — 以預設解析度最佳半徑進行的流暢快速旋轉</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">3. 大型快速旋轉</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">1.5 秒 (1500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">大範圍掃過螢幕外圍的廣域快速旋轉</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">4. 小型旋轉</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">2.5 秒 (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">近身穩定的普通速度旋轉引導</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">5. 中型旋轉</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">2.5 秒 (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">預設半徑的穩定普通速度旋轉</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">6. 大型旋轉</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">2.5 秒 (2500ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">平順且從容地旋轉廣大範圍</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">7. 小型超高速</td>
+                <td style="padding: 9px 14px;">300 px</td>
+                <td style="padding: 9px 14px;">0.75 秒 (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">近身即時旋轉鎖定 (0.75 秒就迅速轉一圈)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">8. 中型超高速</td>
+                <td style="padding: 9px 14px;">570 px</td>
+                <td style="padding: 9px 14px;">0.75 秒 (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">預設半徑、如閃電般的超高速全方位攻擊</td>
+              </tr>
+              <tr>
+                <td style="padding: 9px 14px; font-weight: 700; color: #fff;">9. 大型超高速</td>
+                <td style="padding: 9px 14px;">800 px</td>
+                <td style="padding: 9px 14px;">0.75 秒 (750ms)</td>
+                <td style="padding: 9px 14px; color: var(--fg-dim);">以超高速纏繞整個畫面的旋轉</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 style="color:var(--gold); margin: 20px 0 8px 0; font-size:15px;">🔧 旋轉包使用方法及設定小秘訣</h4>
+        <ol style="margin-top: 6px; padding-left: 20px; line-height: 1.8;">
+          <li><strong>匯入 (Import)</strong>：準備好從 Telegram 下載的 <code>sequences.d4seq</code> 檔案，按下助手視窗底部的 <span class="chip">匯入</span> 按鈕並選擇檔案，9 種序列就會一次註冊完成。</li>
+          <li><strong>欄位指派</strong>：按下想要的巨集欄位(A~G)，在 <strong>序列庫</strong>中從上述 9 種預設挑選喜歡的。</li>
+          <li><strong>想讓它只轉一圈就停止？</strong>：請將巨集發動方式設為 <strong style="color:var(--gold-bright);">[一次執行 (Once)]</strong>。每按一次鍵， <strong>就只會精準轉 1 圈，然後在原地自動乾淨地停止。</strong>
+          </li>
+          <li><strong>想在按住期間持續旋轉？</strong>：將發動方式設為 <strong>[按住期間 (Hold)]</strong> 或 <strong>[切換 (Toggle)]</strong>即可。步驟間延遲(<code>interval_ms</code>)已最佳化為 <code>0ms</code>，因此在起點與終點不會卡頓或停頓， <strong>如流水般連續旋轉</strong>。
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 5. 편의기능 — 인벤 선변성 ─── -->
+      <section class="doc-section" id="tools-alter">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">5</span> 便利功能 — 背包預變性 (單頁介面)</h2>
+        </div>
+
+        <p>1.30 版全新改版的 <strong>背包預變性工具</strong>只需幾個操作，就能把利用赫拉迪姆方塊進行的傳奇·獨特裝備預變性作業自動化。</p>
+
+        <!-- 선변성 도구 탭 스크린샷 카드 -->
+        <div class="image-card is-thumbnail" data-caption="背包預變性專用分頁 — 第一格/最後一格座標校正、跳過非綁定開關、開始/停止快速鍵、結果等待調整全部整合在同一畫面的最新版面">
+          <div class="thumb-container">
+            <img src="../images/helper_alter_tool.png" alt="背包預變性單頁介面">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>便利功能：赫拉迪姆方塊背包預變性單頁介面</span>
+          </div>
+        </div>
+
+        <h3 id="alter-grid">1) 33 格自動網格計算及開始</h3>
+        <ol>
+          <li>在遊戲中開啟 <strong>背包</strong>與 <strong>赫拉迪姆方塊</strong> 視窗。</li>
+          <li><span class="chip gold">選取第一格</span>，然後將滑鼠移到遊戲背包的第一格(左上角)，按下 <kbd>Enter</kbd>。</li>
+          <li><span class="chip gold">選取最後一格</span>，然後將滑鼠移到背包的最後一格(右下角)，按下 <kbd>Enter</kbd>。(隨時可按 <kbd>Esc</kbd>)</li>
+          <li>取消)只要指定這兩個點的位置，33 個背包格的中心座標就會自動精確計算出來。</li>
+          <li>在遊戲畫面按下開始快速鍵(預設 <kbd>F10</kbd>，可點藍色按鍵按鈕更改)，預變性就會全自動開始。即使沒有開著便利功能分頁，快速鍵也會常駐運作。</li>
+        </ol>
+
+        <h3 id="alter-safety">2) 運作機制及智慧安全裝置</h3>
+        <ul>
+          <li><strong>智慧重複迴圈</strong>：逐一巡視背包每一格，並 <em>自動進行右鍵 → 放上赫拉迪姆方塊 → 點擊物品變性按鈕 → 轉換 → 接受(<kbd>Enter</kbd>) → 重設</em>。
+          </li>
+          <li><strong>跳過帳號綁定物品開關</strong>：開啟開關時會跳過綁定物品，只挑選非綁定裝備進行變性。關閉開關時，綁定裝備也會變性，只在接受彈出視窗出現時才安全地傳送 <kbd>Enter</kbd>。
+          </li>
+          <li><strong>方塊清空驗證 (Cube Empty Check)</strong>：重設後，以方塊第一格的 <strong>圖像</strong>(放上第一件物品時會記住空與滿的樣子)判斷是否已清空，在抓不到圖像的環境下，則以方塊標題文字輔助判定。若未清空就再按一次重設，最後仍沒清空就會停止 — 這是為了防止兩件物品重疊放上去的裝置。
+          </li>
+          <li><strong>緊急停止</strong>：作業進行中按下鍵盤的 <kbd>Esc</kbd> 鍵，無論在哪裡預變性都會立即停止。</li>
+          <li><strong>慢速電腦調整值</strong>: <span class="chip">開始前 ms</span>(按下開始按鈕後切換到遊戲視窗的緩衝時間)、 <span class="chip">結果等待 ms</span>(預設 3000 — 轉換·接受後等待變性結束、轉換按鈕熄滅的上限時間，收到訊號就立刻繼續)、 <span class="chip">重設後 ms</span>(預設 0 — 重設後額外等待)。在特效較慢的電腦上若物品重疊或未變性就跳過，請調高結果等待。</li>
+          <li><strong>執行記錄</strong>：每跑完一輪， <code>%APPDATA%\d4cute_helper\debug\alter_slots.txt</code> 中就會留下逐格判定。發生問題時請把這個檔案上傳到 Telegram 群組。</li>
+        </ul>
+
+        <!-- 인게임 실화면 플레이스홀더 -->
+        <div class="placeholder-box">
+          <div class="placeholder-icon">📸</div>
+          <div class="placeholder-title">[遊戲內截圖欄位] 赫拉迪姆方塊預變性運作畫面</div>
+          <div class="placeholder-desc">只要提供遊戲中開啟赫拉迪姆方塊與背包的實際擷取圖片，就能立刻連結。</div>
+          <span class="placeholder-path">Image Slot: _work/d4help-repo/images/inven/alter_ingame_live.png</span>
+        </div>
+
+        <!-- 선변성 유튜브 비디오 슬롯 -->
+        <div class="video-card" data-video-title="[影片] 背包預變性工具使用方法">
+          <div class="video-embed"><iframe src="https://www.youtube.com/embed/O2mSUAEX-xM" title="[影片] 背包預變性工具使用方法" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="video-info">
+            <span><strong>預變性工具使用方法影片 (삼촌안잔다잉 頻道)</strong></span>
+            <a href="https://youtu.be/O2mSUAEX-xM" target="_blank" rel="noopener noreferrer" class="chip">在 YouTube 觀看 ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 6. 스마트 알람 시스템 ─── -->
+      <section class="doc-section" id="alarm">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">6</span> 智慧警報系統 — 事件 · 個人 · 螢幕通知 · 語音(TTS)</h2>
+        </div>
+
+        <p>這是高效能的背景警報引擎，讓你不會錯過暗黑破壞神4的主要限時內容(軍團入侵、野外首領、地獄浪潮等)與使用者的個人計時器。</p>
+
+        <h3 id="alarm-events">1) 事件通知 (世界首領 · 地獄浪潮 · 軍團)</h3>
+        <p>與遊戲外部網站(diablo4.life)即時連動，自動計算最新首領及地獄浪潮的出現時間。</p>
+        
+        <!-- 이벤트 알림 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="事件通知分頁 — 世界首領、地獄浪潮、軍團出現時間說明，5 分鐘/3 分鐘/1 分鐘/開始 預先通知開關，重疊時的優先順序(▲/▼)調整">
+          <div class="thumb-container">
+            <img src="../images/alarm_event_schedule_list.png" alt="事件通知清單及優先順序">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>事件通知 (世界首領、地獄浪潮、軍團時間表及通知時間點)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>選擇通知時間點</strong>：每個事件都可以獨立開關 <span class="chip blue">5 分鐘</span>, <span class="chip blue">3 分鐘</span>, <span class="chip blue">1 分鐘</span> 前以及 <span class="chip blue">開始</span> 時刻。</li>
+          <li><strong>重疊時的優先順序</strong>: <kbd>▲</kbd> <kbd>▼</kbd> 按鈕可變更事件之間的順序。當同一時刻有多個通知重疊時，會從位於上方的事件先發出聲音，並一起顯示在畫面上。</li>
+          <li><strong>軍團基準點設定</strong>：也可以配合自己的畫面狀況，手動把軍團出現時間校正為 0 分鐘前的基準點。</li>
+        </ul>
+
+        <h3 id="alarm-personal">2) 個人警報 (自訂計時器 & 重複週期)</h3>
+        <p>可以無限制地註冊藥劑 30 分鐘到期警報、地城冷卻、休息提醒等專屬自訂計時器。</p>
+
+        <!-- 개인 알람 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="個人警報分頁 — + 新增警報按鈕、週期性重複(例如每 10 分鐘的無限制運動計時器)、即時狀態開關及編輯/刪除">
+          <div class="thumb-container">
+            <img src="../images/alarm_personal_timer_list.png" alt="個人警報計時器清單">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>個人警報設定 (自訂重複計時器清單)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><span class="chip blue">＋ 新增警報</span>：決定想要的名稱、週期(以分鐘為單位或指定時刻)與起算基準後註冊。</li>
+          <li><strong>開關 On/Off</strong>：只需要的計時器可用開關立即開啟或關閉，距離下一次通知的剩餘時間會即時顯示。</li>
+        </ul>
+
+        <h3 id="alarm-display">3) 螢幕通知 (遊戲內文字覆蓋橫幅)</h3>
+        <p>在畫面上顯示文字，讓你在遊戲中不被擋住視線，也能直觀確認重要通知。</p>
+
+        <!-- 화면 알림 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="螢幕通知設定 — 位置(角色頭頂，垂直偏移 -59px)、文字大小(35px)、顏色(#FFD700)、粗體/外框效果、背景透明度(24)、顯示時間(15 秒)及預覽">
+          <div class="thumb-container">
+            <img src="../images/alarm_banner_display_settings.png" alt="螢幕通知橫幅設定">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>螢幕通知設定 (位置、文字大小、顏色、外框及顯示時間)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>警報位置 & 垂直偏移</strong>: <span class="chip">角色頭頂</span> 等，選擇想要的位置，並可微調垂直像素偏移 (例如 -59 px)。</li>
+          <li><strong>易讀性選項</strong>：文字大小(px)、色盤(金色 #FFD700 等)、 <strong>粗體</strong> 以及 <strong>外框</strong> 開關開啟後，即使在昏暗的地城或華麗的技能特效中，文字也能清楚呈現。</li>
+          <li><span class="chip">預覽</span> 按鈕可立即測試在遊戲中會如何顯示。</li>
+        </ul>
+
+        <h3 id="alarm-sound">4) 基本音效 · 語音 (TTS & 音效)</h3>
+        <p>透過警報音效與 Supertonic 3 人工智慧語音引擎，提供自然的韓語語音提示。</p>
+
+        <!-- 기본 사운드 음성 설정 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="基本音效 · 語音設定 — 音效檔案(Ring01)、通知方式(僅警報聲 / 警報聲+語音 / 僅語音)、Supertonic 3 韓語語音引擎(F1 女聲、速度 0.90x、音量調整)及即時測試">
+          <div class="thumb-container">
+            <img src="../images/alarm_sound_voice_settings.png" alt="基本音效及語音設定">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>基本音效 · 語音 (Supertonic 3 韓語語音及音效)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>通知方式</strong>: <span class="chip">僅警報聲</span>, <span class="chip gold">警報聲 ＋ 語音</span>, <span class="chip">僅語音</span> 支援 3 種模式。</li>
+          <li><strong>語音引擎</strong>：內建 <strong>Supertonic 3</strong> 語音引擎 — 以「F1 女聲」等清晰的韓語發音朗讀，可自由調整語速(0.90x 等)與音量(0~100)。</li>
+          <li><span class="chip">▶ 測試</span> 按鈕可立即確認實際語音輸出品質。</li>
+        </ul>
+      </section>
+
+      <!-- ─── 7. 창 모드, 핀, 오버레이 ─── -->
+      <section class="doc-section" id="window-modes">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">7</span> 視窗模式 · 永遠置頂(釘選) · 遊戲內覆蓋層</h2>
+        </div>
+
+        <h3 id="window-mini">1) 迷你視窗模式 (Mini Bar)</h3>
+        <p>這是可以小小地放在遊戲螢幕角落使用、超小型單行列的模式。</p>
+
+        <!-- 미니바 스크린샷 카드 -->
+        <div class="image-card is-small" data-caption="迷你視窗模式 — 欄位 A~G 運作狀態、開始/停止、便利功能捷徑、返回基本視窗按鈕">
+          <div class="thumb-container">
+            <img src="../images/helper_mini_bar.png" alt="迷你列模式畫面">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>超小型迷你列模式</span></div>
+        </div>
+
+        <ul>
+          <li>欄位 A~G 共 7 個的目前運作狀態會亮燈，可即時確認。</li>
+          <li><span class="chip green">開始</span> / <span class="chip">停止</span> 按鈕、便利功能(扳手)按鈕 — 按下後會回到基本視窗並開啟便利功能分頁(預變性開始請用快速鍵或該分頁的開始按鈕)，並內建永遠置頂(釘選)按鈕。</li>
+          <li>按下返回(方框)按鈕，會立刻回到原本大小的基本視窗。</li>
+        </ul>
+
+        <h3 id="window-overlay">2) 遊戲內 HUD 覆蓋層</h3>
+        <p>這是以半透明方式浮在遊戲畫面上，即時確認巨集運作狀況的必備 HUD 工具。運作中的巨集欄位、維持按鍵、目前正在打出的按鍵清單都會透明顯示。</p>
+
+        <!-- 1. 인게임 오버레이 실화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="遊戲內 HUD 覆蓋層實際畫面 — 運作中的巨集欄位(•A、•B 紅色亮燈)、維持按鍵(維持 RClick)、即時按下按鍵清單(按下 2 F F F F 4)即時顯示">
+          <div class="thumb-container">
+            <img src="../images/overlay_ingame_live_display.png" alt="遊戲內 HUD 覆蓋層實際畫面">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>遊戲內 HUD 覆蓋層 (運作欄位、維持按鍵、即時打出按鍵清單)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>運作中巨集欄位狀態</strong>:
+            <span class="chip ruby">•A</span> <span class="chip ruby">•B</span> ，目前已發動、正在運轉的欄位會以紅色邊框與圓點(•)亮起，並能一眼分辨停用欄位(<span class="chip">C</span>)與切換待機欄位(<span class="chip green">○D</span>)。
+          </li>
+          <li><strong>維持按鍵 (Hold / Companion) 輸出</strong>：目前持續被按住的按鍵(例如： <code>維持 RClick</code>, <code>維持 Shift</code> 等)會即時顯示在右上角。
+          </li>
+          <li><strong>即時按下按鍵清單 (Key Log)</strong>：底部會連續輸出目前序列中即時打出的技能鍵(例如： <code>按下 2 F F F F 4</code>)，讓你在遊戲中就能立即確認技能循環是否正確銜接運轉。
+          </li>
+          <li><strong>預變性進度</strong>：進行赫拉迪姆方塊預變性時，覆蓋層上會顯示目前格數與進度。</li>
+        </ul>
+
+        <!-- 2. 오버레이 설정 화면 스크린샷 -->
+        <div class="image-card is-thumbnail" data-caption="全域設定 — 覆蓋層詳細自訂 (選擇螢幕、位置右下角、X/Y 像素偏移、透明度 40%、大小 118%、橫向寬度 409px 及即時預覽)">
+          <div class="thumb-container">
+            <img src="../images/overlay_configuration_settings.png" alt="覆蓋層詳細設定畫面">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption">
+            <span>📷</span> <span>覆蓋層詳細設定 (螢幕、位置、X/Y 偏移、透明度、大小、寬度調整)</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>顯示遊戲覆蓋層</strong>：開啟與關閉覆蓋層的總開關。</li>
+          <li><strong>選擇螢幕</strong>：在雙螢幕及多螢幕環境下，可用下拉選單直接指定開著暗黑破壞神4的螢幕 (例如： <code>2: LG HDR 4K (2560×1440)</code>)。</li>
+          <li><strong>畫面位置 & 精細像素偏移</strong>：從畫面的 9 個區域(例如： <code>右側</code> <code>下方</code>)中選好後， <span class="chip">X 偏移</span>(-13 px)與 <span class="chip">Y 偏移</span>(-3 px)可以逐像素微調位置，避免擋住小地圖或遊戲 UI。
+          </li>
+          <li><strong>透明度 & 大小 & 橫向寬度</strong>：透過滑桿將 <span class="chip">透明度</span>(預設 40% 半透明)、 <span class="chip">大小</span>(118% 等倍率)、 <span class="chip">橫向寬度</span>(409 px)調整到最適合自己的視野。
+          </li>
+          <li><span class="chip blue">👁 預覽</span>：即使不實際執行巨集，只要按下按鈕，覆蓋層就會以設定的位置與大小立即出現在畫面上，方便確認。</li>
+        </ul>
+      </section>
+
+      <!-- ─── 8. 안전장치 ─── -->
+      <section class="doc-section" id="safety-features">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">8</span> 安全裝置 — 待機鍵(Stop Keys) · 遊戲視窗偵測</h2>
+        </div>
+
+        <ul>
+          <li><strong>待機鍵 (Stop Keys，預設值： <kbd>Enter</kbd> <kbd>Tab</kbd> <kbd>T</kbd> <kbd>I</kbd>)</strong>：開啟聊天視窗(<kbd>Enter</kbd>)、開啟地圖(<kbd>Tab</kbd>)、傳送門(<kbd>T</kbd>)、開啟背包(<kbd>I</kbd>)等開啟遊戲介面時，為避免巨集亂放技能，會 <strong>立即暫停輸入</strong>。對話結束後再按一次啟動鍵，巨集就會恢復。
+          </li>
+          <li><strong>遊戲視窗偵測</strong>：只有在暗黑破壞神4的處理程序為作用中視窗時才會運作。也可以在設定中由使用者自行自訂比對特定的視窗標題或處理程序名稱。
+          </li>
+          <li><strong>輸入傳送驗證工具</strong>：按下頂端列的 <span class="chip">測試</span> 按鈕，就能預先檢查即使在遊戲之外，虛擬按鍵輸入是否能正確注入系統。
+          </li>
+        </ul>
+
+        <h3 id="input-test">3) 輸入測試視窗</h3>
+        <p>按下頂端列的 <span class="chip">測試</span> 按鈕會跳出一個小視窗，可以用眼睛確認巨集送出的鍵盤·滑鼠輸入是否原樣進來。按啟動鍵卻毫無反應時，這是用來分辨「助手送不出輸入，還是遊戲沒有接收」的第一個檢查工具。</p>
+        <div class="image-card is-small" data-caption="輸入測試視窗 — 確認巨集送出的鍵盤·滑鼠輸入是否真的進來">
+          <div class="thumb-container">
+            <img src="../images/helper_input_test.png" alt="輸入測試視窗">
+          </div>
+          <div class="image-caption"><span>📷</span> <span>輸入測試視窗</span></div>
+        </div>
+        <!-- 설정창 캡처 -->
+        <div class="image-card is-thumbnail" data-caption="全域設定視窗 — 自訂安全待機鍵、指定遊戲視窗偵測的處理程序、調整覆蓋層位置/透明度">
+          <div class="thumb-container">
+            <img src="../images/helper_settings_dialog.png" alt="全域設定對話框">
+            <span class="zoom-hint-badge">🔍 點擊放大</span>
+          </div>
+          <div class="image-caption"><span>📷</span> <span>助手全域設定(⚙)對話框</span></div>
+        </div>
+      </section>
+
+      <!-- ─── 9. 프로필 관리 & 공유 ─── -->
+      <section class="doc-section" id="profile-sync">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">9</span> 設定檔管理 · 備份 · 戰隊成員分享</h2>
+        </div>
+
+        <ul>
+          <li>一個設定檔會把欄位 A~G(共 7 個)的所有序列、延遲及啟動鍵設定整包儲存起來。</li>
+          <li>若依職業與流派分開術士、野蠻人、德魯伊、死靈法師、盜賊、靈魂使者等設定檔，只要點一下就能替換所有設定。</li>
+          <li><span class="chip">匯出</span>：把目前的設定 <code>.d4cute</code> 檔案匯出，可以安全備份或分享給戰隊成員。</li>
+          <li><span class="chip blue">匯入</span>：載入其他使用者分享的 <code>.d4cute</code> 設定檔並立即套用到我的助手。</li>
+          <li><span class="chip">儲存</span> 按鈕才會安全地寫入磁碟，不小心改錯時可以按 <span class="chip">載入</span>，還原到最後儲存的時間點。</li>
+        </ul>
+      </section>
+
+      <!-- ─── 10. 텔레그램 지원 & 디버그 로그 ─── -->
+      <section class="doc-section" id="telegram-support">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">10</span> Telegram 支援 & 除錯記錄檢視器</h2>
+        </div>
+
+        <p>
+          點擊助手頂端設定檔列上的藍色 <span class="chip blue" style="display:inline-flex; align-items:center; gap:5px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Telegram 標誌</span> 圖示會開啟 Telegram 連動對話框。可以快速確認新版本消息， <strong style="color:var(--gold);">@d4cute_helper</strong> 在使用者群組提問及回報錯誤，發生錯誤時 <strong style="color:var(--ruby);">一鍵匯出除錯記錄</strong>就能獲得問題解決的協助。
+        </p>
+
+        <!-- 텔레그램 및 로그 뷰어 스크린샷 2종 갤러리 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 20px 0;">
+          <div class="image-card is-thumbnail" data-caption="Telegram 對話框 — 公告頻道(@d4_notice)、使用者交流群組(@d4cute_helper)、手機即時加入 QR Code、檢視記錄及安裝 Telegram 按鈕">
+            <div class="thumb-container">
+              <img src="../images/telegram_qr_dialog.png" alt="Telegram 連動對話框及 QR Code">
+              <span class="zoom-hint-badge">🔍 點擊放大</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>Telegram 連動彈出視窗 (公告/使用者群組/QR Code/安裝)</span>
+            </div>
+          </div>
+          
+          <div class="image-card is-thumbnail" data-caption="記錄檢視器對話框 — 依日期查看記錄、僅過濾警告·錯誤切換、複製最近 200 行、僅複製錯誤、開啟本機記錄資料夾">
+            <div class="thumb-container">
+              <img src="../images/log_viewer_error_copy.png" alt="除錯記錄檢視器對話框">
+              <span class="zoom-hint-badge">🔍 點擊放大</span>
+            </div>
+            <div class="image-caption">
+              <span>📷</span> <span>一鍵除錯記錄檢視器 (僅複製錯誤/複製最近 200 行)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1) 텔레그램 설치 및 계정 준비 -->
+        <h3 id="telegram-install">1) 安裝 Telegram 及事前準備</h3>
+        <p>
+          Telegram 是在電腦與手機上輕量又安全運作的全球通訊軟體。如果電腦或手機還沒有安裝 Telegram，可以用下列方法輕鬆準備。
+        </p>
+        <div class="alert-box info" style="margin: 12px 0 18px;">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>安全的官方安裝說明</strong><br>
+            按下助手 Telegram 視窗底部的 <span class="chip blue">安裝 Telegram</span> 按鈕，瀏覽器會開啟 Telegram 官方網站 (<a href="https://telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">telegram.org</a>)。 
+            <span style="color:var(--green); font-weight:600;">助手不會擅自下載或安裝執行檔，請放心使用。</span>
+          </div>
+        </div>
+        <ul>
+          <li><strong>手機 (行動裝置)</strong>: <span style="color:var(--gold); font-weight:600;">Google Play 商店</span> 或 <span style="color:var(--gold); font-weight:600;">Apple App Store</span>中可以 <code>Telegram</code>搜尋後免費下載。只要通過電話號碼驗證，1 分鐘內就能完成註冊。</li>
+          <li><strong>電腦 (桌面版)</strong>: <a href="https://desktop.telegram.org" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">Telegram Desktop ↗</a> 從官方頁面下載並安裝 Windows 版安裝檔後，用手機 Telegram App 的 <span class="chip">設定 → 裝置 → 連結桌面裝置</span>掃描 QR Code，就能不用密碼立即登入。</li>
+        </ul>
+
+        <!-- 2) 채널 및 그룹방 가입 방법 -->
+        <h3 id="telegram-channels">2) 加入頻道 & 使用者群組的方法</h3>
+        <p>
+          d4cute helper 依用途經營兩個官方 Telegram 聊天室。
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0 20px;">
+          <div class="clan-card" style="padding: 16px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">📢</span>
+              <strong style="color:var(--gold); font-size:16px;">公告專用頻道</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              這是傳達新版本更新消息、賽季修補因應狀況與緊急公告的單向通知頻道。
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4_notice" target="_blank" rel="noopener noreferrer" style="color:var(--gold-bright); font-weight:700;">@d4_notice ↗</a>
+              <span class="chip">訂閱公告</span>
+            </div>
+          </div>
+
+          <div class="clan-card" style="padding: 16px; border-color: rgba(59, 130, 246, 0.4);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span style="font-size:20px;">💬</span>
+              <strong style="color:var(--blue); font-size:16px;">使用者交流群組</strong>
+            </div>
+            <p style="font-size:13px; color:var(--fg-dim); margin:0 0 10px;">
+              <strong>助手設定技巧分享、提問、功能建議、錯誤回報只在這裡受理！</strong>
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper ↗</a>
+              <span class="chip blue">諮詢/回報</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box gold" style="margin: 12px 0 18px;">
+          <span class="alert-icon">⚠️</span>
+          <div>
+            <strong>諮詢頻道注意事項</strong><br>
+            삼촌안잔다잉 YouTube 頻道是享受暗黑破壞神4遊玩與交流的個人直播空間。 <span style="color:var(--ruby); font-weight:700;">YouTube 直播聊天室或留言完全不受理助手相關諮詢，</span>，請務必前往 Telegram 官方群組 (<span style="color:var(--blue); font-weight:700;">@d4cute_helper</span>)。
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">📱 群組簡單加入方法 2 種</h4>
+        <ul>
+          <li><strong>方法 A (用手機相機掃描 QR Code — 最推薦！)</strong>：開啟手機的預設相機 App，對準畫面右側的 <strong style="color:var(--gold);">大型 QR Code</strong>，上方就會出現黃色的 Telegram 連結橫幅。只要輕觸一下， <span class="chip blue">@d4cute_helper</span> 就能立刻進入群組。</li>
+          <li><strong>方法 B (直接開啟電腦版 Telegram)</strong>：在視窗中按下 <span class="chip">開啟</span> 按鈕，或點擊網頁連結 (<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:600;">https://t.me/d4cute_helper</a>)，就會直接進入電腦版 Telegram 用戶端。</li>
+        </ul>
+
+        <!-- 3) 로그 뷰어를 통한 오류 복사 & 문제 해결 -->
+        <h3 id="log-viewer-guide">3) 透過檢視記錄複製錯誤 & 問題解決方法</h3>
+        <p>
+          當巨集突然停止、預變性途中發生錯誤，或出現意料之外的動作時，要向作者說明狀況， <strong style="color:var(--gold);">記錄資料</strong>是最可靠的關鍵。
+        </p>
+
+        <h4 style="color:var(--gold-bright); margin: 16px 0 8px;">🔍 記錄檢視器畫面配置 & 按鈕功能</h4>
+        <ul>
+          <li><strong><span style="color:var(--gold); font-weight:700;">記錄日期下拉選單</span></strong>：選擇發生錯誤的日期(預設：今天日期)。記錄會 <span class="chip">自動保留最近 7 天</span>，之後從舊檔案開始依序刪除。</li>
+          <li><strong><span class="chip">僅警告·錯誤</span> 切換開關</strong>：隱藏數千行一般的 <code>INFO</code> 記錄，只挑出系統警告(<span style="color:#f59e0b; font-weight:700;">WARN</span>) 及錯誤(<span style="color:var(--ruby); font-weight:700;">ERROR</span>) 項目來檢視。</li>
+          <li><strong><span class="chip">重新整理</span></strong>：在助手開著的狀態下，立即把即時累積的最新記錄重新載入畫面。</li>
+          <li><strong><span class="chip">開啟資料夾</span></strong>：直接開啟存放記錄原始文字檔的 Windows 檔案總管資料夾 (<code>%APPDATA%\d4cute_helper\logs</code>)。</li>
+          <li><strong><span class="chip gold">複製最近 200 行</span></strong>：為了掌握錯誤發生前按過哪些按鍵、發生過哪些事件的脈絡，把最近 200 行記錄複製到剪貼簿。</li>
+          <li><strong><span class="chip ruby">僅複製錯誤</span></strong>：從整份記錄中精準擷取錯誤(<span style="color:var(--ruby); font-weight:700;">ERROR</span>) 及例外堆疊追蹤語句，放進剪貼簿。</li>
+          <li><strong><span class="chip">複製選取內容</span></strong>：在文字視窗中用滑鼠拖曳選取想要的部分後，只複製該區段。</li>
+        </ul>
+
+        <div class="alert-box info" style="margin: 14px 0 18px;">
+          <span class="alert-icon">🛡️</span>
+          <div>
+            <strong>個資安心保護 & 阻擋自動傳送</strong><br>
+            <ul style="margin: 6px 0 0 18px; padding: 0;">
+              <li><strong>自動遮蔽使用者名稱</strong>：記錄中的檔案路徑 (例如： <code>C:\Users\使用者\...</code>)裡，使用者帳號名稱會被自動隱藏到無法辨識後才複製，因此不用擔心隱私外洩。</li>
+              <li><strong>阻擋對外自動傳送</strong>：如同底部說明文字(「<em>請把複製的內容貼到 Telegram 群組送出 — 助手不會自動傳送任何東西。</em>」)所示，助手不會透過網路偷偷把使用者的記錄傳送到外部。只有使用者親自複製貼上時才會安全地分享。</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 style="color:var(--gold-bright); margin: 18px 0 10px;">🚀 錯誤記錄傳達及快速解決 3 步驟指南</h4>
+        <ol style="line-height: 1.85;">
+          <li>
+            <strong style="color:var(--gold);">步驟 1：複製記錄</strong><br>
+            問題發生後立即在 Telegram 對話框按下 <span class="chip gold">📁 檢視記錄</span> 按鈕，然後在視窗底部點擊 <span class="chip ruby">僅複製錯誤</span> 或 <span class="chip gold">複製最近 200 行</span> 按鈕。<br>
+            <span style="font-size: 13px; color: var(--fg-dim);">※ 複製的記錄第一行會自動附上助手版本、作業系統環境、解析度倍率等中繼資訊，讓開發者一眼掌握環境。</span>
+          </li>
+          <li>
+            <strong style="color:var(--blue);">步驟 2：貼到 Telegram 群組</strong><br>
+            在手機或電腦上前往 <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a> 群組後，點擊訊息輸入框並執行 <kbd>Ctrl</kbd> + <kbd>V</kbd>(手機請長按輸入框後選擇貼上)。
+          </li>
+          <li>
+            <strong style="color:var(--green);">步驟 3：補充發生狀況說明</strong><br>
+            請在記錄之外，另外留下 <em>「在什麼情況下發生問題」</em> 1~2 行說明：<br>
+            <div style="background:var(--card-subtle); padding:10px 14px; border-radius:var(--radius-sm); border-left:3px solid var(--gold); margin:8px 0; font-size:13px; color:var(--fg-dim);">
+              範例 1：「開始背包預變性後，在第 12 格的方塊清空驗證階段停住。附上記錄。」<br>
+              範例 2：「在全域設定中更改了覆蓋層位置，但畫面上沒有出現覆蓋層。」
+            </div>
+            若能一併附上截圖或手機照片，就能更快速、更精準地診斷並修補。
+          </li>
+        </ol>
+      </section>
+
+      <!-- ─── 11. 클랜 & 방송 커뮤니티 ─── -->
+      <section class="doc-section" id="community">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">11</span> 앙증맞은 戰隊 & 삼촌안잔다잉 頻道</h2>
+        </div>
+
+        <p>這是作者活動的戰隊，以及該戰隊隊長的遊戲直播頻道。兩者都與助手本身無關。</p>
+
+        <!-- 상단 2열: 클랜 개요 카드 & 삼촌안잔다잉 방송 채널 카드 (높이 균형 & 럭셔리 디자인) -->
+        <div class="clan-showcase-grid">
+          <!-- 1. 앙증맞은 클랜 개요 -->
+          <div class="clan-card highlight-gold">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest">⚔️</div>
+                <div>
+                  <h3 class="clan-card-title">&lt;앙증맞은&gt; 彩虹之翼</h3>
+                  <p class="clan-card-sub">暗黑破壞神4遊戲內戰隊 · 隊長 韓國(삼촌안잔다잉)</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 14px; line-height: 1.75;">
+                這是作者一起活動的遊戲內交流戰隊。座右銘是 <strong>「幫忙是互相換工」</strong> — 比起單方面帶打，更重視互相照顧的互惠，養成多搜尋的習慣。
+              </p>
+              <ul style="font-size:13px; color:var(--fg-dim); margin:0 0 16px 18px; padding:0; line-height:1.75;">
+                <li>每個賽季一起攀登深淵高階、火炬無限刷、首領組隊</li>
+                <li>一起刷神話獨特裝備並達成賽季旅程</li>
+                <li>不經營 Discord，在遊戲內申請後於 YouTube 頻道確認</li>
+              </ul>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn gold">
+              <span>삼촌안잔다잉 頻道 — 告知已申請加入 ↗</span>
+            </a>
+          </div>
+
+          <!-- 2. 삼촌안잔다잉 게임 방송 채널 -->
+          <div class="clan-card highlight-ruby">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <div class="clan-card-header">
+                <div class="clan-card-crest" style="border-color: rgba(229, 72, 77, 0.45); background: rgba(229, 72, 77, 0.1);">📺</div>
+                <div>
+                  <h3 class="clan-card-title" style="color: #ff999c;">삼촌안잔다잉</h3>
+                  <p class="clan-card-sub">🌙 大家睡覺時，大叔還在玩遊戲！ · YouTube·CHZZK 同步直播</p>
+                </div>
+              </div>
+              <p style="font-size:13.5px; color:var(--fg-dim); margin:0 0 10px; line-height: 1.75;">
+                這是隊長經營的 <strong>遊戲直播頻道</strong>(不是作者的頻道)。以暗黑破壞神4為主，分享親自遊玩的真實經驗與攻略。
+              </p>
+              <ul style="font-size:13px; margin:0 0 12px 18px; padding:0; color:var(--fg-dim); line-height:1.75;">
+                <li>各賽季角色培育·流派·技能·征服者指南 & 裝備配置技巧</li>
+                <li>公開測試伺服器(PTR)體驗、更新變更點，以及暫停細看的短片「掌上攻略集」</li>
+              </ul>
+              <div class="alert-box gold" style="margin: 0 0 16px; padding: 10px 14px; font-size: 12.5px;">
+                <span class="alert-icon">⚠️</span>
+                <div><strong>本頻道不受理助手·巨集相關提問。</strong> 本頻道純粹是享受遊戲的直播，助手諮詢·錯誤回報只在 Telegram 官方群組 (<a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer" style="color:var(--blue); font-weight:700;">@d4cute_helper</a>) 受理。</div>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/@%EC%82%BC%EC%B4%8C%EC%95%88%EC%9E%94%EB%8B%A4%EC%9E%89" target="_blank" rel="noopener noreferrer" class="clan-btn ruby">
+              <span>前往 삼촌안잔다잉 YouTube ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 하단 전폭 와이드: 클랜 가입 4단계 & 가입 후 활동/생활 가이드 -->
+        <div class="clan-guide-container">
+          <div class="clan-guide-header">
+            <span style="font-size:24px;">🛡️</span>
+            <div>
+              <h3 class="clan-guide-title">&lt;앙증맞은&gt; 彩虹之翼戰隊 加入及基本生活指南</h3>
+              <p style="margin:2px 0 0; font-size:12.5px; color:var(--fg-dim);">打造彼此體諒、愉快相處的暗黑破壞神4戰隊文化。</p>
+            </div>
+          </div>
+
+          <div style="margin:0 0 14px; padding:10px 14px; border:1px solid rgba(229,184,92,0.4); border-left:4px solid var(--gold); border-radius:8px; background:rgba(229,184,92,0.08); font-size:13.5px; line-height:1.6; color:var(--fg);">🌏 外國玩家也可以加入。但公會內交流使用韓語，需要能用韓語溝通。如果無法用韓語交流，加入會比較困難。</div>
+
+          <div class="clan-guide-grid">
+            <!-- 1. 가입 절차 4단계 패널 -->
+            <div class="clan-sub-panel blue-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--blue);">
+                <span>🎥</span> <strong>加入程序 4 步驟</strong> <span class="chip" style="font-size:11px; margin-left:auto;">不用加入 Discord！</span>
+              </h4>
+              <ol style="margin:0 0 0 18px; padding:0; line-height:1.9; font-size:13.5px; color:var(--fg);">
+                <li>在遊戲內搜尋戰隊 → <strong>앙증맞은</strong> 搜尋 → <strong>申請加入</strong></li>
+                <li><strong>삼촌안잔다잉 頻道</strong>(直播等)告知已申請加入</li>
+                <li><strong>隊長及管理員</strong>確認申請紀錄後 <strong>核准</strong>。</li>
+                <li>申請者在遊戲內再按一次 <strong>最後核准(接受)</strong>，即完成加入</li>
+              </ol>
+              <div style="margin-top:auto; padding-top:14px; font-size:12px; color:var(--fg-muted);">
+                ※ 不經營 Discord，戰隊核准會經過 삼촌안잔다잉 直播現場確認。
+              </div>
+            </div>
+
+            <!-- 2. 가입 후 활동 가이드 & 생활 수칙 패널 -->
+            <div class="clan-sub-panel gold-border">
+              <h4 class="clan-sub-panel-title" style="color:var(--gold-bright);">
+                <span>🤝</span> <strong>加入後活動 & 戰隊基本生活守則</strong>
+              </h4>
+              <ul style="margin:0 0 0 18px; padding:0; line-height:1.85; font-size:13px; color:var(--fg-dim);">
+                <li><strong style="color:var(--fg);">熱情的第一次問候 & 拉近距離</strong>：加入核准後請在遊戲內公會聊天視窗留下第一次問候。互相稱呼暱稱打招呼，很快就會變熟。</li>
+                <li><strong style="color:var(--fg);">請求幫忙 & 互相換工文化</strong>：培育、深淵高階、首領召喚組隊等需要幫忙時，請 <strong>在公會聊天視窗或 YouTube 直播</strong>輕鬆提出請求。 <em>「幫忙是互相換工(互惠)」</em> 的心態，之後也幫助其他家人就可以了。</li>
+                <li><strong style="color:var(--fg);">基本禮儀與互相尊重</strong>：這是各式玩家齊聚的交流空間，請使用體諒他人的言詞(禁止貶低·辱罵)。也建議提問前先簡單搜尋。</li>
+                <li><strong style="color:var(--fg);">賽季結束與新賽季回歸</strong>：賽季結束後若超過 10 天未登入，可能會被清理人員，但新賽季開始後隨時都可以輕鬆重新申請加入。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── 12. FAQ ─── -->
+      <section class="doc-section" id="faq">
+        <div class="section-header">
+          <h2 class="section-title"><span class="section-num">12</span> 常見問題 (FAQ) & 問題解決</h2>
+        </div>
+
+        <h3>Q. 按了啟動鍵但技能沒有施放。</h3>
+        <ul>
+          <li>請確認頂端列的狀態是否為 <strong>執行中</strong>(是否有按<span class="chip green">▶ 開始</span> 按鈕)。</li>
+          <li>請確認所選欄位的 <strong>巨集啟用開關</strong>是否開啟，以及序列分頁中是否至少有 1 個步驟。</li>
+          <li>暗黑破壞神4遊戲視窗必須位於畫面最前方並取得焦點。</li>
+          <li>若因開啟聊天或背包而被 <strong>待機鍵</strong>暫停，再按一次啟動鍵即可解除。</li>
+        </ul>
+
+        <h3>Q. 我用滑鼠右鍵當啟動鍵，但在背包或倉庫裡視窗一直被關掉。</h3>
+        <p>請將巨集設定的 <strong>按壓辨識延遲(Press Delay)</strong>設為 <code>250ms ~ 300ms</code>。這樣右鍵移動物品時的「短暫點擊」會原樣傳給遊戲，只有在長按時才會開啟巨集，視窗被關閉的誤動作就會完全消失。</p>
+
+        <h3>Q. 赫拉迪姆方塊預變性找不到按鈕或停住。</h3>
+        <p>1.30 版大幅強化了 OCR 文字辨識邏輯與方塊清空驗證。若遊戲內圖形設定導致文字太模糊，或 UI 縮放比例極端，辨識可能會有困難，若問題持續發生， <code>%APPDATA%\d4cute_helper\debug\</code> 資料夾的 <code>alter_slots.txt</code> 檔案複製後，到 Telegram 群組詢問。</p>
+
+        <h3>Q. 預變性時兩件物品重疊，或沒有變性就跳到下一格。</h3>
+        <p>這是變性特效較慢的電腦上會出現的症狀。請調高便利功能分頁的 <strong>結果等待 ms</strong>(例如 3000 → 5000)，若仍然重複發生，請把 <code>debug\alter_slots.txt</code> 上傳到群組。從 1.30.1 起，會以方塊第一格的圖像確認是否清空，即使接受視窗較晚出現也會按下 Enter。</p>
+
+        <h3>Q. 助手·巨集的問題要去哪裡問？</h3>
+        <p>Telegram 使用者群組 <a href="https://t.me/d4cute_helper" target="_blank" rel="noopener noreferrer"><code>@d4cute_helper</code></a> 受理。삼촌안잔다잉 YouTube 頻道是享受遊戲的直播，不受理助手·巨集諮詢。</p>
+
+        <h3>Q. 視窗變成白色或閃爍 (白屏現象)。</h3>
+        <p>1.30 已更換內建瀏覽器的渲染器，修正了白屏。若仍然看到，請把記錄檢視器的 <span class="chip">僅複製錯誤</span> 結果與螢幕截圖上傳到 Telegram 群組。</p>
+      </section>
+
+      <footer>
+        <div>d4cute helper v1.30.0 Documentation · Crafted with Care</div>
+        <div><a href="#quickstart" style="color: var(--gold);">回到頂端 ↑</a></div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ─── 고기능 라이트박스 뷰어 모달 (마우스 휠 줌 / 팬 / 이전/다음 / 캡션) ─── -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true">
+    <div class="lightbox-topbar">
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" id="zoomOutBtn" title="縮小 (滑鼠滾輪向下)">－</button>
+        <span class="lightbox-zoom-indicator" id="zoomLevel">100%</span>
+        <button class="lightbox-btn" id="zoomInBtn" title="放大 (滑鼠滾輪向上)">＋</button>
+        <button class="lightbox-btn" id="zoomResetBtn" title="原始大小">重設</button>
+        <button class="lightbox-btn lightbox-close-btn" id="lightboxCloseBtn" title="關閉 (ESC)">✕ 關閉</button>
+      </div>
+    </div>
+    
+    <div class="lightbox-stage" id="lightboxStage">
+      <button class="lightbox-nav-btn lightbox-prev-btn" id="lightboxPrevBtn" title="上一張圖片 (←)">❮</button>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-nav-btn lightbox-next-btn" id="lightboxNextBtn" title="下一張圖片 (→)">❯</button>
+    </div>
+
+    <div class="lightbox-bottombar">
+      <div class="lightbox-caption-text" id="lightboxCaption">圖片說明</div>
+      <div style="font-size: 12px; color: var(--fg-muted);">可用滑鼠滾輪縮放 · 以左右方向鍵瀏覽</div>
+    </div>
+  </div>
+
+  <!-- ─── 인터랙션 자바스크립트 ─── -->
+  <script>
+    (function() {
+      // 1. DOM 요소
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+      const tabBtns = document.querySelectorAll('.sidebar-tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      const sidebarSearch = document.getElementById('sidebarSearch');
+      const searchClearBtn = document.getElementById('searchClearBtn');
+      const searchResultsList = document.getElementById('searchResultsList');
+      const searchMatchCount = document.getElementById('searchMatchCount');
+      const tocLinks = document.querySelectorAll('.toc-link');
+      
+      const imgCountSpan = document.getElementById('imgCount');
+      const vidCountSpan = document.getElementById('vidCount');
+      const sidebarImageGrid = document.getElementById('sidebarImageGrid');
+      const sidebarVideoGrid = document.getElementById('sidebarVideoGrid');
+
+      // 라이트박스 요소
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      const lightboxCounter = document.getElementById('lightboxCounter');
+      const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+      const lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
+      const lightboxNextBtn = document.getElementById('lightboxNextBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const zoomResetBtn = document.getElementById('zoomResetBtn');
+      const zoomLevelSpan = document.getElementById('zoomLevel');
+      const lightboxStage = document.getElementById('lightboxStage');
+
+      // 2. 사이드바 접기/펼치기 토글 & ⭐️ 요청사항 1: 햄버거/미니바 마우스 호버 자동 펼침(Hover Peek)
+      sidebarToggle.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          document.body.classList.toggle('sidebar-open');
+        } else {
+          document.body.classList.toggle('sidebar-collapsed');
+          sidebar.classList.remove('hover-expanded');
+        }
+      });
+
+      if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', () => {
+          document.body.classList.remove('sidebar-open');
+        });
+      }
+
+      // 데스크탑 접힘 모드에서 햄버거 버튼 또는 사이드바 미니바에 마우스 올리면 자동 슬라이드 노출
+      let hoverTimeout = null;
+      const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      function onMouseEnterTrigger() {
+        if (canHover && window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          clearTimeout(hoverTimeout);
+          sidebar.classList.add('hover-expanded');
+        }
+      }
+      function onMouseLeaveTrigger() {
+        if (window.innerWidth > 1024 && document.body.classList.contains('sidebar-collapsed')) {
+          hoverTimeout = setTimeout(() => {
+            sidebar.classList.remove('hover-expanded');
+          }, 250);
+        }
+      }
+
+      sidebarToggle.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebarToggle.addEventListener('mouseleave', onMouseLeaveTrigger);
+      sidebar.addEventListener('mouseenter', onMouseEnterTrigger);
+      sidebar.addEventListener('mouseleave', onMouseLeaveTrigger);
+
+      // 모바일에서 외부 클릭 시 닫기
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024 && document.body.classList.contains('sidebar-open')) {
+          if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            document.body.classList.remove('sidebar-open');
+          }
+        }
+      });
+
+      // 3. 사이드바 탭 전환
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const targetPanel = document.getElementById(`panel-${btn.dataset.tab}`);
+          if (targetPanel) targetPanel.classList.add('active');
+        });
+      });
+
+      // 4. 본문 내 이미지 & 비디오 자동 수집
+      const imageCards = Array.from(document.querySelectorAll('.image-card'));
+      const videoCards = Array.from(document.querySelectorAll('.video-card'));
+      
+      const imageList = [];
+      imageCards.forEach((card, idx) => {
+        const img = card.querySelector('img');
+        const caption = card.dataset.caption || (card.querySelector('.image-caption span:last-child') ? card.querySelector('.image-caption span:last-child').innerText : img.alt);
+        if (img) {
+          card.id = `img-item-${idx}`;
+          imageList.push({
+            src: img.src,
+            alt: img.alt,
+            caption: caption,
+            cardEl: card,
+            idx: idx
+          });
+
+          // 사이드바 이미지 탭에 카드 추가
+          const navCard = document.createElement('a');
+          navCard.className = 'media-nav-card';
+          navCard.href = `#${card.id}`;
+          navCard.innerHTML = `
+            <img src="${img.src}" class="media-nav-thumb" alt="${img.alt}" loading="lazy">
+            <div class="media-nav-meta">
+              <div class="media-nav-title">${img.alt || caption}</div>
+              <div class="media-nav-desc">${caption}</div>
+            </div>
+          `;
+          navCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.transition = 'outline 0.3s, box-shadow 0.3s';
+            card.style.outline = '2px solid var(--gold)';
+            card.style.boxShadow = '0 0 25px var(--gold-glow)';
+            setTimeout(() => {
+              card.style.outline = 'none';
+              card.style.boxShadow = '';
+            }, 1800);
+            if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+          });
+          sidebarImageGrid.appendChild(navCard);
+
+          // 이미지 클릭 시 라이트박스 열기
+          const thumbContainer = card.querySelector('.thumb-container');
+          if (thumbContainer) {
+            thumbContainer.addEventListener('click', () => openLightbox(idx));
+          }
+        }
+      });
+      imgCountSpan.innerText = imageList.length;
+
+      // 영상 목록 사이드바 생성
+      videoCards.forEach((vcard, vidx) => {
+        const title = vcard.dataset.videoTitle || `影片指南 ${vidx + 1}`;
+        vcard.id = `vid-item-${vidx}`;
+
+        const navCard = document.createElement('a');
+        navCard.className = 'media-nav-card';
+        navCard.href = `#${vcard.id}`;
+        navCard.innerHTML = `
+          <div class="media-nav-thumb" style="display:flex;align-items:center;justify-content:center;background:#181622;color:var(--ruby);font-size:18px;">▶</div>
+          <div class="media-nav-meta">
+            <div class="media-nav-title"><span class="video-badge">VIDEO</span>${title}</div>
+            <div class="media-nav-desc">點擊即可前往該影片位置</div>
+          </div>
+        `;
+        navCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          vcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          vcard.style.outline = '2px solid var(--ruby)';
+          setTimeout(() => { vcard.style.outline = 'none'; }, 1800);
+          if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+        });
+        sidebarVideoGrid.appendChild(navCard);
+      });
+      vidCountSpan.innerText = videoCards.length;
+
+      // ⭐️ 요청사항 3: 도움말 본문 전체 실시간 검색 기능
+      const sections = Array.from(document.querySelectorAll('section.doc-section'));
+      
+      // 검색용 텍스트 인덱싱
+      // 소제목(h3) 단위로 인덱싱 - 섹션당 1건이던 결과가 소절마다 나온다. 소제목 앞 도입부는 섹션 제목으로.
+      const searchIndex = [];
+      sections.forEach(sec => {
+        const title = sec.querySelector('.section-title') ? sec.querySelector('.section-title').innerText : '';
+        let cur = { id: sec.id, title: title, sub: '', element: sec, parts: [] };
+        Array.from(sec.children).forEach(child => {
+          if (child.tagName === 'H3') {
+            if (cur.parts.length) searchIndex.push(cur);
+            cur = { id: child.id || sec.id, title: title, sub: child.innerText, element: child, parts: [] };
+            return;
+          }
+          if (child.classList && child.classList.contains('section-header')) return;
+          cur.parts.push(child);
+        });
+        if (cur.parts.length) searchIndex.push(cur);
+      });
+      searchIndex.forEach(item => {
+        item.rawText = (item.sub ? item.sub + ' ' : '') + item.parts.map(p => p.innerText).join(' ');
+      });
+
+      function clearHighlights() {
+        document.querySelectorAll('mark.search-highlight').forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(document.createTextNode(m.textContent), m);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(root, query) {
+        if (!query) return;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.parentElement && !['SCRIPT', 'STYLE', 'BUTTON'].includes(node.parentElement.tagName)) {
+            textNodes.push(node);
+          }
+        }
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        textNodes.forEach(tNode => {
+          const val = tNode.nodeValue;
+          if (regex.test(val)) {
+            const span = document.createElement('span');
+            span.innerHTML = val.replace(regex, '<mark class="search-highlight">$1</mark>');
+            tNode.parentNode.replaceChild(span, tNode);
+          }
+        });
+      }
+
+      sidebarSearch.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        clearHighlights();
+
+        if (query.length > 0) {
+          searchClearBtn.classList.add('visible');
+          // 검색 결과 패널 열기
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-search').classList.add('active');
+          tabBtns.forEach(b => b.classList.remove('active'));
+
+          searchResultsList.innerHTML = '';
+          const lowerQ = query.toLowerCase();
+          let matchCount = 0;
+
+          searchIndex.forEach(item => {
+            const idx = item.rawText.toLowerCase().indexOf(lowerQ);
+            if (idx !== -1) {
+              matchCount++;
+              // 스니펫 생성
+              const start = Math.max(0, idx - 30);
+              const end = Math.min(item.rawText.length, idx + query.length + 50);
+              let snippet = item.rawText.substring(start, end).replace(/\s+/g, ' ');
+              if (start > 0) snippet = '...' + snippet;
+              if (end < item.rawText.length) snippet = snippet + '...';
+
+              const card = document.createElement('div');
+              card.className = 'search-item-card';
+              card.innerHTML = `
+                  <div class="search-item-title">${item.title}</div>
+                  ${item.sub ? `<div class="search-item-sub">› ${item.sub}</div>` : ''}
+                  <div class="search-item-snippet">${snippet}</div>
+                `;
+              card.addEventListener('click', () => {
+                item.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                clearHighlights();
+                item.parts.forEach(p => highlightText(p, query));
+                if (item.sub) highlightText(item.element, query);
+                if (window.innerWidth <= 1024) document.body.classList.remove('sidebar-open');
+              });
+              searchResultsList.appendChild(card);
+            }
+          });
+
+          searchMatchCount.innerText = matchCount;
+          if (matchCount === 0) {
+            searchResultsList.innerHTML = `<div style="font-size:12.5px; color:var(--fg-muted); padding:16px 0; text-align:center;">找不到搜尋結果。</div>`;
+          }
+        } else {
+          searchClearBtn.classList.remove('visible');
+          // 목차 패널로 복귀
+          tabPanels.forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-toc').classList.add('active');
+          tabBtns[0].classList.add('active');
+        }
+      });
+
+      searchClearBtn.addEventListener('click', () => {
+        sidebarSearch.value = '';
+        sidebarSearch.dispatchEvent(new Event('input'));
+        sidebarSearch.focus();
+      });
+
+      // 5. 스크롤 스파이 (ScrollSpy)
+      window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset + 120;
+        let currentId = '';
+        sections.forEach(sec => {
+          if (sec.offsetTop <= scrollY) {
+            currentId = sec.id;
+          }
+        });
+        tocLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${currentId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }, { passive: true });
+
+      // 6. 고기능 라이트박스 로직
+      let currentImageIdx = 0;
+      let zoomScale = 1.0;
+      let panX = 0, panY = 0;
+      let isDragging = false;
+      let startX = 0, startY = 0;
+
+      function updateTransform() {
+        lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+        zoomLevelSpan.innerText = `${Math.round(zoomScale * 100)}%`;
+      }
+
+      function resetZoom() {
+        zoomScale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateTransform();
+      }
+
+      function openLightbox(idx) {
+        if (!imageList[idx]) return;
+        currentImageIdx = idx;
+        const item = imageList[idx];
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.alt;
+        lightboxCaption.innerText = item.caption || item.alt;
+        lightboxCounter.innerText = `${idx + 1} / ${imageList.length}`;
+        resetZoom();
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function showPrevImage() {
+        if (currentImageIdx > 0) {
+          openLightbox(currentImageIdx - 1);
+        } else {
+          openLightbox(imageList.length - 1);
+        }
+      }
+
+      function showNextImage() {
+        if (currentImageIdx < imageList.length - 1) {
+          openLightbox(currentImageIdx + 1);
+        } else {
+          openLightbox(0);
+        }
+      }
+
+      lightboxCloseBtn.addEventListener('click', closeLightbox);
+      lightboxPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+      lightboxNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+
+      zoomInBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale < 4.0) { zoomScale = Math.min(4.0, zoomScale + 0.25); updateTransform(); }
+      });
+      zoomOutBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (zoomScale > 0.5) { zoomScale = Math.max(0.5, zoomScale - 0.25); updateTransform(); }
+      });
+      zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+
+      lightboxStage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.15 : -0.15;
+        const newScale = zoomScale + delta;
+        if (newScale >= 0.5 && newScale <= 4.0) {
+          zoomScale = newScale;
+          updateTransform();
+        }
+      }, { passive: false });
+
+      lightboxStage.addEventListener('mousedown', (e) => {
+        if (e.target === lightboxPrevBtn || e.target === lightboxNextBtn) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform();
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      lightboxStage.addEventListener('click', (e) => {
+        if (e.target === lightboxStage) {
+          closeLightbox();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === '+' || e.key === '=') { zoomScale = Math.min(4.0, zoomScale + 0.2); updateTransform(); }
+        if (e.key === '-') { zoomScale = Math.max(0.5, zoomScale - 0.2); updateTransform(); }
+      });
+
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+name: 전리품 필터 공유
+description: 디아블로 4 전리품 필터 코드를 클랜원과 공유합니다
+title: "[필터] "
+labels: ["전리품 필터"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        게임의 **전리품 필터** 창에서 `⋯` → **내보내기** 로 코드를 복사한 뒤 아래 칸에 붙여 넣어 주세요. 파일 첨부는 필요 없습니다.
+  - type: input
+    id: name
+    attributes:
+      label: 필터 이름
+      placeholder: 예) 핵심만 보기 — 고급 이상 강조
+    validations:
+      required: true
+  - type: textarea
+    id: desc
+    attributes:
+      label: 용도 설명
+      description: 어떤 상황에서 쓰는 필터인지, 무엇을 강조하고 무엇을 숨기는지
+      placeholder: |
+        파밍 중 바닥이 아이템으로 덮이는 것을 줄이는 용도.
+        3 옵두 · 신화 · 위상 · 영물만 색으로 띄우고 나머지는 숨김.
+    validations:
+      required: true
+  - type: input
+    id: rules
+    attributes:
+      label: 규칙 수
+      placeholder: 예) 5 / 25
+  - type: textarea
+    id: code
+    attributes:
+      label: 필터 코드
+      description: 내보내기로 복사한 코드를 그대로 붙여 넣으세요 (줄바꿈이 들어가지 않게 주의)
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 주의할 점
+      description: 같이 쓰면 좋은 설정, 숨김 때문에 놓치기 쉬운 아이템 등
