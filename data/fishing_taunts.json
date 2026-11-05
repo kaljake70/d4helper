@@ -1,7 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "updated": "2026-11-06",
-  "note": "낚시 중 맞아서 반격할 때 헬퍼가 말하는 한마디. 음성 안내가 켜진 사람에게만 들린다. 줄을 고치면 헬퍼가 6시간 안에 받아 쓴다.",
+  "note": "낚시 중 맞아서 반격할 때(lines)와 메피쉬토 여유의 군주가 나왔을 때(boss) 헬퍼가 말하는 한마디. 음성 안내가 켜진 사람에게만 들린다. 줄을 고치면 헬퍼가 6시간 안에 받아 쓴다.",
   "lines": {
     "ko": [
       "감히 나를 공격해? 죽어랏!",
@@ -73,6 +73,34 @@
       "Wrong bait, buddy!",
       "You made me miss a big one!",
       "This is a fishing spot. Get out!"
+    ]
+  },
+  "boss": {
+    "ko": [
+      "메피쉬토! 여유의 군주라니, 여유 부릴 틈은 없다!",
+      "군주 납셨네. 낚시꾼의 작살 맛 좀 봐라!",
+      "여유의 군주? 오늘 그 여유, 끝이다!",
+      "삼촌안잔다잉! 군주도 재워 준다!",
+      "조롱이 변신 완료. 군주님, 조롱 받으실 시간입니다!",
+      "메피쉬토, 네 전리품은 내 어망에 들어간다!",
+      "큰 놈이 걸렸다! 월척이다!",
+      "지옥의 군주? 여기선 그냥 큰 물고기야!",
+      "스샷 찍었다. 이제 잡는다!",
+      "낚시꾼 앞에서 여유는 사치다, 군주!",
+      "정의의 이름으로, 군주를 심판한다!",
+      "오늘의 보스 조림 재료는 바로 너!",
+      "메피쉬토, 낚싯대가 떨리는 건 설렘이다!",
+      "대어가 왔다! 삼촌 전투 모드!",
+      "군주님, 회 뜨러 왔습니다!",
+      "초롱초롱한 눈으로 군주를 노린다!"
+    ],
+    "en": [
+      "Mephisto! Lord of Leisure? Leisure time is over!",
+      "A lord on my hook. Big catch!",
+      "Hellspawn or not, you're fish to me!",
+      "Screenshot taken. Now you die!",
+      "In the name of justice, the lord is judged!",
+      "Uncle doesn't sleep. Not even for lords!"
     ]
   }
 }
