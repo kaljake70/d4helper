@@ -1,0 +1,110 @@
+{
+  "id": "메마른_평원__톱니_해안__1",
+  "uid": "sp_1794269167332_1",
+  "spot_number": 1,
+  "custom_name": "",
+  "zone": "거친 해안선 (톱니 해안)",
+  "continent": "케지스탄",
+  "name_source": "dict",
+  "in_town": false,
+  "water_hours": [
+    12,
+    1,
+    11
+  ],
+  "visit_count": 2,
+  "caught_count": 3,
+  "fish_counts": {
+    "자카라티": 1,
+    "파란비늘": 1,
+    "찢어진 그물": 1
+  },
+  "favorite": false,
+  "created_at": "2026-11-10 09:06:07",
+  "updated_at": "2026-11-10 09:07:49",
+  "ts": "2026-11-10 09:07:22",
+  "levels": {
+    "0": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z0_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z0_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z0_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z0_patch3.png"
+        }
+      ]
+    },
+    "2": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z2_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z2_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z2_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z2_patch3.png"
+        }
+      ]
+    },
+    "4": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z4_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z4_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z4_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z4_patch3.png"
+        }
+      ]
+    }
+  },
+  "gx": -864.0,
+  "gy": 104.5,
+  "last_gx": -873.0,
+  "last_gy": 106.5
+}

@@ -1,0 +1,93 @@
+{
+  "ts": "2026-11-09 10:49:40",
+  "zone": "게아 쿨 항구 부두",
+  "continent": "케지스탄",
+  "levels": {
+    "0": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z0_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z0_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z0_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z0_patch3.png"
+        }
+      ]
+    },
+    "2": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z2_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z2_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z2_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z2_patch3.png"
+        }
+      ]
+    },
+    "4": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z4_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z4_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z4_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z4_patch3.png"
+        }
+      ]
+    }
+  },
+  "gx": -868.0,
+  "gy": 225.5,
+  "in_town": true,
+  "water_hours": [
+    7,
+    8,
+    9
+  ]
+}

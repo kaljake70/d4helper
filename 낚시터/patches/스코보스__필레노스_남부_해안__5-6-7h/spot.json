@@ -1,0 +1,93 @@
+{
+  "ts": "2026-11-09 12:08:41",
+  "zone": "필레노스 남부 해안",
+  "continent": "스코보스",
+  "levels": {
+    "0": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z0_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z0_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z0_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z0_patch3.png"
+        }
+      ]
+    },
+    "2": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z2_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z2_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z2_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z2_patch3.png"
+        }
+      ]
+    },
+    "4": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z4_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z4_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z4_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z4_patch3.png"
+        }
+      ]
+    }
+  },
+  "gx": -1281.0,
+  "gy": 837.5,
+  "in_town": false,
+  "water_hours": [
+    5,
+    6,
+    7
+  ]
+}

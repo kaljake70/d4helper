@@ -1,0 +1,93 @@
+{
+  "ts": "2026-11-09 08:54:44",
+  "zone": "거친 해안 절벽",
+  "continent": "메마른 평원",
+  "levels": {
+    "0": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z0_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z0_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z0_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z0_patch3.png"
+        }
+      ]
+    },
+    "2": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z2_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z2_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z2_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z2_patch3.png"
+        }
+      ]
+    },
+    "4": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z4_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z4_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z4_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z4_patch3.png"
+        }
+      ]
+    }
+  },
+  "gx": -734.0,
+  "gy": -199.5,
+  "in_town": false,
+  "water_hours": [
+    9,
+    10,
+    11
+  ]
+}

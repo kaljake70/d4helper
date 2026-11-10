@@ -1,0 +1,1443 @@
+{
+  "version": 1,
+  "zones": [
+    {
+      "name": "불길한 바람의 바위산",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "메네스타드",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "메네스타드 북서 강변",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "마르그레이브",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "마르그레이브 얼어붙은 호수",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "키요바샤드",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "기요바사드",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "코르 드라간",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "노스트라바",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "곰 부족 도피처",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "네베스크",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "체르마스",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "이베르 성소",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "백설의 심연",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "창백한 솔숲",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "혹한의 광야",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "영원의 초소",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "동부 평야",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "발산의 등성이",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "서자의 길",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "순례자의 동굴",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "성전사의 기념물",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "오한의 황야",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "은빛 변두리",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "추방된 군주의 영지",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "칼로스의 동굴",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "타바크 화이트팬",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "티리엘의 야영지",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "포스라크 성",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "필사의 길",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "헤파이트루스 산 남쪽 면",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "혹독한 불모지",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "세리가",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "마로웬",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "마로웬 조선소",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "마로웬 북서 해안",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "티르마르",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "티르마르 고원 호수",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "코르바흐",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "투르 둘라",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "파로브루",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "브레이가",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "고대인의 숲",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "해가 들지 않는 숲",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "위어드 고원",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "북부 해안",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "회색곰의 갑",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "절망의 고원",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "녹아내리는 해변",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "통곡의 언덕",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "피비린내 나는 황야",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "높은 평야",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "가말의 보금자리",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "개로크레스트 오솔길",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "개로크레스트 폐허",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "나무꾼의 터",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "덫 사냥꾼의 은신처",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "두인 카르",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "리네아드",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "모건의 어리석음",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "몸부림치는 개울",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "바람 부는 오솔길",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "방랑의 평야",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "벨코바",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "부러진 창들의 들판",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "어둠수풀",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "올리암 동토",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "클레트르 흉터",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "클로코바 호수",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "코르 로헤이븐",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "코르 베네타르",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "폭풍막이 만",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "한풀이 언덕",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "혼령부름 숲",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "황금 가지",
+      "continent": "스코스글렌",
+      "alias": []
+    },
+    {
+      "name": "케드바르두",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "지란다이",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "지란다이 남부 강변",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "운명의 은신처",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "운명의 은신처 서해안",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "숨겨진 간이역",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "거친 해안 절벽",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "올제이의 절벽",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "카레가",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "카레가 범람원",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "통곡의 협곡",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "다르구르",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "건조한 심장부",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "혈사병 분지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "소금 평원",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "오닉스 감시탑",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "혹마노 감시탑",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "코르 발로르",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "구 로헤이",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "구불구불한 협곡",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "그을린 고원",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "그을린 분지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "나그네의 어리석음",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "니미르 고산지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "라크렌의 전망대",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "멍텅구리의 채석장",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "메아리치는 동굴",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "버려진 악취",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "벗어난 자의 계곡",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "부두꾼의 전초기지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "사바하 바도",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "삭막한 반도",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "쇼브하의 봉우리",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "아카라트의 방책",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "아카이 대초원",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "옛 광산작업장",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "오합지졸 야영지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "이살리아의 언덕",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "적막의 손길",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "젤레니 저지대",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "죄인의 통로",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "중앙 고원",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "진홍색 폐허",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "참혹한 하천",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "추적자의 횡단로",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "침입자의 점령지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "크로셀의 욕조",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "킬식 고원",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "톱니 해안",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "헐떡이는 비탈",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "황야",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "게아 쿨",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "게아 쿨 항구 부두",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "강철늑대단 야영지",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "타르사락",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "칼데움",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "달구르 오아시스",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "달구르 오아시스 수역",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "타오르는 사막",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "호박색 모래언덕",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "남부 사막",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "갈트마 습지대",
+      "continent": "케지스탄",
+      "alias": [
+        "갈트마 숨지대"
+      ]
+    },
+    {
+      "name": "게걸스러운 황무지",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "고대 수로",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "과찬의 손길",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "기름 웅덩이",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "루트 바하두르",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "루트 바하두르 외곽 지역",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "마멸의 평원",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "수용소 부지",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "울두르의 동굴",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "유독한 황야",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "이글거리는 광야",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "잊힌 폐허",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "창백한 사막",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "창백한 손의 아귀",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "잿불 황야",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "저주받은 비탈",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "절망의 모래언덕",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "최후의 화로",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "폐허의 제단",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "하간의 오아시스",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "황폐해진 수로",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "자르빈제트",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "속삭임의 나무",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "속삭임의 나무 늪지",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "백워터",
+      "continent": "하웨자르",
+      "alias": [
+        "벽지"
+      ]
+    },
+    {
+      "name": "벽지",
+      "continent": "하웨자르",
+      "alias": [
+        "백워터"
+      ]
+    },
+    {
+      "name": "백워터 항구 해안",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "위자오",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "위자오 난파선 해안",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "위자오 비수",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "바이레즈",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "루인 오르크",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "귀신 들린 잔해",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "썩어가는 둑",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "썩어가는 가장자리",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "버려진 해안",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "포세이큰 해안",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "우미르 고원",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "에스렛의 저주받은 폐허",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "소멸한 영혼의 늪",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "남동쪽 언덕",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "부패의 사원",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "진흙 습지",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "거미 숲",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "견고한 동굴",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "고독",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "남부 찔레밭",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "라카트 성채의 폐허",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "마귀의 왕관",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "마름병 끝자락",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "망각의 끝자락",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "병폐에 물든 중심부",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "불운한 경계",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "속삭임의 길",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "쓸쓸한 언덕",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "쓸쓸한 표류",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "씁쓸한 길",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "어둠의 찌꺼기",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "죽은 나무껍질 황야",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "채찍질하는 습지대",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "지혜의 사원",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "지혜의 손아귀",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "쿠라스트 부두",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "쿠라스트 부두 강변",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "삼두정",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "삼두정 약탈자 강가",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "사미르",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "키추크",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "이치카",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "오르베아",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "세락 황홀경",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "약탈자 밀림",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "테간제 고원",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "증오의 들판",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "우아일 분지",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "오래된 돌",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "아타노스",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "아타노스 해안",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "세토스",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "세토스 해안",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "테미스",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "테미스 해안",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "필레노스",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "필레노스 남부 해안",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "리고스",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "아이올리",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "비취 해안",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "고대인의 관문",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "태양의 항구",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "파도 거품 해안",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "가라앉은 신전",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "생명의 신전",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "소의 성소",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "화산 분화구 용암 웅덩이",
+      "continent": "용암 웅덩이",
+      "alias": []
+    },
+    {
+      "name": "불타는 분화구",
+      "continent": "용암 웅덩이",
+      "alias": []
+    },
+    {
+      "name": "잉걸불 도가니",
+      "continent": "용암 웅덩이",
+      "alias": []
+    },
+    {
+      "name": "잊힌 해안선",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "강설늑대단 야영지",
+      "continent": "케지스탄",
+      "alias": [
+        "강철늑대단 야영지"
+      ]
+    },
+    {
+      "name": "숨겨진 전망대",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "웨지나니",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "사묵",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "잿빛 발자취",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "노르고이 감시초소",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "옐레스나",
+      "continent": "조각난 봉우리",
+      "alias": [
+        "엘레스나"
+      ]
+    },
+    {
+      "name": "옐레스나 동쪽 다리",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "사르코바 통로",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "하늘의 자리",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "장막의 황야",
+      "continent": "스코스글렌",
+      "alias": [
+        "장막의 황무지"
+      ]
+    },
+    {
+      "name": "통통한 거위 아래 여관",
+      "continent": "스코스글렌",
+      "alias": [
+        "통통한 거위 여관",
+        "살찐 거위 아래 여관"
+      ]
+    },
+    {
+      "name": "라에스 호수",
+      "continent": "스코스글렌",
+      "alias": [
+        "로크 라에스"
+      ]
+    },
+    {
+      "name": "참바타르 등성이",
+      "continent": "메마른 평원",
+      "alias": [
+        "챔바타르 등성이"
+      ]
+    },
+    {
+      "name": "버려진 오르막",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "저주받은 절벽",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "알주다",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "콰라 이수",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "코타마 구릉지",
+      "continent": "메마른 평원",
+      "alias": []
+    },
+    {
+      "name": "제국 도서관",
+      "continent": "케지스탄",
+      "alias": []
+    },
+    {
+      "name": "이코르폴",
+      "continent": "나한투",
+      "alias": [
+        "영액폭포"
+      ]
+    },
+    {
+      "name": "쿠라스트 시장",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "죽음의 도시",
+      "continent": "나한투",
+      "alias": []
+    },
+    {
+      "name": "스카르타라",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "리칸더",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "아툴루아 주둔지",
+      "continent": "스코보스",
+      "alias": [
+        "아툴루아"
+      ]
+    },
+    {
+      "name": "비전의 끝",
+      "continent": "스코보스",
+      "alias": [
+        "환영의 끝"
+      ]
+    },
+    {
+      "name": "필리오스",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "스킬라라",
+      "continent": "스코보스",
+      "alias": [
+        "소 섬"
+      ]
+    },
+    {
+      "name": "시 위공의 안식처",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "스카르타라",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "멍텅구리의 채석장",
+      "continent": "스코보스",
+      "alias": [
+        "명텅구리의 채석장"
+      ]
+    },
+    {
+      "name": "헐떡이는 비탈",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "아툴루아 주둔지",
+      "continent": "스코보스",
+      "alias": [
+        "아툴루아"
+      ]
+    },
+    {
+      "name": "자매의 터",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "불굴의 땅",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "병폐에 물든 중심부",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "회색 언덕",
+      "continent": "스코보스",
+      "alias": []
+    },
+    {
+      "name": "크롤 숲",
+      "continent": "조각난 봉우리",
+      "alias": [
+        "크를숲",
+        "크를 숲"
+      ]
+    },
+    {
+      "name": "서르가트의 통로",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "서쪽 굴",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "황량한 고산지",
+      "continent": "조각난 봉우리",
+      "alias": []
+    },
+    {
+      "name": "마그레이브",
+      "continent": "조각난 봉우리",
+      "alias": [
+        "마르그레이브"
+      ]
+    },
+    {
+      "name": "쓸쓸한 언덕",
+      "continent": "하웨자르",
+      "alias": [
+        "쓸쓸하 언덕"
+      ]
+    },
+    {
+      "name": "씁쓸한 길",
+      "continent": "하웨자르",
+      "alias": []
+    },
+    {
+      "name": "발산의 등성이",
+      "continent": "하웨자르",
+      "alias": []
+    }
+  ]
+}

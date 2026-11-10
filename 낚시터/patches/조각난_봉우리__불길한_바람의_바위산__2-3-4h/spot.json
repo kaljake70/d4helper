@@ -1,0 +1,110 @@
+{
+  "id": "조각난_봉우리__불길한_바람의_바위산__1",
+  "uid": "sp_1794271834072_1",
+  "spot_number": 1,
+  "custom_name": "",
+  "zone": "불길한 바람의 바위산",
+  "continent": "조각난 봉우리",
+  "name_source": "dict",
+  "in_town": false,
+  "water_hours": [
+    2,
+    3,
+    4
+  ],
+  "visit_count": 1,
+  "caught_count": 4,
+  "fish_counts": {
+    "소금지느러미": 1,
+    "작은 천공 모라야가": 1,
+    "아른치": 2
+  },
+  "favorite": false,
+  "created_at": "2026-11-10 09:50:34",
+  "updated_at": "2026-11-10 09:51:21",
+  "ts": "2026-11-10 09:50:34",
+  "levels": {
+    "0": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z0_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z0_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z0_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z0_patch3.png"
+        }
+      ]
+    },
+    "2": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z2_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z2_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z2_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z2_patch3.png"
+        }
+      ]
+    },
+    "4": {
+      "h": 1080,
+      "w": 1920,
+      "patches": [
+        {
+          "dx": -110,
+          "dy": -110,
+          "file": "z4_patch0.png"
+        },
+        {
+          "dx": 110,
+          "dy": -110,
+          "file": "z4_patch1.png"
+        },
+        {
+          "dx": -110,
+          "dy": 110,
+          "file": "z4_patch2.png"
+        },
+        {
+          "dx": 110,
+          "dy": 110,
+          "file": "z4_patch3.png"
+        }
+      ]
+    }
+  },
+  "gx": -187.0,
+  "gy": -177.0,
+  "last_gx": -187.0,
+  "last_gy": -177.0
+}
