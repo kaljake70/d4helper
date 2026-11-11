@@ -1,0 +1,1225 @@
+{
+ "version": 1,
+ "updated": "2026-11-11",
+ "grid": 64,
+ "coord": "Tab 지도를 끝까지 축소한 1080p 화면에서 조각난 봉우리 방패 기준 px (fishing_spot.detect_worldmap_origin)",
+ "items": [
+  {
+   "kind": "waypoint",
+   "name": "케드바르두",
+   "gx": -598.2,
+   "gy": -241.4,
+   "tip": "tips/ic0000_h.jpg",
+   "read": "케드바르두",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "Ked Bardu",
+   "ko_verified": true,
+   "cell": [
+    -10,
+    -4
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "투르 둘라",
+   "gx": -491.2,
+   "gy": -388.5,
+   "tip": "tips/ic0001_h.jpg",
+   "read": "투르 둘라",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Tur Dulra",
+   "ko_verified": true,
+   "cell": [
+    -8,
+    -7
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "파로브루",
+   "gx": -496.0,
+   "gy": -289.7,
+   "tip": "tips/ic0002_h.jpg",
+   "read": "파로브루",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "Farobru",
+   "ko_verified": true,
+   "cell": [
+    -8,
+    -5
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "마로웬",
+   "gx": -376.6,
+   "gy": -496.9,
+   "tip": "tips/ic0003_h.jpg",
+   "read": "마로웬",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Marowen",
+   "ko_verified": true,
+   "cell": [
+    -6,
+    -8
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "브레이스태그",
+   "gx": -254.9,
+   "gy": -434.1,
+   "tip": "tips/ic0004_h.jpg",
+   "read": "브레이스태그",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Braestaig",
+   "ko_verified": true,
+   "cell": [
+    -4,
+    -7
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "코바크",
+   "gx": -151.4,
+   "gy": -390.4,
+   "tip": "tips/ic0005_h.jpg",
+   "read": "고바그",
+   "match": 0.67,
+   "region": "스코스글렌",
+   "name_en": "Corbach",
+   "ko_verified": true,
+   "cell": [
+    -3,
+    -7
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "티르메어",
+   "gx": -76.0,
+   "gy": -329.1,
+   "tip": "tips/ic0006_h.jpg",
+   "read": "티르메어",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Tirmair",
+   "ko_verified": true,
+   "cell": [
+    -2,
+    -6
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "불막이 저택",
+   "gx": -362.3,
+   "gy": -291.4,
+   "tip": "tips/ic0007_h.jpg",
+   "read": "불막이저택",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Firebreak Manor",
+   "ko_verified": true,
+   "cell": [
+    -6,
+    -5
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "통통한 거위 아래 여관",
+   "gx": -99.2,
+   "gy": -293.6,
+   "tip": "tips/ic0008_h.jpg",
+   "read": "통통한 거위 아래 여관",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Under the Fat Goose Inn",
+   "ko_verified": true,
+   "cell": [
+    -2,
+    -5
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "운명의 은신처",
+   "gx": -559.7,
+   "gy": 93.8,
+   "tip": "tips/ic0010_h.jpg",
+   "read": "운명의 은신처",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "Fate's Retreat",
+   "ko_verified": true,
+   "cell": [
+    -9,
+    1
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "흑마도 감시탑",
+   "gx": -546.2,
+   "gy": -169.6,
+   "tip": "tips/ic0011_h.jpg",
+   "read": "흑마도 감시탑",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "The Onyx Watchtower",
+   "ko_verified": true,
+   "cell": [
+    -9,
+    -3
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "메네스타드",
+   "gx": -261.2,
+   "gy": -161.8,
+   "tip": "tips/ic0013_h.jpg",
+   "read": "메네스타드",
+   "match": 1.0,
+   "region": "조각난 봉우리",
+   "name_en": "Menestad",
+   "ko_verified": true,
+   "cell": [
+    -5,
+    -3
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "곰 부족 도피처",
+   "gx": -74.6,
+   "gy": -138.3,
+   "tip": "tips/ic0020_h.jpg",
+   "read": "곰 부족 도피처",
+   "match": 1.0,
+   "region": "조각난 봉우리",
+   "name_en": "Bear Tribe Refuge",
+   "ko_verified": true,
+   "cell": [
+    -2,
+    -3
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "속삭임의 나무",
+   "gx": -71.8,
+   "gy": 78.8,
+   "tip": "tips/ic0023_h.jpg",
+   "read": "속삭임의 나무",
+   "match": 1.0,
+   "region": "하웨자르",
+   "name_en": "The Tree of Whispers",
+   "ko_verified": true,
+   "cell": [
+    -2,
+    1
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "키요바샤드",
+   "gx": -278.9,
+   "gy": -29.2,
+   "tip": "tips/ic0024_h.jpg",
+   "read": "키요바샤드",
+   "match": 1.0,
+   "region": "조각난 봉우리",
+   "name_en": "Kyovashad",
+   "ko_verified": true,
+   "cell": [
+    -5,
+    -1
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "네베스크",
+   "gx": -297.7,
+   "gy": 1.6,
+   "tip": "tips/ic0025_h.jpg",
+   "read": "네베스크",
+   "match": 1.0,
+   "region": "조각난 봉우리",
+   "name_en": "Nevesk",
+   "ko_verified": true,
+   "cell": [
+    -5,
+    0
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "마그레이브",
+   "gx": -212.8,
+   "gy": 3.3,
+   "tip": "tips/ic0027_h.jpg",
+   "read": "마그레이브",
+   "match": 1.0,
+   "region": "조각난 봉우리",
+   "name_en": "Margrave",
+   "ko_verified": true,
+   "cell": [
+    -4,
+    0
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "숨겨진 전망대",
+   "gx": -439.1,
+   "gy": -106.8,
+   "tip": "tips/ic0028_h.jpg",
+   "read": "숨겨진 전망대",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "Hidden Overlook",
+   "ko_verified": true,
+   "cell": [
+    -7,
+    -2
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "지란다이",
+   "gx": -601.3,
+   "gy": 27.0,
+   "tip": "tips/ic0031_h.jpg",
+   "read": "지란다이",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "Jirandai",
+   "ko_verified": true,
+   "cell": [
+    -10,
+    0
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "알주다",
+   "gx": -733.8,
+   "gy": -68.7,
+   "tip": "tips/ic0033_h.jpg",
+   "read": "알주다",
+   "match": 1.0,
+   "region": "메마른 평원",
+   "name_en": "Alzuuda",
+   "ko_verified": true,
+   "cell": [
+    -12,
+    -2
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "게아 쿨",
+   "gx": -832.7,
+   "gy": 269.7,
+   "tip": "tips/ic0036_h.jpg",
+   "read": "게아 쿨",
+   "match": 1.0,
+   "region": "케지스탄",
+   "name_en": "Gea Kul",
+   "ko_verified": true,
+   "cell": [
+    -14,
+    4
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "소의 성소",
+   "gx": -885.4,
+   "gy": 253.0,
+   "tip": "tips/ic0037_h.jpg",
+   "read": "소의 성소",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -14,
+    3
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "제국 도서관",
+   "gx": -721.8,
+   "gy": 109.6,
+   "tip": "tips/ic0038_h.jpg",
+   "read": "제국 도서관",
+   "match": 1.0,
+   "region": "케지스탄",
+   "name_en": "Imperial Library",
+   "ko_verified": true,
+   "cell": [
+    -12,
+    1
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "강철늑대단 야영지",
+   "gx": -770.1,
+   "gy": 118.9,
+   "tip": "tips/ic0039_h.jpg",
+   "read": "강철늑대단 야영지",
+   "match": 1.0,
+   "region": "케지스탄",
+   "name_en": "Iron Wolves Encampment",
+   "ko_verified": true,
+   "cell": [
+    -13,
+    1
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "타르사락",
+   "gx": -517.0,
+   "gy": 151.8,
+   "tip": "tips/ic0040_h.jpg",
+   "read": "타르사락",
+   "match": 1.0,
+   "region": "케지스탄",
+   "name_en": "Tarsarak",
+   "ko_verified": true,
+   "cell": [
+    -9,
+    2
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "사미르",
+   "gx": -672.2,
+   "gy": 237.9,
+   "tip": "tips/ic0041_h.jpg",
+   "read": "사미르",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -11,
+    3
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "웨지나니",
+   "gx": -283.4,
+   "gy": 93.7,
+   "tip": "tips/ic0044_h.jpg",
+   "read": "웨지나니",
+   "match": 1.0,
+   "region": "하웨자르",
+   "name_en": "Wejinhani",
+   "ko_verified": true,
+   "cell": [
+    -5,
+    1
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "라카트 성채의 폐허",
+   "gx": -237.7,
+   "gy": 180.3,
+   "tip": "tips/ic0045_h.jpg",
+   "read": "라카트 성채의 폐허",
+   "match": 1.0,
+   "region": "하웨자르",
+   "name_en": "Ruins of Rakhat Keep",
+   "ko_verified": true,
+   "cell": [
+    -4,
+    2
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "벽지",
+   "gx": -49.7,
+   "gy": 306.5,
+   "tip": "tips/ic0048_h.jpg",
+   "read": "벽지",
+   "match": 1.0,
+   "region": "하웨자르",
+   "name_en": "Backwater",
+   "ko_verified": true,
+   "cell": [
+    -1,
+    4
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "세리가",
+   "gx": -322.4,
+   "gy": -333.0,
+   "tip": "tips/ic0049_h.jpg",
+   "read": "세리가",
+   "match": 1.0,
+   "region": "스코스글렌",
+   "name_en": "Cerrigar",
+   "ko_verified": true,
+   "cell": [
+    -6,
+    -6
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "기수코",
+   "gx": -463.3,
+   "gy": 327.6,
+   "tip": "tips/ic0073_h.jpg",
+   "read": "기수코",
+   "match": 0.62,
+   "region": "",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -8,
+    5
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "이코르폴",
+   "gx": -547.0,
+   "gy": 533.0,
+   "tip": "tips/ic0076_h.jpg",
+   "read": "이코르폴",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "Ichorfall",
+   "ko_verified": true,
+   "cell": [
+    -9,
+    8
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "쿠라스트 부두",
+   "gx": -868.4,
+   "gy": 340.4,
+   "tip": "tips/ic0077_h.jpg",
+   "read": "쿠라스트 부두",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "Kurast Docks",
+   "ko_verified": true,
+   "cell": [
+    -14,
+    5
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "쿠라스트 시장",
+   "gx": -785.0,
+   "gy": 498.5,
+   "tip": "tips/ic0078_h.jpg",
+   "read": "쿠라스트 시장",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "Kurast",
+   "ko_verified": true,
+   "cell": [
+    -13,
+    7
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "환영의 끝",
+   "gx": -1323.7,
+   "gy": 587.9,
+   "tip": "tips/ic0081_h.jpg",
+   "read": "환영의 끝",
+   "match": 1.0,
+   "region": "스코보스",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -21,
+    9
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "티리엘의 야영지",
+   "gx": -1575.1,
+   "gy": 614.6,
+   "tip": "tips/ic0084_h.jpg",
+   "read": "티리엘의 야영지",
+   "match": 1.0,
+   "region": "스코보스",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -25,
+    9
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "멍텅구리의 채석장",
+   "gx": -1695.8,
+   "gy": 654.1,
+   "tip": "tips/ic0085_h.jpg",
+   "read": "멍텅구리의 채석장",
+   "match": 1.0,
+   "region": "스코보스",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -27,
+    10
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "테미스",
+   "gx": -1313.4,
+   "gy": 712.6,
+   "tip": "tips/ic0088_h.jpg",
+   "read": "테미스",
+   "match": 1.0,
+   "region": "스코보스",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -21,
+    11
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "아툴루아 주둔지",
+   "gx": -1436.0,
+   "gy": 733.6,
+   "tip": "tips/ic0089_h.jpg",
+   "read": "아툴루아 주둔지",
+   "match": 1.0,
+   "region": "스코보스",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -23,
+    11
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "사묵",
+   "gx": -943.8,
+   "gy": 572.7,
+   "tip": "tips/ic0090_h.jpg",
+   "read": "사묵",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "Samuk",
+   "ko_verified": true,
+   "cell": [
+    -15,
+    8
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "생명의 신전",
+   "gx": -1151.5,
+   "gy": 801.2,
+   "tip": "tips/ic0094_h.jpg",
+   "read": "생명의 신전",
+   "match": 1.0,
+   "region": "스코보스",
+   "name_en": "",
+   "ko_verified": true,
+   "cell": [
+    -18,
+    12
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "옐레스나",
+   "gx": -107.1,
+   "gy": 12.5,
+   "tip": "",
+   "read": "엘레스나",
+   "match": 0.89,
+   "region": "조각난 봉우리",
+   "name_en": "Yelesna",
+   "ko_verified": true,
+   "cell": [
+    -2,
+    0
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "자르빈제트",
+   "gx": -425.9,
+   "gy": 241.9,
+   "tip": "",
+   "read": "자르빈제트",
+   "match": 1.0,
+   "region": "하웨자르",
+   "name_en": "Zarbinzet",
+   "ko_verified": true,
+   "cell": [
+    -7,
+    3
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "디아블로 - 부정한 제단",
+   "gx": -403.3,
+   "gy": -224.7,
+   "tip": "tips/ic0009_h.jpg",
+   "cell": [
+    -7,
+    -4
+   ]
+  },
+  {
+   "kind": "lair",
+   "name": "참회사의 전당",
+   "gx": -604.1,
+   "gy": -168.7,
+   "tip": "tips/ic0012_h.jpg",
+   "cell": [
+    -10,
+    -3
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "섬뜩한 미궁",
+   "gx": -476.5,
+   "gy": -154.7,
+   "tip": "tips/ic0014_h.jpg",
+   "cell": [
+    -8,
+    -3
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "수가이동신",
+   "gx": -107.1,
+   "gy": 12.3,
+   "tip": "tips/ic0021_h.jpg",
+   "cell": [
+    -2,
+    0
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "질풍 계곡",
+   "gx": -50.1,
+   "gy": 13.0,
+   "tip": "tips/ic0022_h.jpg",
+   "cell": [
+    -1,
+    0
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "죽은 자의 늪",
+   "gx": -49.5,
+   "gy": 1.9,
+   "tip": "tips/ic0026_h.jpg",
+   "cell": [
+    -1,
+    0
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "지옥물결의 융성",
+   "gx": -555.2,
+   "gy": -77.2,
+   "tip": "tips/ic0029_h.jpg",
+   "cell": [
+    -9,
+    -2
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "피의 여제 서치",
+   "gx": -538.0,
+   "gy": 21.3,
+   "tip": "tips/ic0030_h.jpg",
+   "cell": [
+    -9,
+    0
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "| 卍4戶町 흅결9",
+   "gx": -694.8,
+   "gy": 21.2,
+   "tip": "tips/ic0032_h.jpg",
+   "cell": [
+    -11,
+    0
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "PvP 끓어오르는 흉물",
+   "gx": -709.6,
+   "gy": -73.0,
+   "tip": "tips/ic0034_h.jpg",
+   "cell": [
+    -12,
+    -2
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "증오의 씨앗 정화",
+   "gx": -697.1,
+   "gy": -54.3,
+   "tip": "tips/ic0035_h.jpg",
+   "cell": [
+    -11,
+    -1
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "메마른 평원",
+   "gx": -623.9,
+   "gy": 285.5,
+   "tip": "tips/ic0042_h.jpg",
+   "cell": [
+    -10,
+    4
+   ]
+  },
+  {
+   "kind": "lair",
+   "name": "심판의 벌판",
+   "gx": -518.1,
+   "gy": 318.5,
+   "tip": "tips/ic0043_h.jpg",
+   "cell": [
+    -9,
+    4
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "수가이동신",
+   "gx": -422.3,
+   "gy": 246.6,
+   "tip": "tips/ic0046_h.jpg",
+   "cell": [
+    -7,
+    3
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "디아블로 11 - 증오의 역류지 (지옥)",
+   "gx": -320.8,
+   "gy": 250.1,
+   "tip": "tips/ic0047_h.jpg",
+   "cell": [
+    -6,
+    3
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "암흑 성채 순간이동신",
+   "gx": -684.1,
+   "gy": 457.3,
+   "tip": "tips/ic0075_h.jpg",
+   "cell": [
+    -11,
+    7
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "강설 기념비",
+   "gx": -966.6,
+   "gy": 529.3,
+   "tip": "tips/ic0079_h.jpg",
+   "cell": [
+    -16,
+    8
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "섬찟한 낙원",
+   "gx": -1216.1,
+   "gy": 547.2,
+   "tip": "tips/ic0080_h.jpg",
+   "cell": [
+    -20,
+    8
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "지옥물결의 융성",
+   "gx": -1649.6,
+   "gy": 602.9,
+   "tip": "tips/ic0082_h.jpg",
+   "cell": [
+    -26,
+    9
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "거짓 선지자의 메아리",
+   "gx": -1439.8,
+   "gy": 607.6,
+   "tip": "tips/ic0083_h.jpg",
+   "cell": [
+    -23,
+    9
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "피의 여제 서치",
+   "gx": -1542.9,
+   "gy": 697.2,
+   "tip": "tips/ic0086_h.jpg",
+   "cell": [
+    -25,
+    10
+   ]
+  },
+  {
+   "kind": "unknown",
+   "name": "구l寸鬱",
+   "gx": -1570.9,
+   "gy": 692.6,
+   "tip": "tips/ic0087_h.jpg",
+   "cell": [
+    -25,
+    10
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "현무암 승선길",
+   "gx": -1594.4,
+   "gy": 691.8,
+   "tip": "tips/ic0095_h.jpg",
+   "cell": [
+    -25,
+    10
+   ]
+  },
+  {
+   "kind": "stronghold",
+   "name": "",
+   "gx": -388.0,
+   "gy": -602.0,
+   "tip": "",
+   "cell": [
+    -7,
+    -10
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "",
+   "gx": -405.0,
+   "gy": -478.5,
+   "tip": "",
+   "cell": [
+    -7,
+    -8
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "",
+   "gx": -496.3,
+   "gy": -345.1,
+   "tip": "",
+   "cell": [
+    -8,
+    -6
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -421.2,
+   "gy": -359.6,
+   "tip": "",
+   "cell": [
+    -7,
+    -6
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -347.4,
+   "gy": -260.4,
+   "tip": "",
+   "cell": [
+    -6,
+    -5
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -143.7,
+   "gy": -359.7,
+   "tip": "",
+   "cell": [
+    -3,
+    -6
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": -252.5,
+   "gy": -200.6,
+   "tip": "",
+   "cell": [
+    -4,
+    -4
+   ]
+  },
+  {
+   "kind": "stronghold",
+   "name": "",
+   "gx": -252.9,
+   "gy": -602.0,
+   "tip": "",
+   "cell": [
+    -4,
+    -10
+   ]
+  },
+  {
+   "kind": "helltide",
+   "name": "",
+   "gx": -269.7,
+   "gy": -478.2,
+   "tip": "",
+   "cell": [
+    -5,
+    -8
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": 112.8,
+   "gy": -295.1,
+   "tip": "",
+   "cell": [
+    1,
+    -5
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": -117.4,
+   "gy": -200.9,
+   "tip": "",
+   "cell": [
+    -2,
+    -4
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -46.4,
+   "gy": -92.3,
+   "tip": "",
+   "cell": [
+    -1,
+    -2
+   ]
+  },
+  {
+   "kind": "lair",
+   "name": "",
+   "gx": -50.8,
+   "gy": -49.2,
+   "tip": "",
+   "cell": [
+    -1,
+    -1
+   ]
+  },
+  {
+   "kind": "lair",
+   "name": "",
+   "gx": -225.7,
+   "gy": -47.1,
+   "tip": "",
+   "cell": [
+    -4,
+    -1
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": -124.8,
+   "gy": 55.8,
+   "tip": "",
+   "cell": [
+    -2,
+    0
+   ]
+  },
+  {
+   "kind": "lair",
+   "name": "",
+   "gx": -649.5,
+   "gy": 113.9,
+   "tip": "",
+   "cell": [
+    -11,
+    1
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -688.3,
+   "gy": 212.7,
+   "tip": "",
+   "cell": [
+    -11,
+    3
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -764.0,
+   "gy": 287.0,
+   "tip": "",
+   "cell": [
+    -12,
+    4
+   ]
+  },
+  {
+   "kind": "lair",
+   "name": "",
+   "gx": -747.3,
+   "gy": 316.7,
+   "tip": "",
+   "cell": [
+    -12,
+    4
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -364.7,
+   "gy": 251.6,
+   "tip": "",
+   "cell": [
+    -6,
+    3
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -187.1,
+   "gy": 101.4,
+   "tip": "",
+   "cell": [
+    -3,
+    1
+   ]
+  },
+  {
+   "kind": "dungeon",
+   "name": "",
+   "gx": -84.2,
+   "gy": 191.8,
+   "tip": "",
+   "cell": [
+    -2,
+    2
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": -1207.3,
+   "gy": 556.8,
+   "tip": "",
+   "cell": [
+    -19,
+    8
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": -1710.0,
+   "gy": 582.1,
+   "tip": "",
+   "cell": [
+    -27,
+    9
+   ]
+  },
+  {
+   "kind": "whisper",
+   "name": "",
+   "gx": -1269.1,
+   "gy": 803.0,
+   "tip": "",
+   "cell": [
+    -20,
+    12
+   ]
+  }
+ ],
+ "source": "디아블로 4 Tab 지도 툴팁 수집 (VM, 2026-11-11)"
+}
