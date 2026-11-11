@@ -9,7 +9,11 @@
    "name": "케드바르두",
    "gx": -598.2,
    "gy": -241.4,
-   "tip": "tips/ic0000_h.jpg",
+   "lines": [
+    "순가이동지",
+    "케드바르두"
+   ],
+   "tip": "tips3/ic0000_h.jpg",
    "read": "케드바르두",
    "match": 1.0,
    "region": "메마른 평원",
@@ -17,6 +21,7 @@
    "name_en": "Ked Bardu",
    "uid": "Ked-Bardu",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -10,
     -4
@@ -27,7 +32,11 @@
    "name": "투르 둘라",
    "gx": -491.2,
    "gy": -388.5,
-   "tip": "tips/ic0001_h.jpg",
+   "lines": [
+    "순가이동지",
+    "투르 둘라"
+   ],
+   "tip": "tips3/ic0001_h.jpg",
    "read": "투르 둘라",
    "match": 1.0,
    "region": "스코스글렌",
@@ -35,6 +44,7 @@
    "name_en": "Tur Dulra",
    "uid": "Tur-Dulra",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -8,
     -7
@@ -45,7 +55,11 @@
    "name": "파로브루",
    "gx": -496.0,
    "gy": -289.7,
-   "tip": "tips/ic0002_h.jpg",
+   "lines": [
+    "순간이동신(즐겨쟞기)",
+    "파로브루"
+   ],
+   "tip": "tips3/ic0002_h.jpg",
    "read": "파로브루",
    "match": 1.0,
    "region": "메마른 평원",
@@ -53,6 +67,7 @@
    "name_en": "Farobru",
    "uid": "Farobru",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -8,
     -5
@@ -63,7 +78,12 @@
    "name": "마로웬",
    "gx": -444.1,
    "gy": -496.9,
-   "tip": "tips/ic0003_h.jpg",
+   "lines": [
+    "순가이동지",
+    "마로웬",
+    "• 이도"
+   ],
+   "tip": "tips3/ic0003_h.jpg",
    "read": "마로웬",
    "match": 1.0,
    "region": "스코스글렌",
@@ -71,6 +91,7 @@
    "name_en": "Marowen",
    "uid": "Marowen",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -7,
     -8
@@ -81,7 +102,11 @@
    "name": "브레이스태그",
    "gx": -322.5,
    "gy": -434.2,
-   "tip": "tips/ic0004_h.jpg",
+   "lines": [
+    "순간이동진",
+    "브레이스대그"
+   ],
+   "tip": "tips3/ic0004_h.jpg",
    "read": "브레이스태그",
    "match": 1.0,
    "region": "스코스글렌",
@@ -89,6 +114,7 @@
    "name_en": "Braestaig",
    "uid": "Braestaig",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -6,
     -7
@@ -99,7 +125,11 @@
    "name": "코바크",
    "gx": -218.7,
    "gy": -390.6,
-   "tip": "tips/ic0005_h.jpg",
+   "lines": [
+    "순간이동신",
+    "고바그"
+   ],
+   "tip": "tips3/ic0005_h.jpg",
    "read": "고바그",
    "match": 0.67,
    "region": "스코스글렌",
@@ -107,6 +137,7 @@
    "name_en": "Corbach",
    "uid": "Corbach",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -4,
     -7
@@ -117,7 +148,11 @@
    "name": "티르메어",
    "gx": -143.5,
    "gy": -329.1,
-   "tip": "tips/ic0006_h.jpg",
+   "lines": [
+    "순가이동지",
+    "티르메어"
+   ],
+   "tip": "tips3/ic0006_h.jpg",
    "read": "티르메어",
    "match": 1.0,
    "region": "스코스글렌",
@@ -125,6 +160,7 @@
    "name_en": "Tirmair",
    "uid": "Tirmair",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -3,
     -6
@@ -135,7 +171,12 @@
    "name": "불막이 저택",
    "gx": -362.3,
    "gy": -291.4,
-   "tip": "tips/ic0007_h.jpg",
+   "lines": [
+    "A 고 八",
+    "순가이동지",
+    "불막이 저택"
+   ],
+   "tip": "tips3/ic0007_h.jpg",
    "read": "불막이저택",
    "match": 1.0,
    "region": "스코스글렌",
@@ -143,6 +184,7 @@
    "name_en": "Firebreak Manor",
    "uid": "Firebreak-Manor",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -6,
     -5
@@ -153,7 +195,11 @@
    "name": "통통한 거위 아래 여관",
    "gx": -167.0,
    "gy": -293.7,
-   "tip": "tips/ic0008_h.jpg",
+   "lines": [
+    "순가이동지",
+    "통통한 거위 아래 여관"
+   ],
+   "tip": "tips3/ic0008_h.jpg",
    "read": "통통한 거위 아래 여관",
    "match": 1.0,
    "region": "스코스글렌",
@@ -161,6 +207,7 @@
    "name_en": "Under the Fat Goose Inn",
    "uid": "Under-the-Fat-Goose-Inn",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -3,
     -5
@@ -171,14 +218,19 @@
    "name": "운명의 은신처",
    "gx": -441.3,
    "gy": -181.1,
-   "tip": "tips/ic0010_h.jpg",
+   "lines": [
+    "순가이동지",
+    "운명의 은신처"
+   ],
+   "tip": "tips3/ic0010_h.jpg",
    "read": "운명의 은신처",
    "match": 1.0,
    "region": "메마른 평원",
    "region_en": "Dry Steppes",
    "name_en": "Fate's Retreat",
-   "uid": "Fates-Retreat",
+   "uid": "Fates-Retreat-n441_n181",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -7,
     -3
@@ -189,7 +241,11 @@
    "name": "흑마도 감시탑",
    "gx": -546.2,
    "gy": -169.6,
-   "tip": "tips/ic0011_h.jpg",
+   "lines": [
+    "순가이동지",
+    "흑마도 감시랍"
+   ],
+   "tip": "tips3/ic0011_h.jpg",
    "read": "흑마도 감시탑",
    "match": 1.0,
    "region": "메마른 평원",
@@ -197,6 +253,7 @@
    "name_en": "The Onyx Watchtower",
    "uid": "The-Onyx-Watchtower",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -9,
     -3
@@ -207,7 +264,12 @@
    "name": "메네스타드",
    "gx": -261.2,
    "gy": -161.8,
-   "tip": "tips/ic0013_h.jpg",
+   "lines": [
+    "순가이동지",
+    "메네스다드",
+    "• 이도"
+   ],
+   "tip": "tips3/ic0013_h.jpg",
    "read": "메네스타드",
    "match": 1.0,
    "region": "조각난 봉우리",
@@ -215,6 +277,7 @@
    "name_en": "Menestad",
    "uid": "Menestad",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -5,
     -3
@@ -225,7 +288,12 @@
    "name": "곰 부족 도피처",
    "gx": -74.6,
    "gy": -138.3,
-   "tip": "tips/ic0020_h.jpg",
+   "lines": [
+    "순간이동지",
+    "곰 부족 도피처",
+    "• 이동"
+   ],
+   "tip": "tips3/ic0020_h.jpg",
    "read": "곰 부족 도피처",
    "match": 1.0,
    "region": "조각난 봉우리",
@@ -233,6 +301,7 @@
    "name_en": "Bear Tribe Refuge",
    "uid": "Bear-Tribe-Refuge",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -2,
     -3
@@ -243,7 +312,11 @@
    "name": "속삭임의 나무",
    "gx": -71.8,
    "gy": 78.8,
-   "tip": "tips/ic0023_h.jpg",
+   "lines": [
+    "순가이동지",
+    "속삭임의 나무"
+   ],
+   "tip": "tips3/ic0023_h.jpg",
    "read": "속삭임의 나무",
    "match": 1.0,
    "region": "하웨자르",
@@ -251,6 +324,7 @@
    "name_en": "The Tree of Whispers",
    "uid": "The-Tree-of-Whispers",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -2,
     1
@@ -261,14 +335,19 @@
    "name": "키요바샤드",
    "gx": -199.0,
    "gy": -89.0,
-   "tip": "tips/ic0024_h.jpg",
+   "lines": [
+    "순가이동지",
+    "기요바사드"
+   ],
+   "tip": "tips3/ic0024_h.jpg",
    "read": "키요바샤드",
    "match": 1.0,
    "region": "조각난 봉우리",
    "region_en": "Fractured Peaks",
    "name_en": "Kyovashad",
-   "uid": "Kyovashad",
+   "uid": "Kyovashad-n199_n89",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -4,
     -2
@@ -279,7 +358,13 @@
    "name": "네베스크",
    "gx": -297.7,
    "gy": 1.6,
-   "tip": "tips/ic0025_h.jpg",
+   "lines": [
+    "소 ;?*又多국",
+    "순가이동지",
+    "너! 베 스크",
+    "• 이동"
+   ],
+   "tip": "tips3/ic0025_h.jpg",
    "read": "네베스크",
    "match": 1.0,
    "region": "조각난 봉우리",
@@ -287,6 +372,7 @@
    "name_en": "Nevesk",
    "uid": "Nevesk",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -5,
     0
@@ -297,7 +383,11 @@
    "name": "마그레이브",
    "gx": -212.8,
    "gy": 3.3,
-   "tip": "tips/ic0027_h.jpg",
+   "lines": [
+    "순간이동진",
+    "마그레이브"
+   ],
+   "tip": "tips3/ic0027_h.jpg",
    "read": "마그레이브",
    "match": 1.0,
    "region": "조각난 봉우리",
@@ -305,6 +395,7 @@
    "name_en": "Margrave",
    "uid": "Margrave",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -4,
     0
@@ -315,7 +406,11 @@
    "name": "숨겨진 전망대",
    "gx": -439.1,
    "gy": -106.8,
-   "tip": "tips/ic0028_h.jpg",
+   "lines": [
+    "순가이동지",
+    "숨겨지 저망"
+   ],
+   "tip": "tips3/ic0028_h.jpg",
    "read": "숨겨진 전망대",
    "match": 1.0,
    "region": "메마른 평원",
@@ -323,6 +418,7 @@
    "name_en": "Hidden Overlook",
    "uid": "Hidden-Overlook",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -7,
     -2
@@ -333,7 +429,11 @@
    "name": "지란다이",
    "gx": -601.3,
    "gy": 27.0,
-   "tip": "tips/ic0031_h.jpg",
+   "lines": [
+    "순가이도지",
+    "지란다이"
+   ],
+   "tip": "tips3/ic0031_h.jpg",
    "read": "지란다이",
    "match": 1.0,
    "region": "메마른 평원",
@@ -341,6 +441,7 @@
    "name_en": "Jirandai",
    "uid": "Jirandai",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -10,
     0
@@ -351,7 +452,11 @@
    "name": "알주다",
    "gx": -733.8,
    "gy": -68.7,
-   "tip": "tips/ic0033_h.jpg",
+   "lines": [
+    "순간이동신",
+    "알주다"
+   ],
+   "tip": "tips3/ic0033_h.jpg",
    "read": "알주다",
    "match": 1.0,
    "region": "메마른 평원",
@@ -359,6 +464,7 @@
    "name_en": "Alzuuda",
    "uid": "Alzuuda",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -12,
     -2
@@ -369,7 +475,11 @@
    "name": "게아 쿨",
    "gx": -832.7,
    "gy": 269.7,
-   "tip": "tips/ic0036_h.jpg",
+   "lines": [
+    "순간이도지",
+    "거마"
+   ],
+   "tip": "tips3/ic0036_h.jpg",
    "read": "게아 쿨",
    "match": 1.0,
    "region": "케지스탄",
@@ -377,6 +487,7 @@
    "name_en": "Gea Kul",
    "uid": "Gea-Kul",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -14,
     4
@@ -387,7 +498,11 @@
    "name": "소의 성소",
    "gx": -942.0,
    "gy": 302.6,
-   "tip": "tips/ic0037_h.jpg",
+   "lines": [
+    "순가이동지",
+    "소의 성소"
+   ],
+   "tip": "tips3/ic0037_h.jpg",
    "read": "소의 성소",
    "match": 1.0,
    "region": "나한투",
@@ -396,6 +511,7 @@
    "uid": "WP-n942_303",
    "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -15,
     4
@@ -406,7 +522,11 @@
    "name": "제국 도서관",
    "gx": -721.8,
    "gy": 109.6,
-   "tip": "tips/ic0038_h.jpg",
+   "lines": [
+    "순가이동지",
+    "황실 도서관"
+   ],
+   "tip": "tips3/ic0038_h.jpg",
    "read": "제국 도서관",
    "match": 1.0,
    "region": "케지스탄",
@@ -414,6 +534,7 @@
    "name_en": "Imperial Library",
    "uid": "Imperial-Library",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -12,
     1
@@ -424,7 +545,11 @@
    "name": "강철늑대단 야영지",
    "gx": -770.1,
    "gy": 118.9,
-   "tip": "tips/ic0039_h.jpg",
+   "lines": [
+    "순가이동지",
+    "강철늑대단 야영지"
+   ],
+   "tip": "tips3/ic0039_h.jpg",
    "read": "강철늑대단 야영지",
    "match": 1.0,
    "region": "케지스탄",
@@ -432,6 +557,7 @@
    "name_en": "Iron Wolves Encampment",
    "uid": "Iron-Wolves-Encampment",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -13,
     1
@@ -442,7 +568,12 @@
    "name": "타르사락",
    "gx": -517.0,
    "gy": 151.8,
-   "tip": "tips/ic0040_h.jpg",
+   "lines": [
+    "평원",
+    "순가이동지",
+    "다르사락"
+   ],
+   "tip": "tips3/ic0040_h.jpg",
    "read": "타르사락",
    "match": 1.0,
    "region": "케지스탄",
@@ -450,6 +581,7 @@
    "name_en": "Tarsarak",
    "uid": "Tarsarak",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -9,
     2
@@ -460,7 +592,11 @@
    "name": "사미르",
    "gx": -672.2,
    "gy": 237.9,
-   "tip": "tips/ic0041_h.jpg",
+   "lines": [
+    "순간이동진",
+    "덴사르"
+   ],
+   "tip": "tips3/ic0041_h.jpg",
    "read": "사미르",
    "match": 1.0,
    "region": "나한투",
@@ -469,6 +605,7 @@
    "uid": "WP-n672_238",
    "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -11,
     3
@@ -479,7 +616,12 @@
    "name": "웨지나니",
    "gx": -283.4,
    "gy": 93.7,
-   "tip": "tips/ic0044_h.jpg",
+   "lines": [
+    "소 ,魯고•",
+    "순가이동지",
+    "웨지나니"
+   ],
+   "tip": "tips3/ic0044_h.jpg",
    "read": "웨지나니",
    "match": 1.0,
    "region": "하웨자르",
@@ -487,6 +629,7 @@
    "name_en": "Wejinhani",
    "uid": "Wejinhani",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -5,
     1
@@ -497,7 +640,11 @@
    "name": "라카트 성채의 폐허",
    "gx": -237.7,
    "gy": 180.3,
-   "tip": "tips/ic0045_h.jpg",
+   "lines": [
+    "순간이동진",
+    "라가트 성채의 폐허: 내부 안들"
+   ],
+   "tip": "tips3/ic0045_h.jpg",
    "read": "라카트 성채의 폐허",
    "match": 1.0,
    "region": "하웨자르",
@@ -505,6 +652,7 @@
    "name_en": "Ruins of Rakhat Keep",
    "uid": "Ruins-of-Rakhat-Keep",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -4,
     2
@@ -515,7 +663,11 @@
    "name": "벽지",
    "gx": -49.7,
    "gy": 306.5,
-   "tip": "tips/ic0048_h.jpg",
+   "lines": [
+    "순가이동지",
+    "벽지"
+   ],
+   "tip": "tips3/ic0048_h.jpg",
    "read": "벽지",
    "match": 1.0,
    "region": "하웨자르",
@@ -523,6 +675,7 @@
    "name_en": "Backwater",
    "uid": "Backwater",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -1,
     4
@@ -533,7 +686,13 @@
    "name": "세리가",
    "gx": -322.4,
    "gy": -333.0,
-   "tip": "tips/ic0049_h.jpg",
+   "lines": [
+    "신설",
+    "순가이동지",
+    "세리가",
+    "•훂"
+   ],
+   "tip": "tips3/ic0049_h.jpg",
    "read": "세리가",
    "match": 1.0,
    "region": "스코스글렌",
@@ -541,6 +700,7 @@
    "name_en": "Cerrigar",
    "uid": "Cerrigar",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -6,
     -6
@@ -551,7 +711,11 @@
    "name": "기수코",
    "gx": -463.3,
    "gy": 327.6,
-   "tip": "tips/ic0073_h.jpg",
+   "lines": [
+    "순가이동지",
+    "기수코"
+   ],
+   "tip": "tips3/ic0073_h.jpg",
    "read": "기수코",
    "match": 0.62,
    "region": "",
@@ -560,6 +724,7 @@
    "uid": "WP-n463_328",
    "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -8,
     5
@@ -570,15 +735,20 @@
    "name": "운명의 은신처",
    "gx": -678.1,
    "gy": 368.6,
-   "tip": "tips/ic0074_h.jpg",
+   "lines": [
+    "순가이동진",
+    "은신처"
+   ],
+   "tip": "tips3/ic0074_h.jpg",
    "read": "은신처",
    "match": 0.67,
    "region": "메마른 평원",
    "region_en": "Dry Steppes",
    "name_en": "Fate's Retreat",
-   "uid": "Fates-Retreat",
+   "uid": "Fates-Retreat-n678_369",
    "ko_verified": true,
    "dup_of": "운명의 은신처",
+   "kind_en": "Waypoint",
    "cell": [
     -11,
     5
@@ -589,7 +759,12 @@
    "name": "이코르폴",
    "gx": -547.0,
    "gy": 533.0,
-   "tip": "tips/ic0076_h.jpg",
+   "lines": [
+    "순간이도지",
+    "0 고 근 포",
+    "• 이동"
+   ],
+   "tip": "tips3/ic0076_h.jpg",
    "read": "이코르폴",
    "match": 1.0,
    "region": "나한투",
@@ -597,6 +772,7 @@
    "name_en": "Ichorfall",
    "uid": "Ichorfall",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -9,
     8
@@ -607,7 +783,12 @@
    "name": "쿠라스트 부두",
    "gx": -868.4,
    "gy": 340.4,
-   "tip": "tips/ic0077_h.jpg",
+   "lines": [
+    "순가이동지",
+    "쿠라스트 부두",
+    "1,궤"
+   ],
+   "tip": "tips3/ic0077_h.jpg",
    "read": "쿠라스트 부두",
    "match": 1.0,
    "region": "나한투",
@@ -615,6 +796,7 @@
    "name_en": "Kurast Docks",
    "uid": "Kurast-Docks",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -14,
     5
@@ -625,7 +807,11 @@
    "name": "쿠라스트 시장",
    "gx": -785.0,
    "gy": 498.5,
-   "tip": "tips/ic0078_h.jpg",
+   "lines": [
+    "순간이동진",
+    "쿠라스트 시장"
+   ],
+   "tip": "tips3/ic0078_h.jpg",
    "read": "쿠라스트 시장",
    "match": 1.0,
    "region": "나한투",
@@ -633,6 +819,7 @@
    "name_en": "Kurast",
    "uid": "Kurast",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -13,
     7
@@ -643,7 +830,11 @@
    "name": "환영의 끝",
    "gx": -1323.7,
    "gy": 587.9,
-   "tip": "tips/ic0081_h.jpg",
+   "lines": [
+    "순가이동지",
+    "환영의 끝"
+   ],
+   "tip": "tips3/ic0081_h.jpg",
    "read": "환영의 끝",
    "match": 1.0,
    "region": "스코보스",
@@ -651,6 +842,7 @@
    "name_en": "Vision's End",
    "uid": "Visions-End",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -21,
     9
@@ -661,7 +853,11 @@
    "name": "티리엘의 야영지",
    "gx": -1575.1,
    "gy": 614.6,
-   "tip": "tips/ic0084_h.jpg",
+   "lines": [
+    "순가이동지",
+    "티리엘의 야영지"
+   ],
+   "tip": "tips3/ic0084_h.jpg",
    "read": "티리엘의 야영지",
    "match": 1.0,
    "region": "스코보스",
@@ -669,6 +865,7 @@
    "name_en": "Tyrael's Encampment",
    "uid": "Tyraels-Encampment",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -25,
     9
@@ -679,7 +876,11 @@
    "name": "멍텅구리의 채석장",
    "gx": -1695.8,
    "gy": 654.1,
-   "tip": "tips/ic0085_h.jpg",
+   "lines": [
+    "순가이동지",
+    "멍텅구리의 채석장"
+   ],
+   "tip": "tips3/ic0085_h.jpg",
    "read": "멍텅구리의 채석장",
    "match": 1.0,
    "region": "스코보스",
@@ -687,6 +888,7 @@
    "name_en": "Fool's Quarry",
    "uid": "Fools-Quarry",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -27,
     10
@@ -697,7 +899,13 @@
    "name": "테미스",
    "gx": -1313.4,
    "gy": 712.6,
-   "tip": "tips/ic0088_h.jpg",
+   "lines": [
+    "순가이동지",
+    "테미스",
+    "• !뗴 ㉧ .岊",
+    "• 이동"
+   ],
+   "tip": "tips3/ic0088_h.jpg",
    "read": "테미스",
    "match": 1.0,
    "region": "스코보스",
@@ -705,6 +913,7 @@
    "name_en": "Temis",
    "uid": "Temis",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -21,
     11
@@ -715,7 +924,12 @@
    "name": "아툴루아 주둔지",
    "gx": -1436.0,
    "gy": 733.6,
-   "tip": "tips/ic0089_h.jpg",
+   "lines": [
+    "순가이동지",
+    "아툴루아 주둔지",
+    "• 이도"
+   ],
+   "tip": "tips3/ic0089_h.jpg",
    "read": "아툴루아 주둔지",
    "match": 1.0,
    "region": "스코보스",
@@ -723,6 +937,7 @@
    "name_en": "Athulua Garrison",
    "uid": "Athulua-Garrison",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -23,
     11
@@ -733,7 +948,11 @@
    "name": "사묵",
    "gx": -943.8,
    "gy": 572.7,
-   "tip": "tips/ic0090_h.jpg",
+   "lines": [
+    "순간이동신",
+    "사부그"
+   ],
+   "tip": "tips3/ic0090_h.jpg",
    "read": "사묵",
    "match": 1.0,
    "region": "나한투",
@@ -741,6 +960,7 @@
    "name_en": "Samuk",
    "uid": "Samuk",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -15,
     8
@@ -751,7 +971,11 @@
    "name": "생명의 신전",
    "gx": -1151.5,
    "gy": 801.2,
-   "tip": "tips/ic0094_h.jpg",
+   "lines": [
+    "순간이동진",
+    "의 신전"
+   ],
+   "tip": "tips3/ic0094_h.jpg",
    "read": "생명의 신전",
    "match": 1.0,
    "region": "스코보스",
@@ -759,6 +983,7 @@
    "name_en": "Temple of Life",
    "uid": "Temple-of-Life",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -18,
     12
@@ -769,15 +994,17 @@
    "name": "키요바샤드",
    "gx": -358.8,
    "gy": 30.5,
+   "lines": [],
    "tip": "tips/wp017.jpg",
    "read": "키요바샤드",
    "match": 1.0,
    "region": "조각난 봉우리",
    "region_en": "Fractured Peaks",
    "name_en": "Kyovashad",
-   "uid": "Kyovashad",
+   "uid": "Kyovashad-n359_30",
    "ko_verified": true,
    "dup_of": "키요바샤드",
+   "kind_en": "Waypoint",
    "cell": [
     -6,
     0
@@ -788,6 +1015,7 @@
    "name": "옐레스나",
    "gx": -107.1,
    "gy": 12.5,
+   "lines": [],
    "tip": "tips/wp022.jpg",
    "read": "엘레스나",
    "match": 0.89,
@@ -796,6 +1024,7 @@
    "name_en": "Yelesna",
    "uid": "Yelesna",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -2,
     0
@@ -806,6 +1035,7 @@
    "name": "소의 성소",
    "gx": -828.8,
    "gy": 203.4,
+   "lines": [],
    "tip": "tips/wp027.jpg",
    "read": "소의 성소",
    "match": 1.0,
@@ -816,6 +1046,7 @@
    "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
    "dup_of": "소의 성소",
+   "kind_en": "Waypoint",
    "cell": [
     -13,
     3
@@ -826,6 +1057,7 @@
    "name": "자르빈제트",
    "gx": -425.9,
    "gy": 241.9,
+   "lines": [],
    "tip": "tips/wp030.jpg",
    "read": "자르빈제트",
    "match": 1.0,
@@ -834,6 +1066,7 @@
    "name_en": "Zarbinzet",
    "uid": "Zarbinzet",
    "ko_verified": true,
+   "kind_en": "Waypoint",
    "cell": [
     -7,
     3
@@ -844,7 +1077,20 @@
    "name": "디아블로 - 부정한 제단",
    "gx": -403.3,
    "gy": -224.7,
-   "tip": "tips/ic0009_h.jpg",
+   "lines": [
+    "던전",
+    "디아블로 - 부정한 제단",
+    "라자루스 그자가 알브레하트를 남자한 것이",
+    "들림없내."
+   ],
+   "tip": "tips3/ic0009_h.jpg",
+   "kind_en": "Dungeon",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "운명의 은신처",
+   "name_en": "",
+   "uid": "Dungeon-n403_n225",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -7,
     -4
@@ -855,7 +1101,24 @@
    "name": "참회사의 전당",
    "gx": -604.1,
    "gy": -168.7,
-   "tip": "tips/ic0012_h.jpg",
+   "lines": [
+    "1,궤",
+    "소굴",
+    "참회사의 전당",
+    "그리구아르",
+    "이 빛은 더 짙은 그림자를 드리울 뿐입니다.",
+    "이 소굴 우두머리를 저지하면 상급 소굴",
+    "열쇠가 들어 있는 그리구아르의 비축고에",
+    "접근할 수 있습니다."
+   ],
+   "tip": "tips3/ic0012_h.jpg",
+   "kind_en": "Lair",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "흑마도 감시탑",
+   "name_en": "",
+   "uid": "Lair-n604_n169",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -10,
     -3
@@ -866,18 +1129,47 @@
    "name": "섬뜩한 미궁",
    "gx": -476.5,
    "gy": -154.7,
-   "tip": "tips/ic0014_h.jpg",
+   "lines": [
+    "섬뜩한 미궁",
+    "섬뜩한 미궁 완료",
+    "길 잃은 영혼들이 지난날 지은 죄의 메아리를",
+    "통해 나무에 속박되어 있습니다. 죄가 행하진",
+    "곳을 찾아가서 악을 정화하면 영혼들이 속죄할",
+    "수 있을지도 모릅니다.",
+    "보상",
+    "섬뜩한 축복 5개"
+   ],
+   "tip": "tips3/ic0014_h.jpg",
+   "kind_en": "Whisper",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "운명의 은신처",
+   "name_en": "",
+   "uid": "Whisper-n476_n155",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -8,
     -3
    ]
   },
   {
-   "kind": "unknown",
-   "name": "수가이동신",
+   "kind": "waypoint_unread",
+   "name": "",
    "gx": -107.1,
    "gy": 12.3,
-   "tip": "tips/ic0021_h.jpg",
+   "lines": [
+    "수가이동신",
+    "옐레스"
+   ],
+   "tip": "tips3/ic0021_h.jpg",
+   "kind_en": "Waypoint",
+   "read": "수가이동신",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "옐레스나",
+   "name_en": "",
+   "uid": "Waypoint-n107_12",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -2,
     0
@@ -888,7 +1180,24 @@
    "name": "질풍 계곡",
    "gx": -50.1,
    "gy": 13.0,
-   "tip": "tips/ic0022_h.jpg",
+   "lines": [
+    "질풍 계곡",
+    "채집: 질풍 계곡",
+    "속삭임의 나무가 갈망에 자 다시 한 번 부탁을",
+    "들어달라고 합니다. 아무 적이나 저지하면 얻을",
+    "수 있는 핏줄의 티끌을 모아 수확의 제단에",
+    "해리가!",
+    "공물로 바셔야 합니 다.",
+    "보상"
+   ],
+   "tip": "tips3/ic0022_h.jpg",
+   "kind_en": "Unknown",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "옐레스나",
+   "name_en": "",
+   "uid": "Unknown-n50_13",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -1,
     0
@@ -899,7 +1208,24 @@
    "name": "죽은 자의 늪",
    "gx": -49.5,
    "gy": 1.9,
-   "tip": "tips/ic0026_h.jpg",
+   "lines": [
+    "죽은 자의 늪",
+    "八 은 자의 늪 와료",
+    "길 잃은 영혼들이 지난날 지은 죄의 메아리를",
+    "통해 나무에 속박되어 있습니다. 죄가 행하진",
+    ", 곳을 찾아가서 악을 정화하면 영혼들이 속죄 할",
+    "수 있을지도 모릅니다.",
+    "보상",
+    "섬뜩한 축복 5개"
+   ],
+   "tip": "tips3/ic0026_h.jpg",
+   "kind_en": "Whisper",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "옐레스나",
+   "name_en": "",
+   "uid": "Whisper-n50_2",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -1,
     0
@@ -910,7 +1236,21 @@
    "name": "지옥물결의 융성",
    "gx": -555.2,
    "gy": -77.2,
-   "tip": "tips/ic0029_h.jpg",
+   "lines": [
+    "지옥물결의 융성",
+    "적을 물리치고 활동을 완료해 변종",
+    "잉걸불을 획득하고 고통받는 선물로",
+    "교한해야 합니다.",
+    "37분 51초 후 종료"
+   ],
+   "tip": "tips3/ic0029_h.jpg",
+   "kind_en": "Helltide",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "흑마도 감시탑",
+   "name_en": "",
+   "uid": "Helltide-n555_n77",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -9,
     -2
@@ -918,10 +1258,26 @@
   },
   {
    "kind": "helltide",
-   "name": "피의 여제 서치",
+   "name": "피의 여제",
    "gx": -538.0,
    "gy": 21.3,
-   "tip": "tips/ic0030_h.jpg",
+   "lines": [
+    "피의 여제 서치",
+    "지옥물결을 이끄는 것은 무시무시한 피의",
+    "여제입니다. 악독한 심장으로 그녀를 불러들여",
+    "저지하십시오.",
+    "보상",
+    "섬뜩한 축복 5개",
+    "38분 후 속삭임 종료",
+    "까 자동 고정 비활성화"
+   ],
+   "tip": "tips3/ic0030_h.jpg",
+   "kind_en": "Helltide",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "지란다이",
+   "name_en": "Blood Maiden",
+   "uid": "Helltide-Blood-Maiden-n538_21",
    "cell": [
     -9,
     0
@@ -929,10 +1285,28 @@
   },
   {
    "kind": "whisper",
-   "name": "| 卍4戶町 흅결9",
+   "name": "",
    "gx": -694.8,
    "gy": 21.2,
-   "tip": "tips/ic0032_h.jpg",
+   "lines": [
+    "| 卍4戶町 흅결9",
+    "시즈 드그 보시- 히트.",
+    "쉬브다페허",
+    "0늍타다하 저 다 와료",
+    "길 잃은 영혼들이 지난날 지은 죄의 메아리를",
+    "통해 나무에 속박되어 있습니다. 죄가 행하진",
+    "곳을 찾아가서 악을 정화하면 영혼들이 속죄할",
+    "수 있을지도 모릅니다."
+   ],
+   "tip": "tips3/ic0032_h.jpg",
+   "kind_en": "Whisper",
+   "read": "| 卍4戶町 흅결9",
+   "region": "케지스탄",
+   "region_en": "Kehjistan",
+   "near_waypoint": "제국 도서관",
+   "name_en": "",
+   "uid": "Whisper-n695_21",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -11,
     0
@@ -943,7 +1317,24 @@
    "name": "PvP 끓어오르는 흉물",
    "gx": -709.6,
    "gy": -73.0,
-   "tip": "tips/ic0034_h.jpg",
+   "lines": [
+    "PvP 끓어오르는 흉물",
+    "끓어오르는 흉물 처 지",
+    "속삭임의 나무와의 맹약을 위반하는 자는",
+    "반드시 필연적인 대가를 지리야 합니다.",
+    "보상",
+    "섬뜩한 축복 5개",
+    "2일 4시간 후 속삭임 종료",
+    "까 자동 고정 비활성화"
+   ],
+   "tip": "tips3/ic0034_h.jpg",
+   "kind_en": "Unknown",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "알주다",
+   "name_en": "",
+   "uid": "Unknown-n710_n73",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -12,
     -2
@@ -954,7 +1345,24 @@
    "name": "증오의 씨앗 정화",
    "gx": -697.1,
    "gy": -54.3,
-   "tip": "tips/ic0035_h.jpg",
+   "lines": [
+    "증오의 씨앗 정화",
+    "추출의 제단에서 의식 마지기",
+    "속삭임의 나무가 증오의 씨앗이 지닌 힘에",
+    "호기심을 느낌 니 다.",
+    "보상",
+    "섬뜩한 축복 3개",
+    "4시간 42분 후 속삭이 종료",
+    "까 자동 고정 비활성화"
+   ],
+   "tip": "tips3/ic0035_h.jpg",
+   "kind_en": "Unknown",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "알주다",
+   "name_en": "",
+   "uid": "Unknown-n697_n54",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -11,
     -1
@@ -965,7 +1373,24 @@
    "name": "메마른 평원",
    "gx": -623.9,
    "gy": 285.5,
-   "tip": "tips/ic0042_h.jpg",
+   "lines": [
+    "메마른 평원",
+    "PvP 끓어오르는 흉물",
+    "끓어오르는 흉물 처 지",
+    "속삭임의 나무와의 04약을 위반하는 자는",
+    "반드시 필연적인 대가를 지리야 합니다.",
+    "보상",
+    "섬뜩한 축복 5개",
+    "2일 4시간 후 소사이 조료"
+   ],
+   "tip": "tips3/ic0042_h.jpg",
+   "kind_en": "Unknown",
+   "region": "나한투",
+   "region_en": "Nahantu",
+   "near_waypoint": "사미르",
+   "name_en": "",
+   "uid": "Unknown-n624_286",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -10,
     4
@@ -976,18 +1401,48 @@
    "name": "심판의 벌판",
    "gx": -518.1,
    "gy": 318.5,
-   "tip": "tips/ic0043_h.jpg",
+   "lines": [
+    "1녜",
+    "소굴",
+    "심판의 벌판",
+    "우리바르",
+    "산들바람이 풀을 -누하괴 귓가에 죽음을",
+    "속삭입니다.",
+    "이 소굴 우두머리를 저지하면 상급 소굴",
+    "열쇠가 들어 있는 우리바르의 비축고에 접"
+   ],
+   "tip": "tips3/ic0043_h.jpg",
+   "kind_en": "Lair",
+   "region": "하웨자르",
+   "region_en": "Hawezar",
+   "near_waypoint": "자르빈제트",
+   "name_en": "",
+   "uid": "Lair-n518_318",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -9,
     4
    ]
   },
   {
-   "kind": "unknown",
-   "name": "수가이동신",
+   "kind": "waypoint_unread",
+   "name": "",
    "gx": -422.3,
    "gy": 246.6,
-   "tip": "tips/ic0046_h.jpg",
+   "lines": [
+    "수가이동신",
+    "자르빈제트",
+    "• 이동"
+   ],
+   "tip": "tips3/ic0046_h.jpg",
+   "kind_en": "Waypoint",
+   "read": "수가이동신",
+   "region": "하웨자르",
+   "region_en": "Hawezar",
+   "near_waypoint": "자르빈제트",
+   "name_en": "",
+   "uid": "Waypoint-n422_247",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -7,
     3
@@ -998,18 +1453,49 @@
    "name": "디아블로 11 - 증오의 역류지 (지옥)",
    "gx": -320.8,
    "gy": 250.1,
-   "tip": "tips/ic0047_h.jpg",
+   "lines": [
+    "기요바시",
+    "정점 던전",
+    "디아블로 11 - 증오의 역류지 (지옥)",
+    "권장 레벨 70 (고행 XII)",
+    "그리하여 한때 사라졌던 악이 다시 일어나리라."
+   ],
+   "tip": "tips3/ic0047_h.jpg",
+   "kind_en": "Dungeon",
+   "region": "하웨자르",
+   "region_en": "Hawezar",
+   "near_waypoint": "자르빈제트",
+   "name_en": "",
+   "uid": "Dungeon-n321_250",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -6,
     3
    ]
   },
   {
-   "kind": "unknown",
-   "name": "암흑 성채 순간이동신",
+   "kind": "waypoint_unread",
+   "name": "",
    "gx": -684.1,
    "gy": 457.3,
-   "tip": "tips/ic0075_h.jpg",
+   "lines": [
+    "암흑 성채 순간이동신",
+    "가즈라의 부흥",
+    "보상",
+    "암흑 성재 도전자의 보관함",
+    "6일 11시간 후 암흑 성재 초기화",
+    "암흑 성채에 있을 때는 이",
+    "덮어씁니다"
+   ],
+   "tip": "tips3/ic0075_h.jpg",
+   "kind_en": "Waypoint",
+   "read": "암흑 성채 순간이동신",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "운명의 은신처",
+   "name_en": "",
+   "uid": "Waypoint-n684_457",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -11,
     7
@@ -1017,10 +1503,27 @@
   },
   {
    "kind": "whisper",
-   "name": "강설 기념비",
+   "name": "강철 기념비",
    "gx": -966.6,
    "gy": 529.3,
-   "tip": "tips/ic0079_h.jpg",
+   "lines": [
+    "강설 기념비",
+    "가설 기념비 완료",
+    "길 잃은 영혼들이 지난날 지은 죄의 메아리를",
+    "통해 나무에 속박되어 있습니다. 죄가 행하진",
+    "곳을 찾아가서 악을 정화하면 영혼들이 속죄할",
+    "수 있을지도 모릅니다.",
+    "보상",
+    "섬뜩한 축복 5개"
+   ],
+   "tip": "tips3/ic0079_h.jpg",
+   "kind_en": "Whisper",
+   "region": "나한투",
+   "region_en": "Nahantu",
+   "near_waypoint": "사묵",
+   "name_en": "",
+   "uid": "Whisper-n967_529",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -16,
     8
@@ -1028,10 +1531,27 @@
   },
   {
    "kind": "whisper",
-   "name": "섬찟한 낙원",
+   "name": "섬뜩한 낙원",
    "gx": -1216.1,
    "gy": 547.2,
-   "tip": "tips/ic0080_h.jpg",
+   "lines": [
+    "섬찟한 낙원",
+    "섬찟한 낙원에 있는 적 소탕",
+    "길 잃은 영혼들이 지난날 지은 죄의 메아리를",
+    "통해 나무에 속박되어 있습니다. 죄가 행하진",
+    "곳을 찾아가서 악을 정화하면 영혼들이 속죄할",
+    "수 있을지도 모릅니다.",
+    "보상",
+    "섬뜩한 축복 5개"
+   ],
+   "tip": "tips3/ic0080_h.jpg",
+   "kind_en": "Whisper",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "환영의 끝",
+   "name_en": "",
+   "uid": "Whisper-n1216_547",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -20,
     8
@@ -1042,7 +1562,21 @@
    "name": "지옥물결의 융성",
    "gx": -1649.6,
    "gy": 602.9,
-   "tip": "tips/ic0082_h.jpg",
+   "lines": [
+    "지옥물결의 융성",
+    "적을 물리치고 활동을 완료해 변종",
+    "잉걸불을 획득하고 고통받는 선물로",
+    "교한해야 합니다.",
+    "31분 48초 후 종료"
+   ],
+   "tip": "tips3/ic0082_h.jpg",
+   "kind_en": "Helltide",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "멍텅구리의 채석장",
+   "name_en": "",
+   "uid": "Helltide-n1650_603",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -26,
     9
@@ -1053,7 +1587,24 @@
    "name": "거짓 선지자의 메아리",
    "gx": -1439.8,
    "gy": 607.6,
-   "tip": "tips/ic0083_h.jpg",
+   "lines": [
+    "정점 던전",
+    "거짓 선지자의 메아리",
+    "증오의 군주가 쓰고 있는 가면을 벗기고 이",
+    "세상에서 쫓아내십시오.",
+    "이 소굴 우두머 리를 저 지하면 메피스토의",
+    "비축고에 접근할 수 있습니다.",
+    "확률적으로 획득 가능",
+    "* 신화 문장"
+   ],
+   "tip": "tips3/ic0083_h.jpg",
+   "kind_en": "Dungeon",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "환영의 끝",
+   "name_en": "",
+   "uid": "Dungeon-n1440_608",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -23,
     9
@@ -1061,10 +1612,26 @@
   },
   {
    "kind": "helltide",
-   "name": "피의 여제 서치",
+   "name": "피의 여제",
    "gx": -1542.9,
    "gy": 697.2,
-   "tip": "tips/ic0086_h.jpg",
+   "lines": [
+    "피의 여제 서치",
+    "지옥물결을 이끄는 것은 무시무시한 피의",
+    "여제입니다. 악독한 심장으로 그녀를 불러들여",
+    "저지하십시오.",
+    "보상",
+    "섬뜩한 축복 5개",
+    "32분 후 속삭임 종료",
+    "까 자동 고정 비활성화"
+   ],
+   "tip": "tips3/ic0086_h.jpg",
+   "kind_en": "Helltide",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "티리엘의 야영지",
+   "name_en": "Blood Maiden",
+   "uid": "Helltide-Blood-Maiden-n1543_697",
    "cell": [
     -25,
     10
@@ -1072,10 +1639,28 @@
   },
   {
    "kind": "unknown",
-   "name": "구l寸鬱",
+   "name": "",
    "gx": -1570.9,
    "gy": 692.6,
-   "tip": "tips/ic0087_h.jpg",
+   "lines": [
+    "구l寸鬱",
+    "고통받는 선물 획득",
+    "탐욕은 지옥물결 곳곳에 징그러운 고통받는",
+    "선물이라는 물리적 형태로 부려져 있습니다.",
+    "악마와 맞서기 위해 고통받는 선물을 그",
+    "힘을 이용하십시오.",
+    "결보상",
+    "섬뜩한 축복 3개"
+   ],
+   "tip": "tips3/ic0087_h.jpg",
+   "kind_en": "Unknown",
+   "read": "구l寸鬱",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "티리엘의 야영지",
+   "name_en": "",
+   "uid": "Unknown-n1571_693",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -25,
     10
@@ -1086,7 +1671,20 @@
    "name": "현무암 승선길",
    "gx": -1594.4,
    "gy": 691.8,
-   "tip": "tips/ic0095_h.jpg",
+   "lines": [
+    "던전",
+    "현무암 승선길",
+    "용암에 유린당하고도 폐하는 꿋꿋이 베타고",
+    "있습니다."
+   ],
+   "tip": "tips3/ic0095_h.jpg",
+   "kind_en": "Dungeon",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "티리엘의 야영지",
+   "name_en": "",
+   "uid": "Dungeon-n1594_692",
+   "needs_check": "공식 영어 이름 미확인",
    "cell": [
     -25,
     10
@@ -1097,7 +1695,17 @@
    "name": "",
    "gx": -388.0,
    "gy": -602.0,
-   "tip": "",
+   "lines": [
+    "상줞*6/56 교./9/9 쇼20/20희망의 빛험한 해안에 높이 솟은 등대로, 성스러운불길은 이제 꺼졌습니다.• 혹 파티 찾기에 등록+ 홀 파티 찾기에서 검색"
+   ],
+   "tip": "tips2/ic0003.jpg",
+   "kind_en": "Stronghold",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "마로웬",
+   "name_en": "",
+   "uid": "Stronghold-n388_n602",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -7,
     -10
@@ -1108,7 +1716,17 @@
    "name": "",
    "gx": -405.0,
    "gy": -478.5,
-   "tip": "",
+   "lines": [
+    "56/569/92이20지옥물결의 융성적을 물리치고 활동을 완료해 변종잉걸불을 획득하고 고통받는 선물로교한해야 합니다.5분 43초 후 종료혹 파티 찾기에 등록교 + 파티 찾기에서 검색"
+   ],
+   "tip": "tips2/ic0005.jpg",
+   "kind_en": "Helltide",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "마로웬",
+   "name_en": "",
+   "uid": "Helltide-n405_n478",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -7,
     -8
@@ -1119,7 +1737,17 @@
    "name": "",
    "gx": -496.3,
    "gy": -345.1,
-   "tip": "",
+   "lines": [
+    "피의 여제 서치피의 여제 처지: 0/1지옥물결을 이끄는 것은 무시무시한 피의여제입니다. 악독한 심장으로 그녀를 불러들여저지하십시오.보상섬뜩한 축복 5개6분 후 소A卜이 조료혹 파티 찾기에 등록교+ 홀 파티 찾기에서 "
+   ],
+   "tip": "tips2/ic0008.jpg",
+   "kind_en": "Helltide",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "투르 둘라",
+   "name_en": "",
+   "uid": "Helltide-n496_n345",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -8,
     -6
@@ -1130,7 +1758,17 @@
    "name": "",
    "gx": -421.2,
    "gy": -359.6,
-   "tip": "",
+   "lines": [
+    "던전디아블로 11 - 약의 소굴권장 레벨 60 (참회자)시즌 등급 Ⅲ 해제황야에는 거대한 악이 도사리는 곳이 있소.메마른 평원"
+   ],
+   "tip": "tips2/ic0009.jpg",
+   "kind_en": "Dungeon",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "투르 둘라",
+   "name_en": "",
+   "uid": "Dungeon-n421_n360",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -7,
     -6
@@ -1141,7 +1779,17 @@
    "name": "",
    "gx": -347.4,
    "gy": -260.4,
-   "tip": "",
+   "lines": [
+    "정점 던전어둠의 피신처권장 레벨 70 (고행 0예상 밖의 적들이 그림자 속에서 기다립니다.이동메마른 평원"
+   ],
+   "tip": "tips2/ic0014.jpg",
+   "kind_en": "Dungeon",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "불막이 저택",
+   "name_en": "",
+   "uid": "Dungeon-n347_n260",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -6,
     -5
@@ -1152,7 +1800,17 @@
    "name": "",
    "gx": -143.7,
    "gy": -359.7,
-   "tip": "",
+   "lines": [
+    "던전디아블로 델파이이 - 레스터의 농장제 불쌍한 젖소들이 배를 곯겠어요.礱•"
+   ],
+   "tip": "tips2/ic0024.jpg",
+   "kind_en": "Dungeon",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "티르메어",
+   "name_en": "",
+   "uid": "Dungeon-n144_n360",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -3,
     -6
@@ -1163,7 +1821,17 @@
    "name": "",
    "gx": -252.5,
    "gy": -200.6,
-   "tip": "",
+   "lines": [
+    "[마른 평원금단의 도시금단의 도시 완료길 잃은 영혼들이 지난날 지은 죄의 메아리를통해 나무에 속박되어 있습니다. 죄가 행하진곳을 찾아가서 악을 정화하면 영혼들이 속죄할수 있을지도 모릅니다.보상섬뜩한 축복 5개최초 완"
+   ],
+   "tip": "tips2/ic0027.jpg",
+   "kind_en": "Whisper",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "메네스타드",
+   "name_en": "",
+   "uid": "Whisper-n252_n201",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -4,
     -4
@@ -1174,7 +1842,17 @@
    "name": "",
    "gx": -22.7,
    "gy": -295.5,
-   "tip": "",
+   "lines": [
+    "속삭이는 소나무속삭이는 소나무 완료길 잃은 영혼들이 지난날 지은 죄의 메아리를통해 나무에 속박되어 있습니다. 죄가 행하진곳을 찾아가서 악을 정화하면 영혼들이 속죄할수 있을지도 모릅니다.보상섬뜩한 축복 5개최초 완료 "
+   ],
+   "tip": "tips2/ic0029.jpg",
+   "kind_en": "Whisper",
+   "region": "스코스글렌",
+   "region_en": "Scosglen",
+   "near_waypoint": "티르메어",
+   "name_en": "",
+   "uid": "Whisper-n23_n296",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -1,
     -5
@@ -1185,7 +1863,17 @@
    "name": "",
    "gx": -46.4,
    "gy": -92.3,
-   "tip": "",
+   "lines": [
+    "략정화스고스글렌던전디아블로 11 - 수정 동굴안야가 얼마 전 실종퐜다네.기요바사드•조각난 봉우리"
+   ],
+   "tip": "tips2/ic0048.jpg",
+   "kind_en": "Dungeon",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "곰 부족 도피처",
+   "name_en": "",
+   "uid": "Dungeon-n46_n92",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -1,
     -2
@@ -1196,7 +1884,17 @@
    "name": "",
    "gx": -50.8,
    "gy": -49.2,
-   "tip": "",
+   "lines": [
+    "정화깐이동군주 지르박쥐가 떼를 지어 몰려들고, 마심 불어오는바람에 맞취 웅얼거립니다.이 소굴 우두머리를 저지하면 상급 소굴열쇠가 들어 있는 군주 지르의 비축고에 접근할 수 있습니다.확률적으로 획득 가능:*고유 아이템"
+   ],
+   "tip": "tips2/ic0050.jpg",
+   "kind_en": "Lair",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "옐레스나",
+   "name_en": "",
+   "uid": "Lair-n51_n49",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -1,
     -1
@@ -1207,7 +1905,17 @@
    "name": "",
    "gx": -225.7,
    "gy": -47.1,
-   "tip": "",
+   "lines": [
+    "른평원나락 정화순간이동얼음 속의 야수얼음이 움직여 다시 열린 고대 동굴입니다.이 소굴 우두머리를 저지하면 상급 소굴열쇠가 들어 있는 얼음 속의 야수의 비축고에 접근할 수 있습니다.확률적으로 획득 가능:*고유 아이템*"
+   ],
+   "tip": "tips2/ic0051.jpg",
+   "kind_en": "Lair",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "키요바샤드",
+   "name_en": "",
+   "uid": "Lair-n226_n47",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -4,
     -1
@@ -1218,7 +1926,17 @@
    "name": "",
    "gx": -124.8,
    "gy": 55.8,
-   "tip": "",
+   "lines": [
+    "나락 정화순간이동1『心썩은 왕모써은 와묘 와료길 잃은 영혼들이 지난날 지은 죄의 메아리를통해 나무에 속박되어 있습니다. 죄가 행하진곳을 찾아가서 악을 정화하면 영혼들이 속죄할수 있을지도 모릅니다.보상섬뜩한 축복 5개"
+   ],
+   "tip": "tips2/ic0056.jpg",
+   "kind_en": "Whisper",
+   "region": "조각난 봉우리",
+   "region_en": "Fractured Peaks",
+   "near_waypoint": "옐레스나",
+   "name_en": "",
+   "uid": "Whisper-n125_56",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -2,
     0
@@ -1229,7 +1947,17 @@
    "name": "",
    "gx": -649.5,
    "gy": 113.9,
-   "tip": "",
+   "lines": [
+    "벨 리 알한때는 이곳에도 영광이 있었으나, 이제는괴로움만이 기다립니다.이 소굴 우두머리를 저지하면 벨리알의 비축고에 접근할 수 있습니다. 벨리알의 비축고는 원하는 기존 i화소굴 우두머 리의 보상을 증가한 가지로 복제"
+   ],
+   "tip": "tips2/ic0082.jpg",
+   "kind_en": "Lair",
+   "region": "케지스탄",
+   "region_en": "Kehjistan",
+   "near_waypoint": "제국 도서관",
+   "name_en": "",
+   "uid": "Lair-n650_114",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -11,
     1
@@ -1240,7 +1968,17 @@
    "name": "",
    "gx": -688.3,
    "gy": 212.7,
-   "tip": "",
+   "lines": [
+    "게지스메마른 평원•;弓케트긔급I•던전디아블로 111 - 칼데움 수색권장 레벨 70 (고행 0시즌 등급 Ⅳ 해제놈은 군대도 없이 이 도시를 장악한 겁니다.r爹뇌긔I아:"
+   ],
+   "tip": "tips2/ic0083.jpg",
+   "kind_en": "Dungeon",
+   "region": "나한투",
+   "region_en": "Nahantu",
+   "near_waypoint": "사미르",
+   "name_en": "",
+   "uid": "Dungeon-n688_213",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -11,
     3
@@ -1251,7 +1989,17 @@
    "name": "",
    "gx": -764.0,
    "gy": 287.0,
-   "tip": "",
+   "lines": [
+    "정점 던전변절자의 소굴권장 레벨 70 (고행 ll)어두운 04약은 어두운 행위를 부릅니다.이동긔I아:1 자기 역기"
+   ],
+   "tip": "tips2/ic0087.jpg",
+   "kind_en": "Dungeon",
+   "region": "케지스탄",
+   "region_en": "Kehjistan",
+   "near_waypoint": "게아 쿨",
+   "name_en": "",
+   "uid": "Dungeon-n764_287",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -12,
     4
@@ -1262,7 +2010,17 @@
    "name": "",
    "gx": -747.3,
    "gy": 316.7,
-   "tip": "",
+   "lines": [
+    "갈라진 크레바스두리엘황량한 계곡에서 악투까 피어오롭니다.이 소굴 우두머리를 저지하면 두리엘의 비축고에 접근할 수 있습니다.확률적으로 획득 가능:*고유 아이템* 신화 고유 아이템필요 아이템상급 소굴 열쇠이동• 혹 파티"
+   ],
+   "tip": "tips2/ic0088.jpg",
+   "kind_en": "Lair",
+   "region": "메마른 평원",
+   "region_en": "Dry Steppes",
+   "near_waypoint": "운명의 은신처",
+   "name_en": "",
+   "uid": "Lair-n747_317",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -12,
     4
@@ -1273,7 +2031,17 @@
    "name": "",
    "gx": -364.7,
    "gy": 251.6,
-   "tip": "",
+   "lines": [
+    "메마른 평원를케느던전디아블로 - 눈먼 자의 전당권장 레벨 30 (전문가)시즌 등급 II 해제그대에게 보이지 않는 것이, 내게 보인다.자L재드•"
+   ],
+   "tip": "tips2/ic0096.jpg",
+   "kind_en": "Dungeon",
+   "region": "하웨자르",
+   "region_en": "Hawezar",
+   "near_waypoint": "자르빈제트",
+   "name_en": "",
+   "uid": "Dungeon-n365_252",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -6,
     3
@@ -1284,7 +2052,17 @@
    "name": "",
    "gx": -187.1,
    "gy": 101.4,
-   "tip": "",
+   "lines": [
+    "i'4&들흐화예}戶고夆!원“. 특기1느h十르들한恥`,정점 던전지옥 같은 내리막권장 레벨 60 (참회자)다시으 사냥군입니까, 사냥감입니까?들) 조각난1} ' 白 이동결-노:루4蝕"
+   ],
+   "tip": "tips2/ic0102.jpg",
+   "kind_en": "Dungeon",
+   "region": "하웨자르",
+   "region_en": "Hawezar",
+   "near_waypoint": "라카트 성채의 폐허",
+   "name_en": "",
+   "uid": "Dungeon-n187_101",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -3,
     1
@@ -1295,7 +2073,17 @@
    "name": "",
    "gx": -84.2,
    "gy": 191.8,
-   "tip": "",
+   "lines": [
+    "Ä?J요비•던전디아블로 11 - 잊힌 탑고서에는 보물에 대해 적하있지. 하지만 우리가찾은 거라곤 죽음뿐이 었다.자-제트•"
+   ],
+   "tip": "tips2/ic0104.jpg",
+   "kind_en": "Dungeon",
+   "region": "하웨자르",
+   "region_en": "Hawezar",
+   "near_waypoint": "속삭임의 나무",
+   "name_en": "",
+   "uid": "Dungeon-n84_192",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -2,
     2
@@ -1306,7 +2094,17 @@
    "name": "",
    "gx": -1207.3,
    "gy": 556.8,
-   "tip": "",
+   "lines": [
+    "수 보상 획득 가능十섬찟한 낙원섬찟한 낙원에 있는 적 소탕길 잃은 영혼들이 지난날 지은 죄의 메아리를통해 나무에 속박되어 있습니다. 죄가 행하진곳을 찾아가서 악을 정화하면 영혼들이 속죄할수 있을지도 모릅니다.보상섬뜩"
+   ],
+   "tip": "tips2/ic0130.jpg",
+   "kind_en": "Whisper",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "환영의 끝",
+   "name_en": "",
+   "uid": "Whisper-n1207_557",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -19,
     8
@@ -1317,7 +2115,17 @@
    "name": "",
    "gx": -1710.0,
    "gy": 582.1,
-   "tip": "",
+   "lines": [
+    "대격변대격변에 있는 적 소탕길 잃은 영혼들이 지난날 지은 죄의 메아리를통해 나무에 속박되어 있습니다. 죄가 행하진곳을 찾아가서 악을 정화하면 영혼들이 속죄할수 있을지도 모릅니다.보상섬뜩한 축복 5개최초 완료 시 던전"
+   ],
+   "tip": "tips2/ic0133.jpg",
+   "kind_en": "Whisper",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "멍텅구리의 채석장",
+   "name_en": "",
+   "uid": "Whisper-n1710_582",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -27,
     9
@@ -1328,12 +2136,21 @@
    "name": "",
    "gx": -1269.1,
    "gy": 803.0,
-   "tip": "",
+   "lines": [
+    "어둠의 도피처어둠의 도피처에 있는 적 소탕길 잃은 영혼들이 지난날 지은 죄의 메아리를통해 나무에 속박되어 있습니다. 죄가 행하진곳을 찾아가서 악을 정화하면 영혼들이 속죄할수 있을지도 모릅니다.보상섬뜩한 축복 5개최초"
+   ],
+   "tip": "tips2/ic0182.jpg",
+   "kind_en": "Whisper",
+   "region": "스코보스",
+   "region_en": "Skovos",
+   "near_waypoint": "테미스",
+   "name_en": "",
+   "uid": "Whisper-n1269_803",
+   "needs_check": "이름 미확인 - 마을 방문 때 다시 읽음",
    "cell": [
     -20,
     12
    ]
   }
- ],
- "source": "디아블로 4 Tab 지도 툴팁 수집 (VM, 2026-11-11)"
+ ]
 }
