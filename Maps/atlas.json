@@ -14,6 +14,7 @@
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "Ked Bardu",
+   "uid": "Ked-Bardu",
    "ko_verified": true,
    "cell": [
     -10,
@@ -30,6 +31,7 @@
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Tur Dulra",
+   "uid": "Tur-Dulra",
    "ko_verified": true,
    "cell": [
     -8,
@@ -46,6 +48,7 @@
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "Farobru",
+   "uid": "Farobru",
    "ko_verified": true,
    "cell": [
     -8,
@@ -55,29 +58,48 @@
   {
    "kind": "waypoint",
    "name": "마로웬",
-   "gx": -376.6,
+   "gx": -444.1,
    "gy": -496.9,
    "tip": "tips/ic0003_h.jpg",
    "read": "마로웬",
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Marowen",
+   "uid": "Marowen",
    "ko_verified": true,
    "cell": [
-    -6,
+    -7,
     -8
    ]
   },
   {
    "kind": "waypoint",
    "name": "브레이스태그",
-   "gx": -254.9,
-   "gy": -434.1,
+   "gx": -322.5,
+   "gy": -434.2,
    "tip": "tips/ic0004_h.jpg",
    "read": "브레이스태그",
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Braestaig",
+   "uid": "Braestaig",
+   "ko_verified": true,
+   "cell": [
+    -6,
+    -7
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "코바크",
+   "gx": -218.7,
+   "gy": -390.6,
+   "tip": "tips/ic0005_h.jpg",
+   "read": "고바그",
+   "match": 0.67,
+   "region": "스코스글렌",
+   "name_en": "Corbach",
+   "uid": "Corbach",
    "ko_verified": true,
    "cell": [
     -4,
@@ -86,33 +108,18 @@
   },
   {
    "kind": "waypoint",
-   "name": "코바크",
-   "gx": -151.4,
-   "gy": -390.4,
-   "tip": "tips/ic0005_h.jpg",
-   "read": "고바그",
-   "match": 0.67,
-   "region": "스코스글렌",
-   "name_en": "Corbach",
-   "ko_verified": true,
-   "cell": [
-    -3,
-    -7
-   ]
-  },
-  {
-   "kind": "waypoint",
    "name": "티르메어",
-   "gx": -76.0,
+   "gx": -143.5,
    "gy": -329.1,
    "tip": "tips/ic0006_h.jpg",
    "read": "티르메어",
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Tirmair",
+   "uid": "Tirmair",
    "ko_verified": true,
    "cell": [
-    -2,
+    -3,
     -6
    ]
   },
@@ -126,6 +133,7 @@
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Firebreak Manor",
+   "uid": "Firebreak-Manor",
    "ko_verified": true,
    "cell": [
     -6,
@@ -135,33 +143,35 @@
   {
    "kind": "waypoint",
    "name": "통통한 거위 아래 여관",
-   "gx": -99.2,
-   "gy": -293.6,
+   "gx": -167.0,
+   "gy": -293.7,
    "tip": "tips/ic0008_h.jpg",
    "read": "통통한 거위 아래 여관",
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Under the Fat Goose Inn",
+   "uid": "Under-the-Fat-Goose-Inn",
    "ko_verified": true,
    "cell": [
-    -2,
+    -3,
     -5
    ]
   },
   {
    "kind": "waypoint",
    "name": "운명의 은신처",
-   "gx": -559.7,
-   "gy": 93.8,
+   "gx": -441.3,
+   "gy": -181.1,
    "tip": "tips/ic0010_h.jpg",
    "read": "운명의 은신처",
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "Fate's Retreat",
+   "uid": "Fates-Retreat",
    "ko_verified": true,
    "cell": [
-    -9,
-    1
+    -7,
+    -3
    ]
   },
   {
@@ -174,6 +184,7 @@
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "The Onyx Watchtower",
+   "uid": "The-Onyx-Watchtower",
    "ko_verified": true,
    "cell": [
     -9,
@@ -190,6 +201,7 @@
    "match": 1.0,
    "region": "조각난 봉우리",
    "name_en": "Menestad",
+   "uid": "Menestad",
    "ko_verified": true,
    "cell": [
     -5,
@@ -206,6 +218,7 @@
    "match": 1.0,
    "region": "조각난 봉우리",
    "name_en": "Bear Tribe Refuge",
+   "uid": "Bear-Tribe-Refuge",
    "ko_verified": true,
    "cell": [
     -2,
@@ -222,6 +235,7 @@
    "match": 1.0,
    "region": "하웨자르",
    "name_en": "The Tree of Whispers",
+   "uid": "The-Tree-of-Whispers",
    "ko_verified": true,
    "cell": [
     -2,
@@ -231,17 +245,18 @@
   {
    "kind": "waypoint",
    "name": "키요바샤드",
-   "gx": -278.9,
-   "gy": -29.2,
+   "gx": -199.0,
+   "gy": -89.0,
    "tip": "tips/ic0024_h.jpg",
    "read": "키요바샤드",
    "match": 1.0,
    "region": "조각난 봉우리",
    "name_en": "Kyovashad",
+   "uid": "Kyovashad",
    "ko_verified": true,
    "cell": [
-    -5,
-    -1
+    -4,
+    -2
    ]
   },
   {
@@ -254,6 +269,7 @@
    "match": 1.0,
    "region": "조각난 봉우리",
    "name_en": "Nevesk",
+   "uid": "Nevesk",
    "ko_verified": true,
    "cell": [
     -5,
@@ -270,6 +286,7 @@
    "match": 1.0,
    "region": "조각난 봉우리",
    "name_en": "Margrave",
+   "uid": "Margrave",
    "ko_verified": true,
    "cell": [
     -4,
@@ -286,6 +303,7 @@
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "Hidden Overlook",
+   "uid": "Hidden-Overlook",
    "ko_verified": true,
    "cell": [
     -7,
@@ -302,6 +320,7 @@
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "Jirandai",
+   "uid": "Jirandai",
    "ko_verified": true,
    "cell": [
     -10,
@@ -318,6 +337,7 @@
    "match": 1.0,
    "region": "메마른 평원",
    "name_en": "Alzuuda",
+   "uid": "Alzuuda",
    "ko_verified": true,
    "cell": [
     -12,
@@ -334,6 +354,7 @@
    "match": 1.0,
    "region": "케지스탄",
    "name_en": "Gea Kul",
+   "uid": "Gea-Kul",
    "ko_verified": true,
    "cell": [
     -14,
@@ -343,17 +364,19 @@
   {
    "kind": "waypoint",
    "name": "소의 성소",
-   "gx": -885.4,
-   "gy": 253.0,
+   "gx": -942.0,
+   "gy": 302.6,
    "tip": "tips/ic0037_h.jpg",
    "read": "소의 성소",
    "match": 1.0,
    "region": "나한투",
    "name_en": "",
+   "uid": "WP-n942_303",
+   "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
    "cell": [
-    -14,
-    3
+    -15,
+    4
    ]
   },
   {
@@ -366,6 +389,7 @@
    "match": 1.0,
    "region": "케지스탄",
    "name_en": "Imperial Library",
+   "uid": "Imperial-Library",
    "ko_verified": true,
    "cell": [
     -12,
@@ -382,6 +406,7 @@
    "match": 1.0,
    "region": "케지스탄",
    "name_en": "Iron Wolves Encampment",
+   "uid": "Iron-Wolves-Encampment",
    "ko_verified": true,
    "cell": [
     -13,
@@ -398,6 +423,7 @@
    "match": 1.0,
    "region": "케지스탄",
    "name_en": "Tarsarak",
+   "uid": "Tarsarak",
    "ko_verified": true,
    "cell": [
     -9,
@@ -414,6 +440,8 @@
    "match": 1.0,
    "region": "나한투",
    "name_en": "",
+   "uid": "WP-n672_238",
+   "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
    "cell": [
     -11,
@@ -430,6 +458,7 @@
    "match": 1.0,
    "region": "하웨자르",
    "name_en": "Wejinhani",
+   "uid": "Wejinhani",
    "ko_verified": true,
    "cell": [
     -5,
@@ -446,6 +475,7 @@
    "match": 1.0,
    "region": "하웨자르",
    "name_en": "Ruins of Rakhat Keep",
+   "uid": "Ruins-of-Rakhat-Keep",
    "ko_verified": true,
    "cell": [
     -4,
@@ -462,6 +492,7 @@
    "match": 1.0,
    "region": "하웨자르",
    "name_en": "Backwater",
+   "uid": "Backwater",
    "ko_verified": true,
    "cell": [
     -1,
@@ -478,6 +509,7 @@
    "match": 1.0,
    "region": "스코스글렌",
    "name_en": "Cerrigar",
+   "uid": "Cerrigar",
    "ko_verified": true,
    "cell": [
     -6,
@@ -494,9 +526,29 @@
    "match": 0.62,
    "region": "",
    "name_en": "",
+   "uid": "WP-n463_328",
+   "needs_check": "공식 영어 이름 미확인",
    "ko_verified": true,
    "cell": [
     -8,
+    5
+   ]
+  },
+  {
+   "kind": "waypoint",
+   "name": "운명의 은신처",
+   "gx": -678.1,
+   "gy": 368.6,
+   "tip": "tips/ic0074_h.jpg",
+   "read": "은신처",
+   "match": 0.67,
+   "region": "메마른 평원",
+   "name_en": "Fate's Retreat",
+   "uid": "Fates-Retreat",
+   "ko_verified": true,
+   "dup_of": "운명의 은신처",
+   "cell": [
+    -11,
     5
    ]
   },
@@ -510,6 +562,7 @@
    "match": 1.0,
    "region": "나한투",
    "name_en": "Ichorfall",
+   "uid": "Ichorfall",
    "ko_verified": true,
    "cell": [
     -9,
@@ -526,6 +579,7 @@
    "match": 1.0,
    "region": "나한투",
    "name_en": "Kurast Docks",
+   "uid": "Kurast-Docks",
    "ko_verified": true,
    "cell": [
     -14,
@@ -542,6 +596,7 @@
    "match": 1.0,
    "region": "나한투",
    "name_en": "Kurast",
+   "uid": "Kurast",
    "ko_verified": true,
    "cell": [
     -13,
@@ -557,7 +612,8 @@
    "read": "환영의 끝",
    "match": 1.0,
    "region": "스코보스",
-   "name_en": "",
+   "name_en": "Vision's End",
+   "uid": "Visions-End",
    "ko_verified": true,
    "cell": [
     -21,
@@ -573,7 +629,8 @@
    "read": "티리엘의 야영지",
    "match": 1.0,
    "region": "스코보스",
-   "name_en": "",
+   "name_en": "Tyrael's Encampment",
+   "uid": "Tyraels-Encampment",
    "ko_verified": true,
    "cell": [
     -25,
@@ -589,7 +646,8 @@
    "read": "멍텅구리의 채석장",
    "match": 1.0,
    "region": "스코보스",
-   "name_en": "",
+   "name_en": "Fool's Quarry",
+   "uid": "Fools-Quarry",
    "ko_verified": true,
    "cell": [
     -27,
@@ -605,7 +663,8 @@
    "read": "테미스",
    "match": 1.0,
    "region": "스코보스",
-   "name_en": "",
+   "name_en": "Temis",
+   "uid": "Temis",
    "ko_verified": true,
    "cell": [
     -21,
@@ -621,7 +680,8 @@
    "read": "아툴루아 주둔지",
    "match": 1.0,
    "region": "스코보스",
-   "name_en": "",
+   "name_en": "Athulua Garrison",
+   "uid": "Athulua-Garrison",
    "ko_verified": true,
    "cell": [
     -23,
@@ -638,6 +698,7 @@
    "match": 1.0,
    "region": "나한투",
    "name_en": "Samuk",
+   "uid": "Samuk",
    "ko_verified": true,
    "cell": [
     -15,
@@ -653,7 +714,8 @@
    "read": "생명의 신전",
    "match": 1.0,
    "region": "스코보스",
-   "name_en": "",
+   "name_en": "Temple of Life",
+   "uid": "Temple-of-Life",
    "ko_verified": true,
    "cell": [
     -18,
@@ -662,14 +724,33 @@
   },
   {
    "kind": "waypoint",
+   "name": "키요바샤드",
+   "gx": -358.8,
+   "gy": 30.5,
+   "tip": "tips/wp017.jpg",
+   "read": "키요바샤드",
+   "match": 1.0,
+   "region": "조각난 봉우리",
+   "name_en": "Kyovashad",
+   "uid": "Kyovashad",
+   "ko_verified": true,
+   "dup_of": "키요바샤드",
+   "cell": [
+    -6,
+    0
+   ]
+  },
+  {
+   "kind": "waypoint",
    "name": "옐레스나",
    "gx": -107.1,
    "gy": 12.5,
-   "tip": "",
+   "tip": "tips/wp022.jpg",
    "read": "엘레스나",
    "match": 0.89,
    "region": "조각난 봉우리",
    "name_en": "Yelesna",
+   "uid": "Yelesna",
    "ko_verified": true,
    "cell": [
     -2,
@@ -678,14 +759,34 @@
   },
   {
    "kind": "waypoint",
+   "name": "소의 성소",
+   "gx": -828.8,
+   "gy": 203.4,
+   "tip": "tips/wp027.jpg",
+   "read": "소의 성소",
+   "match": 1.0,
+   "region": "나한투",
+   "name_en": "",
+   "uid": "WP-n829_203",
+   "needs_check": "공식 영어 이름 미확인",
+   "ko_verified": true,
+   "dup_of": "소의 성소",
+   "cell": [
+    -13,
+    3
+   ]
+  },
+  {
+   "kind": "waypoint",
    "name": "자르빈제트",
    "gx": -425.9,
    "gy": 241.9,
-   "tip": "",
+   "tip": "tips/wp030.jpg",
    "read": "자르빈제트",
    "match": 1.0,
    "region": "하웨자르",
    "name_en": "Zarbinzet",
+   "uid": "Zarbinzet",
    "ko_verified": true,
    "cell": [
     -7,
@@ -1023,47 +1124,14 @@
    ]
   },
   {
-   "kind": "stronghold",
-   "name": "",
-   "gx": -252.9,
-   "gy": -602.0,
-   "tip": "",
-   "cell": [
-    -4,
-    -10
-   ]
-  },
-  {
-   "kind": "helltide",
-   "name": "",
-   "gx": -269.7,
-   "gy": -478.2,
-   "tip": "",
-   "cell": [
-    -5,
-    -8
-   ]
-  },
-  {
    "kind": "whisper",
    "name": "",
-   "gx": 112.8,
-   "gy": -295.1,
+   "gx": -22.7,
+   "gy": -295.5,
    "tip": "",
    "cell": [
-    1,
+    -1,
     -5
-   ]
-  },
-  {
-   "kind": "whisper",
-   "name": "",
-   "gx": -117.4,
-   "gy": -200.9,
-   "tip": "",
-   "cell": [
-    -2,
-    -4
    ]
   },
   {
