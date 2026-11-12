@@ -79,6 +79,7 @@ ChkKCDMg7Ji165GQEAId/wBq/yIECAYgAygBCiEKBuyLoO2ZlBACHccS//8iBAgBICAiCAgAIKAGKIQH
 | 🎯 내 전리품 필터를 공유한다 | **[전리품 필터 공유](https://github.com/kaljake70/d4helper/issues/new?template=loot-filter-share.yml)** | [필터 목록](https://github.com/kaljake70/d4helper/issues?q=label%3A%22전리품+필터%22) · [전리품필터/](./전리품필터/README.md) |
 | 📖 커뮤니티 상세 매뉴얼 | **[인벤 사용설명서](INVEN_GUIDE.md)** | [INVEN_GUIDE.md](INVEN_GUIDE.md) |
 | 🖥️ 혼자 설정하기 어렵다 (원격 지원) | **[원격 지원 안내](ANYDESK_GUIDE.md)** | [애니데스크 가이드](ANYDESK_GUIDE.md) |
+| 🧩 낚시를 돌리며 PC 를 따로 쓰고 싶다 (가상 머신) | **[가상 머신 안내](VM_GUIDE.md)** | [VM_GUIDE.md](VM_GUIDE.md) · [영상](images/vm_guide.mp4) |
 
 GitHub 계정만 있으면 누구나 올릴 수 있습니다. 질문에 답이 달리면 **답변 완료** 라벨이 붙습니다. 전체 목록은 [Issues](https://github.com/kaljake70/d4helper/issues).
 
